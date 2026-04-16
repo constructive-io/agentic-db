@@ -12,8 +12,8 @@ agentic-db event-venue list --where.<field>.<op> <value> --orderBy <values>
 agentic-db event-venue list --limit 10 --after <cursor>
 agentic-db event-venue find-first --where.<field>.<op> <value>
 agentic-db event-venue get --id <UUID>
-agentic-db event-venue create --eventId <UUID> --venueId <UUID> --entityId <UUID>
-agentic-db event-venue update --id <UUID> [--eventId <UUID>] [--venueId <UUID>] [--entityId <UUID>]
+agentic-db event-venue create --eventId <UUID> --venueId <UUID>
+agentic-db event-venue update --id <UUID> [--eventId <UUID>] [--venueId <UUID>]
 agentic-db event-venue delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db event-venue list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a eventVenue
 
 ```bash
-agentic-db event-venue create --eventId <UUID> --venueId <UUID> --entityId <UUID>
+agentic-db event-venue create --eventId <UUID> --venueId <UUID>
 ```
 
 ### Get a eventVenue by id

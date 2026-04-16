@@ -97,46 +97,6 @@ export class AgentCollaboratorModel {
       variables,
     });
   }
-  findOne<S extends AgentCollaboratorSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, AgentCollaboratorSelect>
-  ): QueryBuilder<{
-    agentCollaborator: InferSelectResult<AgentCollaboratorWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'AgentCollaborator',
-      'agentCollaborators',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'AgentCollaboratorFilter',
-      'AgentCollaboratorOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'AgentCollaborator',
-      fieldName: 'agentCollaborator',
-      document,
-      variables,
-      transform: (data: {
-        agentCollaborators?: {
-          nodes?: InferSelectResult<AgentCollaboratorWithRelations, S>[];
-        };
-      }) => ({
-        agentCollaborator: data.agentCollaborators?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends AgentCollaboratorSelect>(
     args: CreateArgs<S, CreateAgentCollaboratorInput['agentCollaborator']> & {
       select: S;
@@ -160,76 +120,6 @@ export class AgentCollaboratorModel {
       operation: 'mutation',
       operationName: 'AgentCollaborator',
       fieldName: 'createAgentCollaborator',
-      document,
-      variables,
-    });
-  }
-  update<S extends AgentCollaboratorSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      AgentCollaboratorPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, AgentCollaboratorSelect>
-  ): QueryBuilder<{
-    updateAgentCollaborator: {
-      agentCollaborator: InferSelectResult<AgentCollaboratorWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'AgentCollaborator',
-      'updateAgentCollaborator',
-      'agentCollaborator',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateAgentCollaboratorInput',
-      'id',
-      'agentCollaboratorPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'AgentCollaborator',
-      fieldName: 'updateAgentCollaborator',
-      document,
-      variables,
-    });
-  }
-  delete<S extends AgentCollaboratorSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, AgentCollaboratorSelect>
-  ): QueryBuilder<{
-    deleteAgentCollaborator: {
-      agentCollaborator: InferSelectResult<AgentCollaboratorWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'AgentCollaborator',
-      'deleteAgentCollaborator',
-      'agentCollaborator',
-      {
-        id: args.where.id,
-      },
-      'DeleteAgentCollaboratorInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'AgentCollaborator',
-      fieldName: 'deleteAgentCollaborator',
       document,
       variables,
     });

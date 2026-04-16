@@ -12,8 +12,8 @@ agentic-db raw-contact-url list --where.<field>.<op> <value> --orderBy <values>
 agentic-db raw-contact-url list --limit 10 --after <cursor>
 agentic-db raw-contact-url find-first --where.<field>.<op> <value>
 agentic-db raw-contact-url get --id <UUID>
-agentic-db raw-contact-url create --entityId <UUID> --url <String> --rawContactId <UUID> [--urlType <String>] [--source <String>] [--confidence <BigFloat>]
-agentic-db raw-contact-url update --id <UUID> [--entityId <UUID>] [--url <String>] [--urlType <String>] [--source <String>] [--confidence <BigFloat>] [--rawContactId <UUID>]
+agentic-db raw-contact-url create --url <String> --rawContactId <UUID> [--urlType <String>] [--source <String>] [--confidence <BigFloat>]
+agentic-db raw-contact-url update --id <UUID> [--url <String>] [--urlType <String>] [--source <String>] [--confidence <BigFloat>] [--rawContactId <UUID>]
 agentic-db raw-contact-url delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db raw-contact-url list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a rawContactUrl
 
 ```bash
-agentic-db raw-contact-url create --entityId <UUID> --url <String> --rawContactId <UUID> [--urlType <String>] [--source <String>] [--confidence <BigFloat>]
+agentic-db raw-contact-url create --url <String> --rawContactId <UUID> [--urlType <String>] [--source <String>] [--confidence <BigFloat>]
 ```
 
 ### Get a rawContactUrl by id

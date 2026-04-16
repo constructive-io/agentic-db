@@ -12,8 +12,8 @@ agentic-db contact-memory list --where.<field>.<op> <value> --orderBy <values>
 agentic-db contact-memory list --limit 10 --after <cursor>
 agentic-db contact-memory find-first --where.<field>.<op> <value>
 agentic-db contact-memory get --id <UUID>
-agentic-db contact-memory create --contactId <UUID> --memoryId <UUID> --entityId <UUID>
-agentic-db contact-memory update --id <UUID> [--contactId <UUID>] [--memoryId <UUID>] [--entityId <UUID>]
+agentic-db contact-memory create --contactId <UUID> --memoryId <UUID>
+agentic-db contact-memory update --id <UUID> [--contactId <UUID>] [--memoryId <UUID>]
 agentic-db contact-memory delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db contact-memory list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a contactMemory
 
 ```bash
-agentic-db contact-memory create --contactId <UUID> --memoryId <UUID> --entityId <UUID>
+agentic-db contact-memory create --contactId <UUID> --memoryId <UUID>
 ```
 
 ### Get a contactMemory by id

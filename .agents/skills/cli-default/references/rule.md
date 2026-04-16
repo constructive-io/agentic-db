@@ -19,8 +19,8 @@ agentic-db rule list --limit 10 --after <cursor>
 agentic-db rule find-first --where.<field>.<op> <value>
 agentic-db rule search <query>
 agentic-db rule get --id <UUID>
-agentic-db rule create --entityId <UUID> --name <String> --agentId <UUID> [--description <String>] [--triggerType <String>] [--triggerConfig <JSON>] [--actionType <String>] [--actionConfig <JSON>] [--isActive <Boolean>] [--priority <Int>] [--triggerConcept <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--triggerConceptEmbedding <Vector>]
-agentic-db rule update --id <UUID> [--entityId <UUID>] [--name <String>] [--description <String>] [--triggerType <String>] [--triggerConfig <JSON>] [--actionType <String>] [--actionConfig <JSON>] [--isActive <Boolean>] [--priority <Int>] [--triggerConcept <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--triggerConceptEmbedding <Vector>] [--agentId <UUID>]
+agentic-db rule create --name <String> --agentId <UUID> [--description <String>] [--triggerType <String>] [--triggerConfig <JSON>] [--actionType <String>] [--actionConfig <JSON>] [--isActive <Boolean>] [--priority <Int>] [--triggerConcept <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--triggerConceptEmbedding <Vector>]
+agentic-db rule update --id <UUID> [--name <String>] [--description <String>] [--triggerType <String>] [--triggerConfig <JSON>] [--actionType <String>] [--actionConfig <JSON>] [--isActive <Boolean>] [--priority <Int>] [--triggerConcept <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--triggerConceptEmbedding <Vector>] [--agentId <UUID>]
 agentic-db rule delete --id <UUID>
 ```
 
@@ -166,7 +166,7 @@ agentic-db rule search "query" --limit 10 --select id,title,searchScore
 ### Create a rule
 
 ```bash
-agentic-db rule create --entityId <UUID> --name <String> --agentId <UUID> [--description <String>] [--triggerType <String>] [--triggerConfig <JSON>] [--actionType <String>] [--actionConfig <JSON>] [--isActive <Boolean>] [--priority <Int>] [--triggerConcept <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--triggerConceptEmbedding <Vector>]
+agentic-db rule create --name <String> --agentId <UUID> [--description <String>] [--triggerType <String>] [--triggerConfig <JSON>] [--actionType <String>] [--actionConfig <JSON>] [--isActive <Boolean>] [--priority <Int>] [--triggerConcept <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--triggerConceptEmbedding <Vector>]
 ```
 
 ### Get a rule by id

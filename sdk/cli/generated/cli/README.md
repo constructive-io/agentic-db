@@ -27,17 +27,13 @@ agentic-db auth set-token <your-token>
 | `auth` | Manage authentication tokens |
 | `config` | Manage config key-value store (per-context) |
 | `activity-log` | activityLog CRUD operations |
-| `activity-logs-chunk` | activityLogsChunk CRUD operations |
 | `agent` | agent CRUD operations |
 | `agent-collaborator` | agentCollaborator CRUD operations |
 | `agent-log` | agentLog CRUD operations |
-| `agent-logs-chunk` | agentLogsChunk CRUD operations |
 | `agent-prompt` | agentPrompt CRUD operations |
 | `prompt` | prompt CRUD operations |
-| `agents-chunk` | agentsChunk CRUD operations |
 | `autonomy-record` | autonomyRecord CRUD operations |
 | `autonomy-record-link` | autonomyRecordLink CRUD operations |
-| `autonomy-records-chunk` | autonomyRecordsChunk CRUD operations |
 | `calendar-attendee` | calendarAttendee CRUD operations |
 | `calendar` | calendar CRUD operations |
 | `calendar-event` | calendarEvent CRUD operations |
@@ -45,14 +41,8 @@ agentic-db auth set-token <your-token>
 | `contact` | contact CRUD operations |
 | `calendar-event-note` | calendarEventNote CRUD operations |
 | `note` | note CRUD operations |
-| `calendar-events-chunk` | calendarEventsChunk CRUD operations |
 | `calendar-event-task` | calendarEventTask CRUD operations |
 | `task` | task CRUD operations |
-| `codebase` | codebase CRUD operations |
-| `codebase-dependency` | codebaseDependency CRUD operations |
-| `codebases-chunk` | codebasesChunk CRUD operations |
-| `code-chunk` | codeChunk CRUD operations |
-| `companies-chunk` | companiesChunk CRUD operations |
 | `company` | company CRUD operations |
 | `deal` | deal CRUD operations |
 | `company-event` | companyEvent CRUD operations |
@@ -79,78 +69,65 @@ agentic-db auth set-token <your-token>
 | `contact-relationship` | contactRelationship CRUD operations |
 | `contacts-chunk` | contactsChunk CRUD operations |
 | `conversation` | conversation CRUD operations |
-| `conversations-chunk` | conversationsChunk CRUD operations |
 | `deal-company` | dealCompany CRUD operations |
 | `deal-contact` | dealContact CRUD operations |
 | `deal-note` | dealNote CRUD operations |
-| `deals-chunk` | dealsChunk CRUD operations |
 | `email-attachment` | emailAttachment CRUD operations |
 | `email-note` | emailNote CRUD operations |
 | `email-recipient` | emailRecipient CRUD operations |
-| `emails-chunk` | emailsChunk CRUD operations |
-| `email-threads-chunk` | emailThreadsChunk CRUD operations |
 | `event-image` | eventImage CRUD operations |
 | `event-link` | eventLink CRUD operations |
 | `event-note` | eventNote CRUD operations |
-| `events-chunk` | eventsChunk CRUD operations |
 | `event-venue` | eventVenue CRUD operations |
 | `venue` | venue CRUD operations |
 | `expense-contact` | expenseContact CRUD operations |
-| `expenses-chunk` | expensesChunk CRUD operations |
 | `goal` | goal CRUD operations |
 | `goal-habit` | goalHabit CRUD operations |
 | `habit` | habit CRUD operations |
 | `goal-project` | goalProject CRUD operations |
-| `goals-chunk` | goalsChunk CRUD operations |
-| `hiking-trail` | hikingTrail CRUD operations |
-| `hiking-trails-chunk` | hikingTrailsChunk CRUD operations |
 | `interaction` | interaction CRUD operations |
-| `interactions-chunk` | interactionsChunk CRUD operations |
-| `memories-chunk` | memoriesChunk CRUD operations |
 | `message` | message CRUD operations |
-| `messages-chunk` | messagesChunk CRUD operations |
 | `notes-chunk` | notesChunk CRUD operations |
 | `place` | place CRUD operations |
-| `places-chunk` | placesChunk CRUD operations |
 | `project-contact` | projectContact CRUD operations |
-| `projects-chunk` | projectsChunk CRUD operations |
-| `prompts-chunk` | promptsChunk CRUD operations |
 | `provider-sync-state` | providerSyncState CRUD operations |
 | `raw-contact` | rawContact CRUD operations |
 | `raw-contact-email` | rawContactEmail CRUD operations |
 | `raw-contact-phone` | rawContactPhone CRUD operations |
 | `raw-contact-url` | rawContactUrl CRUD operations |
 | `rule` | rule CRUD operations |
-| `rules-chunk` | rulesChunk CRUD operations |
 | `runtime-artifact` | runtimeArtifact CRUD operations |
 | `runtime-config` | runtimeConfig CRUD operations |
 | `runtime-event` | runtimeEvent CRUD operations |
 | `runtime-log` | runtimeLog CRUD operations |
-| `runtime-logs-chunk` | runtimeLogsChunk CRUD operations |
 | `runtime-metric` | runtimeMetric CRUD operations |
 | `runtime-schedule` | runtimeSchedule CRUD operations |
 | `runtime-state` | runtimeState CRUD operations |
 | `runtime-state-dependency` | runtimeStateDependency CRUD operations |
-| `runtime-states-chunk` | runtimeStatesChunk CRUD operations |
 | `skill` | skill CRUD operations |
-| `skills-chunk` | skillsChunk CRUD operations |
 | `skill-tool` | skillTool CRUD operations |
 | `tool-definition` | toolDefinition CRUD operations |
 | `tag` | tag CRUD operations |
 | `task-contact` | taskContact CRUD operations |
 | `task-note` | taskNote CRUD operations |
 | `task-project` | taskProject CRUD operations |
-| `tasks-chunk` | tasksChunk CRUD operations |
 | `thread-participant` | threadParticipant CRUD operations |
-| `tool-definitions-chunk` | toolDefinitionsChunk CRUD operations |
 | `tool-execution` | toolExecution CRUD operations |
 | `touchpoint` | touchpoint CRUD operations |
-| `touchpoints-chunk` | touchpointsChunk CRUD operations |
 | `trip` | trip CRUD operations |
-| `trips-chunk` | tripsChunk CRUD operations |
 | `venue-image` | venueImage CRUD operations |
 | `venue-link` | venueLink CRUD operations |
-| `venues-chunk` | venuesChunk CRUD operations |
+| `request-upload-url` | Request a presigned URL for uploading a file directly to S3.
+Client computes SHA-256 of the file content and provides it here.
+If a file with the same hash already exists (dedup), returns the
+existing file ID and deduplicated=true with no uploadUrl. |
+| `confirm-upload` | Confirm that a file has been uploaded to S3.
+Verifies the object exists in S3, checks content-type,
+and transitions the file status from 'pending' to 'ready'. |
+| `provision-bucket` | Provision an S3 bucket for a logical bucket in the database.
+Reads the bucket config via RLS, then creates and configures
+the S3 bucket with the appropriate privacy policies, CORS rules,
+and lifecycle settings. |
 
 ## Infrastructure Commands
 
@@ -211,8 +188,6 @@ CRUD operations for ActivityLog records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `activityType` | String |
 | `completedAt` | Datetime |
 | `durationMinutes` | Int |
@@ -222,6 +197,7 @@ CRUD operations for ActivityLog records.
 | `notes` | String |
 | `meta` | JSON |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -237,7 +213,7 @@ CRUD operations for ActivityLog records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `activityType`, `completedAt`
+**Required create fields:** `activityType`, `completedAt`
 **Optional create fields (backend defaults):** `durationMinutes`, `quantity`, `quantityUnit`, `intensity`, `notes`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `habitId`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -309,72 +285,6 @@ agentic-db activity-log search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `activity-logs-chunk`
-
-CRUD operations for ActivityLogsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all activityLogsChunk records |
-| `find-first` | Find first matching activityLogsChunk record |
-| `search <query>` | Search activityLogsChunk records |
-| `get` | Get a activityLogsChunk by id |
-| `create` | Create a new activityLogsChunk |
-| `update` | Update an existing activityLogsChunk |
-| `delete` | Delete a activityLogsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `activityLogsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `activityLogsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db activity-logs-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db activity-logs-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db activity-logs-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db activity-logs-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db activity-logs-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db activity-logs-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db activity-logs-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `agent`
 
 CRUD operations for Agent records.
@@ -393,8 +303,6 @@ CRUD operations for Agent records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `description` | String |
 | `systemPrompt` | String |
@@ -403,6 +311,7 @@ CRUD operations for Agent records.
 | `status` | String |
 | `config` | JSON |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -418,7 +327,7 @@ CRUD operations for Agent records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `description`, `systemPrompt`, `model`, `temperature`, `status`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -514,10 +423,8 @@ CRUD operations for AgentCollaborator records.
 |-------|------|
 | `agentId` | UUID |
 | `collaboratorId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `agentId`, `collaboratorId`, `entityId`
+**Required create fields:** `agentId`, `collaboratorId`
 
 ### `agent-log`
 
@@ -537,13 +444,12 @@ CRUD operations for AgentLog records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `agentId` | UUID |
 | `level` | String |
 | `message` | String |
 | `context` | JSON |
 | `taskId` | UUID |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -556,7 +462,7 @@ CRUD operations for AgentLog records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `level`, `message`
+**Required create fields:** `level`, `message`
 **Optional create fields (backend defaults):** `agentId`, `context`, `taskId`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -618,72 +524,6 @@ agentic-db agent-log search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `agent-logs-chunk`
-
-CRUD operations for AgentLogsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentLogsChunk records |
-| `find-first` | Find first matching agentLogsChunk record |
-| `search <query>` | Search agentLogsChunk records |
-| `get` | Get a agentLogsChunk by id |
-| `create` | Create a new agentLogsChunk |
-| `update` | Update an existing agentLogsChunk |
-| `delete` | Delete a agentLogsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `agentLogsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `agentLogsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db agent-logs-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db agent-logs-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db agent-logs-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db agent-logs-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db agent-logs-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db agent-logs-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db agent-logs-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `agent-prompt`
 
 CRUD operations for AgentPrompt records.
@@ -703,10 +543,8 @@ CRUD operations for AgentPrompt records.
 |-------|------|
 | `agentId` | UUID |
 | `promptId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `agentId`, `promptId`, `entityId`
+**Required create fields:** `agentId`, `promptId`
 
 ### `prompt`
 
@@ -726,14 +564,13 @@ CRUD operations for Prompt records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `content` | String |
 | `category` | String |
 | `version` | Int |
 | `isActive` | Boolean |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -747,7 +584,7 @@ CRUD operations for Prompt records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `content`
+**Required create fields:** `name`, `content`
 **Optional create fields (backend defaults):** `category`, `version`, `isActive`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -814,72 +651,6 @@ agentic-db prompt search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `agents-chunk`
-
-CRUD operations for AgentsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentsChunk records |
-| `find-first` | Find first matching agentsChunk record |
-| `search <query>` | Search agentsChunk records |
-| `get` | Get a agentsChunk by id |
-| `create` | Create a new agentsChunk |
-| `update` | Update an existing agentsChunk |
-| `delete` | Delete a agentsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `agentsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `agentsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db agents-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db agents-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db agents-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db agents-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db agents-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db agents-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db agents-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `autonomy-record`
 
 CRUD operations for AutonomyRecord records.
@@ -898,8 +669,6 @@ CRUD operations for AutonomyRecord records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `title` | String |
 | `recordType` | String |
 | `content` | String |
@@ -908,6 +677,7 @@ CRUD operations for AutonomyRecord records.
 | `source` | String |
 | `context` | JSON |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -923,7 +693,7 @@ CRUD operations for AutonomyRecord records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`
+**Required create fields:** `title`
 **Optional create fields (backend defaults):** `recordType`, `content`, `status`, `priority`, `source`, `context`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -1019,76 +789,8 @@ CRUD operations for AutonomyRecordLink records.
 |-------|------|
 | `sourceRecordId` | UUID |
 | `targetRecordId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `sourceRecordId`, `targetRecordId`, `entityId`
-
-### `autonomy-records-chunk`
-
-CRUD operations for AutonomyRecordsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all autonomyRecordsChunk records |
-| `find-first` | Find first matching autonomyRecordsChunk record |
-| `search <query>` | Search autonomyRecordsChunk records |
-| `get` | Get a autonomyRecordsChunk by id |
-| `create` | Create a new autonomyRecordsChunk |
-| `update` | Update an existing autonomyRecordsChunk |
-| `delete` | Delete a autonomyRecordsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `autonomyRecordsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `autonomyRecordsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db autonomy-records-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db autonomy-records-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db autonomy-records-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db autonomy-records-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db autonomy-records-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db autonomy-records-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db autonomy-records-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `sourceRecordId`, `targetRecordId`
 
 ### `calendar-attendee`
 
@@ -1107,16 +809,15 @@ CRUD operations for CalendarAttendee records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `contactId` | UUID |
 | `responseStatus` | String |
 | `role` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `calendarEventId` | UUID |
 
-**Required create fields:** `entityId`, `calendarEventId`
+**Required create fields:** `calendarEventId`
 **Optional create fields (backend defaults):** `contactId`, `responseStatus`, `role`
 
 ### `calendar`
@@ -1136,16 +837,15 @@ CRUD operations for Calendar records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `providerAccountId` | String |
 | `providerCalendarId` | String |
 | `name` | String |
 | `color` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `providerAccountId`, `providerCalendarId`, `color`
 
 ### `calendar-event`
@@ -1166,8 +866,6 @@ CRUD operations for CalendarEvent records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `providerEventId` | String |
 | `title` | String |
 | `description` | String |
@@ -1176,6 +874,7 @@ CRUD operations for CalendarEvent records.
 | `meetingUrl` | String |
 | `organizerContactId` | UUID |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -1193,7 +892,7 @@ CRUD operations for CalendarEvent records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`, `calendarId`
+**Required create fields:** `title`, `calendarId`
 **Optional create fields (backend defaults):** `providerEventId`, `description`, `startTime`, `endTime`, `meetingUrl`, `organizerContactId`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -1289,10 +988,8 @@ CRUD operations for CalendarEventContact records.
 |-------|------|
 | `calendarEventId` | UUID |
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `calendarEventId`, `contactId`, `entityId`
+**Required create fields:** `calendarEventId`, `contactId`
 
 ### `contact`
 
@@ -1312,8 +1009,6 @@ CRUD operations for Contact records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `firstName` | String |
 | `lastName` | String |
 | `email` | String |
@@ -1326,6 +1021,7 @@ CRUD operations for Contact records.
 | `howWeMet` | String |
 | `tags` | String |
 | `mainImageId` | UUID |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -1347,7 +1043,7 @@ CRUD operations for Contact records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `firstName`
+**Required create fields:** `firstName`
 **Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipTypes`, `howWeMet`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -1463,10 +1159,8 @@ CRUD operations for CalendarEventNote records.
 |-------|------|
 | `calendarEventId` | UUID |
 | `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `calendarEventId`, `noteId`, `entityId`
+**Required create fields:** `calendarEventId`, `noteId`
 
 ### `note`
 
@@ -1486,14 +1180,13 @@ CRUD operations for Note records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `content` | String |
 | `abstract` | String |
 | `overview` | String |
 | `activeCount` | Int |
 | `lastAccessedAt` | Datetime |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -1508,7 +1201,7 @@ CRUD operations for Note records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `content`
+**Required create fields:** `content`
 **Optional create fields (backend defaults):** `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -1580,72 +1273,6 @@ agentic-db note search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `calendar-events-chunk`
-
-CRUD operations for CalendarEventsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all calendarEventsChunk records |
-| `find-first` | Find first matching calendarEventsChunk record |
-| `search <query>` | Search calendarEventsChunk records |
-| `get` | Get a calendarEventsChunk by id |
-| `create` | Create a new calendarEventsChunk |
-| `update` | Update an existing calendarEventsChunk |
-| `delete` | Delete a calendarEventsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `calendarEventsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `calendarEventsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db calendar-events-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db calendar-events-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db calendar-events-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db calendar-events-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db calendar-events-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db calendar-events-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db calendar-events-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `calendar-event-task`
 
 CRUD operations for CalendarEventTask records.
@@ -1665,10 +1292,8 @@ CRUD operations for CalendarEventTask records.
 |-------|------|
 | `calendarEventId` | UUID |
 | `taskId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `calendarEventId`, `taskId`, `entityId`
+**Required create fields:** `calendarEventId`, `taskId`
 
 ### `task`
 
@@ -1688,8 +1313,6 @@ CRUD operations for Task records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `agentId` | UUID |
 | `title` | String |
 | `description` | String |
@@ -1699,6 +1322,7 @@ CRUD operations for Task records.
 | `startedAt` | Datetime |
 | `completedAt` | Datetime |
 | `meta` | JSON |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -1713,7 +1337,7 @@ CRUD operations for Task records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`
+**Required create fields:** `title`
 **Optional create fields (backend defaults):** `agentId`, `description`, `status`, `priority`, `result`, `startedAt`, `completedAt`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -1785,410 +1409,6 @@ agentic-db task search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `codebase`
-
-CRUD operations for Codebase records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codebase records |
-| `find-first` | Find first matching codebase record |
-| `search <query>` | Search codebase records |
-| `get` | Get a codebase by id |
-| `create` | Create a new codebase |
-| `update` | Update an existing codebase |
-| `delete` | Delete a codebase |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `description` | String |
-| `repositoryUrl` | String |
-| `defaultBranch` | String |
-| `language` | String |
-| `framework` | String |
-| `lastSyncedAt` | Datetime |
-| `config` | JSON |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `repositoryUrlTrgmSimilarity` | Float |
-| `defaultBranchTrgmSimilarity` | Float |
-| `languageTrgmSimilarity` | Float |
-| `frameworkTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `repositoryUrl`, `defaultBranch`, `language`, `framework`, `lastSyncedAt`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `repositoryUrlTrgmSimilarity`, `defaultBranchTrgmSimilarity`, `languageTrgmSimilarity`, `frameworkTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db codebase list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db codebase search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db codebase list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db codebase create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db codebase update --embedding "new text to embed" --auto-embed
-```
-
-*BM25 keyword search via `bm25EmbeddingText`:*
-```bash
-agentic-db codebase list --where.bm25EmbeddingText.query "search query" --select title,embeddingTextBm25Score
-```
-
-*Fuzzy search via trigram similarity (`trgmName`):*
-```bash
-agentic-db codebase list --where.trgmName.value "approximate query" --where.trgmName.threshold 0.3 --select title,nameTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmDescription`):*
-```bash
-agentic-db codebase list --where.trgmDescription.value "approximate query" --where.trgmDescription.threshold 0.3 --select title,descriptionTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmRepositoryUrl`):*
-```bash
-agentic-db codebase list --where.trgmRepositoryUrl.value "approximate query" --where.trgmRepositoryUrl.threshold 0.3 --select title,repositoryUrlTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmDefaultBranch`):*
-```bash
-agentic-db codebase list --where.trgmDefaultBranch.value "approximate query" --where.trgmDefaultBranch.threshold 0.3 --select title,defaultBranchTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmLanguage`):*
-```bash
-agentic-db codebase list --where.trgmLanguage.value "approximate query" --where.trgmLanguage.threshold 0.3 --select title,languageTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmFramework`):*
-```bash
-agentic-db codebase list --where.trgmFramework.value "approximate query" --where.trgmFramework.threshold 0.3 --select title,frameworkTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmEmbeddingText`):*
-```bash
-agentic-db codebase list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
-```
-
-*Composite search (fullTextSearch dispatches to all text adapters):*
-```bash
-agentic-db codebase list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,repositoryUrlTrgmSimilarity,defaultBranchTrgmSimilarity,languageTrgmSimilarity,frameworkTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db codebase list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db codebase search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `codebase-dependency`
-
-CRUD operations for CodebaseDependency records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codebaseDependency records |
-| `find-first` | Find first matching codebaseDependency record |
-| `get` | Get a codebaseDependency by id |
-| `create` | Create a new codebaseDependency |
-| `update` | Update an existing codebaseDependency |
-| `delete` | Delete a codebaseDependency |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `codebaseId` | UUID |
-| `dependencyId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `codebaseId`, `dependencyId`, `entityId`
-
-### `codebases-chunk`
-
-CRUD operations for CodebasesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codebasesChunk records |
-| `find-first` | Find first matching codebasesChunk record |
-| `search <query>` | Search codebasesChunk records |
-| `get` | Get a codebasesChunk by id |
-| `create` | Create a new codebasesChunk |
-| `update` | Update an existing codebasesChunk |
-| `delete` | Delete a codebasesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `codebasesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `codebasesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db codebases-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db codebases-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db codebases-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db codebases-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db codebases-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db codebases-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db codebases-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `code-chunk`
-
-CRUD operations for CodeChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codeChunk records |
-| `find-first` | Find first matching codeChunk record |
-| `search <query>` | Search codeChunk records |
-| `get` | Get a codeChunk by id |
-| `create` | Create a new codeChunk |
-| `update` | Update an existing codeChunk |
-| `delete` | Delete a codeChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `codebaseId` | UUID |
-| `filePath` | String |
-| `chunkIndex` | Int |
-| `content` | String |
-| `language` | String |
-| `startLine` | Int |
-| `endLine` | Int |
-| `symbolName` | String |
-| `symbolType` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `filePathTrgmSimilarity` | Float |
-| `contentTrgmSimilarity` | Float |
-| `languageTrgmSimilarity` | Float |
-| `symbolNameTrgmSimilarity` | Float |
-| `symbolTypeTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `codebaseId`, `filePath`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `language`, `startLine`, `endLine`, `symbolName`, `symbolType`, `embeddingText`, `embedding`, `embeddingStale`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `embeddingTextBm25Score`, `filePathTrgmSimilarity`, `contentTrgmSimilarity`, `languageTrgmSimilarity`, `symbolNameTrgmSimilarity`, `symbolTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db code-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db code-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db code-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db code-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db code-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*BM25 keyword search via `bm25EmbeddingText`:*
-```bash
-agentic-db code-chunk list --where.bm25EmbeddingText.query "search query" --select title,embeddingTextBm25Score
-```
-
-*Fuzzy search via trigram similarity (`trgmFilePath`):*
-```bash
-agentic-db code-chunk list --where.trgmFilePath.value "approximate query" --where.trgmFilePath.threshold 0.3 --select title,filePathTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmContent`):*
-```bash
-agentic-db code-chunk list --where.trgmContent.value "approximate query" --where.trgmContent.threshold 0.3 --select title,contentTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmLanguage`):*
-```bash
-agentic-db code-chunk list --where.trgmLanguage.value "approximate query" --where.trgmLanguage.threshold 0.3 --select title,languageTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmSymbolName`):*
-```bash
-agentic-db code-chunk list --where.trgmSymbolName.value "approximate query" --where.trgmSymbolName.threshold 0.3 --select title,symbolNameTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmSymbolType`):*
-```bash
-agentic-db code-chunk list --where.trgmSymbolType.value "approximate query" --where.trgmSymbolType.threshold 0.3 --select title,symbolTypeTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmEmbeddingText`):*
-```bash
-agentic-db code-chunk list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
-```
-
-*Composite search (fullTextSearch dispatches to all text adapters):*
-```bash
-agentic-db code-chunk list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,filePathTrgmSimilarity,contentTrgmSimilarity,languageTrgmSimilarity,symbolNameTrgmSimilarity,symbolTypeTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db code-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db code-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `companies-chunk`
-
-CRUD operations for CompaniesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all companiesChunk records |
-| `find-first` | Find first matching companiesChunk record |
-| `search <query>` | Search companiesChunk records |
-| `get` | Get a companiesChunk by id |
-| `create` | Create a new companiesChunk |
-| `update` | Update an existing companiesChunk |
-| `delete` | Delete a companiesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `companiesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `companiesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db companies-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db companies-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db companies-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db companies-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db companies-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db companies-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db companies-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `company`
 
 CRUD operations for Company records.
@@ -2207,14 +1427,13 @@ CRUD operations for Company records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `domain` | String |
 | `industry` | String |
 | `description` | String |
 | `tags` | String |
 | `mainImageId` | UUID |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -2231,7 +1450,7 @@ CRUD operations for Company records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -2326,8 +1545,6 @@ CRUD operations for Deal records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `stage` | String |
 | `value` | BigFloat |
@@ -2335,6 +1552,7 @@ CRUD operations for Deal records.
 | `expectedCloseDate` | Datetime |
 | `notesText` | String |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -2349,7 +1567,7 @@ CRUD operations for Deal records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notesText`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -2440,10 +1658,8 @@ CRUD operations for CompanyEvent records.
 |-------|------|
 | `companyId` | UUID |
 | `eventId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `companyId`, `eventId`, `entityId`
+**Required create fields:** `companyId`, `eventId`
 
 ### `event`
 
@@ -2463,8 +1679,6 @@ CRUD operations for Event records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `eventType` | String |
 | `location` | String |
@@ -2474,6 +1688,7 @@ CRUD operations for Event records.
 | `notesText` | String |
 | `tags` | String |
 | `mainImageId` | UUID |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -2492,7 +1707,7 @@ CRUD operations for Event records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -2593,10 +1808,8 @@ CRUD operations for CompanyImage records.
 |-------|------|
 | `companyId` | UUID |
 | `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `companyId`, `imageId`, `entityId`
+**Required create fields:** `companyId`, `imageId`
 
 ### `image`
 
@@ -2616,12 +1829,11 @@ CRUD operations for Image records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `url` | String |
 | `meta` | JSON |
 | `altText` | String |
 | `caption` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
@@ -2629,7 +1841,7 @@ CRUD operations for Image records.
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`
+**Required create fields:** `url`
 **Optional create fields (backend defaults):** `meta`, `altText`, `caption`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -2684,10 +1896,9 @@ CRUD operations for CompanyLink records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `title` | String |
 | `url` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
@@ -2696,7 +1907,7 @@ CRUD operations for CompanyLink records.
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `companyId`
+**Required create fields:** `url`, `companyId`
 **Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -2751,14 +1962,13 @@ CRUD operations for Memory records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `title` | String |
 | `content` | String |
 | `location` | String |
 | `occurredAt` | Datetime |
 | `mood` | String |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -2775,7 +1985,7 @@ CRUD operations for Memory records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`
+**Required create fields:** `title`
 **Optional create fields (backend defaults):** `content`, `location`, `occurredAt`, `mood`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`, `agentId`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -2866,10 +2076,8 @@ CRUD operations for CompanyMemory records.
 |-------|------|
 | `companyId` | UUID |
 | `memoryId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `companyId`, `memoryId`, `entityId`
+**Required create fields:** `companyId`, `memoryId`
 
 ### `company-note`
 
@@ -2890,10 +2098,8 @@ CRUD operations for CompanyNote records.
 |-------|------|
 | `companyId` | UUID |
 | `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `companyId`, `noteId`, `entityId`
+**Required create fields:** `companyId`, `noteId`
 
 ### `contact-address`
 
@@ -2912,8 +2118,6 @@ CRUD operations for ContactAddress records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `street` | String |
 | `city` | String |
 | `state` | String |
@@ -2921,11 +2125,12 @@ CRUD operations for ContactAddress records.
 | `country` | String |
 | `addressType` | String |
 | `isPrimary` | Boolean |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `contactId` | UUID |
 
-**Required create fields:** `entityId`, `contactId`
+**Required create fields:** `contactId`
 **Optional create fields (backend defaults):** `street`, `city`, `state`, `postalCode`, `country`, `addressType`, `isPrimary`
 
 ### `contact-company`
@@ -2947,10 +2152,8 @@ CRUD operations for ContactCompany records.
 |-------|------|
 | `contactId` | UUID |
 | `companyId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `companyId`, `entityId`
+**Required create fields:** `contactId`, `companyId`
 
 ### `contact-email`
 
@@ -2969,16 +2172,15 @@ CRUD operations for ContactEmail records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `email` | String |
 | `emailType` | String |
 | `isPrimary` | Boolean |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `contactId` | UUID |
 
-**Required create fields:** `entityId`, `email`, `contactId`
+**Required create fields:** `email`, `contactId`
 **Optional create fields (backend defaults):** `emailType`, `isPrimary`
 
 ### `email`
@@ -2999,8 +2201,6 @@ CRUD operations for Email records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `providerMessageId` | String |
 | `fromContactId` | UUID |
 | `to` | JSON |
@@ -3011,6 +2211,7 @@ CRUD operations for Email records.
 | `bodyHtml` | String |
 | `sentAt` | Datetime |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -3018,22 +2219,13 @@ CRUD operations for Email records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `emailThreadId` | UUID |
-| `searchTsvRank` | Float |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `providerMessageIdTrgmSimilarity` | Float |
-| `subjectTrgmSimilarity` | Float |
-| `bodyTextTrgmSimilarity` | Float |
-| `bodyHtmlTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `emailThreadId`
+**Required create fields:** `emailThreadId`
 **Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-> **Unified Search API fields:** `searchTsv`, `embeddingTextBm25Score`, `providerMessageIdTrgmSimilarity`, `subjectTrgmSimilarity`, `bodyTextTrgmSimilarity`, `bodyHtmlTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> **Unified Search API fields:** `searchTsv`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 **Search Examples:**
@@ -3063,39 +2255,9 @@ EMBEDDER_PROVIDER=ollama agentic-db email update --embedding "new text to embed"
 agentic-db email list --where.searchTsv "search query" --select title,tsvRank
 ```
 
-*BM25 keyword search via `bm25EmbeddingText`:*
-```bash
-agentic-db email list --where.bm25EmbeddingText.query "search query" --select title,embeddingTextBm25Score
-```
-
-*Fuzzy search via trigram similarity (`trgmProviderMessageId`):*
-```bash
-agentic-db email list --where.trgmProviderMessageId.value "approximate query" --where.trgmProviderMessageId.threshold 0.3 --select title,providerMessageIdTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmSubject`):*
-```bash
-agentic-db email list --where.trgmSubject.value "approximate query" --where.trgmSubject.threshold 0.3 --select title,subjectTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmBodyText`):*
-```bash
-agentic-db email list --where.trgmBodyText.value "approximate query" --where.trgmBodyText.threshold 0.3 --select title,bodyTextTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmBodyHtml`):*
-```bash
-agentic-db email list --where.trgmBodyHtml.value "approximate query" --where.trgmBodyHtml.threshold 0.3 --select title,bodyHtmlTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmEmbeddingText`):*
-```bash
-agentic-db email list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
-```
-
 *Composite search (fullTextSearch dispatches to all text adapters):*
 ```bash
-agentic-db email list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,providerMessageIdTrgmSimilarity,subjectTrgmSimilarity,bodyTextTrgmSimilarity,bodyHtmlTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db email list --where.fullTextSearch "search query" --select title,tsvRank
 ```
 
 *Search with pagination and field projection:*
@@ -3123,14 +2285,13 @@ CRUD operations for EmailThread records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `providerThreadId` | String |
 | `subject` | String |
 | `lastMessageAt` | Datetime |
 | `summary` | String |
 | `status` | String |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -3147,7 +2308,6 @@ CRUD operations for EmailThread records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`
 **Optional create fields (backend defaults):** `providerThreadId`, `subject`, `lastMessageAt`, `summary`, `status`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -3243,10 +2403,8 @@ CRUD operations for ContactEvent records.
 |-------|------|
 | `contactId` | UUID |
 | `eventId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `eventId`, `entityId`
+**Required create fields:** `contactId`, `eventId`
 
 ### `expense`
 
@@ -3266,8 +2424,6 @@ CRUD operations for Expense records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `description` | String |
 | `amount` | BigFloat |
 | `currency` | String |
@@ -3276,6 +2432,7 @@ CRUD operations for Expense records.
 | `vendor` | String |
 | `notes` | String |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -3292,7 +2449,6 @@ CRUD operations for Expense records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`
 **Optional create fields (backend defaults):** `description`, `amount`, `currency`, `category`, `occurredAt`, `vendor`, `notes`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `tripId`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -3388,10 +2544,8 @@ CRUD operations for ContactImage records.
 |-------|------|
 | `contactId` | UUID |
 | `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `imageId`, `entityId`
+**Required create fields:** `contactId`, `imageId`
 
 ### `contact-link`
 
@@ -3411,10 +2565,9 @@ CRUD operations for ContactLink records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `title` | String |
 | `url` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
@@ -3423,7 +2576,7 @@ CRUD operations for ContactLink records.
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `contactId`
+**Required create fields:** `url`, `contactId`
 **Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -3479,10 +2632,8 @@ CRUD operations for ContactMemory records.
 |-------|------|
 | `contactId` | UUID |
 | `memoryId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `memoryId`, `entityId`
+**Required create fields:** `contactId`, `memoryId`
 
 ### `contact-note`
 
@@ -3503,10 +2654,8 @@ CRUD operations for ContactNote records.
 |-------|------|
 | `contactId` | UUID |
 | `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `noteId`, `entityId`
+**Required create fields:** `contactId`, `noteId`
 
 ### `contact-phone`
 
@@ -3525,16 +2674,15 @@ CRUD operations for ContactPhone records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `phone` | String |
 | `phoneType` | String |
 | `isPrimary` | Boolean |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `contactId` | UUID |
 
-**Required create fields:** `entityId`, `phone`, `contactId`
+**Required create fields:** `phone`, `contactId`
 **Optional create fields (backend defaults):** `phoneType`, `isPrimary`
 
 ### `project`
@@ -3555,8 +2703,6 @@ CRUD operations for Project records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `description` | String |
 | `status` | String |
@@ -3567,6 +2713,7 @@ CRUD operations for Project records.
 | `completedAt` | Datetime |
 | `config` | JSON |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -3581,7 +2728,7 @@ CRUD operations for Project records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `description`, `status`, `projectType`, `priority`, `startedAt`, `targetDate`, `completedAt`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -3672,10 +2819,8 @@ CRUD operations for ContactRelationship records.
 |-------|------|
 | `contactId` | UUID |
 | `relatedContactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `relatedContactId`, `entityId`
+**Required create fields:** `contactId`, `relatedContactId`
 
 ### `contacts-chunk`
 
@@ -3761,12 +2906,11 @@ CRUD operations for Conversation records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `title` | String |
 | `agentId` | UUID |
 | `status` | String |
 | `meta` | JSON |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -3779,7 +2923,7 @@ CRUD operations for Conversation records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`
+**Required create fields:** `title`
 **Optional create fields (backend defaults):** `agentId`, `status`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -3841,72 +2985,6 @@ agentic-db conversation search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `conversations-chunk`
-
-CRUD operations for ConversationsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all conversationsChunk records |
-| `find-first` | Find first matching conversationsChunk record |
-| `search <query>` | Search conversationsChunk records |
-| `get` | Get a conversationsChunk by id |
-| `create` | Create a new conversationsChunk |
-| `update` | Update an existing conversationsChunk |
-| `delete` | Delete a conversationsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `conversationsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `conversationsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db conversations-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db conversations-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db conversations-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db conversations-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db conversations-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db conversations-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db conversations-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `deal-company`
 
 CRUD operations for DealCompany records.
@@ -3926,10 +3004,8 @@ CRUD operations for DealCompany records.
 |-------|------|
 | `dealId` | UUID |
 | `companyId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `dealId`, `companyId`, `entityId`
+**Required create fields:** `dealId`, `companyId`
 
 ### `deal-contact`
 
@@ -3950,10 +3026,8 @@ CRUD operations for DealContact records.
 |-------|------|
 | `dealId` | UUID |
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `dealId`, `contactId`, `entityId`
+**Required create fields:** `dealId`, `contactId`
 
 ### `deal-note`
 
@@ -3974,76 +3048,8 @@ CRUD operations for DealNote records.
 |-------|------|
 | `dealId` | UUID |
 | `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `dealId`, `noteId`, `entityId`
-
-### `deals-chunk`
-
-CRUD operations for DealsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all dealsChunk records |
-| `find-first` | Find first matching dealsChunk record |
-| `search <query>` | Search dealsChunk records |
-| `get` | Get a dealsChunk by id |
-| `create` | Create a new dealsChunk |
-| `update` | Update an existing dealsChunk |
-| `delete` | Delete a dealsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `dealsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `dealsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db deals-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db deals-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db deals-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db deals-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db deals-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db deals-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db deals-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `dealId`, `noteId`
 
 ### `email-attachment`
 
@@ -4062,18 +3068,17 @@ CRUD operations for EmailAttachment records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `filename` | String |
 | `contentType` | String |
 | `sizeBytes` | Int |
 | `storageUrl` | String |
 | `providerAttachmentId` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `emailId` | UUID |
 
-**Required create fields:** `entityId`, `filename`, `emailId`
+**Required create fields:** `filename`, `emailId`
 **Optional create fields (backend defaults):** `contentType`, `sizeBytes`, `storageUrl`, `providerAttachmentId`
 
 ### `email-note`
@@ -4095,10 +3100,8 @@ CRUD operations for EmailNote records.
 |-------|------|
 | `emailId` | UUID |
 | `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `emailId`, `noteId`, `entityId`
+**Required create fields:** `emailId`, `noteId`
 
 ### `email-recipient`
 
@@ -4119,142 +3122,8 @@ CRUD operations for EmailRecipient records.
 |-------|------|
 | `emailId` | UUID |
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `emailId`, `contactId`, `entityId`
-
-### `emails-chunk`
-
-CRUD operations for EmailsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailsChunk records |
-| `find-first` | Find first matching emailsChunk record |
-| `search <query>` | Search emailsChunk records |
-| `get` | Get a emailsChunk by id |
-| `create` | Create a new emailsChunk |
-| `update` | Update an existing emailsChunk |
-| `delete` | Delete a emailsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `emailsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `emailsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db emails-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db emails-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db emails-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db emails-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db emails-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db emails-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db emails-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `email-threads-chunk`
-
-CRUD operations for EmailThreadsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailThreadsChunk records |
-| `find-first` | Find first matching emailThreadsChunk record |
-| `search <query>` | Search emailThreadsChunk records |
-| `get` | Get a emailThreadsChunk by id |
-| `create` | Create a new emailThreadsChunk |
-| `update` | Update an existing emailThreadsChunk |
-| `delete` | Delete a emailThreadsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `emailThreadsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `emailThreadsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db email-threads-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db email-threads-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db email-threads-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db email-threads-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db email-threads-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db email-threads-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db email-threads-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `emailId`, `contactId`
 
 ### `event-image`
 
@@ -4275,10 +3144,8 @@ CRUD operations for EventImage records.
 |-------|------|
 | `eventId` | UUID |
 | `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `eventId`, `imageId`, `entityId`
+**Required create fields:** `eventId`, `imageId`
 
 ### `event-link`
 
@@ -4298,10 +3165,9 @@ CRUD operations for EventLink records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `title` | String |
 | `url` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
@@ -4310,7 +3176,7 @@ CRUD operations for EventLink records.
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `eventId`
+**Required create fields:** `url`, `eventId`
 **Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -4366,76 +3232,8 @@ CRUD operations for EventNote records.
 |-------|------|
 | `eventId` | UUID |
 | `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `eventId`, `noteId`, `entityId`
-
-### `events-chunk`
-
-CRUD operations for EventsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all eventsChunk records |
-| `find-first` | Find first matching eventsChunk record |
-| `search <query>` | Search eventsChunk records |
-| `get` | Get a eventsChunk by id |
-| `create` | Create a new eventsChunk |
-| `update` | Update an existing eventsChunk |
-| `delete` | Delete a eventsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `eventsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `eventsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db events-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db events-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db events-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db events-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db events-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db events-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db events-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `eventId`, `noteId`
 
 ### `event-venue`
 
@@ -4456,10 +3254,8 @@ CRUD operations for EventVenue records.
 |-------|------|
 | `eventId` | UUID |
 | `venueId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `eventId`, `venueId`, `entityId`
+**Required create fields:** `eventId`, `venueId`
 
 ### `venue`
 
@@ -4479,8 +3275,6 @@ CRUD operations for Venue records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `address` | String |
 | `neighborhood` | String |
@@ -4494,6 +3288,7 @@ CRUD operations for Venue records.
 | `notes` | String |
 | `tags` | String |
 | `mainImageId` | UUID |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -4516,7 +3311,7 @@ CRUD operations for Venue records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `location`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -4637,76 +3432,8 @@ CRUD operations for ExpenseContact records.
 |-------|------|
 | `expenseId` | UUID |
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `expenseId`, `contactId`, `entityId`
-
-### `expenses-chunk`
-
-CRUD operations for ExpensesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all expensesChunk records |
-| `find-first` | Find first matching expensesChunk record |
-| `search <query>` | Search expensesChunk records |
-| `get` | Get a expensesChunk by id |
-| `create` | Create a new expensesChunk |
-| `update` | Update an existing expensesChunk |
-| `delete` | Delete a expensesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `expensesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `expensesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db expenses-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db expenses-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db expenses-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db expenses-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db expenses-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db expenses-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db expenses-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `expenseId`, `contactId`
 
 ### `goal`
 
@@ -4726,14 +3453,13 @@ CRUD operations for Goal records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `title` | String |
 | `description` | String |
 | `status` | String |
 | `targetDate` | Datetime |
 | `progress` | BigFloat |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -4747,7 +3473,7 @@ CRUD operations for Goal records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`
+**Required create fields:** `title`
 **Optional create fields (backend defaults):** `description`, `status`, `targetDate`, `progress`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -4833,10 +3559,8 @@ CRUD operations for GoalHabit records.
 |-------|------|
 | `goalId` | UUID |
 | `habitId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `goalId`, `habitId`, `entityId`
+**Required create fields:** `goalId`, `habitId`
 
 ### `habit`
 
@@ -4855,17 +3579,16 @@ CRUD operations for Habit records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `frequency` | String |
 | `streak` | Int |
 | `lastCompletedAt` | Datetime |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `frequency`, `streak`, `lastCompletedAt`, `tags`
 
 ### `goal-project`
@@ -4887,257 +3610,8 @@ CRUD operations for GoalProject records.
 |-------|------|
 | `goalId` | UUID |
 | `projectId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `goalId`, `projectId`, `entityId`
-
-### `goals-chunk`
-
-CRUD operations for GoalsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all goalsChunk records |
-| `find-first` | Find first matching goalsChunk record |
-| `search <query>` | Search goalsChunk records |
-| `get` | Get a goalsChunk by id |
-| `create` | Create a new goalsChunk |
-| `update` | Update an existing goalsChunk |
-| `delete` | Delete a goalsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `goalsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `goalsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db goals-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db goals-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db goals-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db goals-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db goals-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db goals-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db goals-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `hiking-trail`
-
-CRUD operations for HikingTrail records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all hikingTrail records |
-| `find-first` | Find first matching hikingTrail record |
-| `search <query>` | Search hikingTrail records |
-| `get` | Get a hikingTrail by id |
-| `create` | Create a new hikingTrail |
-| `update` | Update an existing hikingTrail |
-| `delete` | Delete a hikingTrail |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `location` | String |
-| `description` | String |
-| `difficulty` | String |
-| `distanceKm` | BigFloat |
-| `elevationGainm` | BigFloat |
-| `rating` | BigFloat |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `trailheadGeo` | GeographyInterface |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `locationTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `difficultyTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `location`, `description`, `difficulty`, `distanceKm`, `elevationGainm`, `rating`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `trailheadGeo`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `locationTrgmSimilarity`, `descriptionTrgmSimilarity`, `difficultyTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db hiking-trail list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db hiking-trail search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db hiking-trail list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db hiking-trail create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db hiking-trail update --embedding "new text to embed" --auto-embed
-```
-
-*BM25 keyword search via `bm25EmbeddingText`:*
-```bash
-agentic-db hiking-trail list --where.bm25EmbeddingText.query "search query" --select title,embeddingTextBm25Score
-```
-
-*Fuzzy search via trigram similarity (`trgmName`):*
-```bash
-agentic-db hiking-trail list --where.trgmName.value "approximate query" --where.trgmName.threshold 0.3 --select title,nameTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmLocation`):*
-```bash
-agentic-db hiking-trail list --where.trgmLocation.value "approximate query" --where.trgmLocation.threshold 0.3 --select title,locationTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmDescription`):*
-```bash
-agentic-db hiking-trail list --where.trgmDescription.value "approximate query" --where.trgmDescription.threshold 0.3 --select title,descriptionTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmDifficulty`):*
-```bash
-agentic-db hiking-trail list --where.trgmDifficulty.value "approximate query" --where.trgmDifficulty.threshold 0.3 --select title,difficultyTrgmSimilarity
-```
-
-*Fuzzy search via trigram similarity (`trgmEmbeddingText`):*
-```bash
-agentic-db hiking-trail list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
-```
-
-*Composite search (fullTextSearch dispatches to all text adapters):*
-```bash
-agentic-db hiking-trail list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,locationTrgmSimilarity,descriptionTrgmSimilarity,difficultyTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db hiking-trail list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db hiking-trail search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `hiking-trails-chunk`
-
-CRUD operations for HikingTrailsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all hikingTrailsChunk records |
-| `find-first` | Find first matching hikingTrailsChunk record |
-| `search <query>` | Search hikingTrailsChunk records |
-| `get` | Get a hikingTrailsChunk by id |
-| `create` | Create a new hikingTrailsChunk |
-| `update` | Update an existing hikingTrailsChunk |
-| `delete` | Delete a hikingTrailsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `hikingTrailsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `hikingTrailsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db hiking-trails-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db hiking-trails-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db hiking-trails-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db hiking-trails-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db hiking-trails-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db hiking-trails-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db hiking-trails-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `goalId`, `projectId`
 
 ### `interaction`
 
@@ -5157,14 +3631,13 @@ CRUD operations for Interaction records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `contactId` | UUID |
 | `type` | String |
 | `occurredAt` | Datetime |
 | `summary` | String |
 | `sentiment` | String |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -5178,7 +3651,7 @@ CRUD operations for Interaction records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `contactId`, `type`, `occurredAt`
+**Required create fields:** `contactId`, `type`, `occurredAt`
 **Optional create fields (backend defaults):** `summary`, `sentiment`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -5245,138 +3718,6 @@ agentic-db interaction search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `interactions-chunk`
-
-CRUD operations for InteractionsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all interactionsChunk records |
-| `find-first` | Find first matching interactionsChunk record |
-| `search <query>` | Search interactionsChunk records |
-| `get` | Get a interactionsChunk by id |
-| `create` | Create a new interactionsChunk |
-| `update` | Update an existing interactionsChunk |
-| `delete` | Delete a interactionsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `interactionsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `interactionsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db interactions-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db interactions-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db interactions-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db interactions-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db interactions-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db interactions-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db interactions-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `memories-chunk`
-
-CRUD operations for MemoriesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all memoriesChunk records |
-| `find-first` | Find first matching memoriesChunk record |
-| `search <query>` | Search memoriesChunk records |
-| `get` | Get a memoriesChunk by id |
-| `create` | Create a new memoriesChunk |
-| `update` | Update an existing memoriesChunk |
-| `delete` | Delete a memoriesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `memoriesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `memoriesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db memories-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db memories-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db memories-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db memories-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db memories-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db memories-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db memories-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `message`
 
 CRUD operations for Message records.
@@ -5395,8 +3736,6 @@ CRUD operations for Message records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `conversationId` | UUID |
 | `role` | String |
 | `content` | String |
@@ -5404,6 +3743,7 @@ CRUD operations for Message records.
 | `meta` | JSON |
 | `toolCalls` | JSON |
 | `toolResults` | JSON |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -5416,7 +3756,7 @@ CRUD operations for Message records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `conversationId`, `role`, `content`
+**Required create fields:** `conversationId`, `role`, `content`
 **Optional create fields (backend defaults):** `tokenCount`, `meta`, `toolCalls`, `toolResults`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -5475,72 +3815,6 @@ agentic-db message list --where.fullTextSearch "search query" --select title,emb
 ```bash
 agentic-db message list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
 agentic-db message search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `messages-chunk`
-
-CRUD operations for MessagesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all messagesChunk records |
-| `find-first` | Find first matching messagesChunk record |
-| `search <query>` | Search messagesChunk records |
-| `get` | Get a messagesChunk by id |
-| `create` | Create a new messagesChunk |
-| `update` | Update an existing messagesChunk |
-| `delete` | Delete a messagesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `messagesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `messagesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db messages-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db messages-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db messages-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db messages-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db messages-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db messages-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db messages-chunk search "query" --limit 10 --select id,title,searchScore
 ```
 
 
@@ -5628,14 +3902,13 @@ CRUD operations for Place records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `address` | String |
 | `description` | String |
 | `category` | String |
 | `rating` | BigFloat |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -5651,7 +3924,7 @@ CRUD operations for Place records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `address`, `description`, `category`, `rating`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -5723,72 +3996,6 @@ agentic-db place search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `places-chunk`
-
-CRUD operations for PlacesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all placesChunk records |
-| `find-first` | Find first matching placesChunk record |
-| `search <query>` | Search placesChunk records |
-| `get` | Get a placesChunk by id |
-| `create` | Create a new placesChunk |
-| `update` | Update an existing placesChunk |
-| `delete` | Delete a placesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `placesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `placesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db places-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db places-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db places-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db places-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db places-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db places-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db places-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `project-contact`
 
 CRUD operations for ProjectContact records.
@@ -5808,142 +4015,8 @@ CRUD operations for ProjectContact records.
 |-------|------|
 | `projectId` | UUID |
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `projectId`, `contactId`, `entityId`
-
-### `projects-chunk`
-
-CRUD operations for ProjectsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all projectsChunk records |
-| `find-first` | Find first matching projectsChunk record |
-| `search <query>` | Search projectsChunk records |
-| `get` | Get a projectsChunk by id |
-| `create` | Create a new projectsChunk |
-| `update` | Update an existing projectsChunk |
-| `delete` | Delete a projectsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `projectsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `projectsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db projects-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db projects-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db projects-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db projects-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db projects-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db projects-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db projects-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
-### `prompts-chunk`
-
-CRUD operations for PromptsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all promptsChunk records |
-| `find-first` | Find first matching promptsChunk record |
-| `search <query>` | Search promptsChunk records |
-| `get` | Get a promptsChunk by id |
-| `create` | Create a new promptsChunk |
-| `update` | Update an existing promptsChunk |
-| `delete` | Delete a promptsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `promptsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `promptsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db prompts-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db prompts-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db prompts-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db prompts-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db prompts-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db prompts-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db prompts-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `projectId`, `contactId`
 
 ### `provider-sync-state`
 
@@ -5962,18 +4035,17 @@ CRUD operations for ProviderSyncState records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `provider` | String |
 | `resourceType` | String |
 | `syncCursor` | String |
 | `historyId` | String |
 | `lastSyncAt` | Datetime |
 | `status` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `provider`, `resourceType`
+**Required create fields:** `provider`, `resourceType`
 **Optional create fields (backend defaults):** `syncCursor`, `historyId`, `lastSyncAt`, `status`
 
 ### `raw-contact`
@@ -5993,8 +4065,6 @@ CRUD operations for RawContact records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `externalId` | String |
 | `source` | String |
 | `firstName` | String |
@@ -6008,10 +4078,10 @@ CRUD operations for RawContact records.
 | `rawData` | JSON |
 | `confidence` | BigFloat |
 | `ingestedAt` | Datetime |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`
 **Optional create fields (backend defaults):** `externalId`, `source`, `firstName`, `lastName`, `fullName`, `headline`, `bio`, `location`, `company`, `jobTitle`, `rawData`, `confidence`, `ingestedAt`
 
 ### `raw-contact-email`
@@ -6031,18 +4101,17 @@ CRUD operations for RawContactEmail records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `email` | String |
 | `emailType` | String |
 | `isPrimary` | Boolean |
 | `source` | String |
 | `confidence` | BigFloat |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `rawContactId` | UUID |
 
-**Required create fields:** `entityId`, `email`, `rawContactId`
+**Required create fields:** `email`, `rawContactId`
 **Optional create fields (backend defaults):** `emailType`, `isPrimary`, `source`, `confidence`
 
 ### `raw-contact-phone`
@@ -6062,18 +4131,17 @@ CRUD operations for RawContactPhone records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `phone` | String |
 | `phoneType` | String |
 | `isPrimary` | Boolean |
 | `source` | String |
 | `confidence` | BigFloat |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `rawContactId` | UUID |
 
-**Required create fields:** `entityId`, `phone`, `rawContactId`
+**Required create fields:** `phone`, `rawContactId`
 **Optional create fields (backend defaults):** `phoneType`, `isPrimary`, `source`, `confidence`
 
 ### `raw-contact-url`
@@ -6093,17 +4161,16 @@ CRUD operations for RawContactUrl records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `url` | String |
 | `urlType` | String |
 | `source` | String |
 | `confidence` | BigFloat |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `rawContactId` | UUID |
 
-**Required create fields:** `entityId`, `url`, `rawContactId`
+**Required create fields:** `url`, `rawContactId`
 **Optional create fields (backend defaults):** `urlType`, `source`, `confidence`
 
 ### `rule`
@@ -6124,8 +4191,6 @@ CRUD operations for Rule records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `description` | String |
 | `triggerType` | String |
@@ -6135,6 +4200,7 @@ CRUD operations for Rule records.
 | `isActive` | Boolean |
 | `priority` | Int |
 | `triggerConcept` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -6153,7 +4219,7 @@ CRUD operations for Rule records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `agentId`
+**Required create fields:** `name`, `agentId`
 **Optional create fields (backend defaults):** `description`, `triggerType`, `triggerConfig`, `actionType`, `actionConfig`, `isActive`, `priority`, `triggerConcept`, `embeddingText`, `embedding`, `embeddingStale`, `triggerConceptEmbedding`
 > **pgvector embedding fields:** `embedding`, `triggerConceptEmbedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -6250,72 +4316,6 @@ agentic-db rule search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `rules-chunk`
-
-CRUD operations for RulesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all rulesChunk records |
-| `find-first` | Find first matching rulesChunk record |
-| `search <query>` | Search rulesChunk records |
-| `get` | Get a rulesChunk by id |
-| `create` | Create a new rulesChunk |
-| `update` | Update an existing rulesChunk |
-| `delete` | Delete a rulesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `rulesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `rulesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db rules-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db rules-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db rules-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db rules-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db rules-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db rules-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db rules-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `runtime-artifact`
 
 CRUD operations for RuntimeArtifact records.
@@ -6333,18 +4333,17 @@ CRUD operations for RuntimeArtifact records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `runtimeStateId` | UUID |
 | `name` | String |
 | `artifactType` | String |
 | `content` | String |
 | `meta` | JSON |
 | `sizeBytes` | Int |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `runtimeStateId`, `name`
+**Required create fields:** `runtimeStateId`, `name`
 **Optional create fields (backend defaults):** `artifactType`, `content`, `meta`, `sizeBytes`
 
 ### `runtime-config`
@@ -6364,16 +4363,15 @@ CRUD operations for RuntimeConfig records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `key` | String |
 | `value` | JSON |
 | `description` | String |
 | `isSecret` | Boolean |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `key`
+**Required create fields:** `key`
 **Optional create fields (backend defaults):** `value`, `description`, `isSecret`
 
 ### `runtime-event`
@@ -6393,17 +4391,16 @@ CRUD operations for RuntimeEvent records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `eventType` | String |
 | `payload` | JSON |
 | `source` | String |
 | `processedAt` | Datetime |
 | `status` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `eventType`, `payload`
+**Required create fields:** `eventType`, `payload`
 **Optional create fields (backend defaults):** `source`, `processedAt`, `status`
 
 ### `runtime-log`
@@ -6424,13 +4421,12 @@ CRUD operations for RuntimeLog records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `runtimeStateId` | UUID |
 | `level` | String |
 | `message` | String |
 | `context` | JSON |
 | `stepIndex` | Int |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -6443,7 +4439,7 @@ CRUD operations for RuntimeLog records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `runtimeStateId`, `level`, `message`
+**Required create fields:** `runtimeStateId`, `level`, `message`
 **Optional create fields (backend defaults):** `context`, `stepIndex`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -6505,72 +4501,6 @@ agentic-db runtime-log search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `runtime-logs-chunk`
-
-CRUD operations for RuntimeLogsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeLogsChunk records |
-| `find-first` | Find first matching runtimeLogsChunk record |
-| `search <query>` | Search runtimeLogsChunk records |
-| `get` | Get a runtimeLogsChunk by id |
-| `create` | Create a new runtimeLogsChunk |
-| `update` | Update an existing runtimeLogsChunk |
-| `delete` | Delete a runtimeLogsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `runtimeLogsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `runtimeLogsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db runtime-logs-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db runtime-logs-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db runtime-logs-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db runtime-logs-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db runtime-logs-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db runtime-logs-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db runtime-logs-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `runtime-metric`
 
 CRUD operations for RuntimeMetric records.
@@ -6588,17 +4518,16 @@ CRUD operations for RuntimeMetric records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `runtimeStateId` | UUID |
 | `metricName` | String |
 | `metricValue` | BigFloat |
 | `unit` | String |
 | `meta` | JSON |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `runtimeStateId`, `metricName`, `metricValue`
+**Required create fields:** `runtimeStateId`, `metricName`, `metricValue`
 **Optional create fields (backend defaults):** `unit`, `meta`
 
 ### `runtime-schedule`
@@ -6618,8 +4547,6 @@ CRUD operations for RuntimeSchedule records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `cronExpression` | String |
 | `nextRunAt` | Datetime |
@@ -6627,10 +4554,11 @@ CRUD operations for RuntimeSchedule records.
 | `isActive` | Boolean |
 | `config` | JSON |
 | `timezone` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `cronExpression`, `nextRunAt`, `lastRunAt`, `isActive`, `config`, `timezone`
 
 ### `runtime-state`
@@ -6651,8 +4579,6 @@ CRUD operations for RuntimeState records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `stateType` | String |
 | `status` | String |
@@ -6660,6 +4586,7 @@ CRUD operations for RuntimeState records.
 | `parentId` | UUID |
 | `startedAt` | Datetime |
 | `endedAt` | Datetime |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -6673,7 +4600,7 @@ CRUD operations for RuntimeState records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `stateType`, `status`, `data`, `parentId`, `startedAt`, `endedAt`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -6759,76 +4686,8 @@ CRUD operations for RuntimeStateDependency records.
 |-------|------|
 | `stateId` | UUID |
 | `dependencyId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `stateId`, `dependencyId`, `entityId`
-
-### `runtime-states-chunk`
-
-CRUD operations for RuntimeStatesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeStatesChunk records |
-| `find-first` | Find first matching runtimeStatesChunk record |
-| `search <query>` | Search runtimeStatesChunk records |
-| `get` | Get a runtimeStatesChunk by id |
-| `create` | Create a new runtimeStatesChunk |
-| `update` | Update an existing runtimeStatesChunk |
-| `delete` | Delete a runtimeStatesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `runtimeStatesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `runtimeStatesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db runtime-states-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db runtime-states-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db runtime-states-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db runtime-states-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db runtime-states-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db runtime-states-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db runtime-states-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `stateId`, `dependencyId`
 
 ### `skill`
 
@@ -6848,8 +4707,6 @@ CRUD operations for Skill records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `description` | String |
 | `category` | String |
@@ -6857,6 +4714,7 @@ CRUD operations for Skill records.
 | `config` | JSON |
 | `isActive` | Boolean |
 | `intentTrigger` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -6875,7 +4733,7 @@ CRUD operations for Skill records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `agentId`
+**Required create fields:** `name`, `agentId`
 **Optional create fields (backend defaults):** `description`, `category`, `implementation`, `config`, `isActive`, `intentTrigger`, `embeddingText`, `embedding`, `embeddingStale`, `intentTriggerEmbedding`
 > **pgvector embedding fields:** `embedding`, `intentTriggerEmbedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -6972,72 +4830,6 @@ agentic-db skill search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `skills-chunk`
-
-CRUD operations for SkillsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all skillsChunk records |
-| `find-first` | Find first matching skillsChunk record |
-| `search <query>` | Search skillsChunk records |
-| `get` | Get a skillsChunk by id |
-| `create` | Create a new skillsChunk |
-| `update` | Update an existing skillsChunk |
-| `delete` | Delete a skillsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `skillsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `skillsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db skills-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db skills-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db skills-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db skills-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db skills-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db skills-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db skills-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `skill-tool`
 
 CRUD operations for SkillTool records.
@@ -7057,10 +4849,8 @@ CRUD operations for SkillTool records.
 |-------|------|
 | `skillId` | UUID |
 | `toolDefinitionId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `skillId`, `toolDefinitionId`, `entityId`
+**Required create fields:** `skillId`, `toolDefinitionId`
 
 ### `tool-definition`
 
@@ -7080,14 +4870,13 @@ CRUD operations for ToolDefinition records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `description` | String |
 | `toolType` | String |
 | `schema` | JSON |
 | `config` | JSON |
 | `isActive` | Boolean |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -7101,7 +4890,7 @@ CRUD operations for ToolDefinition records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `description`, `toolType`, `schema`, `config`, `isActive`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -7185,16 +4974,15 @@ CRUD operations for Tag records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `color` | String |
 | `category` | String |
 | `usageCount` | Int |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `color`, `category`, `usageCount`
 
 ### `task-contact`
@@ -7216,10 +5004,8 @@ CRUD operations for TaskContact records.
 |-------|------|
 | `taskId` | UUID |
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `taskId`, `contactId`, `entityId`
+**Required create fields:** `taskId`, `contactId`
 
 ### `task-note`
 
@@ -7240,10 +5026,8 @@ CRUD operations for TaskNote records.
 |-------|------|
 | `taskId` | UUID |
 | `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `taskId`, `noteId`, `entityId`
+**Required create fields:** `taskId`, `noteId`
 
 ### `task-project`
 
@@ -7264,76 +5048,8 @@ CRUD operations for TaskProject records.
 |-------|------|
 | `taskId` | UUID |
 | `projectId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `taskId`, `projectId`, `entityId`
-
-### `tasks-chunk`
-
-CRUD operations for TasksChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all tasksChunk records |
-| `find-first` | Find first matching tasksChunk record |
-| `search <query>` | Search tasksChunk records |
-| `get` | Get a tasksChunk by id |
-| `create` | Create a new tasksChunk |
-| `update` | Update an existing tasksChunk |
-| `delete` | Delete a tasksChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `tasksId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `tasksId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db tasks-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db tasks-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db tasks-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db tasks-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db tasks-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db tasks-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db tasks-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `taskId`, `projectId`
 
 ### `thread-participant`
 
@@ -7354,76 +5070,8 @@ CRUD operations for ThreadParticipant records.
 |-------|------|
 | `emailThreadId` | UUID |
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `emailThreadId`, `contactId`, `entityId`
-
-### `tool-definitions-chunk`
-
-CRUD operations for ToolDefinitionsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all toolDefinitionsChunk records |
-| `find-first` | Find first matching toolDefinitionsChunk record |
-| `search <query>` | Search toolDefinitionsChunk records |
-| `get` | Get a toolDefinitionsChunk by id |
-| `create` | Create a new toolDefinitionsChunk |
-| `update` | Update an existing toolDefinitionsChunk |
-| `delete` | Delete a toolDefinitionsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `toolDefinitionsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `toolDefinitionsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db tool-definitions-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db tool-definitions-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db tool-definitions-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db tool-definitions-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db tool-definitions-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db tool-definitions-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db tool-definitions-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
+**Required create fields:** `emailThreadId`, `contactId`
 
 ### `tool-execution`
 
@@ -7442,8 +5090,6 @@ CRUD operations for ToolExecution records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `toolDefinitionId` | UUID |
 | `messageId` | UUID |
 | `input` | JSON |
@@ -7452,10 +5098,11 @@ CRUD operations for ToolExecution records.
 | `startedAt` | Datetime |
 | `completedAt` | Datetime |
 | `error` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `toolDefinitionId`
+**Required create fields:** `toolDefinitionId`
 **Optional create fields (backend defaults):** `messageId`, `input`, `output`, `status`, `startedAt`, `completedAt`, `error`
 
 ### `touchpoint`
@@ -7476,8 +5123,6 @@ CRUD operations for Touchpoint records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `contactId` | UUID |
 | `touchpointType` | String |
 | `occurredAt` | Datetime |
@@ -7491,6 +5136,7 @@ CRUD operations for Touchpoint records.
 | `eventId` | UUID |
 | `meta` | JSON |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -7507,7 +5153,7 @@ CRUD operations for Touchpoint records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `contactId`, `touchpointType`, `occurredAt`
+**Required create fields:** `contactId`, `touchpointType`, `occurredAt`
 **Optional create fields (backend defaults):** `subject`, `summary`, `sentiment`, `direction`, `channel`, `dealId`, `companyId`, `eventId`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -7589,72 +5235,6 @@ agentic-db touchpoint search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `touchpoints-chunk`
-
-CRUD operations for TouchpointsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all touchpointsChunk records |
-| `find-first` | Find first matching touchpointsChunk record |
-| `search <query>` | Search touchpointsChunk records |
-| `get` | Get a touchpointsChunk by id |
-| `create` | Create a new touchpointsChunk |
-| `update` | Update an existing touchpointsChunk |
-| `delete` | Delete a touchpointsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `touchpointsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `touchpointsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db touchpoints-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db touchpoints-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db touchpoints-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db touchpoints-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db touchpoints-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db touchpoints-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db touchpoints-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `trip`
 
 CRUD operations for Trip records.
@@ -7673,14 +5253,13 @@ CRUD operations for Trip records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
 | `destination` | String |
 | `description` | String |
 | `startDate` | Datetime |
 | `endDate` | Datetime |
 | `tags` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
@@ -7695,7 +5274,7 @@ CRUD operations for Trip records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `name`
 **Optional create fields (backend defaults):** `destination`, `description`, `startDate`, `endDate`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `destinationGeo`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -7762,72 +5341,6 @@ agentic-db trip search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `trips-chunk`
-
-CRUD operations for TripsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all tripsChunk records |
-| `find-first` | Find first matching tripsChunk record |
-| `search <query>` | Search tripsChunk records |
-| `get` | Get a tripsChunk by id |
-| `create` | Create a new tripsChunk |
-| `update` | Update an existing tripsChunk |
-| `delete` | Delete a tripsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `tripsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `tripsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
-
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-**Search Examples:**
-
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db trips-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
-
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db trips-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db trips-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
-
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db trips-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db trips-chunk update --embedding "new text to embed" --auto-embed
-```
-
-*Search with pagination and field projection:*
-```bash
-agentic-db trips-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db trips-chunk search "query" --limit 10 --select id,title,searchScore
-```
-
-
 ### `venue-image`
 
 CRUD operations for VenueImage records.
@@ -7847,10 +5360,8 @@ CRUD operations for VenueImage records.
 |-------|------|
 | `venueId` | UUID |
 | `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `venueId`, `imageId`, `entityId`
+**Required create fields:** `venueId`, `imageId`
 
 ### `venue-link`
 
@@ -7870,10 +5381,9 @@ CRUD operations for VenueLink records.
 
 | Field | Type |
 |-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `title` | String |
 | `url` | String |
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
@@ -7882,7 +5392,7 @@ CRUD operations for VenueLink records.
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `venueId`
+**Required create fields:** `url`, `venueId`
 **Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
@@ -7919,71 +5429,52 @@ agentic-db venue-link search "query" --limit 10 --select id,title,searchScore
 ```
 
 
-### `venues-chunk`
+## Custom Operations
 
-CRUD operations for VenuesChunk records.
+### `request-upload-url`
 
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all venuesChunk records |
-| `find-first` | Find first matching venuesChunk record |
-| `search <query>` | Search venuesChunk records |
-| `get` | Get a venuesChunk by id |
-| `create` | Create a new venuesChunk |
-| `update` | Update an existing venuesChunk |
-| `delete` | Delete a venuesChunk |
+Request a presigned URL for uploading a file directly to S3.
+Client computes SHA-256 of the file content and provides it here.
+If a file with the same hash already exists (dedup), returns the
+existing file ID and deduplicated=true with no uploadUrl.
 
-**Fields:**
+- **Type:** mutation
+- **Arguments:**
 
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `venuesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
+  | Argument | Type |
+  |----------|------|
+  | `--input.bucketKey` | String (required) |
+  | `--input.contentHash` | String (required) |
+  | `--input.contentType` | String (required) |
+  | `--input.size` | Int (required) |
+  | `--input.filename` | String |
 
-**Required create fields:** `venuesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **pgvector embedding fields:** `embedding`
-> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
+### `confirm-upload`
 
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+Confirm that a file has been uploaded to S3.
+Verifies the object exists in S3, checks content-type,
+and transitions the file status from 'pending' to 'ready'.
 
-**Search Examples:**
+- **Type:** mutation
+- **Arguments:**
 
-*Vector similarity search via `embedding` (manual vector):*
-```bash
-# Pass a pre-computed vector array via dot-notation
-agentic-db venues-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
-```
+  | Argument | Type |
+  |----------|------|
+  | `--input.fileId` | UUID (required) |
 
-*Vector semantic search via `embedding` with --auto-embed:*
-```bash
-# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
-EMBEDDER_PROVIDER=ollama agentic-db venues-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
-EMBEDDER_PROVIDER=ollama agentic-db venues-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
-```
+### `provision-bucket`
 
-*Create/update with auto-embedded `embedding` via --auto-embed:*
-```bash
-# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
-EMBEDDER_PROVIDER=ollama agentic-db venues-chunk create --embedding "text to embed" --auto-embed
-EMBEDDER_PROVIDER=ollama agentic-db venues-chunk update --embedding "new text to embed" --auto-embed
-```
+Provision an S3 bucket for a logical bucket in the database.
+Reads the bucket config via RLS, then creates and configures
+the S3 bucket with the appropriate privacy policies, CORS rules,
+and lifecycle settings.
 
-*Search with pagination and field projection:*
-```bash
-agentic-db venues-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
-agentic-db venues-chunk search "query" --limit 10 --select id,title,searchScore
-```
+- **Type:** mutation
+- **Arguments:**
 
+  | Argument | Type |
+  |----------|------|
+  | `--input.bucketKey` | String (required) |
 
 ## Output
 

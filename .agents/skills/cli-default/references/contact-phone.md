@@ -12,8 +12,8 @@ agentic-db contact-phone list --where.<field>.<op> <value> --orderBy <values>
 agentic-db contact-phone list --limit 10 --after <cursor>
 agentic-db contact-phone find-first --where.<field>.<op> <value>
 agentic-db contact-phone get --id <UUID>
-agentic-db contact-phone create --entityId <UUID> --phone <String> --contactId <UUID> [--phoneType <String>] [--isPrimary <Boolean>]
-agentic-db contact-phone update --id <UUID> [--entityId <UUID>] [--phone <String>] [--phoneType <String>] [--isPrimary <Boolean>] [--contactId <UUID>]
+agentic-db contact-phone create --phone <String> --contactId <UUID> [--phoneType <String>] [--isPrimary <Boolean>]
+agentic-db contact-phone update --id <UUID> [--phone <String>] [--phoneType <String>] [--isPrimary <Boolean>] [--contactId <UUID>]
 agentic-db contact-phone delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db contact-phone list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a contactPhone
 
 ```bash
-agentic-db contact-phone create --entityId <UUID> --phone <String> --contactId <UUID> [--phoneType <String>] [--isPrimary <Boolean>]
+agentic-db contact-phone create --phone <String> --contactId <UUID> [--phoneType <String>] [--isPrimary <Boolean>]
 ```
 
 ### Get a contactPhone by id

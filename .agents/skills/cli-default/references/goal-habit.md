@@ -12,8 +12,8 @@ agentic-db goal-habit list --where.<field>.<op> <value> --orderBy <values>
 agentic-db goal-habit list --limit 10 --after <cursor>
 agentic-db goal-habit find-first --where.<field>.<op> <value>
 agentic-db goal-habit get --id <UUID>
-agentic-db goal-habit create --goalId <UUID> --habitId <UUID> --entityId <UUID>
-agentic-db goal-habit update --id <UUID> [--goalId <UUID>] [--habitId <UUID>] [--entityId <UUID>]
+agentic-db goal-habit create --goalId <UUID> --habitId <UUID>
+agentic-db goal-habit update --id <UUID> [--goalId <UUID>] [--habitId <UUID>]
 agentic-db goal-habit delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db goal-habit list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a goalHabit
 
 ```bash
-agentic-db goal-habit create --goalId <UUID> --habitId <UUID> --entityId <UUID>
+agentic-db goal-habit create --goalId <UUID> --habitId <UUID>
 ```
 
 ### Get a goalHabit by id

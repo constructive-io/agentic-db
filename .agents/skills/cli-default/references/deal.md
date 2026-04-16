@@ -19,8 +19,8 @@ agentic-db deal list --limit 10 --after <cursor>
 agentic-db deal find-first --where.<field>.<op> <value>
 agentic-db deal search <query>
 agentic-db deal get --id <UUID>
-agentic-db deal create --entityId <UUID> --name <String> [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db deal update --id <UUID> [--entityId <UUID>] [--name <String>] [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db deal create --name <String> [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db deal update --id <UUID> [--name <String>] [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db deal delete --id <UUID>
 ```
 
@@ -137,7 +137,7 @@ agentic-db deal search "query" --limit 10 --select id,title,searchScore
 ### Create a deal
 
 ```bash
-agentic-db deal create --entityId <UUID> --name <String> [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db deal create --name <String> [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a deal by id

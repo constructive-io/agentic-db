@@ -12,8 +12,8 @@ agentic-db provider-sync-state list --where.<field>.<op> <value> --orderBy <valu
 agentic-db provider-sync-state list --limit 10 --after <cursor>
 agentic-db provider-sync-state find-first --where.<field>.<op> <value>
 agentic-db provider-sync-state get --id <UUID>
-agentic-db provider-sync-state create --entityId <UUID> --provider <String> --resourceType <String> [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
-agentic-db provider-sync-state update --id <UUID> [--entityId <UUID>] [--provider <String>] [--resourceType <String>] [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
+agentic-db provider-sync-state create --provider <String> --resourceType <String> [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
+agentic-db provider-sync-state update --id <UUID> [--provider <String>] [--resourceType <String>] [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
 agentic-db provider-sync-state delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db provider-sync-state list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a providerSyncState
 
 ```bash
-agentic-db provider-sync-state create --entityId <UUID> --provider <String> --resourceType <String> [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
+agentic-db provider-sync-state create --provider <String> --resourceType <String> [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
 ```
 
 ### Get a providerSyncState by id

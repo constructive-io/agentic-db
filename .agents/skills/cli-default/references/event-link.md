@@ -19,8 +19,8 @@ agentic-db event-link list --limit 10 --after <cursor>
 agentic-db event-link find-first --where.<field>.<op> <value>
 agentic-db event-link search <query>
 agentic-db event-link get --id <UUID>
-agentic-db event-link create --entityId <UUID> --url <String> --eventId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db event-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--eventId <UUID>]
+agentic-db event-link create --url <String> --eventId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db event-link update --id <UUID> [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--eventId <UUID>]
 agentic-db event-link delete --id <UUID>
 ```
 
@@ -95,7 +95,7 @@ agentic-db event-link search "query" --limit 10 --select id,title,searchScore
 ### Create a eventLink
 
 ```bash
-agentic-db event-link create --entityId <UUID> --url <String> --eventId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db event-link create --url <String> --eventId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a eventLink by id

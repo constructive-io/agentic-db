@@ -18,11 +18,9 @@ import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
   dealId: 'uuid',
   companyId: 'uuid',
-  id: 'uuid',
-  entityId: 'uuid',
 };
 const usage =
-  '\ndeal-company <command>\n\nCommands:\n  list                  List dealCompany records\n  find-first            Find first matching dealCompany record\n  get                   Get a dealCompany by ID\n  create                Create a new dealCompany\n  update                Update an existing dealCompany\n  delete                Delete a dealCompany\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\n  --help, -h            Show this help message\n';
+  '\ndeal-company <command>\n\nCommands:\n  list                  List dealCompany records\n  find-first            Find first matching dealCompany record\n  create                Create a new dealCompany\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -39,7 +37,7 @@ export default async (
         type: 'autocomplete',
         name: 'subcommand',
         message: 'What do you want to do?',
-        options: ['list', 'find-first', 'get', 'create', 'update', 'delete'],
+        options: ['list', 'find-first', 'create'],
       },
     ]);
     return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
@@ -56,14 +54,8 @@ async function handleTableSubcommand(
       return handleList(argv, prompter);
     case 'find-first':
       return handleFindFirst(argv, prompter);
-    case 'get':
-      return handleGet(argv, prompter);
     case 'create':
       return handleCreate(argv, prompter);
-    case 'update':
-      return handleUpdate(argv, prompter);
-    case 'delete':
-      return handleDelete(argv, prompter);
     default:
       console.log(usage);
       process.exit(1);
@@ -74,8 +66,6 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
     const defaultSelect = {
       dealId: true,
       companyId: true,
-      id: true,
-      entityId: true,
     };
     const findManyArgs = parseFindManyArgs<
       FindManyArgs<DealCompanySelect, DealCompanyFilter, never, DealCompanyOrderBy> & {
@@ -98,8 +88,6 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
     const defaultSelect = {
       dealId: true,
       companyId: true,
-      id: true,
-      entityId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
       FindFirstArgs<DealCompanySelect, DealCompanyFilter, never> & {
@@ -111,37 +99,6 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to find record.');
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-    process.exit(1);
-  }
-}
-async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
-  try {
-    const answers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'id',
-        message: 'id',
-        required: true,
-      },
-    ]);
-    const client = getClient();
-    const result = await client.dealCompany
-      .findOne({
-        id: answers.id as string,
-        select: {
-          dealId: true,
-          companyId: true,
-          id: true,
-          entityId: true,
-        },
-      })
-      .execute();
-    console.log(JSON.stringify(result, null, 2));
-  } catch (error) {
-    console.error('Record not found.');
     if (error instanceof Error) {
       console.error(error.message);
     }
@@ -163,12 +120,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'companyId',
         required: true,
       },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -181,108 +132,16 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         data: {
           dealId: cleanedData.dealId,
           companyId: cleanedData.companyId,
-          entityId: cleanedData.entityId,
         },
         select: {
           dealId: true,
           companyId: true,
-          id: true,
-          entityId: true,
         },
       })
       .execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to create record.');
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-    process.exit(1);
-  }
-}
-async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
-  try {
-    const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'id',
-        message: 'id',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'dealId',
-        message: 'dealId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'companyId',
-        message: 'companyId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
-      },
-    ]);
-    const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema) as DealCompanyPatch;
-    const client = getClient();
-    const result = await client.dealCompany
-      .update({
-        where: {
-          id: answers.id as string,
-        },
-        data: {
-          dealId: cleanedData.dealId,
-          companyId: cleanedData.companyId,
-          entityId: cleanedData.entityId,
-        },
-        select: {
-          dealId: true,
-          companyId: true,
-          id: true,
-          entityId: true,
-        },
-      })
-      .execute();
-    console.log(JSON.stringify(result, null, 2));
-  } catch (error) {
-    console.error('Failed to update record.');
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-    process.exit(1);
-  }
-}
-async function handleDelete(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
-  try {
-    const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'id',
-        message: 'id',
-        required: true,
-      },
-    ]);
-    const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const client = getClient();
-    const result = await client.dealCompany
-      .delete({
-        where: {
-          id: answers.id as string,
-        },
-        select: {
-          id: true,
-        },
-      })
-      .execute();
-    console.log(JSON.stringify(result, null, 2));
-  } catch (error) {
-    console.error('Failed to delete record.');
     if (error instanceof Error) {
       console.error(error.message);
     }

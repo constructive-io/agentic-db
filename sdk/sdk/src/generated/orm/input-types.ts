@@ -233,9 +233,39 @@ export interface UUIDListFilter {
 // ============ Custom Scalar Types ============
 export type GeographyInterface = unknown;
 // ============ Entity Types ============
-export interface AgentCollaborator {
-  agentId?: string | null;
-  collaboratorId?: string | null;
+export interface ActivityLog {
+  activityType?: string | null;
+  completedAt?: string | null;
+  durationMinutes?: number | null;
+  quantity?: string | null;
+  quantityUnit?: string | null;
+  intensity?: string | null;
+  notes?: string | null;
+  meta?: Record<string, unknown> | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  habitId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `activityType`. Returns null when no trgm search filter is active. */
+  activityTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `quantityUnit`. Returns null when no trgm search filter is active. */
+  quantityUnitTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `intensity`. Returns null when no trgm search filter is active. */
+  intensityTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
+  notesTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface Agent {
   name?: string | null;
@@ -271,6 +301,39 @@ export interface Agent {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface AgentCollaborator {
+  agentId?: string | null;
+  collaboratorId?: string | null;
+}
+export interface AgentLog {
+  agentId?: string | null;
+  level?: string | null;
+  message?: string | null;
+  context?: Record<string, unknown> | null;
+  taskId?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `level`. Returns null when no trgm search filter is active. */
+  levelTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `message`. Returns null when no trgm search filter is active. */
+  messageTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface AgentPrompt {
+  agentId?: string | null;
+  promptId?: string | null;
+}
 export interface Prompt {
   name?: string | null;
   content?: string | null;
@@ -299,20 +362,15 @@ export interface Prompt {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface AgentPrompt {
-  agentId?: string | null;
-  promptId?: string | null;
-}
-export interface Task {
-  agentId?: string | null;
+export interface AutonomyRecord {
   title?: string | null;
-  description?: string | null;
+  recordType?: string | null;
+  content?: string | null;
   status?: string | null;
   priority?: number | null;
-  result?: string | null;
-  startedAt?: string | null;
-  completedAt?: string | null;
-  meta?: Record<string, unknown> | null;
+  source?: string | null;
+  context?: Record<string, unknown> | null;
+  tags?: string[] | null;
   id: string;
   createdAt?: string | null;
   updatedAt?: string | null;
@@ -325,16 +383,80 @@ export interface Task {
   embeddingVectorDistance?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `recordType`. Returns null when no trgm search filter is active. */
+  recordTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
   statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `result`. Returns null when no trgm search filter is active. */
-  resultTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `source`. Returns null when no trgm search filter is active. */
+  sourceTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
+}
+export interface AutonomyRecordLink {
+  sourceRecordId?: string | null;
+  targetRecordId?: string | null;
+}
+export interface CalendarAttendee {
+  contactId?: string | null;
+  responseStatus?: string | null;
+  role?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  calendarEventId?: string | null;
+}
+export interface Calendar {
+  providerAccountId?: string | null;
+  providerCalendarId?: string | null;
+  name?: string | null;
+  color?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface CalendarEvent {
+  providerEventId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  startTime?: string | null;
+  endTime?: string | null;
+  meetingUrl?: string | null;
+  organizerContactId?: string | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  searchTsv?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  calendarId?: string | null;
+  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
+  searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `providerEventId`. Returns null when no trgm search filter is active. */
+  providerEventIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `meetingUrl`. Returns null when no trgm search filter is active. */
+  meetingUrlTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface CalendarEventContact {
+  calendarEventId?: string | null;
+  contactId?: string | null;
 }
 export interface Contact {
   firstName?: string | null;
@@ -384,24 +506,76 @@ export interface Contact {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface Image {
-  url?: string | null;
-  meta?: Record<string, unknown> | null;
-  altText?: string | null;
-  caption?: string | null;
+export interface CalendarEventNote {
+  calendarEventId?: string | null;
+  noteId?: string | null;
+}
+export interface Note {
+  content?: string | null;
+  abstract?: string | null;
+  overview?: string | null;
+  activeCount?: number | null;
+  lastAccessedAt?: string | null;
+  tags?: string[] | null;
   id: string;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `abstract`. Returns null when no trgm search filter is active. */
+  abstractTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `overview`. Returns null when no trgm search filter is active. */
+  overviewTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface ContactImage {
-  contactId?: string | null;
-  imageId?: string | null;
+export interface CalendarEventTask {
+  calendarEventId?: string | null;
+  taskId?: string | null;
+}
+export interface Task {
+  agentId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  result?: string | null;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  meta?: Record<string, unknown> | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `result`. Returns null when no trgm search filter is active. */
+  resultTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface Company {
   name?: string | null;
@@ -436,13 +610,40 @@ export interface Company {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface CompanyImage {
-  companyId?: string | null;
-  imageId?: string | null;
+export interface Deal {
+  name?: string | null;
+  stage?: string | null;
+  value?: string | null;
+  currency?: string | null;
+  expectedCloseDate?: string | null;
+  notesText?: string | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `stage`. Returns null when no trgm search filter is active. */
+  stageTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `currency`. Returns null when no trgm search filter is active. */
+  currencyTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `notesText`. Returns null when no trgm search filter is active. */
+  notesTextTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
-export interface ContactCompany {
-  contactId?: string | null;
+export interface CompanyEvent {
   companyId?: string | null;
+  eventId?: string | null;
 }
 export interface Event {
   name?: string | null;
@@ -483,17 +684,364 @@ export interface Event {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface EventImage {
-  eventId?: string | null;
+export interface CompanyImage {
+  companyId?: string | null;
   imageId?: string | null;
+}
+export interface Image {
+  url?: string | null;
+  meta?: Record<string, unknown> | null;
+  altText?: string | null;
+  caption?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface CompanyLink {
+  title?: string | null;
+  url?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  companyId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface Memory {
+  title?: string | null;
+  content?: string | null;
+  location?: string | null;
+  occurredAt?: string | null;
+  mood?: string | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
+  agentId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `location`. Returns null when no trgm search filter is active. */
+  locationTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `mood`. Returns null when no trgm search filter is active. */
+  moodTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface CompanyMemory {
+  companyId?: string | null;
+  memoryId?: string | null;
+}
+export interface CompanyNote {
+  companyId?: string | null;
+  noteId?: string | null;
+}
+export interface ContactAddress {
+  street?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  addressType?: string | null;
+  isPrimary?: boolean | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
+}
+export interface ContactCompany {
+  contactId?: string | null;
+  companyId?: string | null;
+}
+export interface ContactEmail {
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
+}
+export interface Email {
+  providerMessageId?: string | null;
+  fromContactId?: string | null;
+  to?: Record<string, unknown> | null;
+  cc?: Record<string, unknown> | null;
+  bcc?: Record<string, unknown> | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  bodyHtml?: string | null;
+  sentAt?: string | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  searchTsv?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  emailThreadId?: string | null;
+}
+export interface EmailThread {
+  providerThreadId?: string | null;
+  subject?: string | null;
+  lastMessageAt?: string | null;
+  summary?: string | null;
+  status?: string | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  searchTsv?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
+  searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `providerThreadId`. Returns null when no trgm search filter is active. */
+  providerThreadIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
+  subjectTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
+  summaryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface ContactEvent {
   contactId?: string | null;
   eventId?: string | null;
 }
-export interface CompanyEvent {
+export interface Expense {
+  description?: string | null;
+  amount?: string | null;
+  currency?: string | null;
+  category?: string | null;
+  occurredAt?: string | null;
+  vendor?: string | null;
+  notes?: string | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  tripId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `currency`. Returns null when no trgm search filter is active. */
+  currencyTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
+  categoryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `vendor`. Returns null when no trgm search filter is active. */
+  vendorTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
+  notesTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface ContactImage {
+  contactId?: string | null;
+  imageId?: string | null;
+}
+export interface ContactLink {
+  title?: string | null;
+  url?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  contactId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface ContactMemory {
+  contactId?: string | null;
+  memoryId?: string | null;
+}
+export interface ContactNote {
+  contactId?: string | null;
+  noteId?: string | null;
+}
+export interface ContactPhone {
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
+}
+export interface Project {
+  name?: string | null;
+  description?: string | null;
+  status?: string | null;
+  projectType?: string | null;
+  priority?: number | null;
+  startedAt?: string | null;
+  targetDate?: string | null;
+  completedAt?: string | null;
+  config?: Record<string, unknown> | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `projectType`. Returns null when no trgm search filter is active. */
+  projectTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface ContactRelationship {
+  contactId?: string | null;
+  relatedContactId?: string | null;
+}
+export interface ContactsChunk {
+  id: string;
+  contactsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface Conversation {
+  title?: string | null;
+  agentId?: string | null;
+  status?: string | null;
+  meta?: Record<string, unknown> | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface DealCompany {
+  dealId?: string | null;
   companyId?: string | null;
+}
+export interface DealContact {
+  dealId?: string | null;
+  contactId?: string | null;
+}
+export interface DealNote {
+  dealId?: string | null;
+  noteId?: string | null;
+}
+export interface EmailAttachment {
+  filename?: string | null;
+  contentType?: string | null;
+  sizeBytes?: number | null;
+  storageUrl?: string | null;
+  providerAttachmentId?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  emailId?: string | null;
+}
+export interface EmailNote {
+  emailId?: string | null;
+  noteId?: string | null;
+}
+export interface EmailRecipient {
+  emailId?: string | null;
+  contactId?: string | null;
+}
+export interface EventImage {
   eventId?: string | null;
+  imageId?: string | null;
+}
+export interface EventLink {
+  title?: string | null;
+  url?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  eventId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface EventNote {
+  eventId?: string | null;
+  noteId?: string | null;
+}
+export interface EventVenue {
+  eventId?: string | null;
+  venueId?: string | null;
 }
 export interface Venue {
   name?: string | null;
@@ -546,34 +1094,16 @@ export interface Venue {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface VenueImage {
-  venueId?: string | null;
-  imageId?: string | null;
+export interface ExpenseContact {
+  expenseId?: string | null;
+  contactId?: string | null;
 }
-export interface EventVenue {
-  eventId?: string | null;
-  venueId?: string | null;
-}
-export interface VenueLink {
+export interface Goal {
   title?: string | null;
-  url?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  venueId?: string | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Note {
-  content?: string | null;
-  abstract?: string | null;
-  overview?: string | null;
-  activeCount?: number | null;
-  lastAccessedAt?: string | null;
+  description?: string | null;
+  status?: string | null;
+  targetDate?: string | null;
+  progress?: string | null;
   tags?: string[] | null;
   id: string;
   createdAt?: string | null;
@@ -581,39 +1111,328 @@ export interface Note {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
-  contentBm25Score?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `abstract`. Returns null when no trgm search filter is active. */
-  abstractTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `overview`. Returns null when no trgm search filter is active. */
-  overviewTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface ContactNote {
-  contactId?: string | null;
-  noteId?: string | null;
+export interface GoalHabit {
+  goalId?: string | null;
+  habitId?: string | null;
 }
-export interface CompanyNote {
-  companyId?: string | null;
-  noteId?: string | null;
-}
-export interface Deal {
+export interface Habit {
   name?: string | null;
-  stage?: string | null;
-  value?: string | null;
-  currency?: string | null;
-  expectedCloseDate?: string | null;
-  notesText?: string | null;
+  frequency?: string | null;
+  streak?: number | null;
+  lastCompletedAt?: string | null;
   tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface GoalProject {
+  goalId?: string | null;
+  projectId?: string | null;
+}
+export interface Interaction {
+  contactId?: string | null;
+  type?: string | null;
+  occurredAt?: string | null;
+  summary?: string | null;
+  sentiment?: string | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `type`. Returns null when no trgm search filter is active. */
+  typeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
+  summaryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `sentiment`. Returns null when no trgm search filter is active. */
+  sentimentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface Message {
+  conversationId?: string | null;
+  role?: string | null;
+  content?: string | null;
+  tokenCount?: number | null;
+  meta?: Record<string, unknown> | null;
+  toolCalls?: Record<string, unknown> | null;
+  toolResults?: Record<string, unknown> | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `role`. Returns null when no trgm search filter is active. */
+  roleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface NotesChunk {
+  id: string;
+  notesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface Place {
+  name?: string | null;
+  address?: string | null;
+  description?: string | null;
+  category?: string | null;
+  rating?: string | null;
+  tags?: string[] | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `address`. Returns null when no trgm search filter is active. */
+  addressTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
+  categoryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface ProjectContact {
+  projectId?: string | null;
+  contactId?: string | null;
+}
+export interface ProviderSyncState {
+  provider?: string | null;
+  resourceType?: string | null;
+  syncCursor?: string | null;
+  historyId?: string | null;
+  lastSyncAt?: string | null;
+  status?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RawContact {
+  externalId?: string | null;
+  source?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  fullName?: string | null;
+  headline?: string | null;
+  bio?: string | null;
+  location?: string | null;
+  company?: string | null;
+  jobTitle?: string | null;
+  rawData?: Record<string, unknown> | null;
+  confidence?: string | null;
+  ingestedAt?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RawContactEmail {
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  source?: string | null;
+  confidence?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  rawContactId?: string | null;
+}
+export interface RawContactPhone {
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  source?: string | null;
+  confidence?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  rawContactId?: string | null;
+}
+export interface RawContactUrl {
+  url?: string | null;
+  urlType?: string | null;
+  source?: string | null;
+  confidence?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  rawContactId?: string | null;
+}
+export interface Rule {
+  name?: string | null;
+  description?: string | null;
+  triggerType?: string | null;
+  triggerConfig?: Record<string, unknown> | null;
+  actionType?: string | null;
+  actionConfig?: Record<string, unknown> | null;
+  isActive?: boolean | null;
+  priority?: number | null;
+  triggerConcept?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  triggerConceptEmbedding?: number[] | null;
+  agentId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** VECTOR distance when searching `triggerConceptEmbedding`. Returns null when no vector search filter is active. */
+  triggerConceptEmbeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `triggerType`. Returns null when no trgm search filter is active. */
+  triggerTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `actionType`. Returns null when no trgm search filter is active. */
+  actionTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `triggerConcept`. Returns null when no trgm search filter is active. */
+  triggerConceptTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface RuntimeArtifact {
+  runtimeStateId?: string | null;
+  name?: string | null;
+  artifactType?: string | null;
+  content?: string | null;
+  meta?: Record<string, unknown> | null;
+  sizeBytes?: number | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RuntimeConfig {
+  key?: string | null;
+  value?: Record<string, unknown> | null;
+  description?: string | null;
+  isSecret?: boolean | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RuntimeEvent {
+  eventType?: string | null;
+  payload?: Record<string, unknown> | null;
+  source?: string | null;
+  processedAt?: string | null;
+  status?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RuntimeLog {
+  runtimeStateId?: string | null;
+  level?: string | null;
+  message?: string | null;
+  context?: Record<string, unknown> | null;
+  stepIndex?: number | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `level`. Returns null when no trgm search filter is active. */
+  levelTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `message`. Returns null when no trgm search filter is active. */
+  messageTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface RuntimeMetric {
+  runtimeStateId?: string | null;
+  metricName?: string | null;
+  metricValue?: string | null;
+  unit?: string | null;
+  meta?: Record<string, unknown> | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RuntimeSchedule {
+  name?: string | null;
+  cronExpression?: string | null;
+  nextRunAt?: string | null;
+  lastRunAt?: string | null;
+  isActive?: boolean | null;
+  config?: Record<string, unknown> | null;
+  timezone?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RuntimeState {
+  name?: string | null;
+  stateType?: string | null;
+  status?: string | null;
+  data?: Record<string, unknown> | null;
+  parentId?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
   id: string;
   createdAt?: string | null;
   updatedAt?: string | null;
@@ -626,28 +1445,125 @@ export interface Deal {
   embeddingVectorDistance?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `stage`. Returns null when no trgm search filter is active. */
-  stageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `currency`. Returns null when no trgm search filter is active. */
-  currencyTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `notesText`. Returns null when no trgm search filter is active. */
-  notesTextTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `stateType`. Returns null when no trgm search filter is active. */
+  stateTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface DealContact {
-  dealId?: string | null;
+export interface RuntimeStateDependency {
+  stateId?: string | null;
+  dependencyId?: string | null;
+}
+export interface Skill {
+  name?: string | null;
+  description?: string | null;
+  category?: string | null;
+  implementation?: string | null;
+  config?: Record<string, unknown> | null;
+  isActive?: boolean | null;
+  intentTrigger?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  intentTriggerEmbedding?: number[] | null;
+  agentId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** VECTOR distance when searching `intentTriggerEmbedding`. Returns null when no vector search filter is active. */
+  intentTriggerEmbeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
+  categoryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `implementation`. Returns null when no trgm search filter is active. */
+  implementationTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `intentTrigger`. Returns null when no trgm search filter is active. */
+  intentTriggerTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface SkillTool {
+  skillId?: string | null;
+  toolDefinitionId?: string | null;
+}
+export interface ToolDefinition {
+  name?: string | null;
+  description?: string | null;
+  toolType?: string | null;
+  schema?: Record<string, unknown> | null;
+  config?: Record<string, unknown> | null;
+  isActive?: boolean | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `toolType`. Returns null when no trgm search filter is active. */
+  toolTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface Tag {
+  name?: string | null;
+  color?: string | null;
+  category?: string | null;
+  usageCount?: number | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface TaskContact {
+  taskId?: string | null;
   contactId?: string | null;
 }
-export interface DealCompany {
-  dealId?: string | null;
-  companyId?: string | null;
-}
-export interface DealNote {
-  dealId?: string | null;
+export interface TaskNote {
+  taskId?: string | null;
   noteId?: string | null;
+}
+export interface TaskProject {
+  taskId?: string | null;
+  projectId?: string | null;
+}
+export interface ThreadParticipant {
+  emailThreadId?: string | null;
+  contactId?: string | null;
+}
+export interface ToolExecution {
+  toolDefinitionId?: string | null;
+  messageId?: string | null;
+  input?: Record<string, unknown> | null;
+  output?: Record<string, unknown> | null;
+  status?: string | null;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  error?: string | null;
+  id: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface Touchpoint {
   contactId?: string | null;
@@ -690,1006 +1606,6 @@ export interface Touchpoint {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface EventNote {
-  eventId?: string | null;
-  noteId?: string | null;
-}
-export interface TaskNote {
-  taskId?: string | null;
-  noteId?: string | null;
-}
-export interface Email {
-  providerMessageId?: string | null;
-  fromContactId?: string | null;
-  to?: Record<string, unknown> | null;
-  cc?: Record<string, unknown> | null;
-  bcc?: Record<string, unknown> | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  bodyHtml?: string | null;
-  sentAt?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  searchTsv?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  emailThreadId?: string | null;
-  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
-  searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `providerMessageId`. Returns null when no trgm search filter is active. */
-  providerMessageIdTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
-  subjectTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active. */
-  bodyTextTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `bodyHtml`. Returns null when no trgm search filter is active. */
-  bodyHtmlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface EmailRecipient {
-  emailId?: string | null;
-  contactId?: string | null;
-}
-export interface EmailNote {
-  emailId?: string | null;
-  noteId?: string | null;
-}
-export interface ThreadParticipant {
-  emailThreadId?: string | null;
-  contactId?: string | null;
-}
-export interface EmailAttachment {
-  filename?: string | null;
-  contentType?: string | null;
-  sizeBytes?: number | null;
-  storageUrl?: string | null;
-  providerAttachmentId?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  emailId?: string | null;
-}
-export interface CalendarEvent {
-  providerEventId?: string | null;
-  title?: string | null;
-  description?: string | null;
-  startTime?: string | null;
-  endTime?: string | null;
-  meetingUrl?: string | null;
-  organizerContactId?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  searchTsv?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  calendarId?: string | null;
-  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
-  searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `providerEventId`. Returns null when no trgm search filter is active. */
-  providerEventIdTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `meetingUrl`. Returns null when no trgm search filter is active. */
-  meetingUrlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface CalendarEventContact {
-  calendarEventId?: string | null;
-  contactId?: string | null;
-}
-export interface CalendarEventNote {
-  calendarEventId?: string | null;
-  noteId?: string | null;
-}
-export interface CalendarEventTask {
-  calendarEventId?: string | null;
-  taskId?: string | null;
-}
-export interface CalendarAttendee {
-  contactId?: string | null;
-  responseStatus?: string | null;
-  role?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  calendarEventId?: string | null;
-}
-export interface EventLink {
-  title?: string | null;
-  url?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  eventId?: string | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Memory {
-  title?: string | null;
-  content?: string | null;
-  location?: string | null;
-  occurredAt?: string | null;
-  mood?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  locationGeo?: GeographyInterface | null;
-  agentId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `location`. Returns null when no trgm search filter is active. */
-  locationTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `mood`. Returns null when no trgm search filter is active. */
-  moodTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface ContactMemory {
-  contactId?: string | null;
-  memoryId?: string | null;
-}
-export interface CompanyMemory {
-  companyId?: string | null;
-  memoryId?: string | null;
-}
-export interface CompanyLink {
-  title?: string | null;
-  url?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  companyId?: string | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface ContactRelationship {
-  contactId?: string | null;
-  relatedContactId?: string | null;
-}
-export interface Project {
-  name?: string | null;
-  description?: string | null;
-  status?: string | null;
-  projectType?: string | null;
-  priority?: number | null;
-  startedAt?: string | null;
-  targetDate?: string | null;
-  completedAt?: string | null;
-  config?: Record<string, unknown> | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `projectType`. Returns null when no trgm search filter is active. */
-  projectTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface ProjectContact {
-  projectId?: string | null;
-  contactId?: string | null;
-}
-export interface TaskProject {
-  taskId?: string | null;
-  projectId?: string | null;
-}
-export interface Goal {
-  title?: string | null;
-  description?: string | null;
-  status?: string | null;
-  targetDate?: string | null;
-  progress?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Habit {
-  name?: string | null;
-  frequency?: string | null;
-  streak?: number | null;
-  lastCompletedAt?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface GoalHabit {
-  goalId?: string | null;
-  habitId?: string | null;
-}
-export interface ActivityLog {
-  activityType?: string | null;
-  completedAt?: string | null;
-  durationMinutes?: number | null;
-  quantity?: string | null;
-  quantityUnit?: string | null;
-  intensity?: string | null;
-  notes?: string | null;
-  meta?: Record<string, unknown> | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  habitId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `activityType`. Returns null when no trgm search filter is active. */
-  activityTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `quantityUnit`. Returns null when no trgm search filter is active. */
-  quantityUnitTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `intensity`. Returns null when no trgm search filter is active. */
-  intensityTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
-  notesTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface GoalProject {
-  goalId?: string | null;
-  projectId?: string | null;
-}
-export interface TaskContact {
-  taskId?: string | null;
-  contactId?: string | null;
-}
-export interface Expense {
-  description?: string | null;
-  amount?: string | null;
-  currency?: string | null;
-  category?: string | null;
-  occurredAt?: string | null;
-  vendor?: string | null;
-  notes?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  tripId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `currency`. Returns null when no trgm search filter is active. */
-  currencyTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
-  categoryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `vendor`. Returns null when no trgm search filter is active. */
-  vendorTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
-  notesTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface ExpenseContact {
-  expenseId?: string | null;
-  contactId?: string | null;
-}
-export interface EmailThread {
-  providerThreadId?: string | null;
-  subject?: string | null;
-  lastMessageAt?: string | null;
-  summary?: string | null;
-  status?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  searchTsv?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
-  searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `providerThreadId`. Returns null when no trgm search filter is active. */
-  providerThreadIdTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
-  subjectTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
-  summaryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Interaction {
-  contactId?: string | null;
-  type?: string | null;
-  occurredAt?: string | null;
-  summary?: string | null;
-  sentiment?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `type`. Returns null when no trgm search filter is active. */
-  typeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
-  summaryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `sentiment`. Returns null when no trgm search filter is active. */
-  sentimentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface ContactEmail {
-  email?: string | null;
-  emailType?: string | null;
-  isPrimary?: boolean | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  contactId?: string | null;
-}
-export interface ContactPhone {
-  phone?: string | null;
-  phoneType?: string | null;
-  isPrimary?: boolean | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  contactId?: string | null;
-}
-export interface ContactAddress {
-  street?: string | null;
-  city?: string | null;
-  state?: string | null;
-  postalCode?: string | null;
-  country?: string | null;
-  addressType?: string | null;
-  isPrimary?: boolean | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  contactId?: string | null;
-}
-export interface ContactLink {
-  title?: string | null;
-  url?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  contactId?: string | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface AgentLog {
-  agentId?: string | null;
-  level?: string | null;
-  message?: string | null;
-  context?: Record<string, unknown> | null;
-  taskId?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `level`. Returns null when no trgm search filter is active. */
-  levelTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `message`. Returns null when no trgm search filter is active. */
-  messageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Rule {
-  name?: string | null;
-  description?: string | null;
-  triggerType?: string | null;
-  triggerConfig?: Record<string, unknown> | null;
-  actionType?: string | null;
-  actionConfig?: Record<string, unknown> | null;
-  isActive?: boolean | null;
-  priority?: number | null;
-  triggerConcept?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  triggerConceptEmbedding?: number[] | null;
-  agentId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** VECTOR distance when searching `triggerConceptEmbedding`. Returns null when no vector search filter is active. */
-  triggerConceptEmbeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `triggerType`. Returns null when no trgm search filter is active. */
-  triggerTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `actionType`. Returns null when no trgm search filter is active. */
-  actionTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `triggerConcept`. Returns null when no trgm search filter is active. */
-  triggerConceptTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Skill {
-  name?: string | null;
-  description?: string | null;
-  category?: string | null;
-  implementation?: string | null;
-  config?: Record<string, unknown> | null;
-  isActive?: boolean | null;
-  intentTrigger?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  intentTriggerEmbedding?: number[] | null;
-  agentId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** VECTOR distance when searching `intentTriggerEmbedding`. Returns null when no vector search filter is active. */
-  intentTriggerEmbeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
-  categoryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `implementation`. Returns null when no trgm search filter is active. */
-  implementationTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `intentTrigger`. Returns null when no trgm search filter is active. */
-  intentTriggerTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface ToolDefinition {
-  name?: string | null;
-  description?: string | null;
-  toolType?: string | null;
-  schema?: Record<string, unknown> | null;
-  config?: Record<string, unknown> | null;
-  isActive?: boolean | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `toolType`. Returns null when no trgm search filter is active. */
-  toolTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface SkillTool {
-  skillId?: string | null;
-  toolDefinitionId?: string | null;
-}
-export interface ToolExecution {
-  toolDefinitionId?: string | null;
-  messageId?: string | null;
-  input?: Record<string, unknown> | null;
-  output?: Record<string, unknown> | null;
-  status?: string | null;
-  startedAt?: string | null;
-  completedAt?: string | null;
-  error?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface AutonomyRecordLink {
-  sourceRecordId?: string | null;
-  targetRecordId?: string | null;
-}
-export interface AutonomyRecord {
-  title?: string | null;
-  recordType?: string | null;
-  content?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  source?: string | null;
-  context?: Record<string, unknown> | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `recordType`. Returns null when no trgm search filter is active. */
-  recordTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `source`. Returns null when no trgm search filter is active. */
-  sourceTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface CodebaseDependency {
-  codebaseId?: string | null;
-  dependencyId?: string | null;
-}
-export interface Codebase {
-  name?: string | null;
-  description?: string | null;
-  repositoryUrl?: string | null;
-  defaultBranch?: string | null;
-  language?: string | null;
-  framework?: string | null;
-  lastSyncedAt?: string | null;
-  config?: Record<string, unknown> | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `repositoryUrl`. Returns null when no trgm search filter is active. */
-  repositoryUrlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `defaultBranch`. Returns null when no trgm search filter is active. */
-  defaultBranchTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `language`. Returns null when no trgm search filter is active. */
-  languageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `framework`. Returns null when no trgm search filter is active. */
-  frameworkTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface CodeChunk {
-  codebaseId?: string | null;
-  filePath?: string | null;
-  chunkIndex?: number | null;
-  content?: string | null;
-  language?: string | null;
-  startLine?: number | null;
-  endLine?: number | null;
-  symbolName?: string | null;
-  symbolType?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `filePath`. Returns null when no trgm search filter is active. */
-  filePathTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `language`. Returns null when no trgm search filter is active. */
-  languageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `symbolName`. Returns null when no trgm search filter is active. */
-  symbolNameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `symbolType`. Returns null when no trgm search filter is active. */
-  symbolTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface RuntimeStateDependency {
-  stateId?: string | null;
-  dependencyId?: string | null;
-}
-export interface RuntimeState {
-  name?: string | null;
-  stateType?: string | null;
-  status?: string | null;
-  data?: Record<string, unknown> | null;
-  parentId?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `stateType`. Returns null when no trgm search filter is active. */
-  stateTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface RuntimeLog {
-  runtimeStateId?: string | null;
-  level?: string | null;
-  message?: string | null;
-  context?: Record<string, unknown> | null;
-  stepIndex?: number | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `level`. Returns null when no trgm search filter is active. */
-  levelTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `message`. Returns null when no trgm search filter is active. */
-  messageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface RuntimeArtifact {
-  runtimeStateId?: string | null;
-  name?: string | null;
-  artifactType?: string | null;
-  content?: string | null;
-  meta?: Record<string, unknown> | null;
-  sizeBytes?: number | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface RuntimeMetric {
-  runtimeStateId?: string | null;
-  metricName?: string | null;
-  metricValue?: string | null;
-  unit?: string | null;
-  meta?: Record<string, unknown> | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface Calendar {
-  providerAccountId?: string | null;
-  providerCalendarId?: string | null;
-  name?: string | null;
-  color?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface ProviderSyncState {
-  provider?: string | null;
-  resourceType?: string | null;
-  syncCursor?: string | null;
-  historyId?: string | null;
-  lastSyncAt?: string | null;
-  status?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface Tag {
-  name?: string | null;
-  color?: string | null;
-  category?: string | null;
-  usageCount?: number | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface RawContactUrl {
-  url?: string | null;
-  urlType?: string | null;
-  source?: string | null;
-  confidence?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  rawContactId?: string | null;
-}
-export interface RawContactEmail {
-  email?: string | null;
-  emailType?: string | null;
-  isPrimary?: boolean | null;
-  source?: string | null;
-  confidence?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  rawContactId?: string | null;
-}
-export interface RawContactPhone {
-  phone?: string | null;
-  phoneType?: string | null;
-  isPrimary?: boolean | null;
-  source?: string | null;
-  confidence?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  rawContactId?: string | null;
-}
-export interface RuntimeConfig {
-  key?: string | null;
-  value?: Record<string, unknown> | null;
-  description?: string | null;
-  isSecret?: boolean | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface RuntimeEvent {
-  eventType?: string | null;
-  payload?: Record<string, unknown> | null;
-  source?: string | null;
-  processedAt?: string | null;
-  status?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface RuntimeSchedule {
-  name?: string | null;
-  cronExpression?: string | null;
-  nextRunAt?: string | null;
-  lastRunAt?: string | null;
-  isActive?: boolean | null;
-  config?: Record<string, unknown> | null;
-  timezone?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface Conversation {
-  title?: string | null;
-  agentId?: string | null;
-  status?: string | null;
-  meta?: Record<string, unknown> | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Message {
-  conversationId?: string | null;
-  role?: string | null;
-  content?: string | null;
-  tokenCount?: number | null;
-  meta?: Record<string, unknown> | null;
-  toolCalls?: Record<string, unknown> | null;
-  toolResults?: Record<string, unknown> | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `role`. Returns null when no trgm search filter is active. */
-  roleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface RawContact {
-  externalId?: string | null;
-  source?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  fullName?: string | null;
-  headline?: string | null;
-  bio?: string | null;
-  location?: string | null;
-  company?: string | null;
-  jobTitle?: string | null;
-  rawData?: Record<string, unknown> | null;
-  confidence?: string | null;
-  ingestedAt?: string | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface Place {
-  name?: string | null;
-  address?: string | null;
-  description?: string | null;
-  category?: string | null;
-  rating?: string | null;
-  tags?: string[] | null;
-  id: string;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  locationGeo?: GeographyInterface | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `address`. Returns null when no trgm search filter is active. */
-  addressTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
-  categoryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
 export interface Trip {
   name?: string | null;
   destination?: string | null;
@@ -1719,36 +1635,21 @@ export interface Trip {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface HikingTrail {
-  name?: string | null;
-  location?: string | null;
-  description?: string | null;
-  difficulty?: string | null;
-  distanceKm?: string | null;
-  elevationGainm?: string | null;
-  rating?: string | null;
-  tags?: string[] | null;
+export interface VenueImage {
+  venueId?: string | null;
+  imageId?: string | null;
+}
+export interface VenueLink {
+  title?: string | null;
+  url?: string | null;
   id: string;
   createdAt?: string | null;
   updatedAt?: string | null;
-  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  trailheadGeo?: GeographyInterface | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
+  venueId?: string | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `location`. Returns null when no trgm search filter is active. */
-  locationTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `difficulty`. Returns null when no trgm search filter is active. */
-  difficultyTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1765,9 +1666,8 @@ export interface PageInfo {
   endCursor?: string | null;
 }
 // ============ Entity Relation Types ============
-export interface AgentCollaboratorRelations {
-  agent?: Agent | null;
-  collaborator?: Agent | null;
+export interface ActivityLogRelations {
+  habit?: Habit | null;
 }
 export interface AgentRelations {
   prompts?: ConnectionResult<Prompt>;
@@ -1782,24 +1682,52 @@ export interface AgentRelations {
   agentsByAgentCollaboratorAgentIdAndCollaboratorId?: ConnectionResult<Agent>;
   agentsByAgentCollaboratorCollaboratorIdAndAgentId?: ConnectionResult<Agent>;
 }
-export interface PromptRelations {
-  agents?: ConnectionResult<Agent>;
-  agentPrompts?: ConnectionResult<AgentPrompt>;
+export interface AgentCollaboratorRelations {
+  agent?: Agent | null;
+  collaborator?: Agent | null;
+}
+export interface AgentLogRelations {
+  agent?: Agent | null;
 }
 export interface AgentPromptRelations {
   agent?: Agent | null;
   prompt?: Prompt | null;
 }
-export interface TaskRelations {
-  agent?: Agent | null;
-  contacts?: ConnectionResult<Contact>;
-  projects?: ConnectionResult<Project>;
-  notes?: ConnectionResult<Note>;
+export interface PromptRelations {
+  agents?: ConnectionResult<Agent>;
+  agentPrompts?: ConnectionResult<AgentPrompt>;
+}
+export interface AutonomyRecordRelations {
+  autonomyRecordLinksBySourceRecordId?: ConnectionResult<AutonomyRecordLink>;
+  autonomyRecordLinksByTargetRecordId?: ConnectionResult<AutonomyRecordLink>;
+  autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId?: ConnectionResult<AutonomyRecord>;
+  autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId?: ConnectionResult<AutonomyRecord>;
+}
+export interface AutonomyRecordLinkRelations {
+  sourceRecord?: AutonomyRecord | null;
+  targetRecord?: AutonomyRecord | null;
+}
+export interface CalendarAttendeeRelations {
+  calendarEvent?: CalendarEvent | null;
+  contact?: Contact | null;
+}
+export interface CalendarRelations {
   calendarEvents?: ConnectionResult<CalendarEvent>;
-  taskContacts?: ConnectionResult<TaskContact>;
-  taskProjects?: ConnectionResult<TaskProject>;
-  taskNotes?: ConnectionResult<TaskNote>;
+}
+export interface CalendarEventRelations {
+  calendar?: Calendar | null;
+  organizerContact?: Contact | null;
+  notes?: ConnectionResult<Note>;
+  tasks?: ConnectionResult<Task>;
+  calendarAttendees?: ConnectionResult<CalendarAttendee>;
+  calendarEventContacts?: ConnectionResult<CalendarEventContact>;
+  calendarEventNotes?: ConnectionResult<CalendarEventNote>;
   calendarEventTasks?: ConnectionResult<CalendarEventTask>;
+  contactsByCalendarEventContactCalendarEventIdAndContactId?: ConnectionResult<Contact>;
+}
+export interface CalendarEventContactRelations {
+  calendarEvent?: CalendarEvent | null;
+  contact?: Contact | null;
 }
 export interface ContactRelations {
   mainImage?: Image | null;
@@ -1809,6 +1737,7 @@ export interface ContactRelations {
   notes?: ConnectionResult<Note>;
   memories?: ConnectionResult<Memory>;
   emails?: ConnectionResult<Email>;
+  contactsChunksByContactsId?: ConnectionResult<ContactsChunk>;
   interactions?: ConnectionResult<Interaction>;
   touchpoints?: ConnectionResult<Touchpoint>;
   contactEmails?: ConnectionResult<ContactEmail>;
@@ -1841,23 +1770,41 @@ export interface ContactRelations {
   calendarEventsByCalendarEventContactContactIdAndCalendarEventId?: ConnectionResult<CalendarEvent>;
   emailThreadsByThreadParticipantContactIdAndEmailThreadId?: ConnectionResult<EmailThread>;
 }
-export interface ImageRelations {
+export interface CalendarEventNoteRelations {
+  calendarEvent?: CalendarEvent | null;
+  note?: Note | null;
+}
+export interface NoteRelations {
   contacts?: ConnectionResult<Contact>;
   companies?: ConnectionResult<Company>;
+  deals?: ConnectionResult<Deal>;
   events?: ConnectionResult<Event>;
-  venues?: ConnectionResult<Venue>;
-  contactsByMainImageId?: ConnectionResult<Contact>;
-  companiesByMainImageId?: ConnectionResult<Company>;
-  eventsByMainImageId?: ConnectionResult<Event>;
-  venuesByMainImageId?: ConnectionResult<Venue>;
-  contactImages?: ConnectionResult<ContactImage>;
-  companyImages?: ConnectionResult<CompanyImage>;
-  eventImages?: ConnectionResult<EventImage>;
-  venueImages?: ConnectionResult<VenueImage>;
+  tasks?: ConnectionResult<Task>;
+  emails?: ConnectionResult<Email>;
+  calendarEvents?: ConnectionResult<CalendarEvent>;
+  notesChunksByNotesId?: ConnectionResult<NotesChunk>;
+  contactNotes?: ConnectionResult<ContactNote>;
+  companyNotes?: ConnectionResult<CompanyNote>;
+  dealNotes?: ConnectionResult<DealNote>;
+  eventNotes?: ConnectionResult<EventNote>;
+  taskNotes?: ConnectionResult<TaskNote>;
+  emailNotes?: ConnectionResult<EmailNote>;
+  calendarEventNotes?: ConnectionResult<CalendarEventNote>;
 }
-export interface ContactImageRelations {
-  contact?: Contact | null;
-  image?: Image | null;
+export interface CalendarEventTaskRelations {
+  calendarEvent?: CalendarEvent | null;
+  task?: Task | null;
+}
+export interface TaskRelations {
+  agent?: Agent | null;
+  contacts?: ConnectionResult<Contact>;
+  projects?: ConnectionResult<Project>;
+  notes?: ConnectionResult<Note>;
+  calendarEvents?: ConnectionResult<CalendarEvent>;
+  taskContacts?: ConnectionResult<TaskContact>;
+  taskProjects?: ConnectionResult<TaskProject>;
+  taskNotes?: ConnectionResult<TaskNote>;
+  calendarEventTasks?: ConnectionResult<CalendarEventTask>;
 }
 export interface CompanyRelations {
   mainImage?: Image | null;
@@ -1876,13 +1823,18 @@ export interface CompanyRelations {
   eventsByCompanyEventCompanyIdAndEventId?: ConnectionResult<Event>;
   dealsByDealCompanyCompanyIdAndDealId?: ConnectionResult<Deal>;
 }
-export interface CompanyImageRelations {
-  company?: Company | null;
-  image?: Image | null;
+export interface DealRelations {
+  notes?: ConnectionResult<Note>;
+  touchpoints?: ConnectionResult<Touchpoint>;
+  dealContacts?: ConnectionResult<DealContact>;
+  dealCompanies?: ConnectionResult<DealCompany>;
+  dealNotes?: ConnectionResult<DealNote>;
+  contactsByDealContactDealIdAndContactId?: ConnectionResult<Contact>;
+  companiesByDealCompanyDealIdAndCompanyId?: ConnectionResult<Company>;
 }
-export interface ContactCompanyRelations {
+export interface CompanyEventRelations {
   company?: Company | null;
-  contact?: Contact | null;
+  event?: Event | null;
 }
 export interface EventRelations {
   mainImage?: Image | null;
@@ -1899,95 +1851,51 @@ export interface EventRelations {
   contactsByContactEventEventIdAndContactId?: ConnectionResult<Contact>;
   companiesByCompanyEventEventIdAndCompanyId?: ConnectionResult<Company>;
 }
-export interface EventImageRelations {
-  event?: Event | null;
-  image?: Image | null;
-}
-export interface ContactEventRelations {
-  contact?: Contact | null;
-  event?: Event | null;
-}
-export interface CompanyEventRelations {
+export interface CompanyImageRelations {
   company?: Company | null;
-  event?: Event | null;
-}
-export interface VenueRelations {
-  mainImage?: Image | null;
-  events?: ConnectionResult<Event>;
-  venueLinks?: ConnectionResult<VenueLink>;
-  venueImages?: ConnectionResult<VenueImage>;
-  eventVenues?: ConnectionResult<EventVenue>;
-  imagesByVenueImageVenueIdAndImageId?: ConnectionResult<Image>;
-}
-export interface VenueImageRelations {
   image?: Image | null;
-  venue?: Venue | null;
 }
-export interface EventVenueRelations {
-  event?: Event | null;
-  venue?: Venue | null;
-}
-export interface VenueLinkRelations {
-  venue?: Venue | null;
-}
-export interface NoteRelations {
+export interface ImageRelations {
   contacts?: ConnectionResult<Contact>;
   companies?: ConnectionResult<Company>;
-  deals?: ConnectionResult<Deal>;
   events?: ConnectionResult<Event>;
-  tasks?: ConnectionResult<Task>;
-  emails?: ConnectionResult<Email>;
-  calendarEvents?: ConnectionResult<CalendarEvent>;
-  contactNotes?: ConnectionResult<ContactNote>;
-  companyNotes?: ConnectionResult<CompanyNote>;
-  dealNotes?: ConnectionResult<DealNote>;
-  eventNotes?: ConnectionResult<EventNote>;
-  taskNotes?: ConnectionResult<TaskNote>;
-  emailNotes?: ConnectionResult<EmailNote>;
-  calendarEventNotes?: ConnectionResult<CalendarEventNote>;
+  venues?: ConnectionResult<Venue>;
+  contactsByMainImageId?: ConnectionResult<Contact>;
+  companiesByMainImageId?: ConnectionResult<Company>;
+  eventsByMainImageId?: ConnectionResult<Event>;
+  venuesByMainImageId?: ConnectionResult<Venue>;
+  contactImages?: ConnectionResult<ContactImage>;
+  companyImages?: ConnectionResult<CompanyImage>;
+  eventImages?: ConnectionResult<EventImage>;
+  venueImages?: ConnectionResult<VenueImage>;
 }
-export interface ContactNoteRelations {
-  contact?: Contact | null;
-  note?: Note | null;
+export interface CompanyLinkRelations {
+  company?: Company | null;
+}
+export interface MemoryRelations {
+  agent?: Agent | null;
+  contacts?: ConnectionResult<Contact>;
+  companies?: ConnectionResult<Company>;
+  contactMemories?: ConnectionResult<ContactMemory>;
+  companyMemories?: ConnectionResult<CompanyMemory>;
+}
+export interface CompanyMemoryRelations {
+  company?: Company | null;
+  memory?: Memory | null;
 }
 export interface CompanyNoteRelations {
   company?: Company | null;
   note?: Note | null;
 }
-export interface DealRelations {
-  notes?: ConnectionResult<Note>;
-  touchpoints?: ConnectionResult<Touchpoint>;
-  dealContacts?: ConnectionResult<DealContact>;
-  dealCompanies?: ConnectionResult<DealCompany>;
-  dealNotes?: ConnectionResult<DealNote>;
-  contactsByDealContactDealIdAndContactId?: ConnectionResult<Contact>;
-  companiesByDealCompanyDealIdAndCompanyId?: ConnectionResult<Company>;
-}
-export interface DealContactRelations {
+export interface ContactAddressRelations {
   contact?: Contact | null;
-  deal?: Deal | null;
 }
-export interface DealCompanyRelations {
-  company?: Company | null;
-  deal?: Deal | null;
-}
-export interface DealNoteRelations {
-  deal?: Deal | null;
-  note?: Note | null;
-}
-export interface TouchpointRelations {
+export interface ContactCompanyRelations {
   company?: Company | null;
   contact?: Contact | null;
-  deal?: Deal | null;
-  event?: Event | null;
 }
-export interface EventNoteRelations {
-  event?: Event | null;
-  note?: Note | null;
-}
-export interface TaskNoteRelations {
-  note?: Note | null;
-  task?: Task | null;
+export interface ContactEmailRelations {
+  contact?: Contact | null;
 }
 export interface EmailRelations {
   emailThread?: EmailThread | null;
@@ -1998,72 +1906,37 @@ export interface EmailRelations {
   emailNotes?: ConnectionResult<EmailNote>;
   contactsByEmailRecipientEmailIdAndContactId?: ConnectionResult<Contact>;
 }
-export interface EmailRecipientRelations {
+export interface EmailThreadRelations {
+  emails?: ConnectionResult<Email>;
+  threadParticipants?: ConnectionResult<ThreadParticipant>;
+  contactsByThreadParticipantEmailThreadIdAndContactId?: ConnectionResult<Contact>;
+}
+export interface ContactEventRelations {
   contact?: Contact | null;
-  email?: Email | null;
-}
-export interface EmailNoteRelations {
-  email?: Email | null;
-  note?: Note | null;
-}
-export interface ThreadParticipantRelations {
-  contact?: Contact | null;
-  emailThread?: EmailThread | null;
-}
-export interface EmailAttachmentRelations {
-  email?: Email | null;
-}
-export interface CalendarEventRelations {
-  calendar?: Calendar | null;
-  organizerContact?: Contact | null;
-  notes?: ConnectionResult<Note>;
-  tasks?: ConnectionResult<Task>;
-  calendarAttendees?: ConnectionResult<CalendarAttendee>;
-  calendarEventContacts?: ConnectionResult<CalendarEventContact>;
-  calendarEventNotes?: ConnectionResult<CalendarEventNote>;
-  calendarEventTasks?: ConnectionResult<CalendarEventTask>;
-  contactsByCalendarEventContactCalendarEventIdAndContactId?: ConnectionResult<Contact>;
-}
-export interface CalendarEventContactRelations {
-  calendarEvent?: CalendarEvent | null;
-  contact?: Contact | null;
-}
-export interface CalendarEventNoteRelations {
-  calendarEvent?: CalendarEvent | null;
-  note?: Note | null;
-}
-export interface CalendarEventTaskRelations {
-  calendarEvent?: CalendarEvent | null;
-  task?: Task | null;
-}
-export interface CalendarAttendeeRelations {
-  calendarEvent?: CalendarEvent | null;
-  contact?: Contact | null;
-}
-export interface EventLinkRelations {
   event?: Event | null;
 }
-export interface MemoryRelations {
-  agent?: Agent | null;
+export interface ExpenseRelations {
+  trip?: Trip | null;
   contacts?: ConnectionResult<Contact>;
-  companies?: ConnectionResult<Company>;
-  contactMemories?: ConnectionResult<ContactMemory>;
-  companyMemories?: ConnectionResult<CompanyMemory>;
+  expenseContacts?: ConnectionResult<ExpenseContact>;
+}
+export interface ContactImageRelations {
+  contact?: Contact | null;
+  image?: Image | null;
+}
+export interface ContactLinkRelations {
+  contact?: Contact | null;
 }
 export interface ContactMemoryRelations {
   contact?: Contact | null;
   memory?: Memory | null;
 }
-export interface CompanyMemoryRelations {
-  company?: Company | null;
-  memory?: Memory | null;
-}
-export interface CompanyLinkRelations {
-  company?: Company | null;
-}
-export interface ContactRelationshipRelations {
+export interface ContactNoteRelations {
   contact?: Contact | null;
-  relatedContact?: Contact | null;
+  note?: Note | null;
+}
+export interface ContactPhoneRelations {
+  contact?: Contact | null;
 }
 export interface ProjectRelations {
   contacts?: ConnectionResult<Contact>;
@@ -2073,13 +1946,65 @@ export interface ProjectRelations {
   taskProjects?: ConnectionResult<TaskProject>;
   goalProjects?: ConnectionResult<GoalProject>;
 }
-export interface ProjectContactRelations {
+export interface ContactRelationshipRelations {
   contact?: Contact | null;
-  project?: Project | null;
+  relatedContact?: Contact | null;
 }
-export interface TaskProjectRelations {
-  project?: Project | null;
-  task?: Task | null;
+export interface ContactsChunkRelations {
+  contacts?: Contact | null;
+}
+export interface ConversationRelations {
+  messages?: ConnectionResult<Message>;
+}
+export interface DealCompanyRelations {
+  company?: Company | null;
+  deal?: Deal | null;
+}
+export interface DealContactRelations {
+  contact?: Contact | null;
+  deal?: Deal | null;
+}
+export interface DealNoteRelations {
+  deal?: Deal | null;
+  note?: Note | null;
+}
+export interface EmailAttachmentRelations {
+  email?: Email | null;
+}
+export interface EmailNoteRelations {
+  email?: Email | null;
+  note?: Note | null;
+}
+export interface EmailRecipientRelations {
+  contact?: Contact | null;
+  email?: Email | null;
+}
+export interface EventImageRelations {
+  event?: Event | null;
+  image?: Image | null;
+}
+export interface EventLinkRelations {
+  event?: Event | null;
+}
+export interface EventNoteRelations {
+  event?: Event | null;
+  note?: Note | null;
+}
+export interface EventVenueRelations {
+  event?: Event | null;
+  venue?: Venue | null;
+}
+export interface VenueRelations {
+  mainImage?: Image | null;
+  events?: ConnectionResult<Event>;
+  venueLinks?: ConnectionResult<VenueLink>;
+  venueImages?: ConnectionResult<VenueImage>;
+  eventVenues?: ConnectionResult<EventVenue>;
+  imagesByVenueImageVenueIdAndImageId?: ConnectionResult<Image>;
+}
+export interface ExpenseContactRelations {
+  contact?: Contact | null;
+  expense?: Expense | null;
 }
 export interface GoalRelations {
   habits?: ConnectionResult<Habit>;
@@ -2087,106 +2012,63 @@ export interface GoalRelations {
   goalHabits?: ConnectionResult<GoalHabit>;
   goalProjects?: ConnectionResult<GoalProject>;
 }
+export interface GoalHabitRelations {
+  goal?: Goal | null;
+  habit?: Habit | null;
+}
 export interface HabitRelations {
   goals?: ConnectionResult<Goal>;
   activityLogs?: ConnectionResult<ActivityLog>;
   goalHabits?: ConnectionResult<GoalHabit>;
 }
-export interface GoalHabitRelations {
-  goal?: Goal | null;
-  habit?: Habit | null;
-}
-export interface ActivityLogRelations {
-  habit?: Habit | null;
-}
 export interface GoalProjectRelations {
   goal?: Goal | null;
   project?: Project | null;
 }
-export interface TaskContactRelations {
-  contact?: Contact | null;
-  task?: Task | null;
-}
-export interface ExpenseRelations {
-  trip?: Trip | null;
-  contacts?: ConnectionResult<Contact>;
-  expenseContacts?: ConnectionResult<ExpenseContact>;
-}
-export interface ExpenseContactRelations {
-  contact?: Contact | null;
-  expense?: Expense | null;
-}
-export interface EmailThreadRelations {
-  emails?: ConnectionResult<Email>;
-  threadParticipants?: ConnectionResult<ThreadParticipant>;
-  contactsByThreadParticipantEmailThreadIdAndContactId?: ConnectionResult<Contact>;
-}
 export interface InteractionRelations {
   contact?: Contact | null;
 }
-export interface ContactEmailRelations {
-  contact?: Contact | null;
+export interface MessageRelations {
+  conversation?: Conversation | null;
 }
-export interface ContactPhoneRelations {
-  contact?: Contact | null;
+export interface NotesChunkRelations {
+  notes?: Note | null;
 }
-export interface ContactAddressRelations {
+export interface PlaceRelations {}
+export interface ProjectContactRelations {
   contact?: Contact | null;
+  project?: Project | null;
 }
-export interface ContactLinkRelations {
-  contact?: Contact | null;
+export interface ProviderSyncStateRelations {}
+export interface RawContactRelations {
+  rawContactEmails?: ConnectionResult<RawContactEmail>;
+  rawContactPhones?: ConnectionResult<RawContactPhone>;
+  rawContactUrls?: ConnectionResult<RawContactUrl>;
 }
-export interface AgentLogRelations {
-  agent?: Agent | null;
+export interface RawContactEmailRelations {
+  rawContact?: RawContact | null;
+}
+export interface RawContactPhoneRelations {
+  rawContact?: RawContact | null;
+}
+export interface RawContactUrlRelations {
+  rawContact?: RawContact | null;
 }
 export interface RuleRelations {
   agent?: Agent | null;
 }
-export interface SkillRelations {
-  agent?: Agent | null;
-  toolDefinitions?: ConnectionResult<ToolDefinition>;
-  skillTools?: ConnectionResult<SkillTool>;
+export interface RuntimeArtifactRelations {
+  runtimeState?: RuntimeState | null;
 }
-export interface ToolDefinitionRelations {
-  skills?: ConnectionResult<Skill>;
-  toolExecutions?: ConnectionResult<ToolExecution>;
-  skillTools?: ConnectionResult<SkillTool>;
+export interface RuntimeConfigRelations {}
+export interface RuntimeEventRelations {}
+export interface RuntimeLogRelations {
+  runtimeState?: RuntimeState | null;
 }
-export interface SkillToolRelations {
-  skill?: Skill | null;
-  toolDefinition?: ToolDefinition | null;
+export interface RuntimeMetricRelations {
+  runtimeState?: RuntimeState | null;
 }
-export interface ToolExecutionRelations {
-  toolDefinition?: ToolDefinition | null;
-}
-export interface AutonomyRecordLinkRelations {
-  sourceRecord?: AutonomyRecord | null;
-  targetRecord?: AutonomyRecord | null;
-}
-export interface AutonomyRecordRelations {
-  autonomyRecordLinksBySourceRecordId?: ConnectionResult<AutonomyRecordLink>;
-  autonomyRecordLinksByTargetRecordId?: ConnectionResult<AutonomyRecordLink>;
-  autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId?: ConnectionResult<AutonomyRecord>;
-  autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId?: ConnectionResult<AutonomyRecord>;
-}
-export interface CodebaseDependencyRelations {
-  codebase?: Codebase | null;
-  dependency?: Codebase | null;
-}
-export interface CodebaseRelations {
-  codeChunks?: ConnectionResult<CodeChunk>;
-  codebaseDependencies?: ConnectionResult<CodebaseDependency>;
-  codebaseDependenciesByDependencyId?: ConnectionResult<CodebaseDependency>;
-  codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: ConnectionResult<Codebase>;
-  codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: ConnectionResult<Codebase>;
-}
-export interface CodeChunkRelations {
-  codebase?: Codebase | null;
-}
-export interface RuntimeStateDependencyRelations {
-  dependency?: RuntimeState | null;
-  state?: RuntimeState | null;
-}
+export interface RuntimeScheduleRelations {}
 export interface RuntimeStateRelations {
   runtimeLogs?: ConnectionResult<RuntimeLog>;
   runtimeArtifacts?: ConnectionResult<RuntimeArtifact>;
@@ -2196,153 +2078,182 @@ export interface RuntimeStateRelations {
   runtimeStatesByRuntimeStateDependencyDependencyIdAndStateId?: ConnectionResult<RuntimeState>;
   runtimeStatesByRuntimeStateDependencyStateIdAndDependencyId?: ConnectionResult<RuntimeState>;
 }
-export interface RuntimeLogRelations {
-  runtimeState?: RuntimeState | null;
+export interface RuntimeStateDependencyRelations {
+  dependency?: RuntimeState | null;
+  state?: RuntimeState | null;
 }
-export interface RuntimeArtifactRelations {
-  runtimeState?: RuntimeState | null;
+export interface SkillRelations {
+  agent?: Agent | null;
+  toolDefinitions?: ConnectionResult<ToolDefinition>;
+  skillTools?: ConnectionResult<SkillTool>;
 }
-export interface RuntimeMetricRelations {
-  runtimeState?: RuntimeState | null;
+export interface SkillToolRelations {
+  skill?: Skill | null;
+  toolDefinition?: ToolDefinition | null;
 }
-export interface CalendarRelations {
-  calendarEvents?: ConnectionResult<CalendarEvent>;
+export interface ToolDefinitionRelations {
+  skills?: ConnectionResult<Skill>;
+  toolExecutions?: ConnectionResult<ToolExecution>;
+  skillTools?: ConnectionResult<SkillTool>;
 }
-export interface ProviderSyncStateRelations {}
 export interface TagRelations {}
-export interface RawContactUrlRelations {
-  rawContact?: RawContact | null;
+export interface TaskContactRelations {
+  contact?: Contact | null;
+  task?: Task | null;
 }
-export interface RawContactEmailRelations {
-  rawContact?: RawContact | null;
+export interface TaskNoteRelations {
+  note?: Note | null;
+  task?: Task | null;
 }
-export interface RawContactPhoneRelations {
-  rawContact?: RawContact | null;
+export interface TaskProjectRelations {
+  project?: Project | null;
+  task?: Task | null;
 }
-export interface RuntimeConfigRelations {}
-export interface RuntimeEventRelations {}
-export interface RuntimeScheduleRelations {}
-export interface ConversationRelations {
-  messages?: ConnectionResult<Message>;
+export interface ThreadParticipantRelations {
+  contact?: Contact | null;
+  emailThread?: EmailThread | null;
 }
-export interface MessageRelations {
-  conversation?: Conversation | null;
+export interface ToolExecutionRelations {
+  toolDefinition?: ToolDefinition | null;
 }
-export interface RawContactRelations {
-  rawContactEmails?: ConnectionResult<RawContactEmail>;
-  rawContactPhones?: ConnectionResult<RawContactPhone>;
-  rawContactUrls?: ConnectionResult<RawContactUrl>;
+export interface TouchpointRelations {
+  company?: Company | null;
+  contact?: Contact | null;
+  deal?: Deal | null;
+  event?: Event | null;
 }
-export interface PlaceRelations {}
 export interface TripRelations {
   expenses?: ConnectionResult<Expense>;
 }
-export interface HikingTrailRelations {}
+export interface VenueImageRelations {
+  image?: Image | null;
+  venue?: Venue | null;
+}
+export interface VenueLinkRelations {
+  venue?: Venue | null;
+}
 // ============ Entity Types With Relations ============
-export type AgentCollaboratorWithRelations = AgentCollaborator & AgentCollaboratorRelations;
+export type ActivityLogWithRelations = ActivityLog & ActivityLogRelations;
 export type AgentWithRelations = Agent & AgentRelations;
-export type PromptWithRelations = Prompt & PromptRelations;
+export type AgentCollaboratorWithRelations = AgentCollaborator & AgentCollaboratorRelations;
+export type AgentLogWithRelations = AgentLog & AgentLogRelations;
 export type AgentPromptWithRelations = AgentPrompt & AgentPromptRelations;
-export type TaskWithRelations = Task & TaskRelations;
-export type ContactWithRelations = Contact & ContactRelations;
-export type ImageWithRelations = Image & ImageRelations;
-export type ContactImageWithRelations = ContactImage & ContactImageRelations;
-export type CompanyWithRelations = Company & CompanyRelations;
-export type CompanyImageWithRelations = CompanyImage & CompanyImageRelations;
-export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
-export type EventWithRelations = Event & EventRelations;
-export type EventImageWithRelations = EventImage & EventImageRelations;
-export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
-export type CompanyEventWithRelations = CompanyEvent & CompanyEventRelations;
-export type VenueWithRelations = Venue & VenueRelations;
-export type VenueImageWithRelations = VenueImage & VenueImageRelations;
-export type EventVenueWithRelations = EventVenue & EventVenueRelations;
-export type VenueLinkWithRelations = VenueLink & VenueLinkRelations;
-export type NoteWithRelations = Note & NoteRelations;
-export type ContactNoteWithRelations = ContactNote & ContactNoteRelations;
-export type CompanyNoteWithRelations = CompanyNote & CompanyNoteRelations;
-export type DealWithRelations = Deal & DealRelations;
-export type DealContactWithRelations = DealContact & DealContactRelations;
-export type DealCompanyWithRelations = DealCompany & DealCompanyRelations;
-export type DealNoteWithRelations = DealNote & DealNoteRelations;
-export type TouchpointWithRelations = Touchpoint & TouchpointRelations;
-export type EventNoteWithRelations = EventNote & EventNoteRelations;
-export type TaskNoteWithRelations = TaskNote & TaskNoteRelations;
-export type EmailWithRelations = Email & EmailRelations;
-export type EmailRecipientWithRelations = EmailRecipient & EmailRecipientRelations;
-export type EmailNoteWithRelations = EmailNote & EmailNoteRelations;
-export type ThreadParticipantWithRelations = ThreadParticipant & ThreadParticipantRelations;
-export type EmailAttachmentWithRelations = EmailAttachment & EmailAttachmentRelations;
+export type PromptWithRelations = Prompt & PromptRelations;
+export type AutonomyRecordWithRelations = AutonomyRecord & AutonomyRecordRelations;
+export type AutonomyRecordLinkWithRelations = AutonomyRecordLink & AutonomyRecordLinkRelations;
+export type CalendarAttendeeWithRelations = CalendarAttendee & CalendarAttendeeRelations;
+export type CalendarWithRelations = Calendar & CalendarRelations;
 export type CalendarEventWithRelations = CalendarEvent & CalendarEventRelations;
 export type CalendarEventContactWithRelations = CalendarEventContact &
   CalendarEventContactRelations;
+export type ContactWithRelations = Contact & ContactRelations;
 export type CalendarEventNoteWithRelations = CalendarEventNote & CalendarEventNoteRelations;
+export type NoteWithRelations = Note & NoteRelations;
 export type CalendarEventTaskWithRelations = CalendarEventTask & CalendarEventTaskRelations;
-export type CalendarAttendeeWithRelations = CalendarAttendee & CalendarAttendeeRelations;
-export type EventLinkWithRelations = EventLink & EventLinkRelations;
-export type MemoryWithRelations = Memory & MemoryRelations;
-export type ContactMemoryWithRelations = ContactMemory & ContactMemoryRelations;
-export type CompanyMemoryWithRelations = CompanyMemory & CompanyMemoryRelations;
+export type TaskWithRelations = Task & TaskRelations;
+export type CompanyWithRelations = Company & CompanyRelations;
+export type DealWithRelations = Deal & DealRelations;
+export type CompanyEventWithRelations = CompanyEvent & CompanyEventRelations;
+export type EventWithRelations = Event & EventRelations;
+export type CompanyImageWithRelations = CompanyImage & CompanyImageRelations;
+export type ImageWithRelations = Image & ImageRelations;
 export type CompanyLinkWithRelations = CompanyLink & CompanyLinkRelations;
-export type ContactRelationshipWithRelations = ContactRelationship & ContactRelationshipRelations;
-export type ProjectWithRelations = Project & ProjectRelations;
-export type ProjectContactWithRelations = ProjectContact & ProjectContactRelations;
-export type TaskProjectWithRelations = TaskProject & TaskProjectRelations;
-export type GoalWithRelations = Goal & GoalRelations;
-export type HabitWithRelations = Habit & HabitRelations;
-export type GoalHabitWithRelations = GoalHabit & GoalHabitRelations;
-export type ActivityLogWithRelations = ActivityLog & ActivityLogRelations;
-export type GoalProjectWithRelations = GoalProject & GoalProjectRelations;
-export type TaskContactWithRelations = TaskContact & TaskContactRelations;
-export type ExpenseWithRelations = Expense & ExpenseRelations;
-export type ExpenseContactWithRelations = ExpenseContact & ExpenseContactRelations;
-export type EmailThreadWithRelations = EmailThread & EmailThreadRelations;
-export type InteractionWithRelations = Interaction & InteractionRelations;
-export type ContactEmailWithRelations = ContactEmail & ContactEmailRelations;
-export type ContactPhoneWithRelations = ContactPhone & ContactPhoneRelations;
+export type MemoryWithRelations = Memory & MemoryRelations;
+export type CompanyMemoryWithRelations = CompanyMemory & CompanyMemoryRelations;
+export type CompanyNoteWithRelations = CompanyNote & CompanyNoteRelations;
 export type ContactAddressWithRelations = ContactAddress & ContactAddressRelations;
+export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
+export type ContactEmailWithRelations = ContactEmail & ContactEmailRelations;
+export type EmailWithRelations = Email & EmailRelations;
+export type EmailThreadWithRelations = EmailThread & EmailThreadRelations;
+export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
+export type ExpenseWithRelations = Expense & ExpenseRelations;
+export type ContactImageWithRelations = ContactImage & ContactImageRelations;
 export type ContactLinkWithRelations = ContactLink & ContactLinkRelations;
-export type AgentLogWithRelations = AgentLog & AgentLogRelations;
-export type RuleWithRelations = Rule & RuleRelations;
-export type SkillWithRelations = Skill & SkillRelations;
-export type ToolDefinitionWithRelations = ToolDefinition & ToolDefinitionRelations;
-export type SkillToolWithRelations = SkillTool & SkillToolRelations;
-export type ToolExecutionWithRelations = ToolExecution & ToolExecutionRelations;
-export type AutonomyRecordLinkWithRelations = AutonomyRecordLink & AutonomyRecordLinkRelations;
-export type AutonomyRecordWithRelations = AutonomyRecord & AutonomyRecordRelations;
-export type CodebaseDependencyWithRelations = CodebaseDependency & CodebaseDependencyRelations;
-export type CodebaseWithRelations = Codebase & CodebaseRelations;
-export type CodeChunkWithRelations = CodeChunk & CodeChunkRelations;
-export type RuntimeStateDependencyWithRelations = RuntimeStateDependency &
-  RuntimeStateDependencyRelations;
-export type RuntimeStateWithRelations = RuntimeState & RuntimeStateRelations;
-export type RuntimeLogWithRelations = RuntimeLog & RuntimeLogRelations;
-export type RuntimeArtifactWithRelations = RuntimeArtifact & RuntimeArtifactRelations;
-export type RuntimeMetricWithRelations = RuntimeMetric & RuntimeMetricRelations;
-export type CalendarWithRelations = Calendar & CalendarRelations;
+export type ContactMemoryWithRelations = ContactMemory & ContactMemoryRelations;
+export type ContactNoteWithRelations = ContactNote & ContactNoteRelations;
+export type ContactPhoneWithRelations = ContactPhone & ContactPhoneRelations;
+export type ProjectWithRelations = Project & ProjectRelations;
+export type ContactRelationshipWithRelations = ContactRelationship & ContactRelationshipRelations;
+export type ContactsChunkWithRelations = ContactsChunk & ContactsChunkRelations;
+export type ConversationWithRelations = Conversation & ConversationRelations;
+export type DealCompanyWithRelations = DealCompany & DealCompanyRelations;
+export type DealContactWithRelations = DealContact & DealContactRelations;
+export type DealNoteWithRelations = DealNote & DealNoteRelations;
+export type EmailAttachmentWithRelations = EmailAttachment & EmailAttachmentRelations;
+export type EmailNoteWithRelations = EmailNote & EmailNoteRelations;
+export type EmailRecipientWithRelations = EmailRecipient & EmailRecipientRelations;
+export type EventImageWithRelations = EventImage & EventImageRelations;
+export type EventLinkWithRelations = EventLink & EventLinkRelations;
+export type EventNoteWithRelations = EventNote & EventNoteRelations;
+export type EventVenueWithRelations = EventVenue & EventVenueRelations;
+export type VenueWithRelations = Venue & VenueRelations;
+export type ExpenseContactWithRelations = ExpenseContact & ExpenseContactRelations;
+export type GoalWithRelations = Goal & GoalRelations;
+export type GoalHabitWithRelations = GoalHabit & GoalHabitRelations;
+export type HabitWithRelations = Habit & HabitRelations;
+export type GoalProjectWithRelations = GoalProject & GoalProjectRelations;
+export type InteractionWithRelations = Interaction & InteractionRelations;
+export type MessageWithRelations = Message & MessageRelations;
+export type NotesChunkWithRelations = NotesChunk & NotesChunkRelations;
+export type PlaceWithRelations = Place & PlaceRelations;
+export type ProjectContactWithRelations = ProjectContact & ProjectContactRelations;
 export type ProviderSyncStateWithRelations = ProviderSyncState & ProviderSyncStateRelations;
-export type TagWithRelations = Tag & TagRelations;
-export type RawContactUrlWithRelations = RawContactUrl & RawContactUrlRelations;
+export type RawContactWithRelations = RawContact & RawContactRelations;
 export type RawContactEmailWithRelations = RawContactEmail & RawContactEmailRelations;
 export type RawContactPhoneWithRelations = RawContactPhone & RawContactPhoneRelations;
+export type RawContactUrlWithRelations = RawContactUrl & RawContactUrlRelations;
+export type RuleWithRelations = Rule & RuleRelations;
+export type RuntimeArtifactWithRelations = RuntimeArtifact & RuntimeArtifactRelations;
 export type RuntimeConfigWithRelations = RuntimeConfig & RuntimeConfigRelations;
 export type RuntimeEventWithRelations = RuntimeEvent & RuntimeEventRelations;
+export type RuntimeLogWithRelations = RuntimeLog & RuntimeLogRelations;
+export type RuntimeMetricWithRelations = RuntimeMetric & RuntimeMetricRelations;
 export type RuntimeScheduleWithRelations = RuntimeSchedule & RuntimeScheduleRelations;
-export type ConversationWithRelations = Conversation & ConversationRelations;
-export type MessageWithRelations = Message & MessageRelations;
-export type RawContactWithRelations = RawContact & RawContactRelations;
-export type PlaceWithRelations = Place & PlaceRelations;
+export type RuntimeStateWithRelations = RuntimeState & RuntimeStateRelations;
+export type RuntimeStateDependencyWithRelations = RuntimeStateDependency &
+  RuntimeStateDependencyRelations;
+export type SkillWithRelations = Skill & SkillRelations;
+export type SkillToolWithRelations = SkillTool & SkillToolRelations;
+export type ToolDefinitionWithRelations = ToolDefinition & ToolDefinitionRelations;
+export type TagWithRelations = Tag & TagRelations;
+export type TaskContactWithRelations = TaskContact & TaskContactRelations;
+export type TaskNoteWithRelations = TaskNote & TaskNoteRelations;
+export type TaskProjectWithRelations = TaskProject & TaskProjectRelations;
+export type ThreadParticipantWithRelations = ThreadParticipant & ThreadParticipantRelations;
+export type ToolExecutionWithRelations = ToolExecution & ToolExecutionRelations;
+export type TouchpointWithRelations = Touchpoint & TouchpointRelations;
 export type TripWithRelations = Trip & TripRelations;
-export type HikingTrailWithRelations = HikingTrail & HikingTrailRelations;
+export type VenueImageWithRelations = VenueImage & VenueImageRelations;
+export type VenueLinkWithRelations = VenueLink & VenueLinkRelations;
 // ============ Entity Select Types ============
-export type AgentCollaboratorSelect = {
-  agentId?: boolean;
-  collaboratorId?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  collaborator?: {
-    select: AgentSelect;
+export type ActivityLogSelect = {
+  activityType?: boolean;
+  completedAt?: boolean;
+  durationMinutes?: boolean;
+  quantity?: boolean;
+  quantityUnit?: boolean;
+  intensity?: boolean;
+  notes?: boolean;
+  meta?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  habitId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  activityTypeTrgmSimilarity?: boolean;
+  quantityUnitTrgmSimilarity?: boolean;
+  intensityTrgmSimilarity?: boolean;
+  notesTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  habit?: {
+    select: HabitSelect;
   };
 };
 export type AgentSelect = {
@@ -2436,6 +2347,48 @@ export type AgentSelect = {
     orderBy?: AgentOrderBy[];
   };
 };
+export type AgentCollaboratorSelect = {
+  agentId?: boolean;
+  collaboratorId?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  collaborator?: {
+    select: AgentSelect;
+  };
+};
+export type AgentLogSelect = {
+  agentId?: boolean;
+  level?: boolean;
+  message?: boolean;
+  context?: boolean;
+  taskId?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  levelTrgmSimilarity?: boolean;
+  messageTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+};
+export type AgentPromptSelect = {
+  agentId?: boolean;
+  promptId?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  prompt?: {
+    select: PromptSelect;
+  };
+};
 export type PromptSelect = {
   name?: boolean;
   content?: boolean;
@@ -2469,26 +2422,15 @@ export type PromptSelect = {
     orderBy?: AgentPromptOrderBy[];
   };
 };
-export type AgentPromptSelect = {
-  agentId?: boolean;
-  promptId?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  prompt?: {
-    select: PromptSelect;
-  };
-};
-export type TaskSelect = {
-  agentId?: boolean;
+export type AutonomyRecordSelect = {
   title?: boolean;
-  description?: boolean;
+  recordType?: boolean;
+  content?: boolean;
   status?: boolean;
   priority?: boolean;
-  result?: boolean;
-  startedAt?: boolean;
-  completedAt?: boolean;
-  meta?: boolean;
+  source?: boolean;
+  context?: boolean;
+  tags?: boolean;
   id?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
@@ -2498,25 +2440,108 @@ export type TaskSelect = {
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   titleTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
+  recordTypeTrgmSimilarity?: boolean;
+  contentTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
-  resultTrgmSimilarity?: boolean;
+  sourceTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
+  autonomyRecordLinksBySourceRecordId?: {
+    select: AutonomyRecordLinkSelect;
+    first?: number;
+    filter?: AutonomyRecordLinkFilter;
+    orderBy?: AutonomyRecordLinkOrderBy[];
   };
-  contacts?: {
+  autonomyRecordLinksByTargetRecordId?: {
+    select: AutonomyRecordLinkSelect;
+    first?: number;
+    filter?: AutonomyRecordLinkFilter;
+    orderBy?: AutonomyRecordLinkOrderBy[];
+  };
+  autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId?: {
+    select: AutonomyRecordSelect;
+    first?: number;
+    filter?: AutonomyRecordFilter;
+    orderBy?: AutonomyRecordOrderBy[];
+  };
+  autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId?: {
+    select: AutonomyRecordSelect;
+    first?: number;
+    filter?: AutonomyRecordFilter;
+    orderBy?: AutonomyRecordOrderBy[];
+  };
+};
+export type AutonomyRecordLinkSelect = {
+  sourceRecordId?: boolean;
+  targetRecordId?: boolean;
+  sourceRecord?: {
+    select: AutonomyRecordSelect;
+  };
+  targetRecord?: {
+    select: AutonomyRecordSelect;
+  };
+};
+export type CalendarAttendeeSelect = {
+  contactId?: boolean;
+  responseStatus?: boolean;
+  role?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  calendarEventId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  contact?: {
     select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
   };
-  projects?: {
-    select: ProjectSelect;
+};
+export type CalendarSelect = {
+  providerAccountId?: boolean;
+  providerCalendarId?: boolean;
+  name?: boolean;
+  color?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  calendarEvents?: {
+    select: CalendarEventSelect;
     first?: number;
-    filter?: ProjectFilter;
-    orderBy?: ProjectOrderBy[];
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
+  };
+};
+export type CalendarEventSelect = {
+  providerEventId?: boolean;
+  title?: boolean;
+  description?: boolean;
+  startTime?: boolean;
+  endTime?: boolean;
+  meetingUrl?: boolean;
+  organizerContactId?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  searchTsv?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  calendarId?: boolean;
+  searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  providerEventIdTrgmSimilarity?: boolean;
+  titleTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  meetingUrlTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  calendar?: {
+    select: CalendarSelect;
+  };
+  organizerContact?: {
+    select: ContactSelect;
   };
   notes?: {
     select: NoteSelect;
@@ -2524,35 +2549,51 @@ export type TaskSelect = {
     filter?: NoteFilter;
     orderBy?: NoteOrderBy[];
   };
-  calendarEvents?: {
-    select: CalendarEventSelect;
+  tasks?: {
+    select: TaskSelect;
     first?: number;
-    filter?: CalendarEventFilter;
-    orderBy?: CalendarEventOrderBy[];
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
   };
-  taskContacts?: {
-    select: TaskContactSelect;
+  calendarAttendees?: {
+    select: CalendarAttendeeSelect;
     first?: number;
-    filter?: TaskContactFilter;
-    orderBy?: TaskContactOrderBy[];
+    filter?: CalendarAttendeeFilter;
+    orderBy?: CalendarAttendeeOrderBy[];
   };
-  taskProjects?: {
-    select: TaskProjectSelect;
+  calendarEventContacts?: {
+    select: CalendarEventContactSelect;
     first?: number;
-    filter?: TaskProjectFilter;
-    orderBy?: TaskProjectOrderBy[];
+    filter?: CalendarEventContactFilter;
+    orderBy?: CalendarEventContactOrderBy[];
   };
-  taskNotes?: {
-    select: TaskNoteSelect;
+  calendarEventNotes?: {
+    select: CalendarEventNoteSelect;
     first?: number;
-    filter?: TaskNoteFilter;
-    orderBy?: TaskNoteOrderBy[];
+    filter?: CalendarEventNoteFilter;
+    orderBy?: CalendarEventNoteOrderBy[];
   };
   calendarEventTasks?: {
     select: CalendarEventTaskSelect;
     first?: number;
     filter?: CalendarEventTaskFilter;
     orderBy?: CalendarEventTaskOrderBy[];
+  };
+  contactsByCalendarEventContactCalendarEventIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+};
+export type CalendarEventContactSelect = {
+  calendarEventId?: boolean;
+  contactId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  contact?: {
+    select: ContactSelect;
   };
 };
 export type ContactSelect = {
@@ -2627,6 +2668,12 @@ export type ContactSelect = {
     first?: number;
     filter?: EmailFilter;
     orderBy?: EmailOrderBy[];
+  };
+  contactsChunksByContactsId?: {
+    select: ContactsChunkSelect;
+    first?: number;
+    filter?: ContactsChunkFilter;
+    orderBy?: ContactsChunkOrderBy[];
   };
   interactions?: {
     select: InteractionSelect;
@@ -2815,17 +2862,36 @@ export type ContactSelect = {
     orderBy?: EmailThreadOrderBy[];
   };
 };
-export type ImageSelect = {
-  url?: boolean;
-  meta?: boolean;
-  altText?: boolean;
-  caption?: boolean;
+export type CalendarEventNoteSelect = {
+  calendarEventId?: boolean;
+  noteId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type NoteSelect = {
+  content?: boolean;
+  abstract?: boolean;
+  overview?: boolean;
+  activeCount?: boolean;
+  lastAccessedAt?: boolean;
+  tags?: boolean;
   id?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  contentBm25Score?: boolean;
+  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
+  abstractTrgmSimilarity?: boolean;
+  overviewTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   contacts?: {
     select: ContactSelect;
@@ -2839,75 +2905,169 @@ export type ImageSelect = {
     filter?: CompanyFilter;
     orderBy?: CompanyOrderBy[];
   };
+  deals?: {
+    select: DealSelect;
+    first?: number;
+    filter?: DealFilter;
+    orderBy?: DealOrderBy[];
+  };
   events?: {
     select: EventSelect;
     first?: number;
     filter?: EventFilter;
     orderBy?: EventOrderBy[];
   };
-  venues?: {
-    select: VenueSelect;
+  tasks?: {
+    select: TaskSelect;
     first?: number;
-    filter?: VenueFilter;
-    orderBy?: VenueOrderBy[];
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
   };
-  contactsByMainImageId?: {
+  emails?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
+  };
+  calendarEvents?: {
+    select: CalendarEventSelect;
+    first?: number;
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
+  };
+  notesChunksByNotesId?: {
+    select: NotesChunkSelect;
+    first?: number;
+    filter?: NotesChunkFilter;
+    orderBy?: NotesChunkOrderBy[];
+  };
+  contactNotes?: {
+    select: ContactNoteSelect;
+    first?: number;
+    filter?: ContactNoteFilter;
+    orderBy?: ContactNoteOrderBy[];
+  };
+  companyNotes?: {
+    select: CompanyNoteSelect;
+    first?: number;
+    filter?: CompanyNoteFilter;
+    orderBy?: CompanyNoteOrderBy[];
+  };
+  dealNotes?: {
+    select: DealNoteSelect;
+    first?: number;
+    filter?: DealNoteFilter;
+    orderBy?: DealNoteOrderBy[];
+  };
+  eventNotes?: {
+    select: EventNoteSelect;
+    first?: number;
+    filter?: EventNoteFilter;
+    orderBy?: EventNoteOrderBy[];
+  };
+  taskNotes?: {
+    select: TaskNoteSelect;
+    first?: number;
+    filter?: TaskNoteFilter;
+    orderBy?: TaskNoteOrderBy[];
+  };
+  emailNotes?: {
+    select: EmailNoteSelect;
+    first?: number;
+    filter?: EmailNoteFilter;
+    orderBy?: EmailNoteOrderBy[];
+  };
+  calendarEventNotes?: {
+    select: CalendarEventNoteSelect;
+    first?: number;
+    filter?: CalendarEventNoteFilter;
+    orderBy?: CalendarEventNoteOrderBy[];
+  };
+};
+export type CalendarEventTaskSelect = {
+  calendarEventId?: boolean;
+  taskId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  task?: {
+    select: TaskSelect;
+  };
+};
+export type TaskSelect = {
+  agentId?: boolean;
+  title?: boolean;
+  description?: boolean;
+  status?: boolean;
+  priority?: boolean;
+  result?: boolean;
+  startedAt?: boolean;
+  completedAt?: boolean;
+  meta?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  titleTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  resultTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  contacts?: {
     select: ContactSelect;
     first?: number;
     filter?: ContactFilter;
     orderBy?: ContactOrderBy[];
   };
-  companiesByMainImageId?: {
-    select: CompanySelect;
+  projects?: {
+    select: ProjectSelect;
     first?: number;
-    filter?: CompanyFilter;
-    orderBy?: CompanyOrderBy[];
+    filter?: ProjectFilter;
+    orderBy?: ProjectOrderBy[];
   };
-  eventsByMainImageId?: {
-    select: EventSelect;
+  notes?: {
+    select: NoteSelect;
     first?: number;
-    filter?: EventFilter;
-    orderBy?: EventOrderBy[];
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
   };
-  venuesByMainImageId?: {
-    select: VenueSelect;
+  calendarEvents?: {
+    select: CalendarEventSelect;
     first?: number;
-    filter?: VenueFilter;
-    orderBy?: VenueOrderBy[];
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
   };
-  contactImages?: {
-    select: ContactImageSelect;
+  taskContacts?: {
+    select: TaskContactSelect;
     first?: number;
-    filter?: ContactImageFilter;
-    orderBy?: ContactImageOrderBy[];
+    filter?: TaskContactFilter;
+    orderBy?: TaskContactOrderBy[];
   };
-  companyImages?: {
-    select: CompanyImageSelect;
+  taskProjects?: {
+    select: TaskProjectSelect;
     first?: number;
-    filter?: CompanyImageFilter;
-    orderBy?: CompanyImageOrderBy[];
+    filter?: TaskProjectFilter;
+    orderBy?: TaskProjectOrderBy[];
   };
-  eventImages?: {
-    select: EventImageSelect;
+  taskNotes?: {
+    select: TaskNoteSelect;
     first?: number;
-    filter?: EventImageFilter;
-    orderBy?: EventImageOrderBy[];
+    filter?: TaskNoteFilter;
+    orderBy?: TaskNoteOrderBy[];
   };
-  venueImages?: {
-    select: VenueImageSelect;
+  calendarEventTasks?: {
+    select: CalendarEventTaskSelect;
     first?: number;
-    filter?: VenueImageFilter;
-    orderBy?: VenueImageOrderBy[];
-  };
-};
-export type ContactImageSelect = {
-  contactId?: boolean;
-  imageId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  image?: {
-    select: ImageSelect;
+    filter?: CalendarEventTaskFilter;
+    orderBy?: CalendarEventTaskOrderBy[];
   };
 };
 export type CompanySelect = {
@@ -3021,24 +3181,79 @@ export type CompanySelect = {
     orderBy?: DealOrderBy[];
   };
 };
-export type CompanyImageSelect = {
-  companyId?: boolean;
-  imageId?: boolean;
-  company?: {
-    select: CompanySelect;
+export type DealSelect = {
+  name?: boolean;
+  stage?: boolean;
+  value?: boolean;
+  currency?: boolean;
+  expectedCloseDate?: boolean;
+  notesText?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  nameTrgmSimilarity?: boolean;
+  stageTrgmSimilarity?: boolean;
+  currencyTrgmSimilarity?: boolean;
+  notesTextTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  notes?: {
+    select: NoteSelect;
+    first?: number;
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
   };
-  image?: {
-    select: ImageSelect;
+  touchpoints?: {
+    select: TouchpointSelect;
+    first?: number;
+    filter?: TouchpointFilter;
+    orderBy?: TouchpointOrderBy[];
+  };
+  dealContacts?: {
+    select: DealContactSelect;
+    first?: number;
+    filter?: DealContactFilter;
+    orderBy?: DealContactOrderBy[];
+  };
+  dealCompanies?: {
+    select: DealCompanySelect;
+    first?: number;
+    filter?: DealCompanyFilter;
+    orderBy?: DealCompanyOrderBy[];
+  };
+  dealNotes?: {
+    select: DealNoteSelect;
+    first?: number;
+    filter?: DealNoteFilter;
+    orderBy?: DealNoteOrderBy[];
+  };
+  contactsByDealContactDealIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  companiesByDealCompanyDealIdAndCompanyId?: {
+    select: CompanySelect;
+    first?: number;
+    filter?: CompanyFilter;
+    orderBy?: CompanyOrderBy[];
   };
 };
-export type ContactCompanySelect = {
-  contactId?: boolean;
+export type CompanyEventSelect = {
   companyId?: boolean;
+  eventId?: boolean;
   company?: {
     select: CompanySelect;
   };
-  contact?: {
-    select: ContactSelect;
+  event?: {
+    select: EventSelect;
   };
 };
 export type EventSelect = {
@@ -3145,14 +3360,321 @@ export type EventSelect = {
     orderBy?: CompanyOrderBy[];
   };
 };
-export type EventImageSelect = {
-  eventId?: boolean;
+export type CompanyImageSelect = {
+  companyId?: boolean;
   imageId?: boolean;
-  event?: {
-    select: EventSelect;
+  company?: {
+    select: CompanySelect;
   };
   image?: {
     select: ImageSelect;
+  };
+};
+export type ImageSelect = {
+  url?: boolean;
+  meta?: boolean;
+  altText?: boolean;
+  caption?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  contacts?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  companies?: {
+    select: CompanySelect;
+    first?: number;
+    filter?: CompanyFilter;
+    orderBy?: CompanyOrderBy[];
+  };
+  events?: {
+    select: EventSelect;
+    first?: number;
+    filter?: EventFilter;
+    orderBy?: EventOrderBy[];
+  };
+  venues?: {
+    select: VenueSelect;
+    first?: number;
+    filter?: VenueFilter;
+    orderBy?: VenueOrderBy[];
+  };
+  contactsByMainImageId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  companiesByMainImageId?: {
+    select: CompanySelect;
+    first?: number;
+    filter?: CompanyFilter;
+    orderBy?: CompanyOrderBy[];
+  };
+  eventsByMainImageId?: {
+    select: EventSelect;
+    first?: number;
+    filter?: EventFilter;
+    orderBy?: EventOrderBy[];
+  };
+  venuesByMainImageId?: {
+    select: VenueSelect;
+    first?: number;
+    filter?: VenueFilter;
+    orderBy?: VenueOrderBy[];
+  };
+  contactImages?: {
+    select: ContactImageSelect;
+    first?: number;
+    filter?: ContactImageFilter;
+    orderBy?: ContactImageOrderBy[];
+  };
+  companyImages?: {
+    select: CompanyImageSelect;
+    first?: number;
+    filter?: CompanyImageFilter;
+    orderBy?: CompanyImageOrderBy[];
+  };
+  eventImages?: {
+    select: EventImageSelect;
+    first?: number;
+    filter?: EventImageFilter;
+    orderBy?: EventImageOrderBy[];
+  };
+  venueImages?: {
+    select: VenueImageSelect;
+    first?: number;
+    filter?: VenueImageFilter;
+    orderBy?: VenueImageOrderBy[];
+  };
+};
+export type CompanyLinkSelect = {
+  title?: boolean;
+  url?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  companyId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  company?: {
+    select: CompanySelect;
+  };
+};
+export type MemorySelect = {
+  title?: boolean;
+  content?: boolean;
+  location?: boolean;
+  occurredAt?: boolean;
+  mood?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  locationGeo?: boolean;
+  agentId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  titleTrgmSimilarity?: boolean;
+  contentTrgmSimilarity?: boolean;
+  locationTrgmSimilarity?: boolean;
+  moodTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  contacts?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  companies?: {
+    select: CompanySelect;
+    first?: number;
+    filter?: CompanyFilter;
+    orderBy?: CompanyOrderBy[];
+  };
+  contactMemories?: {
+    select: ContactMemorySelect;
+    first?: number;
+    filter?: ContactMemoryFilter;
+    orderBy?: ContactMemoryOrderBy[];
+  };
+  companyMemories?: {
+    select: CompanyMemorySelect;
+    first?: number;
+    filter?: CompanyMemoryFilter;
+    orderBy?: CompanyMemoryOrderBy[];
+  };
+};
+export type CompanyMemorySelect = {
+  companyId?: boolean;
+  memoryId?: boolean;
+  company?: {
+    select: CompanySelect;
+  };
+  memory?: {
+    select: MemorySelect;
+  };
+};
+export type CompanyNoteSelect = {
+  companyId?: boolean;
+  noteId?: boolean;
+  company?: {
+    select: CompanySelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type ContactAddressSelect = {
+  street?: boolean;
+  city?: boolean;
+  state?: boolean;
+  postalCode?: boolean;
+  country?: boolean;
+  addressType?: boolean;
+  isPrimary?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type ContactCompanySelect = {
+  contactId?: boolean;
+  companyId?: boolean;
+  company?: {
+    select: CompanySelect;
+  };
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type ContactEmailSelect = {
+  email?: boolean;
+  emailType?: boolean;
+  isPrimary?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type EmailSelect = {
+  providerMessageId?: boolean;
+  fromContactId?: boolean;
+  to?: boolean;
+  cc?: boolean;
+  bcc?: boolean;
+  subject?: boolean;
+  bodyText?: boolean;
+  bodyHtml?: boolean;
+  sentAt?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  searchTsv?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  emailThreadId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  fromContact?: {
+    select: ContactSelect;
+  };
+  notes?: {
+    select: NoteSelect;
+    first?: number;
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
+  };
+  emailAttachments?: {
+    select: EmailAttachmentSelect;
+    first?: number;
+    filter?: EmailAttachmentFilter;
+    orderBy?: EmailAttachmentOrderBy[];
+  };
+  emailRecipients?: {
+    select: EmailRecipientSelect;
+    first?: number;
+    filter?: EmailRecipientFilter;
+    orderBy?: EmailRecipientOrderBy[];
+  };
+  emailNotes?: {
+    select: EmailNoteSelect;
+    first?: number;
+    filter?: EmailNoteFilter;
+    orderBy?: EmailNoteOrderBy[];
+  };
+  contactsByEmailRecipientEmailIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+};
+export type EmailThreadSelect = {
+  providerThreadId?: boolean;
+  subject?: boolean;
+  lastMessageAt?: boolean;
+  summary?: boolean;
+  status?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  searchTsv?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  providerThreadIdTrgmSimilarity?: boolean;
+  subjectTrgmSimilarity?: boolean;
+  summaryTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  emails?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
+  };
+  threadParticipants?: {
+    select: ThreadParticipantSelect;
+    first?: number;
+    filter?: ThreadParticipantFilter;
+    orderBy?: ThreadParticipantOrderBy[];
+  };
+  contactsByThreadParticipantEmailThreadIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
   };
 };
 export type ContactEventSelect = {
@@ -3165,14 +3687,322 @@ export type ContactEventSelect = {
     select: EventSelect;
   };
 };
-export type CompanyEventSelect = {
+export type ExpenseSelect = {
+  description?: boolean;
+  amount?: boolean;
+  currency?: boolean;
+  category?: boolean;
+  occurredAt?: boolean;
+  vendor?: boolean;
+  notes?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  tripId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  currencyTrgmSimilarity?: boolean;
+  categoryTrgmSimilarity?: boolean;
+  vendorTrgmSimilarity?: boolean;
+  notesTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  trip?: {
+    select: TripSelect;
+  };
+  contacts?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  expenseContacts?: {
+    select: ExpenseContactSelect;
+    first?: number;
+    filter?: ExpenseContactFilter;
+    orderBy?: ExpenseContactOrderBy[];
+  };
+};
+export type ContactImageSelect = {
+  contactId?: boolean;
+  imageId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  image?: {
+    select: ImageSelect;
+  };
+};
+export type ContactLinkSelect = {
+  title?: boolean;
+  url?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  contactId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type ContactMemorySelect = {
+  contactId?: boolean;
+  memoryId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  memory?: {
+    select: MemorySelect;
+  };
+};
+export type ContactNoteSelect = {
+  contactId?: boolean;
+  noteId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type ContactPhoneSelect = {
+  phone?: boolean;
+  phoneType?: boolean;
+  isPrimary?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type ProjectSelect = {
+  name?: boolean;
+  description?: boolean;
+  status?: boolean;
+  projectType?: boolean;
+  priority?: boolean;
+  startedAt?: boolean;
+  targetDate?: boolean;
+  completedAt?: boolean;
+  config?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  nameTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  projectTypeTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  contacts?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  tasks?: {
+    select: TaskSelect;
+    first?: number;
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
+  };
+  goals?: {
+    select: GoalSelect;
+    first?: number;
+    filter?: GoalFilter;
+    orderBy?: GoalOrderBy[];
+  };
+  projectContacts?: {
+    select: ProjectContactSelect;
+    first?: number;
+    filter?: ProjectContactFilter;
+    orderBy?: ProjectContactOrderBy[];
+  };
+  taskProjects?: {
+    select: TaskProjectSelect;
+    first?: number;
+    filter?: TaskProjectFilter;
+    orderBy?: TaskProjectOrderBy[];
+  };
+  goalProjects?: {
+    select: GoalProjectSelect;
+    first?: number;
+    filter?: GoalProjectFilter;
+    orderBy?: GoalProjectOrderBy[];
+  };
+};
+export type ContactRelationshipSelect = {
+  contactId?: boolean;
+  relatedContactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  relatedContact?: {
+    select: ContactSelect;
+  };
+};
+export type ContactsChunkSelect = {
+  id?: boolean;
+  contactsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  contacts?: {
+    select: ContactSelect;
+  };
+};
+export type ConversationSelect = {
+  title?: boolean;
+  agentId?: boolean;
+  status?: boolean;
+  meta?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  titleTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  messages?: {
+    select: MessageSelect;
+    first?: number;
+    filter?: MessageFilter;
+    orderBy?: MessageOrderBy[];
+  };
+};
+export type DealCompanySelect = {
+  dealId?: boolean;
   companyId?: boolean;
-  eventId?: boolean;
   company?: {
     select: CompanySelect;
   };
+  deal?: {
+    select: DealSelect;
+  };
+};
+export type DealContactSelect = {
+  dealId?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  deal?: {
+    select: DealSelect;
+  };
+};
+export type DealNoteSelect = {
+  dealId?: boolean;
+  noteId?: boolean;
+  deal?: {
+    select: DealSelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type EmailAttachmentSelect = {
+  filename?: boolean;
+  contentType?: boolean;
+  sizeBytes?: boolean;
+  storageUrl?: boolean;
+  providerAttachmentId?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  emailId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+};
+export type EmailNoteSelect = {
+  emailId?: boolean;
+  noteId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type EmailRecipientSelect = {
+  emailId?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  email?: {
+    select: EmailSelect;
+  };
+};
+export type EventImageSelect = {
+  eventId?: boolean;
+  imageId?: boolean;
   event?: {
     select: EventSelect;
+  };
+  image?: {
+    select: ImageSelect;
+  };
+};
+export type EventLinkSelect = {
+  title?: boolean;
+  url?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  eventId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  event?: {
+    select: EventSelect;
+  };
+};
+export type EventNoteSelect = {
+  eventId?: boolean;
+  noteId?: boolean;
+  event?: {
+    select: EventSelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type EventVenueSelect = {
+  eventId?: boolean;
+  venueId?: boolean;
+  event?: {
+    select: EventSelect;
+  };
+  venue?: {
+    select: VenueSelect;
   };
 };
 export type VenueSelect = {
@@ -3245,745 +4075,14 @@ export type VenueSelect = {
     orderBy?: ImageOrderBy[];
   };
 };
-export type VenueImageSelect = {
-  venueId?: boolean;
-  imageId?: boolean;
-  image?: {
-    select: ImageSelect;
-  };
-  venue?: {
-    select: VenueSelect;
-  };
-};
-export type EventVenueSelect = {
-  eventId?: boolean;
-  venueId?: boolean;
-  event?: {
-    select: EventSelect;
-  };
-  venue?: {
-    select: VenueSelect;
-  };
-};
-export type VenueLinkSelect = {
-  title?: boolean;
-  url?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  venueId?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  venue?: {
-    select: VenueSelect;
-  };
-};
-export type NoteSelect = {
-  content?: boolean;
-  abstract?: boolean;
-  overview?: boolean;
-  activeCount?: boolean;
-  lastAccessedAt?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  contentBm25Score?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  abstractTrgmSimilarity?: boolean;
-  overviewTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  contacts?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-  companies?: {
-    select: CompanySelect;
-    first?: number;
-    filter?: CompanyFilter;
-    orderBy?: CompanyOrderBy[];
-  };
-  deals?: {
-    select: DealSelect;
-    first?: number;
-    filter?: DealFilter;
-    orderBy?: DealOrderBy[];
-  };
-  events?: {
-    select: EventSelect;
-    first?: number;
-    filter?: EventFilter;
-    orderBy?: EventOrderBy[];
-  };
-  tasks?: {
-    select: TaskSelect;
-    first?: number;
-    filter?: TaskFilter;
-    orderBy?: TaskOrderBy[];
-  };
-  emails?: {
-    select: EmailSelect;
-    first?: number;
-    filter?: EmailFilter;
-    orderBy?: EmailOrderBy[];
-  };
-  calendarEvents?: {
-    select: CalendarEventSelect;
-    first?: number;
-    filter?: CalendarEventFilter;
-    orderBy?: CalendarEventOrderBy[];
-  };
-  contactNotes?: {
-    select: ContactNoteSelect;
-    first?: number;
-    filter?: ContactNoteFilter;
-    orderBy?: ContactNoteOrderBy[];
-  };
-  companyNotes?: {
-    select: CompanyNoteSelect;
-    first?: number;
-    filter?: CompanyNoteFilter;
-    orderBy?: CompanyNoteOrderBy[];
-  };
-  dealNotes?: {
-    select: DealNoteSelect;
-    first?: number;
-    filter?: DealNoteFilter;
-    orderBy?: DealNoteOrderBy[];
-  };
-  eventNotes?: {
-    select: EventNoteSelect;
-    first?: number;
-    filter?: EventNoteFilter;
-    orderBy?: EventNoteOrderBy[];
-  };
-  taskNotes?: {
-    select: TaskNoteSelect;
-    first?: number;
-    filter?: TaskNoteFilter;
-    orderBy?: TaskNoteOrderBy[];
-  };
-  emailNotes?: {
-    select: EmailNoteSelect;
-    first?: number;
-    filter?: EmailNoteFilter;
-    orderBy?: EmailNoteOrderBy[];
-  };
-  calendarEventNotes?: {
-    select: CalendarEventNoteSelect;
-    first?: number;
-    filter?: CalendarEventNoteFilter;
-    orderBy?: CalendarEventNoteOrderBy[];
-  };
-};
-export type ContactNoteSelect = {
-  contactId?: boolean;
-  noteId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  note?: {
-    select: NoteSelect;
-  };
-};
-export type CompanyNoteSelect = {
-  companyId?: boolean;
-  noteId?: boolean;
-  company?: {
-    select: CompanySelect;
-  };
-  note?: {
-    select: NoteSelect;
-  };
-};
-export type DealSelect = {
-  name?: boolean;
-  stage?: boolean;
-  value?: boolean;
-  currency?: boolean;
-  expectedCloseDate?: boolean;
-  notesText?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  stageTrgmSimilarity?: boolean;
-  currencyTrgmSimilarity?: boolean;
-  notesTextTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  notes?: {
-    select: NoteSelect;
-    first?: number;
-    filter?: NoteFilter;
-    orderBy?: NoteOrderBy[];
-  };
-  touchpoints?: {
-    select: TouchpointSelect;
-    first?: number;
-    filter?: TouchpointFilter;
-    orderBy?: TouchpointOrderBy[];
-  };
-  dealContacts?: {
-    select: DealContactSelect;
-    first?: number;
-    filter?: DealContactFilter;
-    orderBy?: DealContactOrderBy[];
-  };
-  dealCompanies?: {
-    select: DealCompanySelect;
-    first?: number;
-    filter?: DealCompanyFilter;
-    orderBy?: DealCompanyOrderBy[];
-  };
-  dealNotes?: {
-    select: DealNoteSelect;
-    first?: number;
-    filter?: DealNoteFilter;
-    orderBy?: DealNoteOrderBy[];
-  };
-  contactsByDealContactDealIdAndContactId?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-  companiesByDealCompanyDealIdAndCompanyId?: {
-    select: CompanySelect;
-    first?: number;
-    filter?: CompanyFilter;
-    orderBy?: CompanyOrderBy[];
-  };
-};
-export type DealContactSelect = {
-  dealId?: boolean;
+export type ExpenseContactSelect = {
+  expenseId?: boolean;
   contactId?: boolean;
   contact?: {
     select: ContactSelect;
   };
-  deal?: {
-    select: DealSelect;
-  };
-};
-export type DealCompanySelect = {
-  dealId?: boolean;
-  companyId?: boolean;
-  company?: {
-    select: CompanySelect;
-  };
-  deal?: {
-    select: DealSelect;
-  };
-};
-export type DealNoteSelect = {
-  dealId?: boolean;
-  noteId?: boolean;
-  deal?: {
-    select: DealSelect;
-  };
-  note?: {
-    select: NoteSelect;
-  };
-};
-export type TouchpointSelect = {
-  contactId?: boolean;
-  touchpointType?: boolean;
-  occurredAt?: boolean;
-  subject?: boolean;
-  summary?: boolean;
-  sentiment?: boolean;
-  direction?: boolean;
-  channel?: boolean;
-  dealId?: boolean;
-  companyId?: boolean;
-  eventId?: boolean;
-  meta?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  touchpointTypeTrgmSimilarity?: boolean;
-  subjectTrgmSimilarity?: boolean;
-  summaryTrgmSimilarity?: boolean;
-  sentimentTrgmSimilarity?: boolean;
-  directionTrgmSimilarity?: boolean;
-  channelTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  company?: {
-    select: CompanySelect;
-  };
-  contact?: {
-    select: ContactSelect;
-  };
-  deal?: {
-    select: DealSelect;
-  };
-  event?: {
-    select: EventSelect;
-  };
-};
-export type EventNoteSelect = {
-  eventId?: boolean;
-  noteId?: boolean;
-  event?: {
-    select: EventSelect;
-  };
-  note?: {
-    select: NoteSelect;
-  };
-};
-export type TaskNoteSelect = {
-  taskId?: boolean;
-  noteId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  task?: {
-    select: TaskSelect;
-  };
-};
-export type EmailSelect = {
-  providerMessageId?: boolean;
-  fromContactId?: boolean;
-  to?: boolean;
-  cc?: boolean;
-  bcc?: boolean;
-  subject?: boolean;
-  bodyText?: boolean;
-  bodyHtml?: boolean;
-  sentAt?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  searchTsv?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  emailThreadId?: boolean;
-  searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  providerMessageIdTrgmSimilarity?: boolean;
-  subjectTrgmSimilarity?: boolean;
-  bodyTextTrgmSimilarity?: boolean;
-  bodyHtmlTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  emailThread?: {
-    select: EmailThreadSelect;
-  };
-  fromContact?: {
-    select: ContactSelect;
-  };
-  notes?: {
-    select: NoteSelect;
-    first?: number;
-    filter?: NoteFilter;
-    orderBy?: NoteOrderBy[];
-  };
-  emailAttachments?: {
-    select: EmailAttachmentSelect;
-    first?: number;
-    filter?: EmailAttachmentFilter;
-    orderBy?: EmailAttachmentOrderBy[];
-  };
-  emailRecipients?: {
-    select: EmailRecipientSelect;
-    first?: number;
-    filter?: EmailRecipientFilter;
-    orderBy?: EmailRecipientOrderBy[];
-  };
-  emailNotes?: {
-    select: EmailNoteSelect;
-    first?: number;
-    filter?: EmailNoteFilter;
-    orderBy?: EmailNoteOrderBy[];
-  };
-  contactsByEmailRecipientEmailIdAndContactId?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-};
-export type EmailRecipientSelect = {
-  emailId?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  email?: {
-    select: EmailSelect;
-  };
-};
-export type EmailNoteSelect = {
-  emailId?: boolean;
-  noteId?: boolean;
-  email?: {
-    select: EmailSelect;
-  };
-  note?: {
-    select: NoteSelect;
-  };
-};
-export type ThreadParticipantSelect = {
-  emailThreadId?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  emailThread?: {
-    select: EmailThreadSelect;
-  };
-};
-export type EmailAttachmentSelect = {
-  filename?: boolean;
-  contentType?: boolean;
-  sizeBytes?: boolean;
-  storageUrl?: boolean;
-  providerAttachmentId?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  emailId?: boolean;
-  email?: {
-    select: EmailSelect;
-  };
-};
-export type CalendarEventSelect = {
-  providerEventId?: boolean;
-  title?: boolean;
-  description?: boolean;
-  startTime?: boolean;
-  endTime?: boolean;
-  meetingUrl?: boolean;
-  organizerContactId?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  searchTsv?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  calendarId?: boolean;
-  searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  providerEventIdTrgmSimilarity?: boolean;
-  titleTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  meetingUrlTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  calendar?: {
-    select: CalendarSelect;
-  };
-  organizerContact?: {
-    select: ContactSelect;
-  };
-  notes?: {
-    select: NoteSelect;
-    first?: number;
-    filter?: NoteFilter;
-    orderBy?: NoteOrderBy[];
-  };
-  tasks?: {
-    select: TaskSelect;
-    first?: number;
-    filter?: TaskFilter;
-    orderBy?: TaskOrderBy[];
-  };
-  calendarAttendees?: {
-    select: CalendarAttendeeSelect;
-    first?: number;
-    filter?: CalendarAttendeeFilter;
-    orderBy?: CalendarAttendeeOrderBy[];
-  };
-  calendarEventContacts?: {
-    select: CalendarEventContactSelect;
-    first?: number;
-    filter?: CalendarEventContactFilter;
-    orderBy?: CalendarEventContactOrderBy[];
-  };
-  calendarEventNotes?: {
-    select: CalendarEventNoteSelect;
-    first?: number;
-    filter?: CalendarEventNoteFilter;
-    orderBy?: CalendarEventNoteOrderBy[];
-  };
-  calendarEventTasks?: {
-    select: CalendarEventTaskSelect;
-    first?: number;
-    filter?: CalendarEventTaskFilter;
-    orderBy?: CalendarEventTaskOrderBy[];
-  };
-  contactsByCalendarEventContactCalendarEventIdAndContactId?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-};
-export type CalendarEventContactSelect = {
-  calendarEventId?: boolean;
-  contactId?: boolean;
-  calendarEvent?: {
-    select: CalendarEventSelect;
-  };
-  contact?: {
-    select: ContactSelect;
-  };
-};
-export type CalendarEventNoteSelect = {
-  calendarEventId?: boolean;
-  noteId?: boolean;
-  calendarEvent?: {
-    select: CalendarEventSelect;
-  };
-  note?: {
-    select: NoteSelect;
-  };
-};
-export type CalendarEventTaskSelect = {
-  calendarEventId?: boolean;
-  taskId?: boolean;
-  calendarEvent?: {
-    select: CalendarEventSelect;
-  };
-  task?: {
-    select: TaskSelect;
-  };
-};
-export type CalendarAttendeeSelect = {
-  contactId?: boolean;
-  responseStatus?: boolean;
-  role?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  calendarEventId?: boolean;
-  calendarEvent?: {
-    select: CalendarEventSelect;
-  };
-  contact?: {
-    select: ContactSelect;
-  };
-};
-export type EventLinkSelect = {
-  title?: boolean;
-  url?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  eventId?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  event?: {
-    select: EventSelect;
-  };
-};
-export type MemorySelect = {
-  title?: boolean;
-  content?: boolean;
-  location?: boolean;
-  occurredAt?: boolean;
-  mood?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  locationGeo?: boolean;
-  agentId?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  contentTrgmSimilarity?: boolean;
-  locationTrgmSimilarity?: boolean;
-  moodTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  contacts?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-  companies?: {
-    select: CompanySelect;
-    first?: number;
-    filter?: CompanyFilter;
-    orderBy?: CompanyOrderBy[];
-  };
-  contactMemories?: {
-    select: ContactMemorySelect;
-    first?: number;
-    filter?: ContactMemoryFilter;
-    orderBy?: ContactMemoryOrderBy[];
-  };
-  companyMemories?: {
-    select: CompanyMemorySelect;
-    first?: number;
-    filter?: CompanyMemoryFilter;
-    orderBy?: CompanyMemoryOrderBy[];
-  };
-};
-export type ContactMemorySelect = {
-  contactId?: boolean;
-  memoryId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  memory?: {
-    select: MemorySelect;
-  };
-};
-export type CompanyMemorySelect = {
-  companyId?: boolean;
-  memoryId?: boolean;
-  company?: {
-    select: CompanySelect;
-  };
-  memory?: {
-    select: MemorySelect;
-  };
-};
-export type CompanyLinkSelect = {
-  title?: boolean;
-  url?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  companyId?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  company?: {
-    select: CompanySelect;
-  };
-};
-export type ContactRelationshipSelect = {
-  contactId?: boolean;
-  relatedContactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  relatedContact?: {
-    select: ContactSelect;
-  };
-};
-export type ProjectSelect = {
-  name?: boolean;
-  description?: boolean;
-  status?: boolean;
-  projectType?: boolean;
-  priority?: boolean;
-  startedAt?: boolean;
-  targetDate?: boolean;
-  completedAt?: boolean;
-  config?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  projectTypeTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  contacts?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-  tasks?: {
-    select: TaskSelect;
-    first?: number;
-    filter?: TaskFilter;
-    orderBy?: TaskOrderBy[];
-  };
-  goals?: {
-    select: GoalSelect;
-    first?: number;
-    filter?: GoalFilter;
-    orderBy?: GoalOrderBy[];
-  };
-  projectContacts?: {
-    select: ProjectContactSelect;
-    first?: number;
-    filter?: ProjectContactFilter;
-    orderBy?: ProjectContactOrderBy[];
-  };
-  taskProjects?: {
-    select: TaskProjectSelect;
-    first?: number;
-    filter?: TaskProjectFilter;
-    orderBy?: TaskProjectOrderBy[];
-  };
-  goalProjects?: {
-    select: GoalProjectSelect;
-    first?: number;
-    filter?: GoalProjectFilter;
-    orderBy?: GoalProjectOrderBy[];
-  };
-};
-export type ProjectContactSelect = {
-  projectId?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  project?: {
-    select: ProjectSelect;
-  };
-};
-export type TaskProjectSelect = {
-  taskId?: boolean;
-  projectId?: boolean;
-  project?: {
-    select: ProjectSelect;
-  };
-  task?: {
-    select: TaskSelect;
+  expense?: {
+    select: ExpenseSelect;
   };
 };
 export type GoalSelect = {
@@ -4031,6 +4130,16 @@ export type GoalSelect = {
     orderBy?: GoalProjectOrderBy[];
   };
 };
+export type GoalHabitSelect = {
+  goalId?: boolean;
+  habitId?: boolean;
+  goal?: {
+    select: GoalSelect;
+  };
+  habit?: {
+    select: HabitSelect;
+  };
+};
 export type HabitSelect = {
   name?: boolean;
   frequency?: boolean;
@@ -4059,45 +4168,6 @@ export type HabitSelect = {
     orderBy?: GoalHabitOrderBy[];
   };
 };
-export type GoalHabitSelect = {
-  goalId?: boolean;
-  habitId?: boolean;
-  goal?: {
-    select: GoalSelect;
-  };
-  habit?: {
-    select: HabitSelect;
-  };
-};
-export type ActivityLogSelect = {
-  activityType?: boolean;
-  completedAt?: boolean;
-  durationMinutes?: boolean;
-  quantity?: boolean;
-  quantityUnit?: boolean;
-  intensity?: boolean;
-  notes?: boolean;
-  meta?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  habitId?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  activityTypeTrgmSimilarity?: boolean;
-  quantityUnitTrgmSimilarity?: boolean;
-  intensityTrgmSimilarity?: boolean;
-  notesTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  habit?: {
-    select: HabitSelect;
-  };
-};
 export type GoalProjectSelect = {
   goalId?: boolean;
   projectId?: boolean;
@@ -4106,109 +4176,6 @@ export type GoalProjectSelect = {
   };
   project?: {
     select: ProjectSelect;
-  };
-};
-export type TaskContactSelect = {
-  taskId?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  task?: {
-    select: TaskSelect;
-  };
-};
-export type ExpenseSelect = {
-  description?: boolean;
-  amount?: boolean;
-  currency?: boolean;
-  category?: boolean;
-  occurredAt?: boolean;
-  vendor?: boolean;
-  notes?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  tripId?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  currencyTrgmSimilarity?: boolean;
-  categoryTrgmSimilarity?: boolean;
-  vendorTrgmSimilarity?: boolean;
-  notesTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  trip?: {
-    select: TripSelect;
-  };
-  contacts?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-  expenseContacts?: {
-    select: ExpenseContactSelect;
-    first?: number;
-    filter?: ExpenseContactFilter;
-    orderBy?: ExpenseContactOrderBy[];
-  };
-};
-export type ExpenseContactSelect = {
-  expenseId?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  expense?: {
-    select: ExpenseSelect;
-  };
-};
-export type EmailThreadSelect = {
-  providerThreadId?: boolean;
-  subject?: boolean;
-  lastMessageAt?: boolean;
-  summary?: boolean;
-  status?: boolean;
-  tags?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  searchTsv?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  providerThreadIdTrgmSimilarity?: boolean;
-  subjectTrgmSimilarity?: boolean;
-  summaryTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  emails?: {
-    select: EmailSelect;
-    first?: number;
-    filter?: EmailFilter;
-    orderBy?: EmailOrderBy[];
-  };
-  threadParticipants?: {
-    select: ThreadParticipantSelect;
-    first?: number;
-    filter?: ThreadParticipantFilter;
-    orderBy?: ThreadParticipantOrderBy[];
-  };
-  contactsByThreadParticipantEmailThreadIdAndContactId?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
   };
 };
 export type InteractionSelect = {
@@ -4235,67 +4202,14 @@ export type InteractionSelect = {
     select: ContactSelect;
   };
 };
-export type ContactEmailSelect = {
-  email?: boolean;
-  emailType?: boolean;
-  isPrimary?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-};
-export type ContactPhoneSelect = {
-  phone?: boolean;
-  phoneType?: boolean;
-  isPrimary?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-};
-export type ContactAddressSelect = {
-  street?: boolean;
-  city?: boolean;
-  state?: boolean;
-  postalCode?: boolean;
-  country?: boolean;
-  addressType?: boolean;
-  isPrimary?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-};
-export type ContactLinkSelect = {
-  title?: boolean;
-  url?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  contactId?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-};
-export type AgentLogSelect = {
-  agentId?: boolean;
-  level?: boolean;
-  message?: boolean;
-  context?: boolean;
-  taskId?: boolean;
+export type MessageSelect = {
+  conversationId?: boolean;
+  role?: boolean;
+  content?: boolean;
+  tokenCount?: boolean;
+  meta?: boolean;
+  toolCalls?: boolean;
+  toolResults?: boolean;
   id?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
@@ -4304,12 +4218,148 @@ export type AgentLogSelect = {
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  levelTrgmSimilarity?: boolean;
-  messageTrgmSimilarity?: boolean;
+  roleTrgmSimilarity?: boolean;
+  contentTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
+  conversation?: {
+    select: ConversationSelect;
+  };
+};
+export type NotesChunkSelect = {
+  id?: boolean;
+  notesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  notes?: {
+    select: NoteSelect;
+  };
+};
+export type PlaceSelect = {
+  name?: boolean;
+  address?: boolean;
+  description?: boolean;
+  category?: boolean;
+  rating?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  locationGeo?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  nameTrgmSimilarity?: boolean;
+  addressTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  categoryTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+};
+export type ProjectContactSelect = {
+  projectId?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  project?: {
+    select: ProjectSelect;
+  };
+};
+export type ProviderSyncStateSelect = {
+  provider?: boolean;
+  resourceType?: boolean;
+  syncCursor?: boolean;
+  historyId?: boolean;
+  lastSyncAt?: boolean;
+  status?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+};
+export type RawContactSelect = {
+  externalId?: boolean;
+  source?: boolean;
+  firstName?: boolean;
+  lastName?: boolean;
+  fullName?: boolean;
+  headline?: boolean;
+  bio?: boolean;
+  location?: boolean;
+  company?: boolean;
+  jobTitle?: boolean;
+  rawData?: boolean;
+  confidence?: boolean;
+  ingestedAt?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawContactEmails?: {
+    select: RawContactEmailSelect;
+    first?: number;
+    filter?: RawContactEmailFilter;
+    orderBy?: RawContactEmailOrderBy[];
+  };
+  rawContactPhones?: {
+    select: RawContactPhoneSelect;
+    first?: number;
+    filter?: RawContactPhoneFilter;
+    orderBy?: RawContactPhoneOrderBy[];
+  };
+  rawContactUrls?: {
+    select: RawContactUrlSelect;
+    first?: number;
+    filter?: RawContactUrlFilter;
+    orderBy?: RawContactUrlOrderBy[];
+  };
+};
+export type RawContactEmailSelect = {
+  email?: boolean;
+  emailType?: boolean;
+  isPrimary?: boolean;
+  source?: boolean;
+  confidence?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawContactId?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
+  };
+};
+export type RawContactPhoneSelect = {
+  phone?: boolean;
+  phoneType?: boolean;
+  isPrimary?: boolean;
+  source?: boolean;
+  confidence?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawContactId?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
+  };
+};
+export type RawContactUrlSelect = {
+  url?: boolean;
+  urlType?: boolean;
+  source?: boolean;
+  confidence?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawContactId?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
   };
 };
 export type RuleSelect = {
@@ -4344,132 +4394,45 @@ export type RuleSelect = {
     select: AgentSelect;
   };
 };
-export type SkillSelect = {
+export type RuntimeArtifactSelect = {
+  runtimeStateId?: boolean;
   name?: boolean;
-  description?: boolean;
-  category?: boolean;
-  implementation?: boolean;
-  config?: boolean;
-  isActive?: boolean;
-  intentTrigger?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  intentTriggerEmbedding?: boolean;
-  agentId?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  intentTriggerEmbeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  categoryTrgmSimilarity?: boolean;
-  implementationTrgmSimilarity?: boolean;
-  intentTriggerTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  toolDefinitions?: {
-    select: ToolDefinitionSelect;
-    first?: number;
-    filter?: ToolDefinitionFilter;
-    orderBy?: ToolDefinitionOrderBy[];
-  };
-  skillTools?: {
-    select: SkillToolSelect;
-    first?: number;
-    filter?: SkillToolFilter;
-    orderBy?: SkillToolOrderBy[];
-  };
-};
-export type ToolDefinitionSelect = {
-  name?: boolean;
-  description?: boolean;
-  toolType?: boolean;
-  schema?: boolean;
-  config?: boolean;
-  isActive?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  toolTypeTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  skills?: {
-    select: SkillSelect;
-    first?: number;
-    filter?: SkillFilter;
-    orderBy?: SkillOrderBy[];
-  };
-  toolExecutions?: {
-    select: ToolExecutionSelect;
-    first?: number;
-    filter?: ToolExecutionFilter;
-    orderBy?: ToolExecutionOrderBy[];
-  };
-  skillTools?: {
-    select: SkillToolSelect;
-    first?: number;
-    filter?: SkillToolFilter;
-    orderBy?: SkillToolOrderBy[];
-  };
-};
-export type SkillToolSelect = {
-  skillId?: boolean;
-  toolDefinitionId?: boolean;
-  skill?: {
-    select: SkillSelect;
-  };
-  toolDefinition?: {
-    select: ToolDefinitionSelect;
-  };
-};
-export type ToolExecutionSelect = {
-  toolDefinitionId?: boolean;
-  messageId?: boolean;
-  input?: boolean;
-  output?: boolean;
-  status?: boolean;
-  startedAt?: boolean;
-  completedAt?: boolean;
-  error?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  toolDefinition?: {
-    select: ToolDefinitionSelect;
-  };
-};
-export type AutonomyRecordLinkSelect = {
-  sourceRecordId?: boolean;
-  targetRecordId?: boolean;
-  sourceRecord?: {
-    select: AutonomyRecordSelect;
-  };
-  targetRecord?: {
-    select: AutonomyRecordSelect;
-  };
-};
-export type AutonomyRecordSelect = {
-  title?: boolean;
-  recordType?: boolean;
+  artifactType?: boolean;
   content?: boolean;
-  status?: boolean;
-  priority?: boolean;
+  meta?: boolean;
+  sizeBytes?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  runtimeState?: {
+    select: RuntimeStateSelect;
+  };
+};
+export type RuntimeConfigSelect = {
+  key?: boolean;
+  value?: boolean;
+  description?: boolean;
+  isSecret?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+};
+export type RuntimeEventSelect = {
+  eventType?: boolean;
+  payload?: boolean;
   source?: boolean;
+  processedAt?: boolean;
+  status?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+};
+export type RuntimeLogSelect = {
+  runtimeStateId?: boolean;
+  level?: boolean;
+  message?: boolean;
   context?: boolean;
-  tags?: boolean;
+  stepIndex?: boolean;
   id?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
@@ -4478,143 +4441,38 @@ export type AutonomyRecordSelect = {
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  recordTypeTrgmSimilarity?: boolean;
-  contentTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  sourceTrgmSimilarity?: boolean;
+  levelTrgmSimilarity?: boolean;
+  messageTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
-  autonomyRecordLinksBySourceRecordId?: {
-    select: AutonomyRecordLinkSelect;
-    first?: number;
-    filter?: AutonomyRecordLinkFilter;
-    orderBy?: AutonomyRecordLinkOrderBy[];
-  };
-  autonomyRecordLinksByTargetRecordId?: {
-    select: AutonomyRecordLinkSelect;
-    first?: number;
-    filter?: AutonomyRecordLinkFilter;
-    orderBy?: AutonomyRecordLinkOrderBy[];
-  };
-  autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId?: {
-    select: AutonomyRecordSelect;
-    first?: number;
-    filter?: AutonomyRecordFilter;
-    orderBy?: AutonomyRecordOrderBy[];
-  };
-  autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId?: {
-    select: AutonomyRecordSelect;
-    first?: number;
-    filter?: AutonomyRecordFilter;
-    orderBy?: AutonomyRecordOrderBy[];
+  runtimeState?: {
+    select: RuntimeStateSelect;
   };
 };
-export type CodebaseDependencySelect = {
-  codebaseId?: boolean;
-  dependencyId?: boolean;
-  codebase?: {
-    select: CodebaseSelect;
-  };
-  dependency?: {
-    select: CodebaseSelect;
+export type RuntimeMetricSelect = {
+  runtimeStateId?: boolean;
+  metricName?: boolean;
+  metricValue?: boolean;
+  unit?: boolean;
+  meta?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  runtimeState?: {
+    select: RuntimeStateSelect;
   };
 };
-export type CodebaseSelect = {
+export type RuntimeScheduleSelect = {
   name?: boolean;
-  description?: boolean;
-  repositoryUrl?: boolean;
-  defaultBranch?: boolean;
-  language?: boolean;
-  framework?: boolean;
-  lastSyncedAt?: boolean;
+  cronExpression?: boolean;
+  nextRunAt?: boolean;
+  lastRunAt?: boolean;
+  isActive?: boolean;
   config?: boolean;
-  tags?: boolean;
+  timezone?: boolean;
   id?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  repositoryUrlTrgmSimilarity?: boolean;
-  defaultBranchTrgmSimilarity?: boolean;
-  languageTrgmSimilarity?: boolean;
-  frameworkTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  codeChunks?: {
-    select: CodeChunkSelect;
-    first?: number;
-    filter?: CodeChunkFilter;
-    orderBy?: CodeChunkOrderBy[];
-  };
-  codebaseDependencies?: {
-    select: CodebaseDependencySelect;
-    first?: number;
-    filter?: CodebaseDependencyFilter;
-    orderBy?: CodebaseDependencyOrderBy[];
-  };
-  codebaseDependenciesByDependencyId?: {
-    select: CodebaseDependencySelect;
-    first?: number;
-    filter?: CodebaseDependencyFilter;
-    orderBy?: CodebaseDependencyOrderBy[];
-  };
-  codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: {
-    select: CodebaseSelect;
-    first?: number;
-    filter?: CodebaseFilter;
-    orderBy?: CodebaseOrderBy[];
-  };
-  codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: {
-    select: CodebaseSelect;
-    first?: number;
-    filter?: CodebaseFilter;
-    orderBy?: CodebaseOrderBy[];
-  };
-};
-export type CodeChunkSelect = {
-  codebaseId?: boolean;
-  filePath?: boolean;
-  chunkIndex?: boolean;
-  content?: boolean;
-  language?: boolean;
-  startLine?: boolean;
-  endLine?: boolean;
-  symbolName?: boolean;
-  symbolType?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  filePathTrgmSimilarity?: boolean;
-  contentTrgmSimilarity?: boolean;
-  languageTrgmSimilarity?: boolean;
-  symbolNameTrgmSimilarity?: boolean;
-  symbolTypeTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  codebase?: {
-    select: CodebaseSelect;
-  };
-};
-export type RuntimeStateDependencySelect = {
-  stateId?: boolean;
-  dependencyId?: boolean;
-  dependency?: {
-    select: RuntimeStateSelect;
-  };
-  state?: {
-    select: RuntimeStateSelect;
-  };
 };
 export type RuntimeStateSelect = {
   name?: boolean;
@@ -4680,12 +4538,75 @@ export type RuntimeStateSelect = {
     orderBy?: RuntimeStateOrderBy[];
   };
 };
-export type RuntimeLogSelect = {
-  runtimeStateId?: boolean;
-  level?: boolean;
-  message?: boolean;
-  context?: boolean;
-  stepIndex?: boolean;
+export type RuntimeStateDependencySelect = {
+  stateId?: boolean;
+  dependencyId?: boolean;
+  dependency?: {
+    select: RuntimeStateSelect;
+  };
+  state?: {
+    select: RuntimeStateSelect;
+  };
+};
+export type SkillSelect = {
+  name?: boolean;
+  description?: boolean;
+  category?: boolean;
+  implementation?: boolean;
+  config?: boolean;
+  isActive?: boolean;
+  intentTrigger?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  intentTriggerEmbedding?: boolean;
+  agentId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  intentTriggerEmbeddingVectorDistance?: boolean;
+  nameTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  categoryTrgmSimilarity?: boolean;
+  implementationTrgmSimilarity?: boolean;
+  intentTriggerTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  toolDefinitions?: {
+    select: ToolDefinitionSelect;
+    first?: number;
+    filter?: ToolDefinitionFilter;
+    orderBy?: ToolDefinitionOrderBy[];
+  };
+  skillTools?: {
+    select: SkillToolSelect;
+    first?: number;
+    filter?: SkillToolFilter;
+    orderBy?: SkillToolOrderBy[];
+  };
+};
+export type SkillToolSelect = {
+  skillId?: boolean;
+  toolDefinitionId?: boolean;
+  skill?: {
+    select: SkillSelect;
+  };
+  toolDefinition?: {
+    select: ToolDefinitionSelect;
+  };
+};
+export type ToolDefinitionSelect = {
+  name?: boolean;
+  description?: boolean;
+  toolType?: boolean;
+  schema?: boolean;
+  config?: boolean;
+  isActive?: boolean;
   id?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
@@ -4694,66 +4615,29 @@ export type RuntimeLogSelect = {
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  levelTrgmSimilarity?: boolean;
-  messageTrgmSimilarity?: boolean;
+  nameTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  toolTypeTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
-  runtimeState?: {
-    select: RuntimeStateSelect;
-  };
-};
-export type RuntimeArtifactSelect = {
-  runtimeStateId?: boolean;
-  name?: boolean;
-  artifactType?: boolean;
-  content?: boolean;
-  meta?: boolean;
-  sizeBytes?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  runtimeState?: {
-    select: RuntimeStateSelect;
-  };
-};
-export type RuntimeMetricSelect = {
-  runtimeStateId?: boolean;
-  metricName?: boolean;
-  metricValue?: boolean;
-  unit?: boolean;
-  meta?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  runtimeState?: {
-    select: RuntimeStateSelect;
-  };
-};
-export type CalendarSelect = {
-  providerAccountId?: boolean;
-  providerCalendarId?: boolean;
-  name?: boolean;
-  color?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  calendarEvents?: {
-    select: CalendarEventSelect;
+  skills?: {
+    select: SkillSelect;
     first?: number;
-    filter?: CalendarEventFilter;
-    orderBy?: CalendarEventOrderBy[];
+    filter?: SkillFilter;
+    orderBy?: SkillOrderBy[];
   };
-};
-export type ProviderSyncStateSelect = {
-  provider?: boolean;
-  resourceType?: boolean;
-  syncCursor?: boolean;
-  historyId?: boolean;
-  lastSyncAt?: boolean;
-  status?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
+  toolExecutions?: {
+    select: ToolExecutionSelect;
+    first?: number;
+    filter?: ToolExecutionFilter;
+    orderBy?: ToolExecutionOrderBy[];
+  };
+  skillTools?: {
+    select: SkillToolSelect;
+    first?: number;
+    filter?: SkillToolFilter;
+    orderBy?: SkillToolOrderBy[];
+  };
 };
 export type TagSelect = {
   name?: boolean;
@@ -4764,168 +4648,75 @@ export type TagSelect = {
   createdAt?: boolean;
   updatedAt?: boolean;
 };
-export type RawContactUrlSelect = {
-  url?: boolean;
-  urlType?: boolean;
-  source?: boolean;
-  confidence?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  rawContactId?: boolean;
-  rawContact?: {
-    select: RawContactSelect;
+export type TaskContactSelect = {
+  taskId?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  task?: {
+    select: TaskSelect;
   };
 };
-export type RawContactEmailSelect = {
-  email?: boolean;
-  emailType?: boolean;
-  isPrimary?: boolean;
-  source?: boolean;
-  confidence?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  rawContactId?: boolean;
-  rawContact?: {
-    select: RawContactSelect;
+export type TaskNoteSelect = {
+  taskId?: boolean;
+  noteId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  task?: {
+    select: TaskSelect;
   };
 };
-export type RawContactPhoneSelect = {
-  phone?: boolean;
-  phoneType?: boolean;
-  isPrimary?: boolean;
-  source?: boolean;
-  confidence?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  rawContactId?: boolean;
-  rawContact?: {
-    select: RawContactSelect;
+export type TaskProjectSelect = {
+  taskId?: boolean;
+  projectId?: boolean;
+  project?: {
+    select: ProjectSelect;
+  };
+  task?: {
+    select: TaskSelect;
   };
 };
-export type RuntimeConfigSelect = {
-  key?: boolean;
-  value?: boolean;
-  description?: boolean;
-  isSecret?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
+export type ThreadParticipantSelect = {
+  emailThreadId?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
 };
-export type RuntimeEventSelect = {
-  eventType?: boolean;
-  payload?: boolean;
-  source?: boolean;
-  processedAt?: boolean;
+export type ToolExecutionSelect = {
+  toolDefinitionId?: boolean;
+  messageId?: boolean;
+  input?: boolean;
+  output?: boolean;
   status?: boolean;
+  startedAt?: boolean;
+  completedAt?: boolean;
+  error?: boolean;
   id?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  toolDefinition?: {
+    select: ToolDefinitionSelect;
+  };
 };
-export type RuntimeScheduleSelect = {
-  name?: boolean;
-  cronExpression?: boolean;
-  nextRunAt?: boolean;
-  lastRunAt?: boolean;
-  isActive?: boolean;
-  config?: boolean;
-  timezone?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-};
-export type ConversationSelect = {
-  title?: boolean;
-  agentId?: boolean;
-  status?: boolean;
+export type TouchpointSelect = {
+  contactId?: boolean;
+  touchpointType?: boolean;
+  occurredAt?: boolean;
+  subject?: boolean;
+  summary?: boolean;
+  sentiment?: boolean;
+  direction?: boolean;
+  channel?: boolean;
+  dealId?: boolean;
+  companyId?: boolean;
+  eventId?: boolean;
   meta?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  messages?: {
-    select: MessageSelect;
-    first?: number;
-    filter?: MessageFilter;
-    orderBy?: MessageOrderBy[];
-  };
-};
-export type MessageSelect = {
-  conversationId?: boolean;
-  role?: boolean;
-  content?: boolean;
-  tokenCount?: boolean;
-  meta?: boolean;
-  toolCalls?: boolean;
-  toolResults?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  roleTrgmSimilarity?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  conversation?: {
-    select: ConversationSelect;
-  };
-};
-export type RawContactSelect = {
-  externalId?: boolean;
-  source?: boolean;
-  firstName?: boolean;
-  lastName?: boolean;
-  fullName?: boolean;
-  headline?: boolean;
-  bio?: boolean;
-  location?: boolean;
-  company?: boolean;
-  jobTitle?: boolean;
-  rawData?: boolean;
-  confidence?: boolean;
-  ingestedAt?: boolean;
-  id?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  rawContactEmails?: {
-    select: RawContactEmailSelect;
-    first?: number;
-    filter?: RawContactEmailFilter;
-    orderBy?: RawContactEmailOrderBy[];
-  };
-  rawContactPhones?: {
-    select: RawContactPhoneSelect;
-    first?: number;
-    filter?: RawContactPhoneFilter;
-    orderBy?: RawContactPhoneOrderBy[];
-  };
-  rawContactUrls?: {
-    select: RawContactUrlSelect;
-    first?: number;
-    filter?: RawContactUrlFilter;
-    orderBy?: RawContactUrlOrderBy[];
-  };
-};
-export type PlaceSelect = {
-  name?: boolean;
-  address?: boolean;
-  description?: boolean;
-  category?: boolean;
-  rating?: boolean;
   tags?: boolean;
   id?: boolean;
   createdAt?: boolean;
@@ -4933,15 +4724,28 @@ export type PlaceSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  locationGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  addressTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  categoryTrgmSimilarity?: boolean;
+  touchpointTypeTrgmSimilarity?: boolean;
+  subjectTrgmSimilarity?: boolean;
+  summaryTrgmSimilarity?: boolean;
+  sentimentTrgmSimilarity?: boolean;
+  directionTrgmSimilarity?: boolean;
+  channelTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  company?: {
+    select: CompanySelect;
+  };
+  contact?: {
+    select: ContactSelect;
+  };
+  deal?: {
+    select: DealSelect;
+  };
+  event?: {
+    select: EventSelect;
+  };
 };
 export type TripSelect = {
   name?: boolean;
@@ -4971,47 +4775,96 @@ export type TripSelect = {
     orderBy?: ExpenseOrderBy[];
   };
 };
-export type HikingTrailSelect = {
-  name?: boolean;
-  location?: boolean;
-  description?: boolean;
-  difficulty?: boolean;
-  distanceKm?: boolean;
-  elevationGainm?: boolean;
-  rating?: boolean;
-  tags?: boolean;
+export type VenueImageSelect = {
+  venueId?: boolean;
+  imageId?: boolean;
+  image?: {
+    select: ImageSelect;
+  };
+  venue?: {
+    select: VenueSelect;
+  };
+};
+export type VenueLinkSelect = {
+  title?: boolean;
+  url?: boolean;
   id?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
-  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  trailheadGeo?: boolean;
-  embeddingTextBm25Score?: boolean;
+  venueId?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  locationTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  difficultyTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  venue?: {
+    select: VenueSelect;
+  };
 };
 // ============ Table Filter Types ============
-export interface AgentCollaboratorFilter {
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `collaboratorId` field. */
-  collaboratorId?: UUIDFilter;
+export interface ActivityLogFilter {
+  /** Filter by the object’s `activityType` field. */
+  activityType?: StringTrgmFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `durationMinutes` field. */
+  durationMinutes?: IntFilter;
+  /** Filter by the object’s `quantity` field. */
+  quantity?: BigFloatFilter;
+  /** Filter by the object’s `quantityUnit` field. */
+  quantityUnit?: StringTrgmFilter;
+  /** Filter by the object’s `intensity` field. */
+  intensity?: StringTrgmFilter;
+  /** Filter by the object’s `notes` field. */
+  notes?: StringTrgmFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `habitId` field. */
+  habitId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: AgentCollaboratorFilter[];
+  and?: ActivityLogFilter[];
   /** Checks for any expressions in this list. */
-  or?: AgentCollaboratorFilter[];
+  or?: ActivityLogFilter[];
   /** Negates the expression. */
-  not?: AgentCollaboratorFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** Filter by the object’s `collaborator` relation. */
-  collaborator?: AgentFilter;
+  not?: ActivityLogFilter;
+  /** Filter by the object’s `habit` relation. */
+  habit?: HabitFilter;
+  /** A related `habit` exists. */
+  habitExists?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `activity_type` column. */
+  trgmActivityType?: TrgmSearchInput;
+  /** TRGM search on the `quantity_unit` column. */
+  trgmQuantityUnit?: TrgmSearchInput;
+  /** TRGM search on the `intensity` column. */
+  trgmIntensity?: TrgmSearchInput;
+  /** TRGM search on the `notes` column. */
+  trgmNotes?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 export interface AgentFilter {
   /** Filter by the object’s `name` field. */
@@ -5097,12 +4950,95 @@ export interface AgentFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
+}
+export interface AgentCollaboratorFilter {
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `collaboratorId` field. */
+  collaboratorId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentCollaboratorFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentCollaboratorFilter[];
+  /** Negates the expression. */
+  not?: AgentCollaboratorFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** Filter by the object’s `collaborator` relation. */
+  collaborator?: AgentFilter;
+}
+export interface AgentLogFilter {
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `level` field. */
+  level?: StringTrgmFilter;
+  /** Filter by the object’s `message` field. */
+  message?: StringTrgmFilter;
+  /** Filter by the object’s `context` field. */
+  context?: JSONFilter;
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentLogFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentLogFilter[];
+  /** Negates the expression. */
+  not?: AgentLogFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** A related `agent` exists. */
+  agentExists?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `level` column. */
+  trgmLevel?: TrgmSearchInput;
+  /** TRGM search on the `message` column. */
+  trgmMessage?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface AgentPromptFilter {
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `promptId` field. */
+  promptId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentPromptFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentPromptFilter[];
+  /** Negates the expression. */
+  not?: AgentPromptFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** Filter by the object’s `prompt` relation. */
+  prompt?: PromptFilter;
 }
 export interface PromptFilter {
   /** Filter by the object’s `name` field. */
@@ -5152,48 +5088,30 @@ export interface PromptFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-export interface AgentPromptFilter {
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `promptId` field. */
-  promptId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: AgentPromptFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AgentPromptFilter[];
-  /** Negates the expression. */
-  not?: AgentPromptFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** Filter by the object’s `prompt` relation. */
-  prompt?: PromptFilter;
-}
-export interface TaskFilter {
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
+export interface AutonomyRecordFilter {
   /** Filter by the object’s `title` field. */
   title?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  /** Filter by the object’s `recordType` field. */
+  recordType?: StringTrgmFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
   /** Filter by the object’s `status` field. */
   status?: StringTrgmFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
-  /** Filter by the object’s `result` field. */
-  result?: StringTrgmFilter;
-  /** Filter by the object’s `startedAt` field. */
-  startedAt?: DatetimeFilter;
-  /** Filter by the object’s `completedAt` field. */
-  completedAt?: DatetimeFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringTrgmFilter;
+  /** Filter by the object’s `context` field. */
+  context?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
@@ -5207,52 +5125,213 @@ export interface TaskFilter {
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: TaskFilter[];
+  and?: AutonomyRecordFilter[];
   /** Checks for any expressions in this list. */
-  or?: TaskFilter[];
+  or?: AutonomyRecordFilter[];
   /** Negates the expression. */
-  not?: TaskFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** A related `agent` exists. */
-  agentExists?: boolean;
-  /** Filter by the object’s `taskContacts` relation. */
-  taskContacts?: TaskToManyTaskContactFilter;
-  /** `taskContacts` exist. */
-  taskContactsExist?: boolean;
-  /** Filter by the object’s `taskProjects` relation. */
-  taskProjects?: TaskToManyTaskProjectFilter;
-  /** `taskProjects` exist. */
-  taskProjectsExist?: boolean;
-  /** Filter by the object’s `taskNotes` relation. */
-  taskNotes?: TaskToManyTaskNoteFilter;
-  /** `taskNotes` exist. */
-  taskNotesExist?: boolean;
-  /** Filter by the object’s `calendarEventTasks` relation. */
-  calendarEventTasks?: TaskToManyCalendarEventTaskFilter;
-  /** `calendarEventTasks` exist. */
-  calendarEventTasksExist?: boolean;
+  not?: AutonomyRecordFilter;
+  /** Filter by the object’s `autonomyRecordLinksBySourceRecordId` relation. */
+  autonomyRecordLinksBySourceRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
+  /** `autonomyRecordLinksBySourceRecordId` exist. */
+  autonomyRecordLinksBySourceRecordIdExist?: boolean;
+  /** Filter by the object’s `autonomyRecordLinksByTargetRecordId` relation. */
+  autonomyRecordLinksByTargetRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
+  /** `autonomyRecordLinksByTargetRecordId` exist. */
+  autonomyRecordLinksByTargetRecordIdExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `title` column. */
   trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `record_type` column. */
+  trgmRecordType?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
   /** TRGM search on the `status` column. */
   trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `result` column. */
-  trgmResult?: TrgmSearchInput;
+  /** TRGM search on the `source` column. */
+  trgmSource?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
+}
+export interface AutonomyRecordLinkFilter {
+  /** Filter by the object’s `sourceRecordId` field. */
+  sourceRecordId?: UUIDFilter;
+  /** Filter by the object’s `targetRecordId` field. */
+  targetRecordId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AutonomyRecordLinkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AutonomyRecordLinkFilter[];
+  /** Negates the expression. */
+  not?: AutonomyRecordLinkFilter;
+  /** Filter by the object’s `sourceRecord` relation. */
+  sourceRecord?: AutonomyRecordFilter;
+  /** Filter by the object’s `targetRecord` relation. */
+  targetRecord?: AutonomyRecordFilter;
+}
+export interface CalendarAttendeeFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `responseStatus` field. */
+  responseStatus?: StringFilter;
+  /** Filter by the object’s `role` field. */
+  role?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarAttendeeFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarAttendeeFilter[];
+  /** Negates the expression. */
+  not?: CalendarAttendeeFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** A related `contact` exists. */
+  contactExists?: boolean;
+}
+export interface CalendarFilter {
+  /** Filter by the object’s `providerAccountId` field. */
+  providerAccountId?: StringFilter;
+  /** Filter by the object’s `providerCalendarId` field. */
+  providerCalendarId?: StringFilter;
+  /** Filter by the object’s `name` field. */
+  name?: StringFilter;
+  /** Filter by the object’s `color` field. */
+  color?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarFilter[];
+  /** Negates the expression. */
+  not?: CalendarFilter;
+  /** Filter by the object’s `calendarEvents` relation. */
+  calendarEvents?: CalendarToManyCalendarEventFilter;
+  /** `calendarEvents` exist. */
+  calendarEventsExist?: boolean;
+}
+export interface CalendarEventFilter {
+  /** Filter by the object’s `providerEventId` field. */
+  providerEventId?: StringTrgmFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `startTime` field. */
+  startTime?: DatetimeFilter;
+  /** Filter by the object’s `endTime` field. */
+  endTime?: DatetimeFilter;
+  /** Filter by the object’s `meetingUrl` field. */
+  meetingUrl?: StringTrgmFilter;
+  /** Filter by the object’s `organizerContactId` field. */
+  organizerContactId?: UUIDFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `calendarId` field. */
+  calendarId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventFilter;
+  /** Filter by the object’s `calendar` relation. */
+  calendar?: CalendarFilter;
+  /** Filter by the object’s `organizerContact` relation. */
+  organizerContact?: ContactFilter;
+  /** A related `organizerContact` exists. */
+  organizerContactExists?: boolean;
+  /** Filter by the object’s `calendarAttendees` relation. */
+  calendarAttendees?: CalendarEventToManyCalendarAttendeeFilter;
+  /** `calendarAttendees` exist. */
+  calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `calendarEventContacts` relation. */
+  calendarEventContacts?: CalendarEventToManyCalendarEventContactFilter;
+  /** `calendarEventContacts` exist. */
+  calendarEventContactsExist?: boolean;
+  /** Filter by the object’s `calendarEventNotes` relation. */
+  calendarEventNotes?: CalendarEventToManyCalendarEventNoteFilter;
+  /** `calendarEventNotes` exist. */
+  calendarEventNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventTasks` relation. */
+  calendarEventTasks?: CalendarEventToManyCalendarEventTaskFilter;
+  /** `calendarEventTasks` exist. */
+  calendarEventTasksExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_event_id` column. */
+  trgmProviderEventId?: TrgmSearchInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `meeting_url` column. */
+  trgmMeetingUrl?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface CalendarEventContactFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventContactFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventContactFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
 }
 export interface ContactFilter {
   /** Filter by the object’s `firstName` field. */
@@ -5305,6 +5384,10 @@ export interface ContactFilter {
   mainImage?: ImageFilter;
   /** A related `mainImage` exists. */
   mainImageExists?: boolean;
+  /** Filter by the object’s `contactsChunksByContactsId` relation. */
+  contactsChunksByContactsId?: ContactToManyContactsChunkFilter;
+  /** `contactsChunksByContactsId` exist. */
+  contactsChunksByContactsIdExist?: boolean;
   /** Filter by the object’s `interactions` relation. */
   interactions?: ContactToManyInteractionFilter;
   /** `interactions` exist. */
@@ -5422,88 +5505,208 @@ export interface ContactFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-export interface ImageFilter {
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `altText` field. */
-  altText?: StringFilter;
-  /** Filter by the object’s `caption` field. */
-  caption?: StringFilter;
+export interface CalendarEventNoteFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventNoteFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventNoteFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface NoteFilter {
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `abstract` field. */
+  abstract?: StringTrgmFilter;
+  /** Filter by the object’s `overview` field. */
+  overview?: StringTrgmFilter;
+  /** Filter by the object’s `activeCount` field. */
+  activeCount?: IntFilter;
+  /** Filter by the object’s `lastAccessedAt` field. */
+  lastAccessedAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: ImageFilter[];
+  and?: NoteFilter[];
   /** Checks for any expressions in this list. */
-  or?: ImageFilter[];
+  or?: NoteFilter[];
   /** Negates the expression. */
-  not?: ImageFilter;
-  /** Filter by the object’s `contactsByMainImageId` relation. */
-  contactsByMainImageId?: ImageToManyContactFilter;
-  /** `contactsByMainImageId` exist. */
-  contactsByMainImageIdExist?: boolean;
-  /** Filter by the object’s `companiesByMainImageId` relation. */
-  companiesByMainImageId?: ImageToManyCompanyFilter;
-  /** `companiesByMainImageId` exist. */
-  companiesByMainImageIdExist?: boolean;
-  /** Filter by the object’s `eventsByMainImageId` relation. */
-  eventsByMainImageId?: ImageToManyEventFilter;
-  /** `eventsByMainImageId` exist. */
-  eventsByMainImageIdExist?: boolean;
-  /** Filter by the object’s `venuesByMainImageId` relation. */
-  venuesByMainImageId?: ImageToManyVenueFilter;
-  /** `venuesByMainImageId` exist. */
-  venuesByMainImageIdExist?: boolean;
-  /** Filter by the object’s `contactImages` relation. */
-  contactImages?: ImageToManyContactImageFilter;
-  /** `contactImages` exist. */
-  contactImagesExist?: boolean;
-  /** Filter by the object’s `companyImages` relation. */
-  companyImages?: ImageToManyCompanyImageFilter;
-  /** `companyImages` exist. */
-  companyImagesExist?: boolean;
-  /** Filter by the object’s `eventImages` relation. */
-  eventImages?: ImageToManyEventImageFilter;
-  /** `eventImages` exist. */
-  eventImagesExist?: boolean;
-  /** Filter by the object’s `venueImages` relation. */
-  venueImages?: ImageToManyVenueImageFilter;
-  /** `venueImages` exist. */
-  venueImagesExist?: boolean;
+  not?: NoteFilter;
+  /** Filter by the object’s `notesChunksByNotesId` relation. */
+  notesChunksByNotesId?: NoteToManyNotesChunkFilter;
+  /** `notesChunksByNotesId` exist. */
+  notesChunksByNotesIdExist?: boolean;
+  /** Filter by the object’s `contactNotes` relation. */
+  contactNotes?: NoteToManyContactNoteFilter;
+  /** `contactNotes` exist. */
+  contactNotesExist?: boolean;
+  /** Filter by the object’s `companyNotes` relation. */
+  companyNotes?: NoteToManyCompanyNoteFilter;
+  /** `companyNotes` exist. */
+  companyNotesExist?: boolean;
+  /** Filter by the object’s `dealNotes` relation. */
+  dealNotes?: NoteToManyDealNoteFilter;
+  /** `dealNotes` exist. */
+  dealNotesExist?: boolean;
+  /** Filter by the object’s `eventNotes` relation. */
+  eventNotes?: NoteToManyEventNoteFilter;
+  /** `eventNotes` exist. */
+  eventNotesExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: NoteToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: NoteToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventNotes` relation. */
+  calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
+  /** `calendarEventNotes` exist. */
+  calendarEventNotesExist?: boolean;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `abstract` column. */
+  trgmAbstract?: TrgmSearchInput;
+  /** TRGM search on the `overview` column. */
+  trgmOverview?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
-export interface ContactImageFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `imageId` field. */
-  imageId?: UUIDFilter;
+export interface CalendarEventTaskFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: ContactImageFilter[];
+  and?: CalendarEventTaskFilter[];
   /** Checks for any expressions in this list. */
-  or?: ContactImageFilter[];
+  or?: CalendarEventTaskFilter[];
   /** Negates the expression. */
-  not?: ContactImageFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `image` relation. */
-  image?: ImageFilter;
+  not?: CalendarEventTaskFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+export interface TaskFilter {
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `priority` field. */
+  priority?: IntFilter;
+  /** Filter by the object’s `result` field. */
+  result?: StringTrgmFilter;
+  /** Filter by the object’s `startedAt` field. */
+  startedAt?: DatetimeFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskFilter[];
+  /** Negates the expression. */
+  not?: TaskFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** A related `agent` exists. */
+  agentExists?: boolean;
+  /** Filter by the object’s `taskContacts` relation. */
+  taskContacts?: TaskToManyTaskContactFilter;
+  /** `taskContacts` exist. */
+  taskContactsExist?: boolean;
+  /** Filter by the object’s `taskProjects` relation. */
+  taskProjects?: TaskToManyTaskProjectFilter;
+  /** `taskProjects` exist. */
+  taskProjectsExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: TaskToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventTasks` relation. */
+  calendarEventTasks?: TaskToManyCalendarEventTaskFilter;
+  /** `calendarEventTasks` exist. */
+  calendarEventTasksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `result` column. */
+  trgmResult?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 export interface CompanyFilter {
   /** Filter by the object’s `name` field. */
@@ -5591,44 +5794,99 @@ export interface CompanyFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-export interface CompanyImageFilter {
+export interface DealFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `stage` field. */
+  stage?: StringTrgmFilter;
+  /** Filter by the object’s `value` field. */
+  value?: BigFloatFilter;
+  /** Filter by the object���s `currency` field. */
+  currency?: StringTrgmFilter;
+  /** Filter by the object’s `expectedCloseDate` field. */
+  expectedCloseDate?: DatetimeFilter;
+  /** Filter by the object’s `notesText` field. */
+  notesText?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealFilter[];
+  /** Negates the expression. */
+  not?: DealFilter;
+  /** Filter by the object’s `touchpoints` relation. */
+  touchpoints?: DealToManyTouchpointFilter;
+  /** `touchpoints` exist. */
+  touchpointsExist?: boolean;
+  /** Filter by the object’s `dealContacts` relation. */
+  dealContacts?: DealToManyDealContactFilter;
+  /** `dealContacts` exist. */
+  dealContactsExist?: boolean;
+  /** Filter by the object’s `dealCompanies` relation. */
+  dealCompanies?: DealToManyDealCompanyFilter;
+  /** `dealCompanies` exist. */
+  dealCompaniesExist?: boolean;
+  /** Filter by the object’s `dealNotes` relation. */
+  dealNotes?: DealToManyDealNoteFilter;
+  /** `dealNotes` exist. */
+  dealNotesExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `stage` column. */
+  trgmStage?: TrgmSearchInput;
+  /** TRGM search on the `currency` column. */
+  trgmCurrency?: TrgmSearchInput;
+  /** TRGM search on the `notes_text` column. */
+  trgmNotesText?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface CompanyEventFilter {
   /** Filter by the object’s `companyId` field. */
   companyId?: UUIDFilter;
-  /** Filter by the object’s `imageId` field. */
-  imageId?: UUIDFilter;
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: CompanyImageFilter[];
+  and?: CompanyEventFilter[];
   /** Checks for any expressions in this list. */
-  or?: CompanyImageFilter[];
+  or?: CompanyEventFilter[];
   /** Negates the expression. */
-  not?: CompanyImageFilter;
+  not?: CompanyEventFilter;
   /** Filter by the object’s `company` relation. */
   company?: CompanyFilter;
-  /** Filter by the object’s `image` relation. */
-  image?: ImageFilter;
-}
-export interface ContactCompanyFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactCompanyFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactCompanyFilter[];
-  /** Negates the expression. */
-  not?: ContactCompanyFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
 }
 export interface EventFilter {
   /** Filter by the object’s `name` field. */
@@ -5722,28 +5980,416 @@ export interface EventFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-export interface EventImageFilter {
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
+export interface CompanyImageFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
   /** Filter by the object’s `imageId` field. */
   imageId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: EventImageFilter[];
+  and?: CompanyImageFilter[];
   /** Checks for any expressions in this list. */
-  or?: EventImageFilter[];
+  or?: CompanyImageFilter[];
   /** Negates the expression. */
-  not?: EventImageFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
+  not?: CompanyImageFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
   /** Filter by the object’s `image` relation. */
   image?: ImageFilter;
+}
+export interface ImageFilter {
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `altText` field. */
+  altText?: StringFilter;
+  /** Filter by the object’s `caption` field. */
+  caption?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: ImageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ImageFilter[];
+  /** Negates the expression. */
+  not?: ImageFilter;
+  /** Filter by the object’s `contactsByMainImageId` relation. */
+  contactsByMainImageId?: ImageToManyContactFilter;
+  /** `contactsByMainImageId` exist. */
+  contactsByMainImageIdExist?: boolean;
+  /** Filter by the object’s `companiesByMainImageId` relation. */
+  companiesByMainImageId?: ImageToManyCompanyFilter;
+  /** `companiesByMainImageId` exist. */
+  companiesByMainImageIdExist?: boolean;
+  /** Filter by the object’s `eventsByMainImageId` relation. */
+  eventsByMainImageId?: ImageToManyEventFilter;
+  /** `eventsByMainImageId` exist. */
+  eventsByMainImageIdExist?: boolean;
+  /** Filter by the object’s `venuesByMainImageId` relation. */
+  venuesByMainImageId?: ImageToManyVenueFilter;
+  /** `venuesByMainImageId` exist. */
+  venuesByMainImageIdExist?: boolean;
+  /** Filter by the object’s `contactImages` relation. */
+  contactImages?: ImageToManyContactImageFilter;
+  /** `contactImages` exist. */
+  contactImagesExist?: boolean;
+  /** Filter by the object’s `companyImages` relation. */
+  companyImages?: ImageToManyCompanyImageFilter;
+  /** `companyImages` exist. */
+  companyImagesExist?: boolean;
+  /** Filter by the object’s `eventImages` relation. */
+  eventImages?: ImageToManyEventImageFilter;
+  /** `eventImages` exist. */
+  eventImagesExist?: boolean;
+  /** Filter by the object’s `venueImages` relation. */
+  venueImages?: ImageToManyVenueImageFilter;
+  /** `venueImages` exist. */
+  venueImagesExist?: boolean;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface CompanyLinkFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyLinkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyLinkFilter[];
+  /** Negates the expression. */
+  not?: CompanyLinkFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface MemoryFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `location` field. */
+  location?: StringTrgmFilter;
+  /** Filter by the object’s `occurredAt` field. */
+  occurredAt?: DatetimeFilter;
+  /** Filter by the object’s `mood` field. */
+  mood?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: MemoryFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MemoryFilter[];
+  /** Negates the expression. */
+  not?: MemoryFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** A related `agent` exists. */
+  agentExists?: boolean;
+  /** Filter by the object’s `contactMemories` relation. */
+  contactMemories?: MemoryToManyContactMemoryFilter;
+  /** `contactMemories` exist. */
+  contactMemoriesExist?: boolean;
+  /** Filter by the object’s `companyMemories` relation. */
+  companyMemories?: MemoryToManyCompanyMemoryFilter;
+  /** `companyMemories` exist. */
+  companyMemoriesExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `location` column. */
+  trgmLocation?: TrgmSearchInput;
+  /** TRGM search on the `mood` column. */
+  trgmMood?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface CompanyMemoryFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `memoryId` field. */
+  memoryId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyMemoryFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyMemoryFilter[];
+  /** Negates the expression. */
+  not?: CompanyMemoryFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `memory` relation. */
+  memory?: MemoryFilter;
+}
+export interface CompanyNoteFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyNoteFilter[];
+  /** Negates the expression. */
+  not?: CompanyNoteFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface ContactAddressFilter {
+  /** Filter by the object’s `street` field. */
+  street?: StringFilter;
+  /** Filter by the object’s `city` field. */
+  city?: StringFilter;
+  /** Filter by the object’s `state` field. */
+  state?: StringFilter;
+  /** Filter by the object’s `postalCode` field. */
+  postalCode?: StringFilter;
+  /** Filter by the object’s `country` field. */
+  country?: StringFilter;
+  /** Filter by the object’s `addressType` field. */
+  addressType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactAddressFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactAddressFilter[];
+  /** Negates the expression. */
+  not?: ContactAddressFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+export interface ContactCompanyFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactCompanyFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactCompanyFilter[];
+  /** Negates the expression. */
+  not?: ContactCompanyFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+export interface ContactEmailFilter {
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `emailType` field. */
+  emailType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactEmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactEmailFilter[];
+  /** Negates the expression. */
+  not?: ContactEmailFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+export interface EmailFilter {
+  /** Filter by the object’s `providerMessageId` field. */
+  providerMessageId?: StringFilter;
+  /** Filter by the object’s `fromContactId` field. */
+  fromContactId?: UUIDFilter;
+  /** Filter by the object’s `to` field. */
+  to?: JSONFilter;
+  /** Filter by the object’s `cc` field. */
+  cc?: JSONFilter;
+  /** Filter by the object’s `bcc` field. */
+  bcc?: JSONFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringFilter;
+  /** Filter by the object’s `bodyHtml` field. */
+  bodyHtml?: StringFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailFilter[];
+  /** Negates the expression. */
+  not?: EmailFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+  /** Filter by the object’s `fromContact` relation. */
+  fromContact?: ContactFilter;
+  /** A related `fromContact` exists. */
+  fromContactExists?: boolean;
+  /** Filter by the object’s `emailAttachments` relation. */
+  emailAttachments?: EmailToManyEmailAttachmentFilter;
+  /** `emailAttachments` exist. */
+  emailAttachmentsExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: EmailToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: EmailToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
+}
+export interface EmailThreadFilter {
+  /** Filter by the object’s `providerThreadId` field. */
+  providerThreadId?: StringTrgmFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringTrgmFilter;
+  /** Filter by the object’s `lastMessageAt` field. */
+  lastMessageAt?: DatetimeFilter;
+  /** Filter by the object’s `summary` field. */
+  summary?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailThreadFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailThreadFilter[];
+  /** Negates the expression. */
+  not?: EmailThreadFilter;
+  /** Filter by the object’s `emails` relation. */
+  emails?: EmailThreadToManyEmailFilter;
+  /** `emails` exist. */
+  emailsExist?: boolean;
+  /** Filter by the object’s `threadParticipants` relation. */
+  threadParticipants?: EmailThreadToManyThreadParticipantFilter;
+  /** `threadParticipants` exist. */
+  threadParticipantsExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_thread_id` column. */
+  trgmProviderThreadId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `summary` column. */
+  trgmSummary?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 export interface ContactEventFilter {
   /** Filter by the object’s `contactId` field. */
@@ -5761,21 +6407,524 @@ export interface ContactEventFilter {
   /** Filter by the object’s `event` relation. */
   event?: EventFilter;
 }
-export interface CompanyEventFilter {
+export interface ExpenseFilter {
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `amount` field. */
+  amount?: BigFloatFilter;
+  /** Filter by the object’s `currency` field. */
+  currency?: StringTrgmFilter;
+  /** Filter by the object’s `category` field. */
+  category?: StringTrgmFilter;
+  /** Filter by the object’s `occurredAt` field. */
+  occurredAt?: DatetimeFilter;
+  /** Filter by the object’s `vendor` field. */
+  vendor?: StringTrgmFilter;
+  /** Filter by the object’s `notes` field. */
+  notes?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `tripId` field. */
+  tripId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ExpenseFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ExpenseFilter[];
+  /** Negates the expression. */
+  not?: ExpenseFilter;
+  /** Filter by the object’s `trip` relation. */
+  trip?: TripFilter;
+  /** A related `trip` exists. */
+  tripExists?: boolean;
+  /** Filter by the object’s `expenseContacts` relation. */
+  expenseContacts?: ExpenseToManyExpenseContactFilter;
+  /** `expenseContacts` exist. */
+  expenseContactsExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `currency` column. */
+  trgmCurrency?: TrgmSearchInput;
+  /** TRGM search on the `category` column. */
+  trgmCategory?: TrgmSearchInput;
+  /** TRGM search on the `vendor` column. */
+  trgmVendor?: TrgmSearchInput;
+  /** TRGM search on the `notes` column. */
+  trgmNotes?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface ContactImageFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `imageId` field. */
+  imageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactImageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactImageFilter[];
+  /** Negates the expression. */
+  not?: ContactImageFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `image` relation. */
+  image?: ImageFilter;
+}
+export interface ContactLinkFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactLinkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactLinkFilter[];
+  /** Negates the expression. */
+  not?: ContactLinkFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface ContactMemoryFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `memoryId` field. */
+  memoryId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactMemoryFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactMemoryFilter[];
+  /** Negates the expression. */
+  not?: ContactMemoryFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `memory` relation. */
+  memory?: MemoryFilter;
+}
+export interface ContactNoteFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactNoteFilter[];
+  /** Negates the expression. */
+  not?: ContactNoteFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface ContactPhoneFilter {
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `phoneType` field. */
+  phoneType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactPhoneFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactPhoneFilter[];
+  /** Negates the expression. */
+  not?: ContactPhoneFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+export interface ProjectFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `projectType` field. */
+  projectType?: StringTrgmFilter;
+  /** Filter by the object’s `priority` field. */
+  priority?: IntFilter;
+  /** Filter by the object’s `startedAt` field. */
+  startedAt?: DatetimeFilter;
+  /** Filter by the object’s `targetDate` field. */
+  targetDate?: DatetimeFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `config` field. */
+  config?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: ProjectFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ProjectFilter[];
+  /** Negates the expression. */
+  not?: ProjectFilter;
+  /** Filter by the object’s `projectContacts` relation. */
+  projectContacts?: ProjectToManyProjectContactFilter;
+  /** `projectContacts` exist. */
+  projectContactsExist?: boolean;
+  /** Filter by the object’s `taskProjects` relation. */
+  taskProjects?: ProjectToManyTaskProjectFilter;
+  /** `taskProjects` exist. */
+  taskProjectsExist?: boolean;
+  /** Filter by the object’s `goalProjects` relation. */
+  goalProjects?: ProjectToManyGoalProjectFilter;
+  /** `goalProjects` exist. */
+  goalProjectsExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `project_type` column. */
+  trgmProjectType?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface ContactRelationshipFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `relatedContactId` field. */
+  relatedContactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactRelationshipFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactRelationshipFilter[];
+  /** Negates the expression. */
+  not?: ContactRelationshipFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `relatedContact` relation. */
+  relatedContact?: ContactFilter;
+}
+export interface ContactsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `contactsId` field. */
+  contactsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactsChunkFilter[];
+  /** Negates the expression. */
+  not?: ContactsChunkFilter;
+  /** Filter by the object’s `contacts` relation. */
+  contacts?: ContactFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface ConversationFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: ConversationFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ConversationFilter[];
+  /** Negates the expression. */
+  not?: ConversationFilter;
+  /** Filter by the object’s `messages` relation. */
+  messages?: ConversationToManyMessageFilter;
+  /** `messages` exist. */
+  messagesExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface DealCompanyFilter {
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
   /** Filter by the object’s `companyId` field. */
   companyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealCompanyFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealCompanyFilter[];
+  /** Negates the expression. */
+  not?: DealCompanyFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+}
+export interface DealContactFilter {
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealContactFilter[];
+  /** Negates the expression. */
+  not?: DealContactFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+}
+export interface DealNoteFilter {
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealNoteFilter[];
+  /** Negates the expression. */
+  not?: DealNoteFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface EmailAttachmentFilter {
+  /** Filter by the object’s `filename` field. */
+  filename?: StringFilter;
+  /** Filter by the object’s `contentType` field. */
+  contentType?: StringFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `storageUrl` field. */
+  storageUrl?: StringFilter;
+  /** Filter by the object’s `providerAttachmentId` field. */
+  providerAttachmentId?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailAttachmentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailAttachmentFilter[];
+  /** Negates the expression. */
+  not?: EmailAttachmentFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+export interface EmailNoteFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailNoteFilter[];
+  /** Negates the expression. */
+  not?: EmailNoteFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface EmailRecipientFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailRecipientFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailRecipientFilter[];
+  /** Negates the expression. */
+  not?: EmailRecipientFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+export interface EventImageFilter {
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `imageId` field. */
+  imageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventImageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventImageFilter[];
+  /** Negates the expression. */
+  not?: EventImageFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** Filter by the object’s `image` relation. */
+  image?: ImageFilter;
+}
+export interface EventLinkFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
   /** Filter by the object’s `eventId` field. */
   eventId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: CompanyEventFilter[];
+  and?: EventLinkFilter[];
   /** Checks for any expressions in this list. */
-  or?: CompanyEventFilter[];
+  or?: EventLinkFilter[];
   /** Negates the expression. */
-  not?: CompanyEventFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
+  not?: EventLinkFilter;
   /** Filter by the object’s `event` relation. */
   event?: EventFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface EventNoteFilter {
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventNoteFilter[];
+  /** Negates the expression. */
+  not?: EventNoteFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface EventVenueFilter {
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `venueId` field. */
+  venueId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventVenueFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventVenueFilter[];
+  /** Negates the expression. */
+  not?: EventVenueFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** Filter by the object’s `venue` relation. */
+  venue?: VenueFilter;
 }
 export interface VenueFilter {
   /** Filter by the object’s `name` field. */
@@ -5869,84 +7018,40 @@ export interface VenueFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-export interface VenueImageFilter {
-  /** Filter by the object’s `venueId` field. */
-  venueId?: UUIDFilter;
-  /** Filter by the object’s `imageId` field. */
-  imageId?: UUIDFilter;
+export interface ExpenseContactFilter {
+  /** Filter by the object’s `expenseId` field. */
+  expenseId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: VenueImageFilter[];
+  and?: ExpenseContactFilter[];
   /** Checks for any expressions in this list. */
-  or?: VenueImageFilter[];
+  or?: ExpenseContactFilter[];
   /** Negates the expression. */
-  not?: VenueImageFilter;
-  /** Filter by the object’s `image` relation. */
-  image?: ImageFilter;
-  /** Filter by the object’s `venue` relation. */
-  venue?: VenueFilter;
+  not?: ExpenseContactFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `expense` relation. */
+  expense?: ExpenseFilter;
 }
-export interface EventVenueFilter {
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Filter by the object’s `venueId` field. */
-  venueId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EventVenueFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EventVenueFilter[];
-  /** Negates the expression. */
-  not?: EventVenueFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** Filter by the object’s `venue` relation. */
-  venue?: VenueFilter;
-}
-export interface VenueLinkFilter {
+export interface GoalFilter {
   /** Filter by the object’s `title` field. */
-  title?: StringFilter;
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `venueId` field. */
-  venueId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: VenueLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: VenueLinkFilter[];
-  /** Negates the expression. */
-  not?: VenueLinkFilter;
-  /** Filter by the object’s `venue` relation. */
-  venue?: VenueFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-export interface NoteFilter {
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `abstract` field. */
-  abstract?: StringTrgmFilter;
-  /** Filter by the object’s `overview` field. */
-  overview?: StringTrgmFilter;
-  /** Filter by the object’s `activeCount` field. */
-  activeCount?: IntFilter;
-  /** Filter by the object’s `lastAccessedAt` field. */
-  lastAccessedAt?: DatetimeFilter;
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `targetDate` field. */
+  targetDate?: DatetimeFilter;
+  /** Filter by the object’s `progress` field. */
+  progress?: BigFloatFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `id` field. */
@@ -5962,106 +7067,114 @@ export interface NoteFilter {
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: NoteFilter[];
+  and?: GoalFilter[];
   /** Checks for any expressions in this list. */
-  or?: NoteFilter[];
+  or?: GoalFilter[];
   /** Negates the expression. */
-  not?: NoteFilter;
-  /** Filter by the object’s `contactNotes` relation. */
-  contactNotes?: NoteToManyContactNoteFilter;
-  /** `contactNotes` exist. */
-  contactNotesExist?: boolean;
-  /** Filter by the object’s `companyNotes` relation. */
-  companyNotes?: NoteToManyCompanyNoteFilter;
-  /** `companyNotes` exist. */
-  companyNotesExist?: boolean;
-  /** Filter by the object’s `dealNotes` relation. */
-  dealNotes?: NoteToManyDealNoteFilter;
-  /** `dealNotes` exist. */
-  dealNotesExist?: boolean;
-  /** Filter by the object’s `eventNotes` relation. */
-  eventNotes?: NoteToManyEventNoteFilter;
-  /** `eventNotes` exist. */
-  eventNotesExist?: boolean;
-  /** Filter by the object’s `taskNotes` relation. */
-  taskNotes?: NoteToManyTaskNoteFilter;
-  /** `taskNotes` exist. */
-  taskNotesExist?: boolean;
-  /** Filter by the object’s `emailNotes` relation. */
-  emailNotes?: NoteToManyEmailNoteFilter;
-  /** `emailNotes` exist. */
-  emailNotesExist?: boolean;
-  /** Filter by the object’s `calendarEventNotes` relation. */
-  calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
-  /** `calendarEventNotes` exist. */
-  calendarEventNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
+  not?: GoalFilter;
+  /** Filter by the object’s `goalHabits` relation. */
+  goalHabits?: GoalToManyGoalHabitFilter;
+  /** `goalHabits` exist. */
+  goalHabitsExist?: boolean;
+  /** Filter by the object’s `goalProjects` relation. */
+  goalProjects?: GoalToManyGoalProjectFilter;
+  /** `goalProjects` exist. */
+  goalProjectsExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `abstract` column. */
-  trgmAbstract?: TrgmSearchInput;
-  /** TRGM search on the `overview` column. */
-  trgmOverview?: TrgmSearchInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-export interface ContactNoteFilter {
+export interface GoalHabitFilter {
+  /** Filter by the object’s `goalId` field. */
+  goalId?: UUIDFilter;
+  /** Filter by the object’s `habitId` field. */
+  habitId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: GoalHabitFilter[];
+  /** Checks for any expressions in this list. */
+  or?: GoalHabitFilter[];
+  /** Negates the expression. */
+  not?: GoalHabitFilter;
+  /** Filter by the object’s `goal` relation. */
+  goal?: GoalFilter;
+  /** Filter by the object’s `habit` relation. */
+  habit?: HabitFilter;
+}
+export interface HabitFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringFilter;
+  /** Filter by the object’s `frequency` field. */
+  frequency?: StringFilter;
+  /** Filter by the object’s `streak` field. */
+  streak?: IntFilter;
+  /** Filter by the object’s `lastCompletedAt` field. */
+  lastCompletedAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: HabitFilter[];
+  /** Checks for any expressions in this list. */
+  or?: HabitFilter[];
+  /** Negates the expression. */
+  not?: HabitFilter;
+  /** Filter by the object’s `activityLogs` relation. */
+  activityLogs?: HabitToManyActivityLogFilter;
+  /** `activityLogs` exist. */
+  activityLogsExist?: boolean;
+  /** Filter by the object’s `goalHabits` relation. */
+  goalHabits?: HabitToManyGoalHabitFilter;
+  /** `goalHabits` exist. */
+  goalHabitsExist?: boolean;
+}
+export interface GoalProjectFilter {
+  /** Filter by the object’s `goalId` field. */
+  goalId?: UUIDFilter;
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: GoalProjectFilter[];
+  /** Checks for any expressions in this list. */
+  or?: GoalProjectFilter[];
+  /** Negates the expression. */
+  not?: GoalProjectFilter;
+  /** Filter by the object’s `goal` relation. */
+  goal?: GoalFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+}
+export interface InteractionFilter {
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactNoteFilter[];
-  /** Negates the expression. */
-  not?: ContactNoteFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-export interface CompanyNoteFilter {
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyNoteFilter[];
-  /** Negates the expression. */
-  not?: CompanyNoteFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-export interface DealFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `stage` field. */
-  stage?: StringTrgmFilter;
-  /** Filter by the object’s `value` field. */
-  value?: BigFloatFilter;
-  /** Filter by the object’s `currency` field. */
-  currency?: StringTrgmFilter;
-  /** Filter by the object’s `expectedCloseDate` field. */
-  expectedCloseDate?: DatetimeFilter;
-  /** Filter by the object’s `notesText` field. */
-  notesText?: StringTrgmFilter;
+  /** Filter by the object’s `type` field. */
+  type?: StringTrgmFilter;
+  /** Filter by the object’s `occurredAt` field. */
+  occurredAt?: DatetimeFilter;
+  /** Filter by the object’s `summary` field. */
+  summary?: StringTrgmFilter;
+  /** Filter by the object’s `sentiment` field. */
+  sentiment?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `id` field. */
@@ -6077,96 +7190,941 @@ export interface DealFilter {
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: DealFilter[];
+  and?: InteractionFilter[];
   /** Checks for any expressions in this list. */
-  or?: DealFilter[];
+  or?: InteractionFilter[];
   /** Negates the expression. */
-  not?: DealFilter;
-  /** Filter by the object’s `touchpoints` relation. */
-  touchpoints?: DealToManyTouchpointFilter;
-  /** `touchpoints` exist. */
-  touchpointsExist?: boolean;
-  /** Filter by the object’s `dealContacts` relation. */
-  dealContacts?: DealToManyDealContactFilter;
-  /** `dealContacts` exist. */
-  dealContactsExist?: boolean;
-  /** Filter by the object’s `dealCompanies` relation. */
-  dealCompanies?: DealToManyDealCompanyFilter;
-  /** `dealCompanies` exist. */
-  dealCompaniesExist?: boolean;
-  /** Filter by the object’s `dealNotes` relation. */
-  dealNotes?: DealToManyDealNoteFilter;
-  /** `dealNotes` exist. */
-  dealNotesExist?: boolean;
+  not?: InteractionFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `type` column. */
+  trgmType?: TrgmSearchInput;
+  /** TRGM search on the `summary` column. */
+  trgmSummary?: TrgmSearchInput;
+  /** TRGM search on the `sentiment` column. */
+  trgmSentiment?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface MessageFilter {
+  /** Filter by the object’s `conversationId` field. */
+  conversationId?: UUIDFilter;
+  /** Filter by the object’s `role` field. */
+  role?: StringTrgmFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `tokenCount` field. */
+  tokenCount?: IntFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `toolCalls` field. */
+  toolCalls?: JSONFilter;
+  /** Filter by the object’s `toolResults` field. */
+  toolResults?: JSONFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: MessageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MessageFilter[];
+  /** Negates the expression. */
+  not?: MessageFilter;
+  /** Filter by the object’s `conversation` relation. */
+  conversation?: ConversationFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `role` column. */
+  trgmRole?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface NotesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `notesId` field. */
+  notesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: NotesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: NotesChunkFilter[];
+  /** Negates the expression. */
+  not?: NotesChunkFilter;
+  /** Filter by the object’s `notes` relation. */
+  notes?: NoteFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface PlaceFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `address` field. */
+  address?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `category` field. */
+  category?: StringTrgmFilter;
+  /** Filter by the object’s `rating` field. */
+  rating?: BigFloatFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
+  /** Checks for all expressions in this list. */
+  and?: PlaceFilter[];
+  /** Checks for any expressions in this list. */
+  or?: PlaceFilter[];
+  /** Negates the expression. */
+  not?: PlaceFilter;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `name` column. */
   trgmName?: TrgmSearchInput;
-  /** TRGM search on the `stage` column. */
-  trgmStage?: TrgmSearchInput;
-  /** TRGM search on the `currency` column. */
-  trgmCurrency?: TrgmSearchInput;
-  /** TRGM search on the `notes_text` column. */
-  trgmNotesText?: TrgmSearchInput;
+  /** TRGM search on the `address` column. */
+  trgmAddress?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `category` column. */
+  trgmCategory?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-export interface DealContactFilter {
-  /** Filter by the object’s `dealId` field. */
-  dealId?: UUIDFilter;
+export interface ProjectContactFilter {
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: DealContactFilter[];
+  and?: ProjectContactFilter[];
   /** Checks for any expressions in this list. */
-  or?: DealContactFilter[];
+  or?: ProjectContactFilter[];
   /** Negates the expression. */
-  not?: DealContactFilter;
+  not?: ProjectContactFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
-  /** Filter by the object’s `deal` relation. */
-  deal?: DealFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
 }
-export interface DealCompanyFilter {
-  /** Filter by the object’s `dealId` field. */
-  dealId?: UUIDFilter;
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
+export interface ProviderSyncStateFilter {
+  /** Filter by the object’s `provider` field. */
+  provider?: StringFilter;
+  /** Filter by the object’s `resourceType` field. */
+  resourceType?: StringFilter;
+  /** Filter by the object’s `syncCursor` field. */
+  syncCursor?: StringFilter;
+  /** Filter by the object’s `historyId` field. */
+  historyId?: StringFilter;
+  /** Filter by the object’s `lastSyncAt` field. */
+  lastSyncAt?: DatetimeFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
-  and?: DealCompanyFilter[];
+  and?: ProviderSyncStateFilter[];
   /** Checks for any expressions in this list. */
-  or?: DealCompanyFilter[];
+  or?: ProviderSyncStateFilter[];
   /** Negates the expression. */
-  not?: DealCompanyFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `deal` relation. */
-  deal?: DealFilter;
+  not?: ProviderSyncStateFilter;
 }
-export interface DealNoteFilter {
-  /** Filter by the object’s `dealId` field. */
-  dealId?: UUIDFilter;
+export interface RawContactFilter {
+  /** Filter by the object’s `externalId` field. */
+  externalId?: StringFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `firstName` field. */
+  firstName?: StringFilter;
+  /** Filter by the object’s `lastName` field. */
+  lastName?: StringFilter;
+  /** Filter by the object’s `fullName` field. */
+  fullName?: StringFilter;
+  /** Filter by the object’s `headline` field. */
+  headline?: StringFilter;
+  /** Filter by the object’s `bio` field. */
+  bio?: StringFilter;
+  /** Filter by the object’s `location` field. */
+  location?: StringFilter;
+  /** Filter by the object’s `company` field. */
+  company?: StringFilter;
+  /** Filter by the object’s `jobTitle` field. */
+  jobTitle?: StringFilter;
+  /** Filter by the object’s `rawData` field. */
+  rawData?: JSONFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactFilter[];
+  /** Negates the expression. */
+  not?: RawContactFilter;
+  /** Filter by the object’s `rawContactEmails` relation. */
+  rawContactEmails?: RawContactToManyRawContactEmailFilter;
+  /** `rawContactEmails` exist. */
+  rawContactEmailsExist?: boolean;
+  /** Filter by the object’s `rawContactPhones` relation. */
+  rawContactPhones?: RawContactToManyRawContactPhoneFilter;
+  /** `rawContactPhones` exist. */
+  rawContactPhonesExist?: boolean;
+  /** Filter by the object’s `rawContactUrls` relation. */
+  rawContactUrls?: RawContactToManyRawContactUrlFilter;
+  /** `rawContactUrls` exist. */
+  rawContactUrlsExist?: boolean;
+}
+export interface RawContactEmailFilter {
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `emailType` field. */
+  emailType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactEmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactEmailFilter[];
+  /** Negates the expression. */
+  not?: RawContactEmailFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
+export interface RawContactPhoneFilter {
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `phoneType` field. */
+  phoneType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactPhoneFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactPhoneFilter[];
+  /** Negates the expression. */
+  not?: RawContactPhoneFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
+export interface RawContactUrlFilter {
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `urlType` field. */
+  urlType?: StringFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactUrlFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactUrlFilter[];
+  /** Negates the expression. */
+  not?: RawContactUrlFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
+export interface RuleFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `triggerType` field. */
+  triggerType?: StringTrgmFilter;
+  /** Filter by the object’s `triggerConfig` field. */
+  triggerConfig?: JSONFilter;
+  /** Filter by the object’s `actionType` field. */
+  actionType?: StringTrgmFilter;
+  /** Filter by the object’s `actionConfig` field. */
+  actionConfig?: JSONFilter;
+  /** Filter by the object’s `isActive` field. */
+  isActive?: BooleanFilter;
+  /** Filter by the object’s `priority` field. */
+  priority?: IntFilter;
+  /** Filter by the object’s `triggerConcept` field. */
+  triggerConcept?: StringTrgmFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `triggerConceptEmbedding` field. */
+  triggerConceptEmbedding?: VectorFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuleFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuleFilter[];
+  /** Negates the expression. */
+  not?: RuleFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** VECTOR search on the `trigger_concept_embedding` column. */
+  vectorTriggerConceptEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `trigger_type` column. */
+  trgmTriggerType?: TrgmSearchInput;
+  /** TRGM search on the `action_type` column. */
+  trgmActionType?: TrgmSearchInput;
+  /** TRGM search on the `trigger_concept` column. */
+  trgmTriggerConcept?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface RuntimeArtifactFilter {
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
+  /** Filter by the object’s `name` field. */
+  name?: StringFilter;
+  /** Filter by the object’s `artifactType` field. */
+  artifactType?: StringFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeArtifactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeArtifactFilter[];
+  /** Negates the expression. */
+  not?: RuntimeArtifactFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
+}
+export interface RuntimeConfigFilter {
+  /** Filter by the object’s `key` field. */
+  key?: StringFilter;
+  /** Filter by the object’s `value` field. */
+  value?: JSONFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringFilter;
+  /** Filter by the object’s `isSecret` field. */
+  isSecret?: BooleanFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeConfigFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeConfigFilter[];
+  /** Negates the expression. */
+  not?: RuntimeConfigFilter;
+}
+export interface RuntimeEventFilter {
+  /** Filter by the object’s `eventType` field. */
+  eventType?: StringFilter;
+  /** Filter by the object’s `payload` field. */
+  payload?: JSONFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `processedAt` field. */
+  processedAt?: DatetimeFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeEventFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeEventFilter[];
+  /** Negates the expression. */
+  not?: RuntimeEventFilter;
+}
+export interface RuntimeLogFilter {
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
+  /** Filter by the object’s `level` field. */
+  level?: StringTrgmFilter;
+  /** Filter by the object’s `message` field. */
+  message?: StringTrgmFilter;
+  /** Filter by the object’s `context` field. */
+  context?: JSONFilter;
+  /** Filter by the object’s `stepIndex` field. */
+  stepIndex?: IntFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeLogFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeLogFilter[];
+  /** Negates the expression. */
+  not?: RuntimeLogFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `level` column. */
+  trgmLevel?: TrgmSearchInput;
+  /** TRGM search on the `message` column. */
+  trgmMessage?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface RuntimeMetricFilter {
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
+  /** Filter by the object’s `metricName` field. */
+  metricName?: StringFilter;
+  /** Filter by the object’s `metricValue` field. */
+  metricValue?: BigFloatFilter;
+  /** Filter by the object’s `unit` field. */
+  unit?: StringFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeMetricFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeMetricFilter[];
+  /** Negates the expression. */
+  not?: RuntimeMetricFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
+}
+export interface RuntimeScheduleFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringFilter;
+  /** Filter by the object’s `cronExpression` field. */
+  cronExpression?: StringFilter;
+  /** Filter by the object’s `nextRunAt` field. */
+  nextRunAt?: DatetimeFilter;
+  /** Filter by the object’s `lastRunAt` field. */
+  lastRunAt?: DatetimeFilter;
+  /** Filter by the object’s `isActive` field. */
+  isActive?: BooleanFilter;
+  /** Filter by the object’s `config` field. */
+  config?: JSONFilter;
+  /** Filter by the object’s `timezone` field. */
+  timezone?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeScheduleFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeScheduleFilter[];
+  /** Negates the expression. */
+  not?: RuntimeScheduleFilter;
+}
+export interface RuntimeStateFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `stateType` field. */
+  stateType?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `data` field. */
+  data?: JSONFilter;
+  /** Filter by the object’s `parentId` field. */
+  parentId?: UUIDFilter;
+  /** Filter by the object’s `startedAt` field. */
+  startedAt?: DatetimeFilter;
+  /** Filter by the object’s `endedAt` field. */
+  endedAt?: DatetimeFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeStateFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeStateFilter[];
+  /** Negates the expression. */
+  not?: RuntimeStateFilter;
+  /** Filter by the object’s `runtimeLogs` relation. */
+  runtimeLogs?: RuntimeStateToManyRuntimeLogFilter;
+  /** `runtimeLogs` exist. */
+  runtimeLogsExist?: boolean;
+  /** Filter by the object’s `runtimeArtifacts` relation. */
+  runtimeArtifacts?: RuntimeStateToManyRuntimeArtifactFilter;
+  /** `runtimeArtifacts` exist. */
+  runtimeArtifactsExist?: boolean;
+  /** Filter by the object’s `runtimeMetrics` relation. */
+  runtimeMetrics?: RuntimeStateToManyRuntimeMetricFilter;
+  /** `runtimeMetrics` exist. */
+  runtimeMetricsExist?: boolean;
+  /** Filter by the object’s `runtimeStateDependenciesByDependencyId` relation. */
+  runtimeStateDependenciesByDependencyId?: RuntimeStateToManyRuntimeStateDependencyFilter;
+  /** `runtimeStateDependenciesByDependencyId` exist. */
+  runtimeStateDependenciesByDependencyIdExist?: boolean;
+  /** Filter by the object’s `runtimeStateDependenciesByStateId` relation. */
+  runtimeStateDependenciesByStateId?: RuntimeStateToManyRuntimeStateDependencyFilter;
+  /** `runtimeStateDependenciesByStateId` exist. */
+  runtimeStateDependenciesByStateIdExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `state_type` column. */
+  trgmStateType?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface RuntimeStateDependencyFilter {
+  /** Filter by the object’s `stateId` field. */
+  stateId?: UUIDFilter;
+  /** Filter by the object’s `dependencyId` field. */
+  dependencyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeStateDependencyFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeStateDependencyFilter[];
+  /** Negates the expression. */
+  not?: RuntimeStateDependencyFilter;
+  /** Filter by the object’s `dependency` relation. */
+  dependency?: RuntimeStateFilter;
+  /** Filter by the object’s `state` relation. */
+  state?: RuntimeStateFilter;
+}
+export interface SkillFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `category` field. */
+  category?: StringTrgmFilter;
+  /** Filter by the object’s `implementation` field. */
+  implementation?: StringTrgmFilter;
+  /** Filter by the object’s `config` field. */
+  config?: JSONFilter;
+  /** Filter by the object’s `isActive` field. */
+  isActive?: BooleanFilter;
+  /** Filter by the object’s `intentTrigger` field. */
+  intentTrigger?: StringTrgmFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `intentTriggerEmbedding` field. */
+  intentTriggerEmbedding?: VectorFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: SkillFilter[];
+  /** Checks for any expressions in this list. */
+  or?: SkillFilter[];
+  /** Negates the expression. */
+  not?: SkillFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** Filter by the object’s `skillTools` relation. */
+  skillTools?: SkillToManySkillToolFilter;
+  /** `skillTools` exist. */
+  skillToolsExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** VECTOR search on the `intent_trigger_embedding` column. */
+  vectorIntentTriggerEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `category` column. */
+  trgmCategory?: TrgmSearchInput;
+  /** TRGM search on the `implementation` column. */
+  trgmImplementation?: TrgmSearchInput;
+  /** TRGM search on the `intent_trigger` column. */
+  trgmIntentTrigger?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface SkillToolFilter {
+  /** Filter by the object’s `skillId` field. */
+  skillId?: UUIDFilter;
+  /** Filter by the object’s `toolDefinitionId` field. */
+  toolDefinitionId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: SkillToolFilter[];
+  /** Checks for any expressions in this list. */
+  or?: SkillToolFilter[];
+  /** Negates the expression. */
+  not?: SkillToolFilter;
+  /** Filter by the object’s `skill` relation. */
+  skill?: SkillFilter;
+  /** Filter by the object’s `toolDefinition` relation. */
+  toolDefinition?: ToolDefinitionFilter;
+}
+export interface ToolDefinitionFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `toolType` field. */
+  toolType?: StringTrgmFilter;
+  /** Filter by the object’s `schema` field. */
+  schema?: JSONFilter;
+  /** Filter by the object’s `config` field. */
+  config?: JSONFilter;
+  /** Filter by the object’s `isActive` field. */
+  isActive?: BooleanFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: ToolDefinitionFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ToolDefinitionFilter[];
+  /** Negates the expression. */
+  not?: ToolDefinitionFilter;
+  /** Filter by the object’s `toolExecutions` relation. */
+  toolExecutions?: ToolDefinitionToManyToolExecutionFilter;
+  /** `toolExecutions` exist. */
+  toolExecutionsExist?: boolean;
+  /** Filter by the object’s `skillTools` relation. */
+  skillTools?: ToolDefinitionToManySkillToolFilter;
+  /** `skillTools` exist. */
+  skillToolsExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `tool_type` column. */
+  trgmToolType?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface TagFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringFilter;
+  /** Filter by the object’s `color` field. */
+  color?: StringFilter;
+  /** Filter by the object’s `category` field. */
+  category?: StringFilter;
+  /** Filter by the object’s `usageCount` field. */
+  usageCount?: IntFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: TagFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TagFilter[];
+  /** Negates the expression. */
+  not?: TagFilter;
+}
+export interface TaskContactFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskContactFilter[];
+  /** Negates the expression. */
+  not?: TaskContactFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+export interface TaskNoteFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
   /** Filter by the object’s `noteId` field. */
   noteId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: DealNoteFilter[];
+  and?: TaskNoteFilter[];
   /** Checks for any expressions in this list. */
-  or?: DealNoteFilter[];
+  or?: TaskNoteFilter[];
   /** Negates the expression. */
-  not?: DealNoteFilter;
-  /** Filter by the object’s `deal` relation. */
-  deal?: DealFilter;
+  not?: TaskNoteFilter;
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+export interface TaskProjectFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskProjectFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskProjectFilter[];
+  /** Negates the expression. */
+  not?: TaskProjectFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+export interface ThreadParticipantFilter {
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ThreadParticipantFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ThreadParticipantFilter[];
+  /** Negates the expression. */
+  not?: ThreadParticipantFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+}
+export interface ToolExecutionFilter {
+  /** Filter by the object’s `toolDefinitionId` field. */
+  toolDefinitionId?: UUIDFilter;
+  /** Filter by the object’s `messageId` field. */
+  messageId?: UUIDFilter;
+  /** Filter by the object’s `input` field. */
+  input?: JSONFilter;
+  /** Filter by the object’s `output` field. */
+  output?: JSONFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringFilter;
+  /** Filter by the object’s `startedAt` field. */
+  startedAt?: DatetimeFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `error` field. */
+  error?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ToolExecutionFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ToolExecutionFilter[];
+  /** Negates the expression. */
+  not?: ToolExecutionFilter;
+  /** Filter by the object’s `toolDefinition` relation. */
+  toolDefinition?: ToolDefinitionFilter;
 }
 export interface TouchpointFilter {
   /** Filter by the object’s `contactId` field. */
@@ -6246,2323 +8204,12 @@ export interface TouchpointFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
-}
-export interface EventNoteFilter {
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EventNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EventNoteFilter[];
-  /** Negates the expression. */
-  not?: EventNoteFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-export interface TaskNoteFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: TaskNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TaskNoteFilter[];
-  /** Negates the expression. */
-  not?: TaskNoteFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
-}
-export interface EmailFilter {
-  /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringTrgmFilter;
-  /** Filter by the object’s `fromContactId` field. */
-  fromContactId?: UUIDFilter;
-  /** Filter by the object’s `to` field. */
-  to?: JSONFilter;
-  /** Filter by the object’s `cc` field. */
-  cc?: JSONFilter;
-  /** Filter by the object’s `bcc` field. */
-  bcc?: JSONFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
-  /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringTrgmFilter;
-  /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringTrgmFilter;
-  /** Filter by the object’s `sentAt` field. */
-  sentAt?: DatetimeFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `emailThreadId` field. */
-  emailThreadId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailFilter[];
-  /** Negates the expression. */
-  not?: EmailFilter;
-  /** Filter by the object’s `emailThread` relation. */
-  emailThread?: EmailThreadFilter;
-  /** Filter by the object’s `fromContact` relation. */
-  fromContact?: ContactFilter;
-  /** A related `fromContact` exists. */
-  fromContactExists?: boolean;
-  /** Filter by the object’s `emailAttachments` relation. */
-  emailAttachments?: EmailToManyEmailAttachmentFilter;
-  /** `emailAttachments` exist. */
-  emailAttachmentsExist?: boolean;
-  /** Filter by the object’s `emailRecipients` relation. */
-  emailRecipients?: EmailToManyEmailRecipientFilter;
-  /** `emailRecipients` exist. */
-  emailRecipientsExist?: boolean;
-  /** Filter by the object’s `emailNotes` relation. */
-  emailNotes?: EmailToManyEmailNoteFilter;
-  /** `emailNotes` exist. */
-  emailNotesExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_message_id` column. */
-  trgmProviderMessageId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `body_text` column. */
-  trgmBodyText?: TrgmSearchInput;
-  /** TRGM search on the `body_html` column. */
-  trgmBodyHtml?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface EmailRecipientFilter {
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailRecipientFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailRecipientFilter[];
-  /** Negates the expression. */
-  not?: EmailRecipientFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
-}
-export interface EmailNoteFilter {
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailNoteFilter[];
-  /** Negates the expression. */
-  not?: EmailNoteFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-export interface ThreadParticipantFilter {
-  /** Filter by the object’s `emailThreadId` field. */
-  emailThreadId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ThreadParticipantFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ThreadParticipantFilter[];
-  /** Negates the expression. */
-  not?: ThreadParticipantFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `emailThread` relation. */
-  emailThread?: EmailThreadFilter;
-}
-export interface EmailAttachmentFilter {
-  /** Filter by the object’s `filename` field. */
-  filename?: StringFilter;
-  /** Filter by the object’s `contentType` field. */
-  contentType?: StringFilter;
-  /** Filter by the object’s `sizeBytes` field. */
-  sizeBytes?: IntFilter;
-  /** Filter by the object’s `storageUrl` field. */
-  storageUrl?: StringFilter;
-  /** Filter by the object’s `providerAttachmentId` field. */
-  providerAttachmentId?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailAttachmentFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailAttachmentFilter[];
-  /** Negates the expression. */
-  not?: EmailAttachmentFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
-}
-export interface CalendarEventFilter {
-  /** Filter by the object’s `providerEventId` field. */
-  providerEventId?: StringTrgmFilter;
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `startTime` field. */
-  startTime?: DatetimeFilter;
-  /** Filter by the object’s `endTime` field. */
-  endTime?: DatetimeFilter;
-  /** Filter by the object’s `meetingUrl` field. */
-  meetingUrl?: StringTrgmFilter;
-  /** Filter by the object’s `organizerContactId` field. */
-  organizerContactId?: UUIDFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `calendarId` field. */
-  calendarId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarEventFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarEventFilter[];
-  /** Negates the expression. */
-  not?: CalendarEventFilter;
-  /** Filter by the object’s `calendar` relation. */
-  calendar?: CalendarFilter;
-  /** Filter by the object’s `organizerContact` relation. */
-  organizerContact?: ContactFilter;
-  /** A related `organizerContact` exists. */
-  organizerContactExists?: boolean;
-  /** Filter by the object’s `calendarAttendees` relation. */
-  calendarAttendees?: CalendarEventToManyCalendarAttendeeFilter;
-  /** `calendarAttendees` exist. */
-  calendarAttendeesExist?: boolean;
-  /** Filter by the object’s `calendarEventContacts` relation. */
-  calendarEventContacts?: CalendarEventToManyCalendarEventContactFilter;
-  /** `calendarEventContacts` exist. */
-  calendarEventContactsExist?: boolean;
-  /** Filter by the object’s `calendarEventNotes` relation. */
-  calendarEventNotes?: CalendarEventToManyCalendarEventNoteFilter;
-  /** `calendarEventNotes` exist. */
-  calendarEventNotesExist?: boolean;
-  /** Filter by the object’s `calendarEventTasks` relation. */
-  calendarEventTasks?: CalendarEventToManyCalendarEventTaskFilter;
-  /** `calendarEventTasks` exist. */
-  calendarEventTasksExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_event_id` column. */
-  trgmProviderEventId?: TrgmSearchInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `meeting_url` column. */
-  trgmMeetingUrl?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface CalendarEventContactFilter {
-  /** Filter by the object’s `calendarEventId` field. */
-  calendarEventId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarEventContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarEventContactFilter[];
-  /** Negates the expression. */
-  not?: CalendarEventContactFilter;
-  /** Filter by the object’s `calendarEvent` relation. */
-  calendarEvent?: CalendarEventFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-}
-export interface CalendarEventNoteFilter {
-  /** Filter by the object’s `calendarEventId` field. */
-  calendarEventId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarEventNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarEventNoteFilter[];
-  /** Negates the expression. */
-  not?: CalendarEventNoteFilter;
-  /** Filter by the object’s `calendarEvent` relation. */
-  calendarEvent?: CalendarEventFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-export interface CalendarEventTaskFilter {
-  /** Filter by the object’s `calendarEventId` field. */
-  calendarEventId?: UUIDFilter;
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarEventTaskFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarEventTaskFilter[];
-  /** Negates the expression. */
-  not?: CalendarEventTaskFilter;
-  /** Filter by the object’s `calendarEvent` relation. */
-  calendarEvent?: CalendarEventFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
-}
-export interface CalendarAttendeeFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `responseStatus` field. */
-  responseStatus?: StringFilter;
-  /** Filter by the object’s `role` field. */
-  role?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `calendarEventId` field. */
-  calendarEventId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarAttendeeFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarAttendeeFilter[];
-  /** Negates the expression. */
-  not?: CalendarAttendeeFilter;
-  /** Filter by the object’s `calendarEvent` relation. */
-  calendarEvent?: CalendarEventFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** A related `contact` exists. */
-  contactExists?: boolean;
-}
-export interface EventLinkFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringFilter;
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EventLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EventLinkFilter[];
-  /** Negates the expression. */
-  not?: EventLinkFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-export interface MemoryFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `location` field. */
-  location?: StringTrgmFilter;
-  /** Filter by the object’s `occurredAt` field. */
-  occurredAt?: DatetimeFilter;
-  /** Filter by the object’s `mood` field. */
-  mood?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `locationGeo` field. */
-  locationGeo?: GeographyInterfaceFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: MemoryFilter[];
-  /** Checks for any expressions in this list. */
-  or?: MemoryFilter[];
-  /** Negates the expression. */
-  not?: MemoryFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** A related `agent` exists. */
-  agentExists?: boolean;
-  /** Filter by the object’s `contactMemories` relation. */
-  contactMemories?: MemoryToManyContactMemoryFilter;
-  /** `contactMemories` exist. */
-  contactMemoriesExist?: boolean;
-  /** Filter by the object’s `companyMemories` relation. */
-  companyMemories?: MemoryToManyCompanyMemoryFilter;
-  /** `companyMemories` exist. */
-  companyMemoriesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `location` column. */
-  trgmLocation?: TrgmSearchInput;
-  /** TRGM search on the `mood` column. */
-  trgmMood?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface ContactMemoryFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `memoryId` field. */
-  memoryId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactMemoryFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactMemoryFilter[];
-  /** Negates the expression. */
-  not?: ContactMemoryFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `memory` relation. */
-  memory?: MemoryFilter;
-}
-export interface CompanyMemoryFilter {
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `memoryId` field. */
-  memoryId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyMemoryFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyMemoryFilter[];
-  /** Negates the expression. */
-  not?: CompanyMemoryFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `memory` relation. */
-  memory?: MemoryFilter;
-}
-export interface CompanyLinkFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringFilter;
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyLinkFilter[];
-  /** Negates the expression. */
-  not?: CompanyLinkFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-export interface ContactRelationshipFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `relatedContactId` field. */
-  relatedContactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactRelationshipFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactRelationshipFilter[];
-  /** Negates the expression. */
-  not?: ContactRelationshipFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `relatedContact` relation. */
-  relatedContact?: ContactFilter;
-}
-export interface ProjectFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `projectType` field. */
-  projectType?: StringTrgmFilter;
-  /** Filter by the object’s `priority` field. */
-  priority?: IntFilter;
-  /** Filter by the object’s `startedAt` field. */
-  startedAt?: DatetimeFilter;
-  /** Filter by the object’s `targetDate` field. */
-  targetDate?: DatetimeFilter;
-  /** Filter by the object’s `completedAt` field. */
-  completedAt?: DatetimeFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: ProjectFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ProjectFilter[];
-  /** Negates the expression. */
-  not?: ProjectFilter;
-  /** Filter by the object’s `projectContacts` relation. */
-  projectContacts?: ProjectToManyProjectContactFilter;
-  /** `projectContacts` exist. */
-  projectContactsExist?: boolean;
-  /** Filter by the object’s `taskProjects` relation. */
-  taskProjects?: ProjectToManyTaskProjectFilter;
-  /** `taskProjects` exist. */
-  taskProjectsExist?: boolean;
-  /** Filter by the object’s `goalProjects` relation. */
-  goalProjects?: ProjectToManyGoalProjectFilter;
-  /** `goalProjects` exist. */
-  goalProjectsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `project_type` column. */
-  trgmProjectType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface ProjectContactFilter {
-  /** Filter by the object’s `projectId` field. */
-  projectId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ProjectContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ProjectContactFilter[];
-  /** Negates the expression. */
-  not?: ProjectContactFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `project` relation. */
-  project?: ProjectFilter;
-}
-export interface TaskProjectFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Filter by the object’s `projectId` field. */
-  projectId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: TaskProjectFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TaskProjectFilter[];
-  /** Negates the expression. */
-  not?: TaskProjectFilter;
-  /** Filter by the object’s `project` relation. */
-  project?: ProjectFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
-}
-export interface GoalFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `targetDate` field. */
-  targetDate?: DatetimeFilter;
-  /** Filter by the object’s `progress` field. */
-  progress?: BigFloatFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: GoalFilter[];
-  /** Checks for any expressions in this list. */
-  or?: GoalFilter[];
-  /** Negates the expression. */
-  not?: GoalFilter;
-  /** Filter by the object’s `goalHabits` relation. */
-  goalHabits?: GoalToManyGoalHabitFilter;
-  /** `goalHabits` exist. */
-  goalHabitsExist?: boolean;
-  /** Filter by the object’s `goalProjects` relation. */
-  goalProjects?: GoalToManyGoalProjectFilter;
-  /** `goalProjects` exist. */
-  goalProjectsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface HabitFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringFilter;
-  /** Filter by the object’s `frequency` field. */
-  frequency?: StringFilter;
-  /** Filter by the object’s `streak` field. */
-  streak?: IntFilter;
-  /** Filter by the object’s `lastCompletedAt` field. */
-  lastCompletedAt?: DatetimeFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: HabitFilter[];
-  /** Checks for any expressions in this list. */
-  or?: HabitFilter[];
-  /** Negates the expression. */
-  not?: HabitFilter;
-  /** Filter by the object’s `activityLogs` relation. */
-  activityLogs?: HabitToManyActivityLogFilter;
-  /** `activityLogs` exist. */
-  activityLogsExist?: boolean;
-  /** Filter by the object’s `goalHabits` relation. */
-  goalHabits?: HabitToManyGoalHabitFilter;
-  /** `goalHabits` exist. */
-  goalHabitsExist?: boolean;
-}
-export interface GoalHabitFilter {
-  /** Filter by the object’s `goalId` field. */
-  goalId?: UUIDFilter;
-  /** Filter by the object’s `habitId` field. */
-  habitId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: GoalHabitFilter[];
-  /** Checks for any expressions in this list. */
-  or?: GoalHabitFilter[];
-  /** Negates the expression. */
-  not?: GoalHabitFilter;
-  /** Filter by the object’s `goal` relation. */
-  goal?: GoalFilter;
-  /** Filter by the object’s `habit` relation. */
-  habit?: HabitFilter;
-}
-export interface ActivityLogFilter {
-  /** Filter by the object’s `activityType` field. */
-  activityType?: StringTrgmFilter;
-  /** Filter by the object’s `completedAt` field. */
-  completedAt?: DatetimeFilter;
-  /** Filter by the object’s `durationMinutes` field. */
-  durationMinutes?: IntFilter;
-  /** Filter by the object’s `quantity` field. */
-  quantity?: BigFloatFilter;
-  /** Filter by the object’s `quantityUnit` field. */
-  quantityUnit?: StringTrgmFilter;
-  /** Filter by the object’s `intensity` field. */
-  intensity?: StringTrgmFilter;
-  /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `habitId` field. */
-  habitId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ActivityLogFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ActivityLogFilter[];
-  /** Negates the expression. */
-  not?: ActivityLogFilter;
-  /** Filter by the object’s `habit` relation. */
-  habit?: HabitFilter;
-  /** A related `habit` exists. */
-  habitExists?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `activity_type` column. */
-  trgmActivityType?: TrgmSearchInput;
-  /** TRGM search on the `quantity_unit` column. */
-  trgmQuantityUnit?: TrgmSearchInput;
-  /** TRGM search on the `intensity` column. */
-  trgmIntensity?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface GoalProjectFilter {
-  /** Filter by the object’s `goalId` field. */
-  goalId?: UUIDFilter;
-  /** Filter by the object’s `projectId` field. */
-  projectId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: GoalProjectFilter[];
-  /** Checks for any expressions in this list. */
-  or?: GoalProjectFilter[];
-  /** Negates the expression. */
-  not?: GoalProjectFilter;
-  /** Filter by the object’s `goal` relation. */
-  goal?: GoalFilter;
-  /** Filter by the object’s `project` relation. */
-  project?: ProjectFilter;
-}
-export interface TaskContactFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: TaskContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TaskContactFilter[];
-  /** Negates the expression. */
-  not?: TaskContactFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
-}
-export interface ExpenseFilter {
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `amount` field. */
-  amount?: BigFloatFilter;
-  /** Filter by the object’s `currency` field. */
-  currency?: StringTrgmFilter;
-  /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
-  /** Filter by the object’s `occurredAt` field. */
-  occurredAt?: DatetimeFilter;
-  /** Filter by the object’s `vendor` field. */
-  vendor?: StringTrgmFilter;
-  /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `tripId` field. */
-  tripId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ExpenseFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ExpenseFilter[];
-  /** Negates the expression. */
-  not?: ExpenseFilter;
-  /** Filter by the object’s `trip` relation. */
-  trip?: TripFilter;
-  /** A related `trip` exists. */
-  tripExists?: boolean;
-  /** Filter by the object’s `expenseContacts` relation. */
-  expenseContacts?: ExpenseToManyExpenseContactFilter;
-  /** `expenseContacts` exist. */
-  expenseContactsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `currency` column. */
-  trgmCurrency?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `vendor` column. */
-  trgmVendor?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface ExpenseContactFilter {
-  /** Filter by the object’s `expenseId` field. */
-  expenseId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ExpenseContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ExpenseContactFilter[];
-  /** Negates the expression. */
-  not?: ExpenseContactFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `expense` relation. */
-  expense?: ExpenseFilter;
-}
-export interface EmailThreadFilter {
-  /** Filter by the object’s `providerThreadId` field. */
-  providerThreadId?: StringTrgmFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
-  /** Filter by the object’s `lastMessageAt` field. */
-  lastMessageAt?: DatetimeFilter;
-  /** Filter by the object’s `summary` field. */
-  summary?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailThreadFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailThreadFilter[];
-  /** Negates the expression. */
-  not?: EmailThreadFilter;
-  /** Filter by the object’s `emails` relation. */
-  emails?: EmailThreadToManyEmailFilter;
-  /** `emails` exist. */
-  emailsExist?: boolean;
-  /** Filter by the object’s `threadParticipants` relation. */
-  threadParticipants?: EmailThreadToManyThreadParticipantFilter;
-  /** `threadParticipants` exist. */
-  threadParticipantsExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_thread_id` column. */
-  trgmProviderThreadId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `summary` column. */
-  trgmSummary?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface InteractionFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `type` field. */
-  type?: StringTrgmFilter;
-  /** Filter by the object’s `occurredAt` field. */
-  occurredAt?: DatetimeFilter;
-  /** Filter by the object’s `summary` field. */
-  summary?: StringTrgmFilter;
-  /** Filter by the object’s `sentiment` field. */
-  sentiment?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: InteractionFilter[];
-  /** Checks for any expressions in this list. */
-  or?: InteractionFilter[];
-  /** Negates the expression. */
-  not?: InteractionFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `type` column. */
-  trgmType?: TrgmSearchInput;
-  /** TRGM search on the `summary` column. */
-  trgmSummary?: TrgmSearchInput;
-  /** TRGM search on the `sentiment` column. */
-  trgmSentiment?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface ContactEmailFilter {
-  /** Filter by the object’s `email` field. */
-  email?: StringFilter;
-  /** Filter by the object’s `emailType` field. */
-  emailType?: StringFilter;
-  /** Filter by the object’s `isPrimary` field. */
-  isPrimary?: BooleanFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactEmailFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactEmailFilter[];
-  /** Negates the expression. */
-  not?: ContactEmailFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-}
-export interface ContactPhoneFilter {
-  /** Filter by the object’s `phone` field. */
-  phone?: StringFilter;
-  /** Filter by the object’s `phoneType` field. */
-  phoneType?: StringFilter;
-  /** Filter by the object’s `isPrimary` field. */
-  isPrimary?: BooleanFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactPhoneFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactPhoneFilter[];
-  /** Negates the expression. */
-  not?: ContactPhoneFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-}
-export interface ContactAddressFilter {
-  /** Filter by the object’s `street` field. */
-  street?: StringFilter;
-  /** Filter by the object’s `city` field. */
-  city?: StringFilter;
-  /** Filter by the object’s `state` field. */
-  state?: StringFilter;
-  /** Filter by the object’s `postalCode` field. */
-  postalCode?: StringFilter;
-  /** Filter by the object’s `country` field. */
-  country?: StringFilter;
-  /** Filter by the object’s `addressType` field. */
-  addressType?: StringFilter;
-  /** Filter by the object’s `isPrimary` field. */
-  isPrimary?: BooleanFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactAddressFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactAddressFilter[];
-  /** Negates the expression. */
-  not?: ContactAddressFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-}
-export interface ContactLinkFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringFilter;
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactLinkFilter[];
-  /** Negates the expression. */
-  not?: ContactLinkFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-export interface AgentLogFilter {
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `level` field. */
-  level?: StringTrgmFilter;
-  /** Filter by the object’s `message` field. */
-  message?: StringTrgmFilter;
-  /** Filter by the object’s `context` field. */
-  context?: JSONFilter;
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: AgentLogFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AgentLogFilter[];
-  /** Negates the expression. */
-  not?: AgentLogFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** A related `agent` exists. */
-  agentExists?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `level` column. */
-  trgmLevel?: TrgmSearchInput;
-  /** TRGM search on the `message` column. */
-  trgmMessage?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface RuleFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `triggerType` field. */
-  triggerType?: StringTrgmFilter;
-  /** Filter by the object’s `triggerConfig` field. */
-  triggerConfig?: JSONFilter;
-  /** Filter by the object’s `actionType` field. */
-  actionType?: StringTrgmFilter;
-  /** Filter by the object’s `actionConfig` field. */
-  actionConfig?: JSONFilter;
-  /** Filter by the object’s `isActive` field. */
-  isActive?: BooleanFilter;
-  /** Filter by the object’s `priority` field. */
-  priority?: IntFilter;
-  /** Filter by the object’s `triggerConcept` field. */
-  triggerConcept?: StringTrgmFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `triggerConceptEmbedding` field. */
-  triggerConceptEmbedding?: VectorFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuleFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuleFilter[];
-  /** Negates the expression. */
-  not?: RuleFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** VECTOR search on the `trigger_concept_embedding` column. */
-  vectorTriggerConceptEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `trigger_type` column. */
-  trgmTriggerType?: TrgmSearchInput;
-  /** TRGM search on the `action_type` column. */
-  trgmActionType?: TrgmSearchInput;
-  /** TRGM search on the `trigger_concept` column. */
-  trgmTriggerConcept?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface SkillFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
-  /** Filter by the object’s `implementation` field. */
-  implementation?: StringTrgmFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
-  /** Filter by the object’s `isActive` field. */
-  isActive?: BooleanFilter;
-  /** Filter by the object’s `intentTrigger` field. */
-  intentTrigger?: StringTrgmFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `intentTriggerEmbedding` field. */
-  intentTriggerEmbedding?: VectorFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: SkillFilter[];
-  /** Checks for any expressions in this list. */
-  or?: SkillFilter[];
-  /** Negates the expression. */
-  not?: SkillFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** Filter by the object’s `skillTools` relation. */
-  skillTools?: SkillToManySkillToolFilter;
-  /** `skillTools` exist. */
-  skillToolsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** VECTOR search on the `intent_trigger_embedding` column. */
-  vectorIntentTriggerEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `implementation` column. */
-  trgmImplementation?: TrgmSearchInput;
-  /** TRGM search on the `intent_trigger` column. */
-  trgmIntentTrigger?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface ToolDefinitionFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `toolType` field. */
-  toolType?: StringTrgmFilter;
-  /** Filter by the object’s `schema` field. */
-  schema?: JSONFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
-  /** Filter by the object’s `isActive` field. */
-  isActive?: BooleanFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: ToolDefinitionFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ToolDefinitionFilter[];
-  /** Negates the expression. */
-  not?: ToolDefinitionFilter;
-  /** Filter by the object’s `toolExecutions` relation. */
-  toolExecutions?: ToolDefinitionToManyToolExecutionFilter;
-  /** `toolExecutions` exist. */
-  toolExecutionsExist?: boolean;
-  /** Filter by the object’s `skillTools` relation. */
-  skillTools?: ToolDefinitionToManySkillToolFilter;
-  /** `skillTools` exist. */
-  skillToolsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `tool_type` column. */
-  trgmToolType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface SkillToolFilter {
-  /** Filter by the object’s `skillId` field. */
-  skillId?: UUIDFilter;
-  /** Filter by the object’s `toolDefinitionId` field. */
-  toolDefinitionId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: SkillToolFilter[];
-  /** Checks for any expressions in this list. */
-  or?: SkillToolFilter[];
-  /** Negates the expression. */
-  not?: SkillToolFilter;
-  /** Filter by the object’s `skill` relation. */
-  skill?: SkillFilter;
-  /** Filter by the object’s `toolDefinition` relation. */
-  toolDefinition?: ToolDefinitionFilter;
-}
-export interface ToolExecutionFilter {
-  /** Filter by the object’s `toolDefinitionId` field. */
-  toolDefinitionId?: UUIDFilter;
-  /** Filter by the object’s `messageId` field. */
-  messageId?: UUIDFilter;
-  /** Filter by the object’s `input` field. */
-  input?: JSONFilter;
-  /** Filter by the object’s `output` field. */
-  output?: JSONFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringFilter;
-  /** Filter by the object’s `startedAt` field. */
-  startedAt?: DatetimeFilter;
-  /** Filter by the object’s `completedAt` field. */
-  completedAt?: DatetimeFilter;
-  /** Filter by the object’s `error` field. */
-  error?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: ToolExecutionFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ToolExecutionFilter[];
-  /** Negates the expression. */
-  not?: ToolExecutionFilter;
-  /** Filter by the object’s `toolDefinition` relation. */
-  toolDefinition?: ToolDefinitionFilter;
-}
-export interface AutonomyRecordLinkFilter {
-  /** Filter by the object’s `sourceRecordId` field. */
-  sourceRecordId?: UUIDFilter;
-  /** Filter by the object’s `targetRecordId` field. */
-  targetRecordId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: AutonomyRecordLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AutonomyRecordLinkFilter[];
-  /** Negates the expression. */
-  not?: AutonomyRecordLinkFilter;
-  /** Filter by the object’s `sourceRecord` relation. */
-  sourceRecord?: AutonomyRecordFilter;
-  /** Filter by the object’s `targetRecord` relation. */
-  targetRecord?: AutonomyRecordFilter;
-}
-export interface AutonomyRecordFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `recordType` field. */
-  recordType?: StringTrgmFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `priority` field. */
-  priority?: IntFilter;
-  /** Filter by the object’s `source` field. */
-  source?: StringTrgmFilter;
-  /** Filter by the object’s `context` field. */
-  context?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: AutonomyRecordFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AutonomyRecordFilter[];
-  /** Negates the expression. */
-  not?: AutonomyRecordFilter;
-  /** Filter by the object’s `autonomyRecordLinksBySourceRecordId` relation. */
-  autonomyRecordLinksBySourceRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
-  /** `autonomyRecordLinksBySourceRecordId` exist. */
-  autonomyRecordLinksBySourceRecordIdExist?: boolean;
-  /** Filter by the object’s `autonomyRecordLinksByTargetRecordId` relation. */
-  autonomyRecordLinksByTargetRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
-  /** `autonomyRecordLinksByTargetRecordId` exist. */
-  autonomyRecordLinksByTargetRecordIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `record_type` column. */
-  trgmRecordType?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `source` column. */
-  trgmSource?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface CodebaseDependencyFilter {
-  /** Filter by the object’s `codebaseId` field. */
-  codebaseId?: UUIDFilter;
-  /** Filter by the object’s `dependencyId` field. */
-  dependencyId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CodebaseDependencyFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CodebaseDependencyFilter[];
-  /** Negates the expression. */
-  not?: CodebaseDependencyFilter;
-  /** Filter by the object’s `codebase` relation. */
-  codebase?: CodebaseFilter;
-  /** Filter by the object’s `dependency` relation. */
-  dependency?: CodebaseFilter;
-}
-export interface CodebaseFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `repositoryUrl` field. */
-  repositoryUrl?: StringTrgmFilter;
-  /** Filter by the object’s `defaultBranch` field. */
-  defaultBranch?: StringTrgmFilter;
-  /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
-  /** Filter by the object’s `framework` field. */
-  framework?: StringTrgmFilter;
-  /** Filter by the object’s `lastSyncedAt` field. */
-  lastSyncedAt?: DatetimeFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: CodebaseFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CodebaseFilter[];
-  /** Negates the expression. */
-  not?: CodebaseFilter;
-  /** Filter by the object’s `codeChunks` relation. */
-  codeChunks?: CodebaseToManyCodeChunkFilter;
-  /** `codeChunks` exist. */
-  codeChunksExist?: boolean;
-  /** Filter by the object’s `codebaseDependencies` relation. */
-  codebaseDependencies?: CodebaseToManyCodebaseDependencyFilter;
-  /** `codebaseDependencies` exist. */
-  codebaseDependenciesExist?: boolean;
-  /** Filter by the object’s `codebaseDependenciesByDependencyId` relation. */
-  codebaseDependenciesByDependencyId?: CodebaseToManyCodebaseDependencyFilter;
-  /** `codebaseDependenciesByDependencyId` exist. */
-  codebaseDependenciesByDependencyIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `repository_url` column. */
-  trgmRepositoryUrl?: TrgmSearchInput;
-  /** TRGM search on the `default_branch` column. */
-  trgmDefaultBranch?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `framework` column. */
-  trgmFramework?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface CodeChunkFilter {
-  /** Filter by the object’s `codebaseId` field. */
-  codebaseId?: UUIDFilter;
-  /** Filter by the object’s `filePath` field. */
-  filePath?: StringTrgmFilter;
-  /** Filter by the object’s `chunkIndex` field. */
-  chunkIndex?: IntFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
-  /** Filter by the object’s `startLine` field. */
-  startLine?: IntFilter;
-  /** Filter by the object’s `endLine` field. */
-  endLine?: IntFilter;
-  /** Filter by the object’s `symbolName` field. */
-  symbolName?: StringTrgmFilter;
-  /** Filter by the object’s `symbolType` field. */
-  symbolType?: StringTrgmFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: CodeChunkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CodeChunkFilter[];
-  /** Negates the expression. */
-  not?: CodeChunkFilter;
-  /** Filter by the object’s `codebase` relation. */
-  codebase?: CodebaseFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `file_path` column. */
-  trgmFilePath?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `symbol_name` column. */
-  trgmSymbolName?: TrgmSearchInput;
-  /** TRGM search on the `symbol_type` column. */
-  trgmSymbolType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface RuntimeStateDependencyFilter {
-  /** Filter by the object’s `stateId` field. */
-  stateId?: UUIDFilter;
-  /** Filter by the object’s `dependencyId` field. */
-  dependencyId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeStateDependencyFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeStateDependencyFilter[];
-  /** Negates the expression. */
-  not?: RuntimeStateDependencyFilter;
-  /** Filter by the object’s `dependency` relation. */
-  dependency?: RuntimeStateFilter;
-  /** Filter by the object’s `state` relation. */
-  state?: RuntimeStateFilter;
-}
-export interface RuntimeStateFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `stateType` field. */
-  stateType?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `data` field. */
-  data?: JSONFilter;
-  /** Filter by the object’s `parentId` field. */
-  parentId?: UUIDFilter;
-  /** Filter by the object’s `startedAt` field. */
-  startedAt?: DatetimeFilter;
-  /** Filter by the object’s `endedAt` field. */
-  endedAt?: DatetimeFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeStateFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeStateFilter[];
-  /** Negates the expression. */
-  not?: RuntimeStateFilter;
-  /** Filter by the object’s `runtimeLogs` relation. */
-  runtimeLogs?: RuntimeStateToManyRuntimeLogFilter;
-  /** `runtimeLogs` exist. */
-  runtimeLogsExist?: boolean;
-  /** Filter by the object’s `runtimeArtifacts` relation. */
-  runtimeArtifacts?: RuntimeStateToManyRuntimeArtifactFilter;
-  /** `runtimeArtifacts` exist. */
-  runtimeArtifactsExist?: boolean;
-  /** Filter by the object’s `runtimeMetrics` relation. */
-  runtimeMetrics?: RuntimeStateToManyRuntimeMetricFilter;
-  /** `runtimeMetrics` exist. */
-  runtimeMetricsExist?: boolean;
-  /** Filter by the object’s `runtimeStateDependenciesByDependencyId` relation. */
-  runtimeStateDependenciesByDependencyId?: RuntimeStateToManyRuntimeStateDependencyFilter;
-  /** `runtimeStateDependenciesByDependencyId` exist. */
-  runtimeStateDependenciesByDependencyIdExist?: boolean;
-  /** Filter by the object’s `runtimeStateDependenciesByStateId` relation. */
-  runtimeStateDependenciesByStateId?: RuntimeStateToManyRuntimeStateDependencyFilter;
-  /** `runtimeStateDependenciesByStateId` exist. */
-  runtimeStateDependenciesByStateIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `state_type` column. */
-  trgmStateType?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface RuntimeLogFilter {
-  /** Filter by the object’s `runtimeStateId` field. */
-  runtimeStateId?: UUIDFilter;
-  /** Filter by the object’s `level` field. */
-  level?: StringTrgmFilter;
-  /** Filter by the object’s `message` field. */
-  message?: StringTrgmFilter;
-  /** Filter by the object’s `context` field. */
-  context?: JSONFilter;
-  /** Filter by the object’s `stepIndex` field. */
-  stepIndex?: IntFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeLogFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeLogFilter[];
-  /** Negates the expression. */
-  not?: RuntimeLogFilter;
-  /** Filter by the object’s `runtimeState` relation. */
-  runtimeState?: RuntimeStateFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `level` column. */
-  trgmLevel?: TrgmSearchInput;
-  /** TRGM search on the `message` column. */
-  trgmMessage?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface RuntimeArtifactFilter {
-  /** Filter by the object’s `runtimeStateId` field. */
-  runtimeStateId?: UUIDFilter;
-  /** Filter by the object’s `name` field. */
-  name?: StringFilter;
-  /** Filter by the object’s `artifactType` field. */
-  artifactType?: StringFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `sizeBytes` field. */
-  sizeBytes?: IntFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeArtifactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeArtifactFilter[];
-  /** Negates the expression. */
-  not?: RuntimeArtifactFilter;
-  /** Filter by the object’s `runtimeState` relation. */
-  runtimeState?: RuntimeStateFilter;
-}
-export interface RuntimeMetricFilter {
-  /** Filter by the object’s `runtimeStateId` field. */
-  runtimeStateId?: UUIDFilter;
-  /** Filter by the object’s `metricName` field. */
-  metricName?: StringFilter;
-  /** Filter by the object’s `metricValue` field. */
-  metricValue?: BigFloatFilter;
-  /** Filter by the object’s `unit` field. */
-  unit?: StringFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeMetricFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeMetricFilter[];
-  /** Negates the expression. */
-  not?: RuntimeMetricFilter;
-  /** Filter by the object’s `runtimeState` relation. */
-  runtimeState?: RuntimeStateFilter;
-}
-export interface CalendarFilter {
-  /** Filter by the object’s `providerAccountId` field. */
-  providerAccountId?: StringFilter;
-  /** Filter by the object’s `providerCalendarId` field. */
-  providerCalendarId?: StringFilter;
-  /** Filter by the object’s `name` field. */
-  name?: StringFilter;
-  /** Filter by the object’s `color` field. */
-  color?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarFilter[];
-  /** Negates the expression. */
-  not?: CalendarFilter;
-  /** Filter by the object’s `calendarEvents` relation. */
-  calendarEvents?: CalendarToManyCalendarEventFilter;
-  /** `calendarEvents` exist. */
-  calendarEventsExist?: boolean;
-}
-export interface ProviderSyncStateFilter {
-  /** Filter by the object’s `provider` field. */
-  provider?: StringFilter;
-  /** Filter by the object’s `resourceType` field. */
-  resourceType?: StringFilter;
-  /** Filter by the object’s `syncCursor` field. */
-  syncCursor?: StringFilter;
-  /** Filter by the object’s `historyId` field. */
-  historyId?: StringFilter;
-  /** Filter by the object’s `lastSyncAt` field. */
-  lastSyncAt?: DatetimeFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: ProviderSyncStateFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ProviderSyncStateFilter[];
-  /** Negates the expression. */
-  not?: ProviderSyncStateFilter;
-}
-export interface TagFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringFilter;
-  /** Filter by the object’s `color` field. */
-  color?: StringFilter;
-  /** Filter by the object’s `category` field. */
-  category?: StringFilter;
-  /** Filter by the object’s `usageCount` field. */
-  usageCount?: IntFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: TagFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TagFilter[];
-  /** Negates the expression. */
-  not?: TagFilter;
-}
-export interface RawContactUrlFilter {
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `urlType` field. */
-  urlType?: StringFilter;
-  /** Filter by the object’s `source` field. */
-  source?: StringFilter;
-  /** Filter by the object’s `confidence` field. */
-  confidence?: BigFloatFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `rawContactId` field. */
-  rawContactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: RawContactUrlFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RawContactUrlFilter[];
-  /** Negates the expression. */
-  not?: RawContactUrlFilter;
-  /** Filter by the object’s `rawContact` relation. */
-  rawContact?: RawContactFilter;
-}
-export interface RawContactEmailFilter {
-  /** Filter by the object’s `email` field. */
-  email?: StringFilter;
-  /** Filter by the object’s `emailType` field. */
-  emailType?: StringFilter;
-  /** Filter by the object’s `isPrimary` field. */
-  isPrimary?: BooleanFilter;
-  /** Filter by the object’s `source` field. */
-  source?: StringFilter;
-  /** Filter by the object’s `confidence` field. */
-  confidence?: BigFloatFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `rawContactId` field. */
-  rawContactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: RawContactEmailFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RawContactEmailFilter[];
-  /** Negates the expression. */
-  not?: RawContactEmailFilter;
-  /** Filter by the object’s `rawContact` relation. */
-  rawContact?: RawContactFilter;
-}
-export interface RawContactPhoneFilter {
-  /** Filter by the object’s `phone` field. */
-  phone?: StringFilter;
-  /** Filter by the object’s `phoneType` field. */
-  phoneType?: StringFilter;
-  /** Filter by the object’s `isPrimary` field. */
-  isPrimary?: BooleanFilter;
-  /** Filter by the object’s `source` field. */
-  source?: StringFilter;
-  /** Filter by the object’s `confidence` field. */
-  confidence?: BigFloatFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `rawContactId` field. */
-  rawContactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: RawContactPhoneFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RawContactPhoneFilter[];
-  /** Negates the expression. */
-  not?: RawContactPhoneFilter;
-  /** Filter by the object’s `rawContact` relation. */
-  rawContact?: RawContactFilter;
-}
-export interface RuntimeConfigFilter {
-  /** Filter by the object’s `key` field. */
-  key?: StringFilter;
-  /** Filter by the object’s `value` field. */
-  value?: JSONFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringFilter;
-  /** Filter by the object’s `isSecret` field. */
-  isSecret?: BooleanFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeConfigFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeConfigFilter[];
-  /** Negates the expression. */
-  not?: RuntimeConfigFilter;
-}
-export interface RuntimeEventFilter {
-  /** Filter by the object’s `eventType` field. */
-  eventType?: StringFilter;
-  /** Filter by the object’s `payload` field. */
-  payload?: JSONFilter;
-  /** Filter by the object’s `source` field. */
-  source?: StringFilter;
-  /** Filter by the object’s `processedAt` field. */
-  processedAt?: DatetimeFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeEventFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeEventFilter[];
-  /** Negates the expression. */
-  not?: RuntimeEventFilter;
-}
-export interface RuntimeScheduleFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringFilter;
-  /** Filter by the object’s `cronExpression` field. */
-  cronExpression?: StringFilter;
-  /** Filter by the object’s `nextRunAt` field. */
-  nextRunAt?: DatetimeFilter;
-  /** Filter by the object’s `lastRunAt` field. */
-  lastRunAt?: DatetimeFilter;
-  /** Filter by the object’s `isActive` field. */
-  isActive?: BooleanFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
-  /** Filter by the object’s `timezone` field. */
-  timezone?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeScheduleFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeScheduleFilter[];
-  /** Negates the expression. */
-  not?: RuntimeScheduleFilter;
-}
-export interface ConversationFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: ConversationFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ConversationFilter[];
-  /** Negates the expression. */
-  not?: ConversationFilter;
-  /** Filter by the object’s `messages` relation. */
-  messages?: ConversationToManyMessageFilter;
-  /** `messages` exist. */
-  messagesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface MessageFilter {
-  /** Filter by the object’s `conversationId` field. */
-  conversationId?: UUIDFilter;
-  /** Filter by the object’s `role` field. */
-  role?: StringTrgmFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `tokenCount` field. */
-  tokenCount?: IntFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `toolCalls` field. */
-  toolCalls?: JSONFilter;
-  /** Filter by the object’s `toolResults` field. */
-  toolResults?: JSONFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: MessageFilter[];
-  /** Checks for any expressions in this list. */
-  or?: MessageFilter[];
-  /** Negates the expression. */
-  not?: MessageFilter;
-  /** Filter by the object’s `conversation` relation. */
-  conversation?: ConversationFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `role` column. */
-  trgmRole?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface RawContactFilter {
-  /** Filter by the object’s `externalId` field. */
-  externalId?: StringFilter;
-  /** Filter by the object’s `source` field. */
-  source?: StringFilter;
-  /** Filter by the object’s `firstName` field. */
-  firstName?: StringFilter;
-  /** Filter by the object’s `lastName` field. */
-  lastName?: StringFilter;
-  /** Filter by the object’s `fullName` field. */
-  fullName?: StringFilter;
-  /** Filter by the object’s `headline` field. */
-  headline?: StringFilter;
-  /** Filter by the object’s `bio` field. */
-  bio?: StringFilter;
-  /** Filter by the object’s `location` field. */
-  location?: StringFilter;
-  /** Filter by the object’s `company` field. */
-  company?: StringFilter;
-  /** Filter by the object’s `jobTitle` field. */
-  jobTitle?: StringFilter;
-  /** Filter by the object’s `rawData` field. */
-  rawData?: JSONFilter;
-  /** Filter by the object’s `confidence` field. */
-  confidence?: BigFloatFilter;
-  /** Filter by the object’s `ingestedAt` field. */
-  ingestedAt?: DatetimeFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RawContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RawContactFilter[];
-  /** Negates the expression. */
-  not?: RawContactFilter;
-  /** Filter by the object’s `rawContactEmails` relation. */
-  rawContactEmails?: RawContactToManyRawContactEmailFilter;
-  /** `rawContactEmails` exist. */
-  rawContactEmailsExist?: boolean;
-  /** Filter by the object’s `rawContactPhones` relation. */
-  rawContactPhones?: RawContactToManyRawContactPhoneFilter;
-  /** `rawContactPhones` exist. */
-  rawContactPhonesExist?: boolean;
-  /** Filter by the object’s `rawContactUrls` relation. */
-  rawContactUrls?: RawContactToManyRawContactUrlFilter;
-  /** `rawContactUrls` exist. */
-  rawContactUrlsExist?: boolean;
-}
-export interface PlaceFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `address` field. */
-  address?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
-  /** Filter by the object’s `rating` field. */
-  rating?: BigFloatFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `locationGeo` field. */
-  locationGeo?: GeographyInterfaceFilter;
-  /** Checks for all expressions in this list. */
-  and?: PlaceFilter[];
-  /** Checks for any expressions in this list. */
-  or?: PlaceFilter[];
-  /** Negates the expression. */
-  not?: PlaceFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `address` column. */
-  trgmAddress?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 export interface TripFilter {
   /** Filter by the object’s `name` field. */
@@ -8614,79 +8261,110 @@ export interface TripFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-export interface HikingTrailFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `location` field. */
-  location?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `difficulty` field. */
-  difficulty?: StringTrgmFilter;
-  /** Filter by the object’s `distanceKm` field. */
-  distanceKm?: BigFloatFilter;
-  /** Filter by the object’s `elevationGainm` field. */
-  elevationGainm?: BigFloatFilter;
-  /** Filter by the object’s `rating` field. */
-  rating?: BigFloatFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
+export interface VenueImageFilter {
+  /** Filter by the object’s `venueId` field. */
+  venueId?: UUIDFilter;
+  /** Filter by the object’s `imageId` field. */
+  imageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: VenueImageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: VenueImageFilter[];
+  /** Negates the expression. */
+  not?: VenueImageFilter;
+  /** Filter by the object’s `image` relation. */
+  image?: ImageFilter;
+  /** Filter by the object’s `venue` relation. */
+  venue?: VenueFilter;
+}
+export interface VenueLinkFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `trailheadGeo` field. */
-  trailheadGeo?: GeographyInterfaceFilter;
+  /** Filter by the object’s `venueId` field. */
+  venueId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: HikingTrailFilter[];
+  and?: VenueLinkFilter[];
   /** Checks for any expressions in this list. */
-  or?: HikingTrailFilter[];
+  or?: VenueLinkFilter[];
   /** Negates the expression. */
-  not?: HikingTrailFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
+  not?: VenueLinkFilter;
+  /** Filter by the object’s `venue` relation. */
+  venue?: VenueFilter;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `location` column. */
-  trgmLocation?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `difficulty` column. */
-  trgmDifficulty?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 // ============ OrderBy Types ============
-export type AgentCollaboratorOrderBy =
+export type ActivityLogOrderBy =
   | 'NATURAL'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'COLLABORATOR_ID_ASC'
-  | 'COLLABORATOR_ID_DESC';
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ACTIVITY_TYPE_ASC'
+  | 'ACTIVITY_TYPE_DESC'
+  | 'COMPLETED_AT_ASC'
+  | 'COMPLETED_AT_DESC'
+  | 'DURATION_MINUTES_ASC'
+  | 'DURATION_MINUTES_DESC'
+  | 'QUANTITY_ASC'
+  | 'QUANTITY_DESC'
+  | 'QUANTITY_UNIT_ASC'
+  | 'QUANTITY_UNIT_DESC'
+  | 'INTENSITY_ASC'
+  | 'INTENSITY_DESC'
+  | 'NOTES_ASC'
+  | 'NOTES_DESC'
+  | 'META_ASC'
+  | 'META_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'HABIT_ID_ASC'
+  | 'HABIT_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_ASC'
+  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_DESC'
+  | 'QUANTITY_UNIT_TRGM_SIMILARITY_ASC'
+  | 'QUANTITY_UNIT_TRGM_SIMILARITY_DESC'
+  | 'INTENSITY_TRGM_SIMILARITY_ASC'
+  | 'INTENSITY_TRGM_SIMILARITY_DESC'
+  | 'NOTES_TRGM_SIMILARITY_ASC'
+  | 'NOTES_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type AgentOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -8737,6 +8415,56 @@ export type AgentOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type AgentCollaboratorOrderBy =
+  | 'NATURAL'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'COLLABORATOR_ID_ASC'
+  | 'COLLABORATOR_ID_DESC';
+export type AgentLogOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'LEVEL_ASC'
+  | 'LEVEL_DESC'
+  | 'MESSAGE_ASC'
+  | 'MESSAGE_DESC'
+  | 'CONTEXT_ASC'
+  | 'CONTEXT_DESC'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'LEVEL_TRGM_SIMILARITY_ASC'
+  | 'LEVEL_TRGM_SIMILARITY_DESC'
+  | 'MESSAGE_TRGM_SIMILARITY_ASC'
+  | 'MESSAGE_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type AgentPromptOrderBy =
+  | 'NATURAL'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'PROMPT_ID_ASC'
+  | 'PROMPT_ID_DESC';
 export type PromptOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -8779,34 +8507,26 @@ export type PromptOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type AgentPromptOrderBy =
-  | 'NATURAL'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'PROMPT_ID_ASC'
-  | 'PROMPT_ID_DESC';
-export type TaskOrderBy =
+export type AutonomyRecordOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
   | 'TITLE_ASC'
   | 'TITLE_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
+  | 'RECORD_TYPE_ASC'
+  | 'RECORD_TYPE_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
   | 'STATUS_ASC'
   | 'STATUS_DESC'
   | 'PRIORITY_ASC'
   | 'PRIORITY_DESC'
-  | 'RESULT_ASC'
-  | 'RESULT_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
-  | 'COMPLETED_AT_ASC'
-  | 'COMPLETED_AT_DESC'
-  | 'META_ASC'
-  | 'META_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC'
+  | 'CONTEXT_ASC'
+  | 'CONTEXT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'CREATED_AT_ASC'
@@ -8825,16 +8545,120 @@ export type TaskOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'TITLE_TRGM_SIMILARITY_ASC'
   | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'RECORD_TYPE_TRGM_SIMILARITY_ASC'
+  | 'RECORD_TYPE_TRGM_SIMILARITY_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
   | 'STATUS_TRGM_SIMILARITY_ASC'
   | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'RESULT_TRGM_SIMILARITY_ASC'
-  | 'RESULT_TRGM_SIMILARITY_DESC'
+  | 'SOURCE_TRGM_SIMILARITY_ASC'
+  | 'SOURCE_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type AutonomyRecordLinkOrderBy =
+  | 'NATURAL'
+  | 'SOURCE_RECORD_ID_ASC'
+  | 'SOURCE_RECORD_ID_DESC'
+  | 'TARGET_RECORD_ID_ASC'
+  | 'TARGET_RECORD_ID_DESC';
+export type CalendarAttendeeOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'RESPONSE_STATUS_ASC'
+  | 'RESPONSE_STATUS_DESC'
+  | 'ROLE_ASC'
+  | 'ROLE_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC';
+export type CalendarOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'PROVIDER_ACCOUNT_ID_ASC'
+  | 'PROVIDER_ACCOUNT_ID_DESC'
+  | 'PROVIDER_CALENDAR_ID_ASC'
+  | 'PROVIDER_CALENDAR_ID_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'COLOR_ASC'
+  | 'COLOR_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type CalendarEventOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'PROVIDER_EVENT_ID_ASC'
+  | 'PROVIDER_EVENT_ID_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'START_TIME_ASC'
+  | 'START_TIME_DESC'
+  | 'END_TIME_ASC'
+  | 'END_TIME_DESC'
+  | 'MEETING_URL_ASC'
+  | 'MEETING_URL_DESC'
+  | 'ORGANIZER_CONTACT_ID_ASC'
+  | 'ORGANIZER_CONTACT_ID_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'SEARCH_TSV_ASC'
+  | 'SEARCH_TSV_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'CALENDAR_ID_ASC'
+  | 'CALENDAR_ID_DESC'
+  | 'SEARCH_TSV_RANK_ASC'
+  | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'PROVIDER_EVENT_ID_TRGM_SIMILARITY_ASC'
+  | 'PROVIDER_EVENT_ID_TRGM_SIMILARITY_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'MEETING_URL_TRGM_SIMILARITY_ASC'
+  | 'MEETING_URL_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CalendarEventContactOrderBy =
+  | 'NATURAL'
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
 export type ContactOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -8905,38 +8729,112 @@ export type ContactOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type ImageOrderBy =
+export type CalendarEventNoteOrderBy =
+  | 'NATURAL'
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC';
+export type NoteOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
-  | 'URL_ASC'
-  | 'URL_DESC'
-  | 'META_ASC'
-  | 'META_DESC'
-  | 'ALT_TEXT_ASC'
-  | 'ALT_TEXT_DESC'
-  | 'CAPTION_ASC'
-  | 'CAPTION_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'ABSTRACT_ASC'
+  | 'ABSTRACT_DESC'
+  | 'OVERVIEW_ASC'
+  | 'OVERVIEW_DESC'
+  | 'ACTIVE_COUNT_ASC'
+  | 'ACTIVE_COUNT_DESC'
+  | 'LAST_ACCESSED_AT_ASC'
+  | 'LAST_ACCESSED_AT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'CREATED_AT_ASC'
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'EMBEDDING_STALE_ASC'
   | 'EMBEDDING_STALE_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'ABSTRACT_TRGM_SIMILARITY_ASC'
+  | 'ABSTRACT_TRGM_SIMILARITY_DESC'
+  | 'OVERVIEW_TRGM_SIMILARITY_ASC'
+  | 'OVERVIEW_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type ContactImageOrderBy =
+export type CalendarEventTaskOrderBy =
   | 'NATURAL'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'IMAGE_ID_ASC'
-  | 'IMAGE_ID_DESC';
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC';
+export type TaskOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'PRIORITY_ASC'
+  | 'PRIORITY_DESC'
+  | 'RESULT_ASC'
+  | 'RESULT_DESC'
+  | 'STARTED_AT_ASC'
+  | 'STARTED_AT_DESC'
+  | 'COMPLETED_AT_ASC'
+  | 'COMPLETED_AT_DESC'
+  | 'META_ASC'
+  | 'META_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'RESULT_TRGM_SIMILARITY_ASC'
+  | 'RESULT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type CompanyOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -8985,18 +8883,58 @@ export type CompanyOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type CompanyImageOrderBy =
+export type DealOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'STAGE_ASC'
+  | 'STAGE_DESC'
+  | 'VALUE_ASC'
+  | 'VALUE_DESC'
+  | 'CURRENCY_ASC'
+  | 'CURRENCY_DESC'
+  | 'EXPECTED_CLOSE_DATE_ASC'
+  | 'EXPECTED_CLOSE_DATE_DESC'
+  | 'NOTES_TEXT_ASC'
+  | 'NOTES_TEXT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'STAGE_TRGM_SIMILARITY_ASC'
+  | 'STAGE_TRGM_SIMILARITY_DESC'
+  | 'CURRENCY_TRGM_SIMILARITY_ASC'
+  | 'CURRENCY_TRGM_SIMILARITY_DESC'
+  | 'NOTES_TEXT_TRGM_SIMILARITY_ASC'
+  | 'NOTES_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CompanyEventOrderBy =
   | 'NATURAL'
   | 'COMPANY_ID_ASC'
   | 'COMPANY_ID_DESC'
-  | 'IMAGE_ID_ASC'
-  | 'IMAGE_ID_DESC';
-export type ContactCompanyOrderBy =
-  | 'NATURAL'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'COMPANY_ID_ASC'
-  | 'COMPANY_ID_DESC';
+  | 'EVENT_ID_ASC'
+  | 'EVENT_ID_DESC';
 export type EventOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9055,24 +8993,590 @@ export type EventOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type EventImageOrderBy =
+export type CompanyImageOrderBy =
   | 'NATURAL'
-  | 'EVENT_ID_ASC'
-  | 'EVENT_ID_DESC'
+  | 'COMPANY_ID_ASC'
+  | 'COMPANY_ID_DESC'
   | 'IMAGE_ID_ASC'
   | 'IMAGE_ID_DESC';
+export type ImageOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'URL_ASC'
+  | 'URL_DESC'
+  | 'META_ASC'
+  | 'META_DESC'
+  | 'ALT_TEXT_ASC'
+  | 'ALT_TEXT_DESC'
+  | 'CAPTION_ASC'
+  | 'CAPTION_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CompanyLinkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'URL_ASC'
+  | 'URL_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'COMPANY_ID_ASC'
+  | 'COMPANY_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type MemoryOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'LOCATION_ASC'
+  | 'LOCATION_DESC'
+  | 'OCCURRED_AT_ASC'
+  | 'OCCURRED_AT_DESC'
+  | 'MOOD_ASC'
+  | 'MOOD_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'LOCATION_GEO_ASC'
+  | 'LOCATION_GEO_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'LOCATION_TRGM_SIMILARITY_ASC'
+  | 'LOCATION_TRGM_SIMILARITY_DESC'
+  | 'MOOD_TRGM_SIMILARITY_ASC'
+  | 'MOOD_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CompanyMemoryOrderBy =
+  | 'NATURAL'
+  | 'COMPANY_ID_ASC'
+  | 'COMPANY_ID_DESC'
+  | 'MEMORY_ID_ASC'
+  | 'MEMORY_ID_DESC';
+export type CompanyNoteOrderBy =
+  | 'NATURAL'
+  | 'COMPANY_ID_ASC'
+  | 'COMPANY_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC';
+export type ContactAddressOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'STREET_ASC'
+  | 'STREET_DESC'
+  | 'CITY_ASC'
+  | 'CITY_DESC'
+  | 'STATE_ASC'
+  | 'STATE_DESC'
+  | 'POSTAL_CODE_ASC'
+  | 'POSTAL_CODE_DESC'
+  | 'COUNTRY_ASC'
+  | 'COUNTRY_DESC'
+  | 'ADDRESS_TYPE_ASC'
+  | 'ADDRESS_TYPE_DESC'
+  | 'IS_PRIMARY_ASC'
+  | 'IS_PRIMARY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
+export type ContactCompanyOrderBy =
+  | 'NATURAL'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'COMPANY_ID_ASC'
+  | 'COMPANY_ID_DESC';
+export type ContactEmailOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EMAIL_ASC'
+  | 'EMAIL_DESC'
+  | 'EMAIL_TYPE_ASC'
+  | 'EMAIL_TYPE_DESC'
+  | 'IS_PRIMARY_ASC'
+  | 'IS_PRIMARY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
+export type EmailOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'PROVIDER_MESSAGE_ID_ASC'
+  | 'PROVIDER_MESSAGE_ID_DESC'
+  | 'FROM_CONTACT_ID_ASC'
+  | 'FROM_CONTACT_ID_DESC'
+  | 'TO_ASC'
+  | 'TO_DESC'
+  | 'CC_ASC'
+  | 'CC_DESC'
+  | 'BCC_ASC'
+  | 'BCC_DESC'
+  | 'SUBJECT_ASC'
+  | 'SUBJECT_DESC'
+  | 'BODY_TEXT_ASC'
+  | 'BODY_TEXT_DESC'
+  | 'BODY_HTML_ASC'
+  | 'BODY_HTML_DESC'
+  | 'SENT_AT_ASC'
+  | 'SENT_AT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'SEARCH_TSV_ASC'
+  | 'SEARCH_TSV_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMAIL_THREAD_ID_ASC'
+  | 'EMAIL_THREAD_ID_DESC';
+export type EmailThreadOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'PROVIDER_THREAD_ID_ASC'
+  | 'PROVIDER_THREAD_ID_DESC'
+  | 'SUBJECT_ASC'
+  | 'SUBJECT_DESC'
+  | 'LAST_MESSAGE_AT_ASC'
+  | 'LAST_MESSAGE_AT_DESC'
+  | 'SUMMARY_ASC'
+  | 'SUMMARY_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'SEARCH_TSV_ASC'
+  | 'SEARCH_TSV_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'SEARCH_TSV_RANK_ASC'
+  | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'PROVIDER_THREAD_ID_TRGM_SIMILARITY_ASC'
+  | 'PROVIDER_THREAD_ID_TRGM_SIMILARITY_DESC'
+  | 'SUBJECT_TRGM_SIMILARITY_ASC'
+  | 'SUBJECT_TRGM_SIMILARITY_DESC'
+  | 'SUMMARY_TRGM_SIMILARITY_ASC'
+  | 'SUMMARY_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ContactEventOrderBy =
   | 'NATURAL'
   | 'CONTACT_ID_ASC'
   | 'CONTACT_ID_DESC'
   | 'EVENT_ID_ASC'
   | 'EVENT_ID_DESC';
-export type CompanyEventOrderBy =
+export type ExpenseOrderBy =
   | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'AMOUNT_ASC'
+  | 'AMOUNT_DESC'
+  | 'CURRENCY_ASC'
+  | 'CURRENCY_DESC'
+  | 'CATEGORY_ASC'
+  | 'CATEGORY_DESC'
+  | 'OCCURRED_AT_ASC'
+  | 'OCCURRED_AT_DESC'
+  | 'VENDOR_ASC'
+  | 'VENDOR_DESC'
+  | 'NOTES_ASC'
+  | 'NOTES_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'TRIP_ID_ASC'
+  | 'TRIP_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'CURRENCY_TRGM_SIMILARITY_ASC'
+  | 'CURRENCY_TRGM_SIMILARITY_DESC'
+  | 'CATEGORY_TRGM_SIMILARITY_ASC'
+  | 'CATEGORY_TRGM_SIMILARITY_DESC'
+  | 'VENDOR_TRGM_SIMILARITY_ASC'
+  | 'VENDOR_TRGM_SIMILARITY_DESC'
+  | 'NOTES_TRGM_SIMILARITY_ASC'
+  | 'NOTES_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ContactImageOrderBy =
+  | 'NATURAL'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'IMAGE_ID_ASC'
+  | 'IMAGE_ID_DESC';
+export type ContactLinkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'URL_ASC'
+  | 'URL_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ContactMemoryOrderBy =
+  | 'NATURAL'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'MEMORY_ID_ASC'
+  | 'MEMORY_ID_DESC';
+export type ContactNoteOrderBy =
+  | 'NATURAL'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC';
+export type ContactPhoneOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'PHONE_ASC'
+  | 'PHONE_DESC'
+  | 'PHONE_TYPE_ASC'
+  | 'PHONE_TYPE_DESC'
+  | 'IS_PRIMARY_ASC'
+  | 'IS_PRIMARY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
+export type ProjectOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'PROJECT_TYPE_ASC'
+  | 'PROJECT_TYPE_DESC'
+  | 'PRIORITY_ASC'
+  | 'PRIORITY_DESC'
+  | 'STARTED_AT_ASC'
+  | 'STARTED_AT_DESC'
+  | 'TARGET_DATE_ASC'
+  | 'TARGET_DATE_DESC'
+  | 'COMPLETED_AT_ASC'
+  | 'COMPLETED_AT_DESC'
+  | 'CONFIG_ASC'
+  | 'CONFIG_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'PROJECT_TYPE_TRGM_SIMILARITY_ASC'
+  | 'PROJECT_TYPE_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ContactRelationshipOrderBy =
+  | 'NATURAL'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'RELATED_CONTACT_ID_ASC'
+  | 'RELATED_CONTACT_ID_DESC';
+export type ContactsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CONTACTS_ID_ASC'
+  | 'CONTACTS_ID_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'METADATA_ASC'
+  | 'METADATA_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ConversationOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'META_ASC'
+  | 'META_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type DealCompanyOrderBy =
+  | 'NATURAL'
+  | 'DEAL_ID_ASC'
+  | 'DEAL_ID_DESC'
   | 'COMPANY_ID_ASC'
-  | 'COMPANY_ID_DESC'
+  | 'COMPANY_ID_DESC';
+export type DealContactOrderBy =
+  | 'NATURAL'
+  | 'DEAL_ID_ASC'
+  | 'DEAL_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
+export type DealNoteOrderBy =
+  | 'NATURAL'
+  | 'DEAL_ID_ASC'
+  | 'DEAL_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC';
+export type EmailAttachmentOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'FILENAME_ASC'
+  | 'FILENAME_DESC'
+  | 'CONTENT_TYPE_ASC'
+  | 'CONTENT_TYPE_DESC'
+  | 'SIZE_BYTES_ASC'
+  | 'SIZE_BYTES_DESC'
+  | 'STORAGE_URL_ASC'
+  | 'STORAGE_URL_DESC'
+  | 'PROVIDER_ATTACHMENT_ID_ASC'
+  | 'PROVIDER_ATTACHMENT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC';
+export type EmailNoteOrderBy =
+  | 'NATURAL'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC';
+export type EmailRecipientOrderBy =
+  | 'NATURAL'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
+export type EventImageOrderBy =
+  | 'NATURAL'
   | 'EVENT_ID_ASC'
-  | 'EVENT_ID_DESC';
+  | 'EVENT_ID_DESC'
+  | 'IMAGE_ID_ASC'
+  | 'IMAGE_ID_DESC';
+export type EventLinkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'URL_ASC'
+  | 'URL_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EVENT_ID_ASC'
+  | 'EVENT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type EventNoteOrderBy =
+  | 'NATURAL'
+  | 'EVENT_ID_ASC'
+  | 'EVENT_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC';
+export type EventVenueOrderBy =
+  | 'NATURAL'
+  | 'EVENT_ID_ASC'
+  | 'EVENT_ID_DESC'
+  | 'VENUE_ID_ASC'
+  | 'VENUE_ID_DESC';
 export type VenueOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9147,56 +9651,26 @@ export type VenueOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type VenueImageOrderBy =
+export type ExpenseContactOrderBy =
   | 'NATURAL'
-  | 'VENUE_ID_ASC'
-  | 'VENUE_ID_DESC'
-  | 'IMAGE_ID_ASC'
-  | 'IMAGE_ID_DESC';
-export type EventVenueOrderBy =
-  | 'NATURAL'
-  | 'EVENT_ID_ASC'
-  | 'EVENT_ID_DESC'
-  | 'VENUE_ID_ASC'
-  | 'VENUE_ID_DESC';
-export type VenueLinkOrderBy =
+  | 'EXPENSE_ID_ASC'
+  | 'EXPENSE_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
+export type GoalOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
   | 'TITLE_ASC'
   | 'TITLE_DESC'
-  | 'URL_ASC'
-  | 'URL_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'VENUE_ID_ASC'
-  | 'VENUE_ID_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type NoteOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'ABSTRACT_ASC'
-  | 'ABSTRACT_DESC'
-  | 'OVERVIEW_ASC'
-  | 'OVERVIEW_DESC'
-  | 'ACTIVE_COUNT_ASC'
-  | 'ACTIVE_COUNT_DESC'
-  | 'LAST_ACCESSED_AT_ASC'
-  | 'LAST_ACCESSED_AT_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'TARGET_DATE_ASC'
+  | 'TARGET_DATE_DESC'
+  | 'PROGRESS_ASC'
+  | 'PROGRESS_DESC'
   | 'TAGS_ASC'
   | 'TAGS_DESC'
   | 'ID_ASC'
@@ -9211,52 +9685,552 @@ export type NoteOrderBy =
   | 'EMBEDDING_DESC'
   | 'EMBEDDING_STALE_ASC'
   | 'EMBEDDING_STALE_DESC'
-  | 'CONTENT_BM25_SCORE_ASC'
-  | 'CONTENT_BM25_SCORE_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'ABSTRACT_TRGM_SIMILARITY_ASC'
-  | 'ABSTRACT_TRGM_SIMILARITY_DESC'
-  | 'OVERVIEW_TRGM_SIMILARITY_ASC'
-  | 'OVERVIEW_TRGM_SIMILARITY_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type ContactNoteOrderBy =
+export type GoalHabitOrderBy =
   | 'NATURAL'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'NOTE_ID_ASC'
-  | 'NOTE_ID_DESC';
-export type CompanyNoteOrderBy =
-  | 'NATURAL'
-  | 'COMPANY_ID_ASC'
-  | 'COMPANY_ID_DESC'
-  | 'NOTE_ID_ASC'
-  | 'NOTE_ID_DESC';
-export type DealOrderBy =
+  | 'GOAL_ID_ASC'
+  | 'GOAL_ID_DESC'
+  | 'HABIT_ID_ASC'
+  | 'HABIT_ID_DESC';
+export type HabitOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
   | 'NAME_ASC'
   | 'NAME_DESC'
-  | 'STAGE_ASC'
-  | 'STAGE_DESC'
-  | 'VALUE_ASC'
-  | 'VALUE_DESC'
-  | 'CURRENCY_ASC'
-  | 'CURRENCY_DESC'
-  | 'EXPECTED_CLOSE_DATE_ASC'
-  | 'EXPECTED_CLOSE_DATE_DESC'
-  | 'NOTES_TEXT_ASC'
-  | 'NOTES_TEXT_DESC'
+  | 'FREQUENCY_ASC'
+  | 'FREQUENCY_DESC'
+  | 'STREAK_ASC'
+  | 'STREAK_DESC'
+  | 'LAST_COMPLETED_AT_ASC'
+  | 'LAST_COMPLETED_AT_DESC'
   | 'TAGS_ASC'
   | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type GoalProjectOrderBy =
+  | 'NATURAL'
+  | 'GOAL_ID_ASC'
+  | 'GOAL_ID_DESC'
+  | 'PROJECT_ID_ASC'
+  | 'PROJECT_ID_DESC';
+export type InteractionOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'TYPE_ASC'
+  | 'TYPE_DESC'
+  | 'OCCURRED_AT_ASC'
+  | 'OCCURRED_AT_DESC'
+  | 'SUMMARY_ASC'
+  | 'SUMMARY_DESC'
+  | 'SENTIMENT_ASC'
+  | 'SENTIMENT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TYPE_TRGM_SIMILARITY_ASC'
+  | 'TYPE_TRGM_SIMILARITY_DESC'
+  | 'SUMMARY_TRGM_SIMILARITY_ASC'
+  | 'SUMMARY_TRGM_SIMILARITY_DESC'
+  | 'SENTIMENT_TRGM_SIMILARITY_ASC'
+  | 'SENTIMENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type MessageOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'CONVERSATION_ID_ASC'
+  | 'CONVERSATION_ID_DESC'
+  | 'ROLE_ASC'
+  | 'ROLE_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'TOKEN_COUNT_ASC'
+  | 'TOKEN_COUNT_DESC'
+  | 'META_ASC'
+  | 'META_DESC'
+  | 'TOOL_CALLS_ASC'
+  | 'TOOL_CALLS_DESC'
+  | 'TOOL_RESULTS_ASC'
+  | 'TOOL_RESULTS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'ROLE_TRGM_SIMILARITY_ASC'
+  | 'ROLE_TRGM_SIMILARITY_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type NotesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'NOTES_ID_ASC'
+  | 'NOTES_ID_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'METADATA_ASC'
+  | 'METADATA_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type PlaceOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'ADDRESS_ASC'
+  | 'ADDRESS_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'CATEGORY_ASC'
+  | 'CATEGORY_DESC'
+  | 'RATING_ASC'
+  | 'RATING_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'LOCATION_GEO_ASC'
+  | 'LOCATION_GEO_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'ADDRESS_TRGM_SIMILARITY_ASC'
+  | 'ADDRESS_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'CATEGORY_TRGM_SIMILARITY_ASC'
+  | 'CATEGORY_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ProjectContactOrderBy =
+  | 'NATURAL'
+  | 'PROJECT_ID_ASC'
+  | 'PROJECT_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
+export type ProviderSyncStateOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'PROVIDER_ASC'
+  | 'PROVIDER_DESC'
+  | 'RESOURCE_TYPE_ASC'
+  | 'RESOURCE_TYPE_DESC'
+  | 'SYNC_CURSOR_ASC'
+  | 'SYNC_CURSOR_DESC'
+  | 'HISTORY_ID_ASC'
+  | 'HISTORY_ID_DESC'
+  | 'LAST_SYNC_AT_ASC'
+  | 'LAST_SYNC_AT_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type RawContactOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EXTERNAL_ID_ASC'
+  | 'EXTERNAL_ID_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC'
+  | 'FIRST_NAME_ASC'
+  | 'FIRST_NAME_DESC'
+  | 'LAST_NAME_ASC'
+  | 'LAST_NAME_DESC'
+  | 'FULL_NAME_ASC'
+  | 'FULL_NAME_DESC'
+  | 'HEADLINE_ASC'
+  | 'HEADLINE_DESC'
+  | 'BIO_ASC'
+  | 'BIO_DESC'
+  | 'LOCATION_ASC'
+  | 'LOCATION_DESC'
+  | 'COMPANY_ASC'
+  | 'COMPANY_DESC'
+  | 'JOB_TITLE_ASC'
+  | 'JOB_TITLE_DESC'
+  | 'RAW_DATA_ASC'
+  | 'RAW_DATA_DESC'
+  | 'CONFIDENCE_ASC'
+  | 'CONFIDENCE_DESC'
+  | 'INGESTED_AT_ASC'
+  | 'INGESTED_AT_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type RawContactEmailOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EMAIL_ASC'
+  | 'EMAIL_DESC'
+  | 'EMAIL_TYPE_ASC'
+  | 'EMAIL_TYPE_DESC'
+  | 'IS_PRIMARY_ASC'
+  | 'IS_PRIMARY_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC'
+  | 'CONFIDENCE_ASC'
+  | 'CONFIDENCE_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'RAW_CONTACT_ID_ASC'
+  | 'RAW_CONTACT_ID_DESC';
+export type RawContactPhoneOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'PHONE_ASC'
+  | 'PHONE_DESC'
+  | 'PHONE_TYPE_ASC'
+  | 'PHONE_TYPE_DESC'
+  | 'IS_PRIMARY_ASC'
+  | 'IS_PRIMARY_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC'
+  | 'CONFIDENCE_ASC'
+  | 'CONFIDENCE_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'RAW_CONTACT_ID_ASC'
+  | 'RAW_CONTACT_ID_DESC';
+export type RawContactUrlOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'URL_ASC'
+  | 'URL_DESC'
+  | 'URL_TYPE_ASC'
+  | 'URL_TYPE_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC'
+  | 'CONFIDENCE_ASC'
+  | 'CONFIDENCE_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'RAW_CONTACT_ID_ASC'
+  | 'RAW_CONTACT_ID_DESC';
+export type RuleOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'TRIGGER_TYPE_ASC'
+  | 'TRIGGER_TYPE_DESC'
+  | 'TRIGGER_CONFIG_ASC'
+  | 'TRIGGER_CONFIG_DESC'
+  | 'ACTION_TYPE_ASC'
+  | 'ACTION_TYPE_DESC'
+  | 'ACTION_CONFIG_ASC'
+  | 'ACTION_CONFIG_DESC'
+  | 'IS_ACTIVE_ASC'
+  | 'IS_ACTIVE_DESC'
+  | 'PRIORITY_ASC'
+  | 'PRIORITY_DESC'
+  | 'TRIGGER_CONCEPT_ASC'
+  | 'TRIGGER_CONCEPT_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'TRIGGER_CONCEPT_EMBEDDING_ASC'
+  | 'TRIGGER_CONCEPT_EMBEDDING_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'TRIGGER_TYPE_TRGM_SIMILARITY_ASC'
+  | 'TRIGGER_TYPE_TRGM_SIMILARITY_DESC'
+  | 'ACTION_TYPE_TRGM_SIMILARITY_ASC'
+  | 'ACTION_TYPE_TRGM_SIMILARITY_DESC'
+  | 'TRIGGER_CONCEPT_TRGM_SIMILARITY_ASC'
+  | 'TRIGGER_CONCEPT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type RuntimeArtifactOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'RUNTIME_STATE_ID_ASC'
+  | 'RUNTIME_STATE_ID_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'ARTIFACT_TYPE_ASC'
+  | 'ARTIFACT_TYPE_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'META_ASC'
+  | 'META_DESC'
+  | 'SIZE_BYTES_ASC'
+  | 'SIZE_BYTES_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type RuntimeConfigOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'KEY_ASC'
+  | 'KEY_DESC'
+  | 'VALUE_ASC'
+  | 'VALUE_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'IS_SECRET_ASC'
+  | 'IS_SECRET_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type RuntimeEventOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EVENT_TYPE_ASC'
+  | 'EVENT_TYPE_DESC'
+  | 'PAYLOAD_ASC'
+  | 'PAYLOAD_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC'
+  | 'PROCESSED_AT_ASC'
+  | 'PROCESSED_AT_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type RuntimeLogOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'RUNTIME_STATE_ID_ASC'
+  | 'RUNTIME_STATE_ID_DESC'
+  | 'LEVEL_ASC'
+  | 'LEVEL_DESC'
+  | 'MESSAGE_ASC'
+  | 'MESSAGE_DESC'
+  | 'CONTEXT_ASC'
+  | 'CONTEXT_DESC'
+  | 'STEP_INDEX_ASC'
+  | 'STEP_INDEX_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'LEVEL_TRGM_SIMILARITY_ASC'
+  | 'LEVEL_TRGM_SIMILARITY_DESC'
+  | 'MESSAGE_TRGM_SIMILARITY_ASC'
+  | 'MESSAGE_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type RuntimeMetricOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'RUNTIME_STATE_ID_ASC'
+  | 'RUNTIME_STATE_ID_DESC'
+  | 'METRIC_NAME_ASC'
+  | 'METRIC_NAME_DESC'
+  | 'METRIC_VALUE_ASC'
+  | 'METRIC_VALUE_DESC'
+  | 'UNIT_ASC'
+  | 'UNIT_DESC'
+  | 'META_ASC'
+  | 'META_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type RuntimeScheduleOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'CRON_EXPRESSION_ASC'
+  | 'CRON_EXPRESSION_DESC'
+  | 'NEXT_RUN_AT_ASC'
+  | 'NEXT_RUN_AT_DESC'
+  | 'LAST_RUN_AT_ASC'
+  | 'LAST_RUN_AT_DESC'
+  | 'IS_ACTIVE_ASC'
+  | 'IS_ACTIVE_DESC'
+  | 'CONFIG_ASC'
+  | 'CONFIG_DESC'
+  | 'TIMEZONE_ASC'
+  | 'TIMEZONE_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type RuntimeStateOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'STATE_TYPE_ASC'
+  | 'STATE_TYPE_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'DATA_ASC'
+  | 'DATA_DESC'
+  | 'PARENT_ID_ASC'
+  | 'PARENT_ID_DESC'
+  | 'STARTED_AT_ASC'
+  | 'STARTED_AT_DESC'
+  | 'ENDED_AT_ASC'
+  | 'ENDED_AT_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'CREATED_AT_ASC'
@@ -9275,34 +10249,190 @@ export type DealOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'STAGE_TRGM_SIMILARITY_ASC'
-  | 'STAGE_TRGM_SIMILARITY_DESC'
-  | 'CURRENCY_TRGM_SIMILARITY_ASC'
-  | 'CURRENCY_TRGM_SIMILARITY_DESC'
-  | 'NOTES_TEXT_TRGM_SIMILARITY_ASC'
-  | 'NOTES_TEXT_TRGM_SIMILARITY_DESC'
+  | 'STATE_TYPE_TRGM_SIMILARITY_ASC'
+  | 'STATE_TYPE_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type DealContactOrderBy =
+export type RuntimeStateDependencyOrderBy =
   | 'NATURAL'
-  | 'DEAL_ID_ASC'
-  | 'DEAL_ID_DESC'
+  | 'STATE_ID_ASC'
+  | 'STATE_ID_DESC'
+  | 'DEPENDENCY_ID_ASC'
+  | 'DEPENDENCY_ID_DESC';
+export type SkillOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'CATEGORY_ASC'
+  | 'CATEGORY_DESC'
+  | 'IMPLEMENTATION_ASC'
+  | 'IMPLEMENTATION_DESC'
+  | 'CONFIG_ASC'
+  | 'CONFIG_DESC'
+  | 'IS_ACTIVE_ASC'
+  | 'IS_ACTIVE_DESC'
+  | 'INTENT_TRIGGER_ASC'
+  | 'INTENT_TRIGGER_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'INTENT_TRIGGER_EMBEDDING_ASC'
+  | 'INTENT_TRIGGER_EMBEDDING_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'CATEGORY_TRGM_SIMILARITY_ASC'
+  | 'CATEGORY_TRGM_SIMILARITY_DESC'
+  | 'IMPLEMENTATION_TRGM_SIMILARITY_ASC'
+  | 'IMPLEMENTATION_TRGM_SIMILARITY_DESC'
+  | 'INTENT_TRIGGER_TRGM_SIMILARITY_ASC'
+  | 'INTENT_TRIGGER_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type SkillToolOrderBy =
+  | 'NATURAL'
+  | 'SKILL_ID_ASC'
+  | 'SKILL_ID_DESC'
+  | 'TOOL_DEFINITION_ID_ASC'
+  | 'TOOL_DEFINITION_ID_DESC';
+export type ToolDefinitionOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'TOOL_TYPE_ASC'
+  | 'TOOL_TYPE_DESC'
+  | 'SCHEMA_ASC'
+  | 'SCHEMA_DESC'
+  | 'CONFIG_ASC'
+  | 'CONFIG_DESC'
+  | 'IS_ACTIVE_ASC'
+  | 'IS_ACTIVE_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'TOOL_TYPE_TRGM_SIMILARITY_ASC'
+  | 'TOOL_TYPE_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type TagOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'COLOR_ASC'
+  | 'COLOR_DESC'
+  | 'CATEGORY_ASC'
+  | 'CATEGORY_DESC'
+  | 'USAGE_COUNT_ASC'
+  | 'USAGE_COUNT_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
+export type TaskContactOrderBy =
+  | 'NATURAL'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
   | 'CONTACT_ID_ASC'
   | 'CONTACT_ID_DESC';
-export type DealCompanyOrderBy =
+export type TaskNoteOrderBy =
   | 'NATURAL'
-  | 'DEAL_ID_ASC'
-  | 'DEAL_ID_DESC'
-  | 'COMPANY_ID_ASC'
-  | 'COMPANY_ID_DESC';
-export type DealNoteOrderBy =
-  | 'NATURAL'
-  | 'DEAL_ID_ASC'
-  | 'DEAL_ID_DESC'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
   | 'NOTE_ID_ASC'
   | 'NOTE_ID_DESC';
+export type TaskProjectOrderBy =
+  | 'NATURAL'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
+  | 'PROJECT_ID_ASC'
+  | 'PROJECT_ID_DESC';
+export type ThreadParticipantOrderBy =
+  | 'NATURAL'
+  | 'EMAIL_THREAD_ID_ASC'
+  | 'EMAIL_THREAD_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
+export type ToolExecutionOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TOOL_DEFINITION_ID_ASC'
+  | 'TOOL_DEFINITION_ID_DESC'
+  | 'MESSAGE_ID_ASC'
+  | 'MESSAGE_ID_DESC'
+  | 'INPUT_ASC'
+  | 'INPUT_DESC'
+  | 'OUTPUT_ASC'
+  | 'OUTPUT_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'STARTED_AT_ASC'
+  | 'STARTED_AT_DESC'
+  | 'COMPLETED_AT_ASC'
+  | 'COMPLETED_AT_DESC'
+  | 'ERROR_ASC'
+  | 'ERROR_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC';
 export type TouchpointOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9365,1616 +10495,6 @@ export type TouchpointOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type EventNoteOrderBy =
-  | 'NATURAL'
-  | 'EVENT_ID_ASC'
-  | 'EVENT_ID_DESC'
-  | 'NOTE_ID_ASC'
-  | 'NOTE_ID_DESC';
-export type TaskNoteOrderBy =
-  | 'NATURAL'
-  | 'TASK_ID_ASC'
-  | 'TASK_ID_DESC'
-  | 'NOTE_ID_ASC'
-  | 'NOTE_ID_DESC';
-export type EmailOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'PROVIDER_MESSAGE_ID_ASC'
-  | 'PROVIDER_MESSAGE_ID_DESC'
-  | 'FROM_CONTACT_ID_ASC'
-  | 'FROM_CONTACT_ID_DESC'
-  | 'TO_ASC'
-  | 'TO_DESC'
-  | 'CC_ASC'
-  | 'CC_DESC'
-  | 'BCC_ASC'
-  | 'BCC_DESC'
-  | 'SUBJECT_ASC'
-  | 'SUBJECT_DESC'
-  | 'BODY_TEXT_ASC'
-  | 'BODY_TEXT_DESC'
-  | 'BODY_HTML_ASC'
-  | 'BODY_HTML_DESC'
-  | 'SENT_AT_ASC'
-  | 'SENT_AT_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'SEARCH_TSV_ASC'
-  | 'SEARCH_TSV_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMAIL_THREAD_ID_ASC'
-  | 'EMAIL_THREAD_ID_DESC'
-  | 'SEARCH_TSV_RANK_ASC'
-  | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_ASC'
-  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_DESC'
-  | 'SUBJECT_TRGM_SIMILARITY_ASC'
-  | 'SUBJECT_TRGM_SIMILARITY_DESC'
-  | 'BODY_TEXT_TRGM_SIMILARITY_ASC'
-  | 'BODY_TEXT_TRGM_SIMILARITY_DESC'
-  | 'BODY_HTML_TRGM_SIMILARITY_ASC'
-  | 'BODY_HTML_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type EmailRecipientOrderBy =
-  | 'NATURAL'
-  | 'EMAIL_ID_ASC'
-  | 'EMAIL_ID_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type EmailNoteOrderBy =
-  | 'NATURAL'
-  | 'EMAIL_ID_ASC'
-  | 'EMAIL_ID_DESC'
-  | 'NOTE_ID_ASC'
-  | 'NOTE_ID_DESC';
-export type ThreadParticipantOrderBy =
-  | 'NATURAL'
-  | 'EMAIL_THREAD_ID_ASC'
-  | 'EMAIL_THREAD_ID_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type EmailAttachmentOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'FILENAME_ASC'
-  | 'FILENAME_DESC'
-  | 'CONTENT_TYPE_ASC'
-  | 'CONTENT_TYPE_DESC'
-  | 'SIZE_BYTES_ASC'
-  | 'SIZE_BYTES_DESC'
-  | 'STORAGE_URL_ASC'
-  | 'STORAGE_URL_DESC'
-  | 'PROVIDER_ATTACHMENT_ID_ASC'
-  | 'PROVIDER_ATTACHMENT_ID_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMAIL_ID_ASC'
-  | 'EMAIL_ID_DESC';
-export type CalendarEventOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'PROVIDER_EVENT_ID_ASC'
-  | 'PROVIDER_EVENT_ID_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'START_TIME_ASC'
-  | 'START_TIME_DESC'
-  | 'END_TIME_ASC'
-  | 'END_TIME_DESC'
-  | 'MEETING_URL_ASC'
-  | 'MEETING_URL_DESC'
-  | 'ORGANIZER_CONTACT_ID_ASC'
-  | 'ORGANIZER_CONTACT_ID_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'SEARCH_TSV_ASC'
-  | 'SEARCH_TSV_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'CALENDAR_ID_ASC'
-  | 'CALENDAR_ID_DESC'
-  | 'SEARCH_TSV_RANK_ASC'
-  | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'PROVIDER_EVENT_ID_TRGM_SIMILARITY_ASC'
-  | 'PROVIDER_EVENT_ID_TRGM_SIMILARITY_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'MEETING_URL_TRGM_SIMILARITY_ASC'
-  | 'MEETING_URL_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type CalendarEventContactOrderBy =
-  | 'NATURAL'
-  | 'CALENDAR_EVENT_ID_ASC'
-  | 'CALENDAR_EVENT_ID_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type CalendarEventNoteOrderBy =
-  | 'NATURAL'
-  | 'CALENDAR_EVENT_ID_ASC'
-  | 'CALENDAR_EVENT_ID_DESC'
-  | 'NOTE_ID_ASC'
-  | 'NOTE_ID_DESC';
-export type CalendarEventTaskOrderBy =
-  | 'NATURAL'
-  | 'CALENDAR_EVENT_ID_ASC'
-  | 'CALENDAR_EVENT_ID_DESC'
-  | 'TASK_ID_ASC'
-  | 'TASK_ID_DESC';
-export type CalendarAttendeeOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'RESPONSE_STATUS_ASC'
-  | 'RESPONSE_STATUS_DESC'
-  | 'ROLE_ASC'
-  | 'ROLE_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'CALENDAR_EVENT_ID_ASC'
-  | 'CALENDAR_EVENT_ID_DESC';
-export type EventLinkOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'URL_ASC'
-  | 'URL_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EVENT_ID_ASC'
-  | 'EVENT_ID_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type MemoryOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'LOCATION_ASC'
-  | 'LOCATION_DESC'
-  | 'OCCURRED_AT_ASC'
-  | 'OCCURRED_AT_DESC'
-  | 'MOOD_ASC'
-  | 'MOOD_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'LOCATION_GEO_ASC'
-  | 'LOCATION_GEO_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'LOCATION_TRGM_SIMILARITY_ASC'
-  | 'LOCATION_TRGM_SIMILARITY_DESC'
-  | 'MOOD_TRGM_SIMILARITY_ASC'
-  | 'MOOD_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ContactMemoryOrderBy =
-  | 'NATURAL'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'MEMORY_ID_ASC'
-  | 'MEMORY_ID_DESC';
-export type CompanyMemoryOrderBy =
-  | 'NATURAL'
-  | 'COMPANY_ID_ASC'
-  | 'COMPANY_ID_DESC'
-  | 'MEMORY_ID_ASC'
-  | 'MEMORY_ID_DESC';
-export type CompanyLinkOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'URL_ASC'
-  | 'URL_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'COMPANY_ID_ASC'
-  | 'COMPANY_ID_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ContactRelationshipOrderBy =
-  | 'NATURAL'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'RELATED_CONTACT_ID_ASC'
-  | 'RELATED_CONTACT_ID_DESC';
-export type ProjectOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'PROJECT_TYPE_ASC'
-  | 'PROJECT_TYPE_DESC'
-  | 'PRIORITY_ASC'
-  | 'PRIORITY_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
-  | 'TARGET_DATE_ASC'
-  | 'TARGET_DATE_DESC'
-  | 'COMPLETED_AT_ASC'
-  | 'COMPLETED_AT_DESC'
-  | 'CONFIG_ASC'
-  | 'CONFIG_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'PROJECT_TYPE_TRGM_SIMILARITY_ASC'
-  | 'PROJECT_TYPE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ProjectContactOrderBy =
-  | 'NATURAL'
-  | 'PROJECT_ID_ASC'
-  | 'PROJECT_ID_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type TaskProjectOrderBy =
-  | 'NATURAL'
-  | 'TASK_ID_ASC'
-  | 'TASK_ID_DESC'
-  | 'PROJECT_ID_ASC'
-  | 'PROJECT_ID_DESC';
-export type GoalOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'TARGET_DATE_ASC'
-  | 'TARGET_DATE_DESC'
-  | 'PROGRESS_ASC'
-  | 'PROGRESS_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type HabitOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'FREQUENCY_ASC'
-  | 'FREQUENCY_DESC'
-  | 'STREAK_ASC'
-  | 'STREAK_DESC'
-  | 'LAST_COMPLETED_AT_ASC'
-  | 'LAST_COMPLETED_AT_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type GoalHabitOrderBy =
-  | 'NATURAL'
-  | 'GOAL_ID_ASC'
-  | 'GOAL_ID_DESC'
-  | 'HABIT_ID_ASC'
-  | 'HABIT_ID_DESC';
-export type ActivityLogOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ACTIVITY_TYPE_ASC'
-  | 'ACTIVITY_TYPE_DESC'
-  | 'COMPLETED_AT_ASC'
-  | 'COMPLETED_AT_DESC'
-  | 'DURATION_MINUTES_ASC'
-  | 'DURATION_MINUTES_DESC'
-  | 'QUANTITY_ASC'
-  | 'QUANTITY_DESC'
-  | 'QUANTITY_UNIT_ASC'
-  | 'QUANTITY_UNIT_DESC'
-  | 'INTENSITY_ASC'
-  | 'INTENSITY_DESC'
-  | 'NOTES_ASC'
-  | 'NOTES_DESC'
-  | 'META_ASC'
-  | 'META_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'HABIT_ID_ASC'
-  | 'HABIT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_ASC'
-  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_DESC'
-  | 'QUANTITY_UNIT_TRGM_SIMILARITY_ASC'
-  | 'QUANTITY_UNIT_TRGM_SIMILARITY_DESC'
-  | 'INTENSITY_TRGM_SIMILARITY_ASC'
-  | 'INTENSITY_TRGM_SIMILARITY_DESC'
-  | 'NOTES_TRGM_SIMILARITY_ASC'
-  | 'NOTES_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type GoalProjectOrderBy =
-  | 'NATURAL'
-  | 'GOAL_ID_ASC'
-  | 'GOAL_ID_DESC'
-  | 'PROJECT_ID_ASC'
-  | 'PROJECT_ID_DESC';
-export type TaskContactOrderBy =
-  | 'NATURAL'
-  | 'TASK_ID_ASC'
-  | 'TASK_ID_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type ExpenseOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'AMOUNT_ASC'
-  | 'AMOUNT_DESC'
-  | 'CURRENCY_ASC'
-  | 'CURRENCY_DESC'
-  | 'CATEGORY_ASC'
-  | 'CATEGORY_DESC'
-  | 'OCCURRED_AT_ASC'
-  | 'OCCURRED_AT_DESC'
-  | 'VENDOR_ASC'
-  | 'VENDOR_DESC'
-  | 'NOTES_ASC'
-  | 'NOTES_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'TRIP_ID_ASC'
-  | 'TRIP_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'CURRENCY_TRGM_SIMILARITY_ASC'
-  | 'CURRENCY_TRGM_SIMILARITY_DESC'
-  | 'CATEGORY_TRGM_SIMILARITY_ASC'
-  | 'CATEGORY_TRGM_SIMILARITY_DESC'
-  | 'VENDOR_TRGM_SIMILARITY_ASC'
-  | 'VENDOR_TRGM_SIMILARITY_DESC'
-  | 'NOTES_TRGM_SIMILARITY_ASC'
-  | 'NOTES_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ExpenseContactOrderBy =
-  | 'NATURAL'
-  | 'EXPENSE_ID_ASC'
-  | 'EXPENSE_ID_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type EmailThreadOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'PROVIDER_THREAD_ID_ASC'
-  | 'PROVIDER_THREAD_ID_DESC'
-  | 'SUBJECT_ASC'
-  | 'SUBJECT_DESC'
-  | 'LAST_MESSAGE_AT_ASC'
-  | 'LAST_MESSAGE_AT_DESC'
-  | 'SUMMARY_ASC'
-  | 'SUMMARY_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'SEARCH_TSV_ASC'
-  | 'SEARCH_TSV_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'SEARCH_TSV_RANK_ASC'
-  | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'PROVIDER_THREAD_ID_TRGM_SIMILARITY_ASC'
-  | 'PROVIDER_THREAD_ID_TRGM_SIMILARITY_DESC'
-  | 'SUBJECT_TRGM_SIMILARITY_ASC'
-  | 'SUBJECT_TRGM_SIMILARITY_DESC'
-  | 'SUMMARY_TRGM_SIMILARITY_ASC'
-  | 'SUMMARY_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type InteractionOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'TYPE_ASC'
-  | 'TYPE_DESC'
-  | 'OCCURRED_AT_ASC'
-  | 'OCCURRED_AT_DESC'
-  | 'SUMMARY_ASC'
-  | 'SUMMARY_DESC'
-  | 'SENTIMENT_ASC'
-  | 'SENTIMENT_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TYPE_TRGM_SIMILARITY_ASC'
-  | 'TYPE_TRGM_SIMILARITY_DESC'
-  | 'SUMMARY_TRGM_SIMILARITY_ASC'
-  | 'SUMMARY_TRGM_SIMILARITY_DESC'
-  | 'SENTIMENT_TRGM_SIMILARITY_ASC'
-  | 'SENTIMENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ContactEmailOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'EMAIL_ASC'
-  | 'EMAIL_DESC'
-  | 'EMAIL_TYPE_ASC'
-  | 'EMAIL_TYPE_DESC'
-  | 'IS_PRIMARY_ASC'
-  | 'IS_PRIMARY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type ContactPhoneOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'PHONE_ASC'
-  | 'PHONE_DESC'
-  | 'PHONE_TYPE_ASC'
-  | 'PHONE_TYPE_DESC'
-  | 'IS_PRIMARY_ASC'
-  | 'IS_PRIMARY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type ContactAddressOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'STREET_ASC'
-  | 'STREET_DESC'
-  | 'CITY_ASC'
-  | 'CITY_DESC'
-  | 'STATE_ASC'
-  | 'STATE_DESC'
-  | 'POSTAL_CODE_ASC'
-  | 'POSTAL_CODE_DESC'
-  | 'COUNTRY_ASC'
-  | 'COUNTRY_DESC'
-  | 'ADDRESS_TYPE_ASC'
-  | 'ADDRESS_TYPE_DESC'
-  | 'IS_PRIMARY_ASC'
-  | 'IS_PRIMARY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type ContactLinkOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'URL_ASC'
-  | 'URL_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type AgentLogOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'LEVEL_ASC'
-  | 'LEVEL_DESC'
-  | 'MESSAGE_ASC'
-  | 'MESSAGE_DESC'
-  | 'CONTEXT_ASC'
-  | 'CONTEXT_DESC'
-  | 'TASK_ID_ASC'
-  | 'TASK_ID_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'LEVEL_TRGM_SIMILARITY_ASC'
-  | 'LEVEL_TRGM_SIMILARITY_DESC'
-  | 'MESSAGE_TRGM_SIMILARITY_ASC'
-  | 'MESSAGE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type RuleOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'TRIGGER_TYPE_ASC'
-  | 'TRIGGER_TYPE_DESC'
-  | 'TRIGGER_CONFIG_ASC'
-  | 'TRIGGER_CONFIG_DESC'
-  | 'ACTION_TYPE_ASC'
-  | 'ACTION_TYPE_DESC'
-  | 'ACTION_CONFIG_ASC'
-  | 'ACTION_CONFIG_DESC'
-  | 'IS_ACTIVE_ASC'
-  | 'IS_ACTIVE_DESC'
-  | 'PRIORITY_ASC'
-  | 'PRIORITY_DESC'
-  | 'TRIGGER_CONCEPT_ASC'
-  | 'TRIGGER_CONCEPT_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'TRIGGER_CONCEPT_EMBEDDING_ASC'
-  | 'TRIGGER_CONCEPT_EMBEDDING_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'TRIGGER_TYPE_TRGM_SIMILARITY_ASC'
-  | 'TRIGGER_TYPE_TRGM_SIMILARITY_DESC'
-  | 'ACTION_TYPE_TRGM_SIMILARITY_ASC'
-  | 'ACTION_TYPE_TRGM_SIMILARITY_DESC'
-  | 'TRIGGER_CONCEPT_TRGM_SIMILARITY_ASC'
-  | 'TRIGGER_CONCEPT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type SkillOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'CATEGORY_ASC'
-  | 'CATEGORY_DESC'
-  | 'IMPLEMENTATION_ASC'
-  | 'IMPLEMENTATION_DESC'
-  | 'CONFIG_ASC'
-  | 'CONFIG_DESC'
-  | 'IS_ACTIVE_ASC'
-  | 'IS_ACTIVE_DESC'
-  | 'INTENT_TRIGGER_ASC'
-  | 'INTENT_TRIGGER_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'INTENT_TRIGGER_EMBEDDING_ASC'
-  | 'INTENT_TRIGGER_EMBEDDING_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'CATEGORY_TRGM_SIMILARITY_ASC'
-  | 'CATEGORY_TRGM_SIMILARITY_DESC'
-  | 'IMPLEMENTATION_TRGM_SIMILARITY_ASC'
-  | 'IMPLEMENTATION_TRGM_SIMILARITY_DESC'
-  | 'INTENT_TRIGGER_TRGM_SIMILARITY_ASC'
-  | 'INTENT_TRIGGER_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ToolDefinitionOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'TOOL_TYPE_ASC'
-  | 'TOOL_TYPE_DESC'
-  | 'SCHEMA_ASC'
-  | 'SCHEMA_DESC'
-  | 'CONFIG_ASC'
-  | 'CONFIG_DESC'
-  | 'IS_ACTIVE_ASC'
-  | 'IS_ACTIVE_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'TOOL_TYPE_TRGM_SIMILARITY_ASC'
-  | 'TOOL_TYPE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type SkillToolOrderBy =
-  | 'NATURAL'
-  | 'SKILL_ID_ASC'
-  | 'SKILL_ID_DESC'
-  | 'TOOL_DEFINITION_ID_ASC'
-  | 'TOOL_DEFINITION_ID_DESC';
-export type ToolExecutionOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'TOOL_DEFINITION_ID_ASC'
-  | 'TOOL_DEFINITION_ID_DESC'
-  | 'MESSAGE_ID_ASC'
-  | 'MESSAGE_ID_DESC'
-  | 'INPUT_ASC'
-  | 'INPUT_DESC'
-  | 'OUTPUT_ASC'
-  | 'OUTPUT_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
-  | 'COMPLETED_AT_ASC'
-  | 'COMPLETED_AT_DESC'
-  | 'ERROR_ASC'
-  | 'ERROR_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type AutonomyRecordLinkOrderBy =
-  | 'NATURAL'
-  | 'SOURCE_RECORD_ID_ASC'
-  | 'SOURCE_RECORD_ID_DESC'
-  | 'TARGET_RECORD_ID_ASC'
-  | 'TARGET_RECORD_ID_DESC';
-export type AutonomyRecordOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'RECORD_TYPE_ASC'
-  | 'RECORD_TYPE_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'PRIORITY_ASC'
-  | 'PRIORITY_DESC'
-  | 'SOURCE_ASC'
-  | 'SOURCE_DESC'
-  | 'CONTEXT_ASC'
-  | 'CONTEXT_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'RECORD_TYPE_TRGM_SIMILARITY_ASC'
-  | 'RECORD_TYPE_TRGM_SIMILARITY_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'SOURCE_TRGM_SIMILARITY_ASC'
-  | 'SOURCE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type CodebaseDependencyOrderBy =
-  | 'NATURAL'
-  | 'CODEBASE_ID_ASC'
-  | 'CODEBASE_ID_DESC'
-  | 'DEPENDENCY_ID_ASC'
-  | 'DEPENDENCY_ID_DESC';
-export type CodebaseOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'REPOSITORY_URL_ASC'
-  | 'REPOSITORY_URL_DESC'
-  | 'DEFAULT_BRANCH_ASC'
-  | 'DEFAULT_BRANCH_DESC'
-  | 'LANGUAGE_ASC'
-  | 'LANGUAGE_DESC'
-  | 'FRAMEWORK_ASC'
-  | 'FRAMEWORK_DESC'
-  | 'LAST_SYNCED_AT_ASC'
-  | 'LAST_SYNCED_AT_DESC'
-  | 'CONFIG_ASC'
-  | 'CONFIG_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'REPOSITORY_URL_TRGM_SIMILARITY_ASC'
-  | 'REPOSITORY_URL_TRGM_SIMILARITY_DESC'
-  | 'DEFAULT_BRANCH_TRGM_SIMILARITY_ASC'
-  | 'DEFAULT_BRANCH_TRGM_SIMILARITY_DESC'
-  | 'LANGUAGE_TRGM_SIMILARITY_ASC'
-  | 'LANGUAGE_TRGM_SIMILARITY_DESC'
-  | 'FRAMEWORK_TRGM_SIMILARITY_ASC'
-  | 'FRAMEWORK_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type CodeChunkOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'CODEBASE_ID_ASC'
-  | 'CODEBASE_ID_DESC'
-  | 'FILE_PATH_ASC'
-  | 'FILE_PATH_DESC'
-  | 'CHUNK_INDEX_ASC'
-  | 'CHUNK_INDEX_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'LANGUAGE_ASC'
-  | 'LANGUAGE_DESC'
-  | 'START_LINE_ASC'
-  | 'START_LINE_DESC'
-  | 'END_LINE_ASC'
-  | 'END_LINE_DESC'
-  | 'SYMBOL_NAME_ASC'
-  | 'SYMBOL_NAME_DESC'
-  | 'SYMBOL_TYPE_ASC'
-  | 'SYMBOL_TYPE_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'FILE_PATH_TRGM_SIMILARITY_ASC'
-  | 'FILE_PATH_TRGM_SIMILARITY_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'LANGUAGE_TRGM_SIMILARITY_ASC'
-  | 'LANGUAGE_TRGM_SIMILARITY_DESC'
-  | 'SYMBOL_NAME_TRGM_SIMILARITY_ASC'
-  | 'SYMBOL_NAME_TRGM_SIMILARITY_DESC'
-  | 'SYMBOL_TYPE_TRGM_SIMILARITY_ASC'
-  | 'SYMBOL_TYPE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type RuntimeStateDependencyOrderBy =
-  | 'NATURAL'
-  | 'STATE_ID_ASC'
-  | 'STATE_ID_DESC'
-  | 'DEPENDENCY_ID_ASC'
-  | 'DEPENDENCY_ID_DESC';
-export type RuntimeStateOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'STATE_TYPE_ASC'
-  | 'STATE_TYPE_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'DATA_ASC'
-  | 'DATA_DESC'
-  | 'PARENT_ID_ASC'
-  | 'PARENT_ID_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
-  | 'ENDED_AT_ASC'
-  | 'ENDED_AT_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'STATE_TYPE_TRGM_SIMILARITY_ASC'
-  | 'STATE_TYPE_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type RuntimeLogOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'RUNTIME_STATE_ID_ASC'
-  | 'RUNTIME_STATE_ID_DESC'
-  | 'LEVEL_ASC'
-  | 'LEVEL_DESC'
-  | 'MESSAGE_ASC'
-  | 'MESSAGE_DESC'
-  | 'CONTEXT_ASC'
-  | 'CONTEXT_DESC'
-  | 'STEP_INDEX_ASC'
-  | 'STEP_INDEX_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'LEVEL_TRGM_SIMILARITY_ASC'
-  | 'LEVEL_TRGM_SIMILARITY_DESC'
-  | 'MESSAGE_TRGM_SIMILARITY_ASC'
-  | 'MESSAGE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type RuntimeArtifactOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'RUNTIME_STATE_ID_ASC'
-  | 'RUNTIME_STATE_ID_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'ARTIFACT_TYPE_ASC'
-  | 'ARTIFACT_TYPE_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'META_ASC'
-  | 'META_DESC'
-  | 'SIZE_BYTES_ASC'
-  | 'SIZE_BYTES_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type RuntimeMetricOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'RUNTIME_STATE_ID_ASC'
-  | 'RUNTIME_STATE_ID_DESC'
-  | 'METRIC_NAME_ASC'
-  | 'METRIC_NAME_DESC'
-  | 'METRIC_VALUE_ASC'
-  | 'METRIC_VALUE_DESC'
-  | 'UNIT_ASC'
-  | 'UNIT_DESC'
-  | 'META_ASC'
-  | 'META_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type CalendarOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'PROVIDER_ACCOUNT_ID_ASC'
-  | 'PROVIDER_ACCOUNT_ID_DESC'
-  | 'PROVIDER_CALENDAR_ID_ASC'
-  | 'PROVIDER_CALENDAR_ID_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'COLOR_ASC'
-  | 'COLOR_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type ProviderSyncStateOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'PROVIDER_ASC'
-  | 'PROVIDER_DESC'
-  | 'RESOURCE_TYPE_ASC'
-  | 'RESOURCE_TYPE_DESC'
-  | 'SYNC_CURSOR_ASC'
-  | 'SYNC_CURSOR_DESC'
-  | 'HISTORY_ID_ASC'
-  | 'HISTORY_ID_DESC'
-  | 'LAST_SYNC_AT_ASC'
-  | 'LAST_SYNC_AT_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type TagOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'COLOR_ASC'
-  | 'COLOR_DESC'
-  | 'CATEGORY_ASC'
-  | 'CATEGORY_DESC'
-  | 'USAGE_COUNT_ASC'
-  | 'USAGE_COUNT_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type RawContactUrlOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'URL_ASC'
-  | 'URL_DESC'
-  | 'URL_TYPE_ASC'
-  | 'URL_TYPE_DESC'
-  | 'SOURCE_ASC'
-  | 'SOURCE_DESC'
-  | 'CONFIDENCE_ASC'
-  | 'CONFIDENCE_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'RAW_CONTACT_ID_ASC'
-  | 'RAW_CONTACT_ID_DESC';
-export type RawContactEmailOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'EMAIL_ASC'
-  | 'EMAIL_DESC'
-  | 'EMAIL_TYPE_ASC'
-  | 'EMAIL_TYPE_DESC'
-  | 'IS_PRIMARY_ASC'
-  | 'IS_PRIMARY_DESC'
-  | 'SOURCE_ASC'
-  | 'SOURCE_DESC'
-  | 'CONFIDENCE_ASC'
-  | 'CONFIDENCE_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'RAW_CONTACT_ID_ASC'
-  | 'RAW_CONTACT_ID_DESC';
-export type RawContactPhoneOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'PHONE_ASC'
-  | 'PHONE_DESC'
-  | 'PHONE_TYPE_ASC'
-  | 'PHONE_TYPE_DESC'
-  | 'IS_PRIMARY_ASC'
-  | 'IS_PRIMARY_DESC'
-  | 'SOURCE_ASC'
-  | 'SOURCE_DESC'
-  | 'CONFIDENCE_ASC'
-  | 'CONFIDENCE_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'RAW_CONTACT_ID_ASC'
-  | 'RAW_CONTACT_ID_DESC';
-export type RuntimeConfigOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'KEY_ASC'
-  | 'KEY_DESC'
-  | 'VALUE_ASC'
-  | 'VALUE_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'IS_SECRET_ASC'
-  | 'IS_SECRET_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type RuntimeEventOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'EVENT_TYPE_ASC'
-  | 'EVENT_TYPE_DESC'
-  | 'PAYLOAD_ASC'
-  | 'PAYLOAD_DESC'
-  | 'SOURCE_ASC'
-  | 'SOURCE_DESC'
-  | 'PROCESSED_AT_ASC'
-  | 'PROCESSED_AT_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type RuntimeScheduleOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'CRON_EXPRESSION_ASC'
-  | 'CRON_EXPRESSION_DESC'
-  | 'NEXT_RUN_AT_ASC'
-  | 'NEXT_RUN_AT_DESC'
-  | 'LAST_RUN_AT_ASC'
-  | 'LAST_RUN_AT_DESC'
-  | 'IS_ACTIVE_ASC'
-  | 'IS_ACTIVE_DESC'
-  | 'CONFIG_ASC'
-  | 'CONFIG_DESC'
-  | 'TIMEZONE_ASC'
-  | 'TIMEZONE_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type ConversationOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'META_ASC'
-  | 'META_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type MessageOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'CONVERSATION_ID_ASC'
-  | 'CONVERSATION_ID_DESC'
-  | 'ROLE_ASC'
-  | 'ROLE_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'TOKEN_COUNT_ASC'
-  | 'TOKEN_COUNT_DESC'
-  | 'META_ASC'
-  | 'META_DESC'
-  | 'TOOL_CALLS_ASC'
-  | 'TOOL_CALLS_DESC'
-  | 'TOOL_RESULTS_ASC'
-  | 'TOOL_RESULTS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'ROLE_TRGM_SIMILARITY_ASC'
-  | 'ROLE_TRGM_SIMILARITY_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type RawContactOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'EXTERNAL_ID_ASC'
-  | 'EXTERNAL_ID_DESC'
-  | 'SOURCE_ASC'
-  | 'SOURCE_DESC'
-  | 'FIRST_NAME_ASC'
-  | 'FIRST_NAME_DESC'
-  | 'LAST_NAME_ASC'
-  | 'LAST_NAME_DESC'
-  | 'FULL_NAME_ASC'
-  | 'FULL_NAME_DESC'
-  | 'HEADLINE_ASC'
-  | 'HEADLINE_DESC'
-  | 'BIO_ASC'
-  | 'BIO_DESC'
-  | 'LOCATION_ASC'
-  | 'LOCATION_DESC'
-  | 'COMPANY_ASC'
-  | 'COMPANY_DESC'
-  | 'JOB_TITLE_ASC'
-  | 'JOB_TITLE_DESC'
-  | 'RAW_DATA_ASC'
-  | 'RAW_DATA_DESC'
-  | 'CONFIDENCE_ASC'
-  | 'CONFIDENCE_DESC'
-  | 'INGESTED_AT_ASC'
-  | 'INGESTED_AT_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC';
-export type PlaceOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'ADDRESS_ASC'
-  | 'ADDRESS_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'CATEGORY_ASC'
-  | 'CATEGORY_DESC'
-  | 'RATING_ASC'
-  | 'RATING_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
-  | 'LOCATION_GEO_ASC'
-  | 'LOCATION_GEO_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'ADDRESS_TRGM_SIMILARITY_ASC'
-  | 'ADDRESS_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'CATEGORY_TRGM_SIMILARITY_ASC'
-  | 'CATEGORY_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
 export type TripOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -11019,74 +10539,76 @@ export type TripOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type HikingTrailOrderBy =
+export type VenueImageOrderBy =
+  | 'NATURAL'
+  | 'VENUE_ID_ASC'
+  | 'VENUE_ID_DESC'
+  | 'IMAGE_ID_ASC'
+  | 'IMAGE_ID_DESC';
+export type VenueLinkOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'LOCATION_ASC'
-  | 'LOCATION_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'DIFFICULTY_ASC'
-  | 'DIFFICULTY_DESC'
-  | 'DISTANCE_KM_ASC'
-  | 'DISTANCE_KM_DESC'
-  | 'ELEVATION_GAINM_ASC'
-  | 'ELEVATION_GAINM_DESC'
-  | 'RATING_ASC'
-  | 'RATING_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'URL_ASC'
+  | 'URL_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'CREATED_AT_ASC'
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'EMBEDDING_STALE_ASC'
   | 'EMBEDDING_STALE_DESC'
-  | 'TRAILHEAD_GEO_ASC'
-  | 'TRAILHEAD_GEO_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'VENUE_ID_ASC'
+  | 'VENUE_ID_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'LOCATION_TRGM_SIMILARITY_ASC'
-  | 'LOCATION_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'DIFFICULTY_TRGM_SIMILARITY_ASC'
-  | 'DIFFICULTY_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 // ============ CRUD Input Types ============
-export interface CreateAgentCollaboratorInput {
+export interface CreateActivityLogInput {
   clientMutationId?: string;
-  agentCollaborator: {
-    agentId: string;
-    collaboratorId: string;
+  activityLog: {
+    activityType: string;
+    completedAt: string;
+    durationMinutes?: number;
+    quantity?: string;
+    quantityUnit?: string;
+    intensity?: string;
+    notes?: string;
+    meta?: Record<string, unknown>;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    habitId?: string;
   };
 }
-export interface AgentCollaboratorPatch {
-  agentId?: string | null;
-  collaboratorId?: string | null;
+export interface ActivityLogPatch {
+  activityType?: string | null;
+  completedAt?: string | null;
+  durationMinutes?: number | null;
+  quantity?: string | null;
+  quantityUnit?: string | null;
+  intensity?: string | null;
+  notes?: string | null;
+  meta?: Record<string, unknown> | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  habitId?: string | null;
 }
-export interface UpdateAgentCollaboratorInput {
+export interface UpdateActivityLogInput {
   clientMutationId?: string;
   id: string;
-  agentCollaboratorPatch: AgentCollaboratorPatch;
+  activityLogPatch: ActivityLogPatch;
 }
-export interface DeleteAgentCollaboratorInput {
+export interface DeleteActivityLogInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11128,6 +10650,78 @@ export interface DeleteAgentInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateAgentCollaboratorInput {
+  clientMutationId?: string;
+  agentCollaborator: {
+    agentId: string;
+    collaboratorId: string;
+  };
+}
+export interface AgentCollaboratorPatch {
+  agentId?: string | null;
+  collaboratorId?: string | null;
+}
+export interface UpdateAgentCollaboratorInput {
+  clientMutationId?: string;
+  id: string;
+  agentCollaboratorPatch: AgentCollaboratorPatch;
+}
+export interface DeleteAgentCollaboratorInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateAgentLogInput {
+  clientMutationId?: string;
+  agentLog: {
+    agentId?: string;
+    level: string;
+    message: string;
+    context?: Record<string, unknown>;
+    taskId?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface AgentLogPatch {
+  agentId?: string | null;
+  level?: string | null;
+  message?: string | null;
+  context?: Record<string, unknown> | null;
+  taskId?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateAgentLogInput {
+  clientMutationId?: string;
+  id: string;
+  agentLogPatch: AgentLogPatch;
+}
+export interface DeleteAgentLogInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateAgentPromptInput {
+  clientMutationId?: string;
+  agentPrompt: {
+    agentId: string;
+    promptId: string;
+  };
+}
+export interface AgentPromptPatch {
+  agentId?: string | null;
+  promptId?: string | null;
+}
+export interface UpdateAgentPromptInput {
+  clientMutationId?: string;
+  id: string;
+  agentPromptPatch: AgentPromptPatch;
+}
+export interface DeleteAgentPromptInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreatePromptInput {
   clientMutationId?: string;
   prompt: {
@@ -11162,841 +10756,109 @@ export interface DeletePromptInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateAgentPromptInput {
+export interface CreateAutonomyRecordInput {
   clientMutationId?: string;
-  agentPrompt: {
-    agentId: string;
-    promptId: string;
-  };
-}
-export interface AgentPromptPatch {
-  agentId?: string | null;
-  promptId?: string | null;
-}
-export interface UpdateAgentPromptInput {
-  clientMutationId?: string;
-  id: string;
-  agentPromptPatch: AgentPromptPatch;
-}
-export interface DeleteAgentPromptInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateTaskInput {
-  clientMutationId?: string;
-  task: {
-    agentId?: string;
+  autonomyRecord: {
     title: string;
-    description?: string;
+    recordType?: string;
+    content?: string;
     status?: string;
     priority?: number;
-    result?: string;
-    startedAt?: string;
-    completedAt?: string;
-    meta?: Record<string, unknown>;
+    source?: string;
+    context?: Record<string, unknown>;
+    tags?: string[];
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
 }
-export interface TaskPatch {
-  agentId?: string | null;
+export interface AutonomyRecordPatch {
   title?: string | null;
-  description?: string | null;
+  recordType?: string | null;
+  content?: string | null;
   status?: string | null;
   priority?: number | null;
-  result?: string | null;
-  startedAt?: string | null;
-  completedAt?: string | null;
-  meta?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateTaskInput {
-  clientMutationId?: string;
-  id: string;
-  taskPatch: TaskPatch;
-}
-export interface DeleteTaskInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateContactInput {
-  clientMutationId?: string;
-  contact: {
-    firstName: string;
-    lastName?: string;
-    email?: string;
-    phone?: string;
-    headline?: string;
-    bio?: string;
-    location?: string;
-    birthday?: string;
-    relationshipTypes?: string[];
-    howWeMet?: string;
-    tags?: string[];
-    mainImageId?: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    locationGeo?: unknown;
-  };
-}
-export interface ContactPatch {
-  firstName?: string | null;
-  lastName?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  headline?: string | null;
-  bio?: string | null;
-  location?: string | null;
-  birthday?: string | null;
-  relationshipTypes?: string[] | null;
-  howWeMet?: string | null;
+  source?: string | null;
+  context?: Record<string, unknown> | null;
   tags?: string[] | null;
-  mainImageId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  locationGeo?: unknown | null;
 }
-export interface UpdateContactInput {
+export interface UpdateAutonomyRecordInput {
   clientMutationId?: string;
   id: string;
-  contactPatch: ContactPatch;
+  autonomyRecordPatch: AutonomyRecordPatch;
 }
-export interface DeleteContactInput {
+export interface DeleteAutonomyRecordInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateImageInput {
+export interface CreateAutonomyRecordLinkInput {
   clientMutationId?: string;
-  image: {
-    url: string;
-    meta?: Record<string, unknown>;
-    altText?: string;
-    caption?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
+  autonomyRecordLink: {
+    sourceRecordId: string;
+    targetRecordId: string;
   };
 }
-export interface ImagePatch {
-  url?: string | null;
-  meta?: Record<string, unknown> | null;
-  altText?: string | null;
-  caption?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+export interface AutonomyRecordLinkPatch {
+  sourceRecordId?: string | null;
+  targetRecordId?: string | null;
 }
-export interface UpdateImageInput {
+export interface UpdateAutonomyRecordLinkInput {
   clientMutationId?: string;
   id: string;
-  imagePatch: ImagePatch;
+  autonomyRecordLinkPatch: AutonomyRecordLinkPatch;
 }
-export interface DeleteImageInput {
+export interface DeleteAutonomyRecordLinkInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateContactImageInput {
+export interface CreateCalendarAttendeeInput {
   clientMutationId?: string;
-  contactImage: {
-    contactId: string;
-    imageId: string;
+  calendarAttendee: {
+    contactId?: string;
+    responseStatus?: string;
+    role?: string;
+    calendarEventId: string;
   };
 }
-export interface ContactImagePatch {
+export interface CalendarAttendeePatch {
   contactId?: string | null;
-  imageId?: string | null;
+  responseStatus?: string | null;
+  role?: string | null;
+  calendarEventId?: string | null;
 }
-export interface UpdateContactImageInput {
+export interface UpdateCalendarAttendeeInput {
   clientMutationId?: string;
   id: string;
-  contactImagePatch: ContactImagePatch;
+  calendarAttendeePatch: CalendarAttendeePatch;
 }
-export interface DeleteContactImageInput {
+export interface DeleteCalendarAttendeeInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateCompanyInput {
+export interface CreateCalendarInput {
   clientMutationId?: string;
-  company: {
+  calendar: {
+    providerAccountId?: string;
+    providerCalendarId?: string;
     name: string;
-    domain?: string;
-    industry?: string;
-    description?: string;
-    tags?: string[];
-    mainImageId?: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
+    color?: string;
   };
 }
-export interface CompanyPatch {
+export interface CalendarPatch {
+  providerAccountId?: string | null;
+  providerCalendarId?: string | null;
   name?: string | null;
-  domain?: string | null;
-  industry?: string | null;
-  description?: string | null;
-  tags?: string[] | null;
-  mainImageId?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  color?: string | null;
 }
-export interface UpdateCompanyInput {
+export interface UpdateCalendarInput {
   clientMutationId?: string;
   id: string;
-  companyPatch: CompanyPatch;
+  calendarPatch: CalendarPatch;
 }
-export interface DeleteCompanyInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateCompanyImageInput {
-  clientMutationId?: string;
-  companyImage: {
-    companyId: string;
-    imageId: string;
-  };
-}
-export interface CompanyImagePatch {
-  companyId?: string | null;
-  imageId?: string | null;
-}
-export interface UpdateCompanyImageInput {
-  clientMutationId?: string;
-  id: string;
-  companyImagePatch: CompanyImagePatch;
-}
-export interface DeleteCompanyImageInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateContactCompanyInput {
-  clientMutationId?: string;
-  contactCompany: {
-    contactId: string;
-    companyId: string;
-  };
-}
-export interface ContactCompanyPatch {
-  contactId?: string | null;
-  companyId?: string | null;
-}
-export interface UpdateContactCompanyInput {
-  clientMutationId?: string;
-  id: string;
-  contactCompanyPatch: ContactCompanyPatch;
-}
-export interface DeleteContactCompanyInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEventInput {
-  clientMutationId?: string;
-  event: {
-    name: string;
-    eventType?: string;
-    location?: string;
-    city?: string;
-    startedAt?: string;
-    endedAt?: string;
-    notesText?: string;
-    tags?: string[];
-    mainImageId?: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    locationGeo?: unknown;
-  };
-}
-export interface EventPatch {
-  name?: string | null;
-  eventType?: string | null;
-  location?: string | null;
-  city?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  notesText?: string | null;
-  tags?: string[] | null;
-  mainImageId?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  locationGeo?: unknown | null;
-}
-export interface UpdateEventInput {
-  clientMutationId?: string;
-  id: string;
-  eventPatch: EventPatch;
-}
-export interface DeleteEventInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEventImageInput {
-  clientMutationId?: string;
-  eventImage: {
-    eventId: string;
-    imageId: string;
-  };
-}
-export interface EventImagePatch {
-  eventId?: string | null;
-  imageId?: string | null;
-}
-export interface UpdateEventImageInput {
-  clientMutationId?: string;
-  id: string;
-  eventImagePatch: EventImagePatch;
-}
-export interface DeleteEventImageInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateContactEventInput {
-  clientMutationId?: string;
-  contactEvent: {
-    contactId: string;
-    eventId: string;
-  };
-}
-export interface ContactEventPatch {
-  contactId?: string | null;
-  eventId?: string | null;
-}
-export interface UpdateContactEventInput {
-  clientMutationId?: string;
-  id: string;
-  contactEventPatch: ContactEventPatch;
-}
-export interface DeleteContactEventInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateCompanyEventInput {
-  clientMutationId?: string;
-  companyEvent: {
-    companyId: string;
-    eventId: string;
-  };
-}
-export interface CompanyEventPatch {
-  companyId?: string | null;
-  eventId?: string | null;
-}
-export interface UpdateCompanyEventInput {
-  clientMutationId?: string;
-  id: string;
-  companyEventPatch: CompanyEventPatch;
-}
-export interface DeleteCompanyEventInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateVenueInput {
-  clientMutationId?: string;
-  venue: {
-    name: string;
-    address?: string;
-    neighborhood?: string;
-    city?: string;
-    category?: string;
-    status?: string;
-    googlePlaceId?: string;
-    rating?: string;
-    priceLevel?: string;
-    isFavorite?: boolean;
-    notes?: string;
-    tags?: string[];
-    mainImageId?: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    location?: unknown;
-  };
-}
-export interface VenuePatch {
-  name?: string | null;
-  address?: string | null;
-  neighborhood?: string | null;
-  city?: string | null;
-  category?: string | null;
-  status?: string | null;
-  googlePlaceId?: string | null;
-  rating?: string | null;
-  priceLevel?: string | null;
-  isFavorite?: boolean | null;
-  notes?: string | null;
-  tags?: string[] | null;
-  mainImageId?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  location?: unknown | null;
-}
-export interface UpdateVenueInput {
-  clientMutationId?: string;
-  id: string;
-  venuePatch: VenuePatch;
-}
-export interface DeleteVenueInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateVenueImageInput {
-  clientMutationId?: string;
-  venueImage: {
-    venueId: string;
-    imageId: string;
-  };
-}
-export interface VenueImagePatch {
-  venueId?: string | null;
-  imageId?: string | null;
-}
-export interface UpdateVenueImageInput {
-  clientMutationId?: string;
-  id: string;
-  venueImagePatch: VenueImagePatch;
-}
-export interface DeleteVenueImageInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEventVenueInput {
-  clientMutationId?: string;
-  eventVenue: {
-    eventId: string;
-    venueId: string;
-  };
-}
-export interface EventVenuePatch {
-  eventId?: string | null;
-  venueId?: string | null;
-}
-export interface UpdateEventVenueInput {
-  clientMutationId?: string;
-  id: string;
-  eventVenuePatch: EventVenuePatch;
-}
-export interface DeleteEventVenueInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateVenueLinkInput {
-  clientMutationId?: string;
-  venueLink: {
-    title?: string;
-    url: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    venueId: string;
-  };
-}
-export interface VenueLinkPatch {
-  title?: string | null;
-  url?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  venueId?: string | null;
-}
-export interface UpdateVenueLinkInput {
-  clientMutationId?: string;
-  id: string;
-  venueLinkPatch: VenueLinkPatch;
-}
-export interface DeleteVenueLinkInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateNoteInput {
-  clientMutationId?: string;
-  note: {
-    content: string;
-    abstract?: string;
-    overview?: string;
-    activeCount?: number;
-    lastAccessedAt?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface NotePatch {
-  content?: string | null;
-  abstract?: string | null;
-  overview?: string | null;
-  activeCount?: number | null;
-  lastAccessedAt?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateNoteInput {
-  clientMutationId?: string;
-  id: string;
-  notePatch: NotePatch;
-}
-export interface DeleteNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateContactNoteInput {
-  clientMutationId?: string;
-  contactNote: {
-    contactId: string;
-    noteId: string;
-  };
-}
-export interface ContactNotePatch {
-  contactId?: string | null;
-  noteId?: string | null;
-}
-export interface UpdateContactNoteInput {
-  clientMutationId?: string;
-  id: string;
-  contactNotePatch: ContactNotePatch;
-}
-export interface DeleteContactNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateCompanyNoteInput {
-  clientMutationId?: string;
-  companyNote: {
-    companyId: string;
-    noteId: string;
-  };
-}
-export interface CompanyNotePatch {
-  companyId?: string | null;
-  noteId?: string | null;
-}
-export interface UpdateCompanyNoteInput {
-  clientMutationId?: string;
-  id: string;
-  companyNotePatch: CompanyNotePatch;
-}
-export interface DeleteCompanyNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateDealInput {
-  clientMutationId?: string;
-  deal: {
-    name: string;
-    stage?: string;
-    value?: string;
-    currency?: string;
-    expectedCloseDate?: string;
-    notesText?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface DealPatch {
-  name?: string | null;
-  stage?: string | null;
-  value?: string | null;
-  currency?: string | null;
-  expectedCloseDate?: string | null;
-  notesText?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateDealInput {
-  clientMutationId?: string;
-  id: string;
-  dealPatch: DealPatch;
-}
-export interface DeleteDealInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateDealContactInput {
-  clientMutationId?: string;
-  dealContact: {
-    dealId: string;
-    contactId: string;
-  };
-}
-export interface DealContactPatch {
-  dealId?: string | null;
-  contactId?: string | null;
-}
-export interface UpdateDealContactInput {
-  clientMutationId?: string;
-  id: string;
-  dealContactPatch: DealContactPatch;
-}
-export interface DeleteDealContactInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateDealCompanyInput {
-  clientMutationId?: string;
-  dealCompany: {
-    dealId: string;
-    companyId: string;
-  };
-}
-export interface DealCompanyPatch {
-  dealId?: string | null;
-  companyId?: string | null;
-}
-export interface UpdateDealCompanyInput {
-  clientMutationId?: string;
-  id: string;
-  dealCompanyPatch: DealCompanyPatch;
-}
-export interface DeleteDealCompanyInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateDealNoteInput {
-  clientMutationId?: string;
-  dealNote: {
-    dealId: string;
-    noteId: string;
-  };
-}
-export interface DealNotePatch {
-  dealId?: string | null;
-  noteId?: string | null;
-}
-export interface UpdateDealNoteInput {
-  clientMutationId?: string;
-  id: string;
-  dealNotePatch: DealNotePatch;
-}
-export interface DeleteDealNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateTouchpointInput {
-  clientMutationId?: string;
-  touchpoint: {
-    contactId: string;
-    touchpointType: string;
-    occurredAt: string;
-    subject?: string;
-    summary?: string;
-    sentiment?: string;
-    direction?: string;
-    channel?: string;
-    dealId?: string;
-    companyId?: string;
-    eventId?: string;
-    meta?: Record<string, unknown>;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface TouchpointPatch {
-  contactId?: string | null;
-  touchpointType?: string | null;
-  occurredAt?: string | null;
-  subject?: string | null;
-  summary?: string | null;
-  sentiment?: string | null;
-  direction?: string | null;
-  channel?: string | null;
-  dealId?: string | null;
-  companyId?: string | null;
-  eventId?: string | null;
-  meta?: Record<string, unknown> | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateTouchpointInput {
-  clientMutationId?: string;
-  id: string;
-  touchpointPatch: TouchpointPatch;
-}
-export interface DeleteTouchpointInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEventNoteInput {
-  clientMutationId?: string;
-  eventNote: {
-    eventId: string;
-    noteId: string;
-  };
-}
-export interface EventNotePatch {
-  eventId?: string | null;
-  noteId?: string | null;
-}
-export interface UpdateEventNoteInput {
-  clientMutationId?: string;
-  id: string;
-  eventNotePatch: EventNotePatch;
-}
-export interface DeleteEventNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateTaskNoteInput {
-  clientMutationId?: string;
-  taskNote: {
-    taskId: string;
-    noteId: string;
-  };
-}
-export interface TaskNotePatch {
-  taskId?: string | null;
-  noteId?: string | null;
-}
-export interface UpdateTaskNoteInput {
-  clientMutationId?: string;
-  id: string;
-  taskNotePatch: TaskNotePatch;
-}
-export interface DeleteTaskNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEmailInput {
-  clientMutationId?: string;
-  email: {
-    providerMessageId?: string;
-    fromContactId?: string;
-    to?: Record<string, unknown>;
-    cc?: Record<string, unknown>;
-    bcc?: Record<string, unknown>;
-    subject?: string;
-    bodyText?: string;
-    bodyHtml?: string;
-    sentAt?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    emailThreadId: string;
-  };
-}
-export interface EmailPatch {
-  providerMessageId?: string | null;
-  fromContactId?: string | null;
-  to?: Record<string, unknown> | null;
-  cc?: Record<string, unknown> | null;
-  bcc?: Record<string, unknown> | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  bodyHtml?: string | null;
-  sentAt?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  emailThreadId?: string | null;
-}
-export interface UpdateEmailInput {
-  clientMutationId?: string;
-  id: string;
-  emailPatch: EmailPatch;
-}
-export interface DeleteEmailInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEmailRecipientInput {
-  clientMutationId?: string;
-  emailRecipient: {
-    emailId: string;
-    contactId: string;
-  };
-}
-export interface EmailRecipientPatch {
-  emailId?: string | null;
-  contactId?: string | null;
-}
-export interface UpdateEmailRecipientInput {
-  clientMutationId?: string;
-  id: string;
-  emailRecipientPatch: EmailRecipientPatch;
-}
-export interface DeleteEmailRecipientInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEmailNoteInput {
-  clientMutationId?: string;
-  emailNote: {
-    emailId: string;
-    noteId: string;
-  };
-}
-export interface EmailNotePatch {
-  emailId?: string | null;
-  noteId?: string | null;
-}
-export interface UpdateEmailNoteInput {
-  clientMutationId?: string;
-  id: string;
-  emailNotePatch: EmailNotePatch;
-}
-export interface DeleteEmailNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateThreadParticipantInput {
-  clientMutationId?: string;
-  threadParticipant: {
-    emailThreadId: string;
-    contactId: string;
-  };
-}
-export interface ThreadParticipantPatch {
-  emailThreadId?: string | null;
-  contactId?: string | null;
-}
-export interface UpdateThreadParticipantInput {
-  clientMutationId?: string;
-  id: string;
-  threadParticipantPatch: ThreadParticipantPatch;
-}
-export interface DeleteThreadParticipantInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEmailAttachmentInput {
-  clientMutationId?: string;
-  emailAttachment: {
-    filename: string;
-    contentType?: string;
-    sizeBytes?: number;
-    storageUrl?: string;
-    providerAttachmentId?: string;
-    emailId: string;
-  };
-}
-export interface EmailAttachmentPatch {
-  filename?: string | null;
-  contentType?: string | null;
-  sizeBytes?: number | null;
-  storageUrl?: string | null;
-  providerAttachmentId?: string | null;
-  emailId?: string | null;
-}
-export interface UpdateEmailAttachmentInput {
-  clientMutationId?: string;
-  id: string;
-  emailAttachmentPatch: EmailAttachmentPatch;
-}
-export interface DeleteEmailAttachmentInput {
+export interface DeleteCalendarInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12060,6 +10922,54 @@ export interface DeleteCalendarEventContactInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateContactInput {
+  clientMutationId?: string;
+  contact: {
+    firstName: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    headline?: string;
+    bio?: string;
+    location?: string;
+    birthday?: string;
+    relationshipTypes?: string[];
+    howWeMet?: string;
+    tags?: string[];
+    mainImageId?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    locationGeo?: unknown;
+  };
+}
+export interface ContactPatch {
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  headline?: string | null;
+  bio?: string | null;
+  location?: string | null;
+  birthday?: string | null;
+  relationshipTypes?: string[] | null;
+  howWeMet?: string | null;
+  tags?: string[] | null;
+  mainImageId?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
+}
+export interface UpdateContactInput {
+  clientMutationId?: string;
+  id: string;
+  contactPatch: ContactPatch;
+}
+export interface DeleteContactInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateCalendarEventNoteInput {
   clientMutationId?: string;
   calendarEventNote: {
@@ -12077,6 +10987,40 @@ export interface UpdateCalendarEventNoteInput {
   calendarEventNotePatch: CalendarEventNotePatch;
 }
 export interface DeleteCalendarEventNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateNoteInput {
+  clientMutationId?: string;
+  note: {
+    content: string;
+    abstract?: string;
+    overview?: string;
+    activeCount?: number;
+    lastAccessedAt?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface NotePatch {
+  content?: string | null;
+  abstract?: string | null;
+  overview?: string | null;
+  activeCount?: number | null;
+  lastAccessedAt?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateNoteInput {
+  clientMutationId?: string;
+  id: string;
+  notePatch: NotePatch;
+}
+export interface DeleteNoteInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12100,53 +11044,249 @@ export interface DeleteCalendarEventTaskInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateCalendarAttendeeInput {
+export interface CreateTaskInput {
   clientMutationId?: string;
-  calendarAttendee: {
-    contactId?: string;
-    responseStatus?: string;
-    role?: string;
-    calendarEventId: string;
+  task: {
+    agentId?: string;
+    title: string;
+    description?: string;
+    status?: string;
+    priority?: number;
+    result?: string;
+    startedAt?: string;
+    completedAt?: string;
+    meta?: Record<string, unknown>;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
   };
 }
-export interface CalendarAttendeePatch {
-  contactId?: string | null;
-  responseStatus?: string | null;
-  role?: string | null;
-  calendarEventId?: string | null;
+export interface TaskPatch {
+  agentId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  result?: string | null;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  meta?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
 }
-export interface UpdateCalendarAttendeeInput {
+export interface UpdateTaskInput {
   clientMutationId?: string;
   id: string;
-  calendarAttendeePatch: CalendarAttendeePatch;
+  taskPatch: TaskPatch;
 }
-export interface DeleteCalendarAttendeeInput {
+export interface DeleteTaskInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateEventLinkInput {
+export interface CreateCompanyInput {
   clientMutationId?: string;
-  eventLink: {
+  company: {
+    name: string;
+    domain?: string;
+    industry?: string;
+    description?: string;
+    tags?: string[];
+    mainImageId?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface CompanyPatch {
+  name?: string | null;
+  domain?: string | null;
+  industry?: string | null;
+  description?: string | null;
+  tags?: string[] | null;
+  mainImageId?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateCompanyInput {
+  clientMutationId?: string;
+  id: string;
+  companyPatch: CompanyPatch;
+}
+export interface DeleteCompanyInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateDealInput {
+  clientMutationId?: string;
+  deal: {
+    name: string;
+    stage?: string;
+    value?: string;
+    currency?: string;
+    expectedCloseDate?: string;
+    notesText?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface DealPatch {
+  name?: string | null;
+  stage?: string | null;
+  value?: string | null;
+  currency?: string | null;
+  expectedCloseDate?: string | null;
+  notesText?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateDealInput {
+  clientMutationId?: string;
+  id: string;
+  dealPatch: DealPatch;
+}
+export interface DeleteDealInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCompanyEventInput {
+  clientMutationId?: string;
+  companyEvent: {
+    companyId: string;
+    eventId: string;
+  };
+}
+export interface CompanyEventPatch {
+  companyId?: string | null;
+  eventId?: string | null;
+}
+export interface UpdateCompanyEventInput {
+  clientMutationId?: string;
+  id: string;
+  companyEventPatch: CompanyEventPatch;
+}
+export interface DeleteCompanyEventInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEventInput {
+  clientMutationId?: string;
+  event: {
+    name: string;
+    eventType?: string;
+    location?: string;
+    city?: string;
+    startedAt?: string;
+    endedAt?: string;
+    notesText?: string;
+    tags?: string[];
+    mainImageId?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    locationGeo?: unknown;
+  };
+}
+export interface EventPatch {
+  name?: string | null;
+  eventType?: string | null;
+  location?: string | null;
+  city?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  notesText?: string | null;
+  tags?: string[] | null;
+  mainImageId?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
+}
+export interface UpdateEventInput {
+  clientMutationId?: string;
+  id: string;
+  eventPatch: EventPatch;
+}
+export interface DeleteEventInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCompanyImageInput {
+  clientMutationId?: string;
+  companyImage: {
+    companyId: string;
+    imageId: string;
+  };
+}
+export interface CompanyImagePatch {
+  companyId?: string | null;
+  imageId?: string | null;
+}
+export interface UpdateCompanyImageInput {
+  clientMutationId?: string;
+  id: string;
+  companyImagePatch: CompanyImagePatch;
+}
+export interface DeleteCompanyImageInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateImageInput {
+  clientMutationId?: string;
+  image: {
+    url: string;
+    meta?: Record<string, unknown>;
+    altText?: string;
+    caption?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface ImagePatch {
+  url?: string | null;
+  meta?: Record<string, unknown> | null;
+  altText?: string | null;
+  caption?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateImageInput {
+  clientMutationId?: string;
+  id: string;
+  imagePatch: ImagePatch;
+}
+export interface DeleteImageInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCompanyLinkInput {
+  clientMutationId?: string;
+  companyLink: {
     title?: string;
     url: string;
     embedding?: number[];
     embeddingStale?: boolean;
-    eventId: string;
+    companyId: string;
   };
 }
-export interface EventLinkPatch {
+export interface CompanyLinkPatch {
   title?: string | null;
   url?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  eventId?: string | null;
+  companyId?: string | null;
 }
-export interface UpdateEventLinkInput {
+export interface UpdateCompanyLinkInput {
   clientMutationId?: string;
   id: string;
-  eventLinkPatch: EventLinkPatch;
+  companyLinkPatch: CompanyLinkPatch;
 }
-export interface DeleteEventLinkInput {
+export interface DeleteCompanyLinkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12188,26 +11328,6 @@ export interface DeleteMemoryInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateContactMemoryInput {
-  clientMutationId?: string;
-  contactMemory: {
-    contactId: string;
-    memoryId: string;
-  };
-}
-export interface ContactMemoryPatch {
-  contactId?: string | null;
-  memoryId?: string | null;
-}
-export interface UpdateContactMemoryInput {
-  clientMutationId?: string;
-  id: string;
-  contactMemoryPatch: ContactMemoryPatch;
-}
-export interface DeleteContactMemoryInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateCompanyMemoryInput {
   clientMutationId?: string;
   companyMemory: {
@@ -12228,49 +11348,347 @@ export interface DeleteCompanyMemoryInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateCompanyLinkInput {
+export interface CreateCompanyNoteInput {
   clientMutationId?: string;
-  companyLink: {
+  companyNote: {
+    companyId: string;
+    noteId: string;
+  };
+}
+export interface CompanyNotePatch {
+  companyId?: string | null;
+  noteId?: string | null;
+}
+export interface UpdateCompanyNoteInput {
+  clientMutationId?: string;
+  id: string;
+  companyNotePatch: CompanyNotePatch;
+}
+export interface DeleteCompanyNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactAddressInput {
+  clientMutationId?: string;
+  contactAddress: {
+    street?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+    country?: string;
+    addressType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactAddressPatch {
+  street?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  addressType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactAddressInput {
+  clientMutationId?: string;
+  id: string;
+  contactAddressPatch: ContactAddressPatch;
+}
+export interface DeleteContactAddressInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactCompanyInput {
+  clientMutationId?: string;
+  contactCompany: {
+    contactId: string;
+    companyId: string;
+  };
+}
+export interface ContactCompanyPatch {
+  contactId?: string | null;
+  companyId?: string | null;
+}
+export interface UpdateContactCompanyInput {
+  clientMutationId?: string;
+  id: string;
+  contactCompanyPatch: ContactCompanyPatch;
+}
+export interface DeleteContactCompanyInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactEmailInput {
+  clientMutationId?: string;
+  contactEmail: {
+    email: string;
+    emailType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactEmailPatch {
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactEmailInput {
+  clientMutationId?: string;
+  id: string;
+  contactEmailPatch: ContactEmailPatch;
+}
+export interface DeleteContactEmailInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailInput {
+  clientMutationId?: string;
+  email: {
+    providerMessageId?: string;
+    fromContactId?: string;
+    to?: Record<string, unknown>;
+    cc?: Record<string, unknown>;
+    bcc?: Record<string, unknown>;
+    subject?: string;
+    bodyText?: string;
+    bodyHtml?: string;
+    sentAt?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    emailThreadId: string;
+  };
+}
+export interface EmailPatch {
+  providerMessageId?: string | null;
+  fromContactId?: string | null;
+  to?: Record<string, unknown> | null;
+  cc?: Record<string, unknown> | null;
+  bcc?: Record<string, unknown> | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  bodyHtml?: string | null;
+  sentAt?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  emailThreadId?: string | null;
+}
+export interface UpdateEmailInput {
+  clientMutationId?: string;
+  id: string;
+  emailPatch: EmailPatch;
+}
+export interface DeleteEmailInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailThreadInput {
+  clientMutationId?: string;
+  emailThread: {
+    providerThreadId?: string;
+    subject?: string;
+    lastMessageAt?: string;
+    summary?: string;
+    status?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface EmailThreadPatch {
+  providerThreadId?: string | null;
+  subject?: string | null;
+  lastMessageAt?: string | null;
+  summary?: string | null;
+  status?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateEmailThreadInput {
+  clientMutationId?: string;
+  id: string;
+  emailThreadPatch: EmailThreadPatch;
+}
+export interface DeleteEmailThreadInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactEventInput {
+  clientMutationId?: string;
+  contactEvent: {
+    contactId: string;
+    eventId: string;
+  };
+}
+export interface ContactEventPatch {
+  contactId?: string | null;
+  eventId?: string | null;
+}
+export interface UpdateContactEventInput {
+  clientMutationId?: string;
+  id: string;
+  contactEventPatch: ContactEventPatch;
+}
+export interface DeleteContactEventInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateExpenseInput {
+  clientMutationId?: string;
+  expense: {
+    description?: string;
+    amount?: string;
+    currency?: string;
+    category?: string;
+    occurredAt?: string;
+    vendor?: string;
+    notes?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    tripId?: string;
+  };
+}
+export interface ExpensePatch {
+  description?: string | null;
+  amount?: string | null;
+  currency?: string | null;
+  category?: string | null;
+  occurredAt?: string | null;
+  vendor?: string | null;
+  notes?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  tripId?: string | null;
+}
+export interface UpdateExpenseInput {
+  clientMutationId?: string;
+  id: string;
+  expensePatch: ExpensePatch;
+}
+export interface DeleteExpenseInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactImageInput {
+  clientMutationId?: string;
+  contactImage: {
+    contactId: string;
+    imageId: string;
+  };
+}
+export interface ContactImagePatch {
+  contactId?: string | null;
+  imageId?: string | null;
+}
+export interface UpdateContactImageInput {
+  clientMutationId?: string;
+  id: string;
+  contactImagePatch: ContactImagePatch;
+}
+export interface DeleteContactImageInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactLinkInput {
+  clientMutationId?: string;
+  contactLink: {
     title?: string;
     url: string;
     embedding?: number[];
     embeddingStale?: boolean;
-    companyId: string;
+    contactId: string;
   };
 }
-export interface CompanyLinkPatch {
+export interface ContactLinkPatch {
   title?: string | null;
   url?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  companyId?: string | null;
+  contactId?: string | null;
 }
-export interface UpdateCompanyLinkInput {
+export interface UpdateContactLinkInput {
   clientMutationId?: string;
   id: string;
-  companyLinkPatch: CompanyLinkPatch;
+  contactLinkPatch: ContactLinkPatch;
 }
-export interface DeleteCompanyLinkInput {
+export interface DeleteContactLinkInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateContactRelationshipInput {
+export interface CreateContactMemoryInput {
   clientMutationId?: string;
-  contactRelationship: {
+  contactMemory: {
     contactId: string;
-    relatedContactId: string;
+    memoryId: string;
   };
 }
-export interface ContactRelationshipPatch {
+export interface ContactMemoryPatch {
   contactId?: string | null;
-  relatedContactId?: string | null;
+  memoryId?: string | null;
 }
-export interface UpdateContactRelationshipInput {
+export interface UpdateContactMemoryInput {
   clientMutationId?: string;
   id: string;
-  contactRelationshipPatch: ContactRelationshipPatch;
+  contactMemoryPatch: ContactMemoryPatch;
 }
-export interface DeleteContactRelationshipInput {
+export interface DeleteContactMemoryInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactNoteInput {
+  clientMutationId?: string;
+  contactNote: {
+    contactId: string;
+    noteId: string;
+  };
+}
+export interface ContactNotePatch {
+  contactId?: string | null;
+  noteId?: string | null;
+}
+export interface UpdateContactNoteInput {
+  clientMutationId?: string;
+  id: string;
+  contactNotePatch: ContactNotePatch;
+}
+export interface DeleteContactNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactPhoneInput {
+  clientMutationId?: string;
+  contactPhone: {
+    phone: string;
+    phoneType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactPhonePatch {
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactPhoneInput {
+  clientMutationId?: string;
+  id: string;
+  contactPhonePatch: ContactPhonePatch;
+}
+export interface DeleteContactPhoneInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12316,43 +11734,363 @@ export interface DeleteProjectInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateProjectContactInput {
+export interface CreateContactRelationshipInput {
   clientMutationId?: string;
-  projectContact: {
-    projectId: string;
+  contactRelationship: {
+    contactId: string;
+    relatedContactId: string;
+  };
+}
+export interface ContactRelationshipPatch {
+  contactId?: string | null;
+  relatedContactId?: string | null;
+}
+export interface UpdateContactRelationshipInput {
+  clientMutationId?: string;
+  id: string;
+  contactRelationshipPatch: ContactRelationshipPatch;
+}
+export interface DeleteContactRelationshipInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactsChunkInput {
+  clientMutationId?: string;
+  contactsChunk: {
+    contactsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+  };
+}
+export interface ContactsChunkPatch {
+  contactsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+}
+export interface UpdateContactsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  contactsChunkPatch: ContactsChunkPatch;
+}
+export interface DeleteContactsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateConversationInput {
+  clientMutationId?: string;
+  conversation: {
+    title: string;
+    agentId?: string;
+    status?: string;
+    meta?: Record<string, unknown>;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface ConversationPatch {
+  title?: string | null;
+  agentId?: string | null;
+  status?: string | null;
+  meta?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateConversationInput {
+  clientMutationId?: string;
+  id: string;
+  conversationPatch: ConversationPatch;
+}
+export interface DeleteConversationInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateDealCompanyInput {
+  clientMutationId?: string;
+  dealCompany: {
+    dealId: string;
+    companyId: string;
+  };
+}
+export interface DealCompanyPatch {
+  dealId?: string | null;
+  companyId?: string | null;
+}
+export interface UpdateDealCompanyInput {
+  clientMutationId?: string;
+  id: string;
+  dealCompanyPatch: DealCompanyPatch;
+}
+export interface DeleteDealCompanyInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateDealContactInput {
+  clientMutationId?: string;
+  dealContact: {
+    dealId: string;
     contactId: string;
   };
 }
-export interface ProjectContactPatch {
-  projectId?: string | null;
+export interface DealContactPatch {
+  dealId?: string | null;
   contactId?: string | null;
 }
-export interface UpdateProjectContactInput {
+export interface UpdateDealContactInput {
   clientMutationId?: string;
   id: string;
-  projectContactPatch: ProjectContactPatch;
+  dealContactPatch: DealContactPatch;
 }
-export interface DeleteProjectContactInput {
+export interface DeleteDealContactInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateTaskProjectInput {
+export interface CreateDealNoteInput {
   clientMutationId?: string;
-  taskProject: {
-    taskId: string;
-    projectId: string;
+  dealNote: {
+    dealId: string;
+    noteId: string;
   };
 }
-export interface TaskProjectPatch {
-  taskId?: string | null;
-  projectId?: string | null;
+export interface DealNotePatch {
+  dealId?: string | null;
+  noteId?: string | null;
 }
-export interface UpdateTaskProjectInput {
+export interface UpdateDealNoteInput {
   clientMutationId?: string;
   id: string;
-  taskProjectPatch: TaskProjectPatch;
+  dealNotePatch: DealNotePatch;
 }
-export interface DeleteTaskProjectInput {
+export interface DeleteDealNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailAttachmentInput {
+  clientMutationId?: string;
+  emailAttachment: {
+    filename: string;
+    contentType?: string;
+    sizeBytes?: number;
+    storageUrl?: string;
+    providerAttachmentId?: string;
+    emailId: string;
+  };
+}
+export interface EmailAttachmentPatch {
+  filename?: string | null;
+  contentType?: string | null;
+  sizeBytes?: number | null;
+  storageUrl?: string | null;
+  providerAttachmentId?: string | null;
+  emailId?: string | null;
+}
+export interface UpdateEmailAttachmentInput {
+  clientMutationId?: string;
+  id: string;
+  emailAttachmentPatch: EmailAttachmentPatch;
+}
+export interface DeleteEmailAttachmentInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailNoteInput {
+  clientMutationId?: string;
+  emailNote: {
+    emailId: string;
+    noteId: string;
+  };
+}
+export interface EmailNotePatch {
+  emailId?: string | null;
+  noteId?: string | null;
+}
+export interface UpdateEmailNoteInput {
+  clientMutationId?: string;
+  id: string;
+  emailNotePatch: EmailNotePatch;
+}
+export interface DeleteEmailNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailRecipientInput {
+  clientMutationId?: string;
+  emailRecipient: {
+    emailId: string;
+    contactId: string;
+  };
+}
+export interface EmailRecipientPatch {
+  emailId?: string | null;
+  contactId?: string | null;
+}
+export interface UpdateEmailRecipientInput {
+  clientMutationId?: string;
+  id: string;
+  emailRecipientPatch: EmailRecipientPatch;
+}
+export interface DeleteEmailRecipientInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEventImageInput {
+  clientMutationId?: string;
+  eventImage: {
+    eventId: string;
+    imageId: string;
+  };
+}
+export interface EventImagePatch {
+  eventId?: string | null;
+  imageId?: string | null;
+}
+export interface UpdateEventImageInput {
+  clientMutationId?: string;
+  id: string;
+  eventImagePatch: EventImagePatch;
+}
+export interface DeleteEventImageInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEventLinkInput {
+  clientMutationId?: string;
+  eventLink: {
+    title?: string;
+    url: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    eventId: string;
+  };
+}
+export interface EventLinkPatch {
+  title?: string | null;
+  url?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  eventId?: string | null;
+}
+export interface UpdateEventLinkInput {
+  clientMutationId?: string;
+  id: string;
+  eventLinkPatch: EventLinkPatch;
+}
+export interface DeleteEventLinkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEventNoteInput {
+  clientMutationId?: string;
+  eventNote: {
+    eventId: string;
+    noteId: string;
+  };
+}
+export interface EventNotePatch {
+  eventId?: string | null;
+  noteId?: string | null;
+}
+export interface UpdateEventNoteInput {
+  clientMutationId?: string;
+  id: string;
+  eventNotePatch: EventNotePatch;
+}
+export interface DeleteEventNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEventVenueInput {
+  clientMutationId?: string;
+  eventVenue: {
+    eventId: string;
+    venueId: string;
+  };
+}
+export interface EventVenuePatch {
+  eventId?: string | null;
+  venueId?: string | null;
+}
+export interface UpdateEventVenueInput {
+  clientMutationId?: string;
+  id: string;
+  eventVenuePatch: EventVenuePatch;
+}
+export interface DeleteEventVenueInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateVenueInput {
+  clientMutationId?: string;
+  venue: {
+    name: string;
+    address?: string;
+    neighborhood?: string;
+    city?: string;
+    category?: string;
+    status?: string;
+    googlePlaceId?: string;
+    rating?: string;
+    priceLevel?: string;
+    isFavorite?: boolean;
+    notes?: string;
+    tags?: string[];
+    mainImageId?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    location?: unknown;
+  };
+}
+export interface VenuePatch {
+  name?: string | null;
+  address?: string | null;
+  neighborhood?: string | null;
+  city?: string | null;
+  category?: string | null;
+  status?: string | null;
+  googlePlaceId?: string | null;
+  rating?: string | null;
+  priceLevel?: string | null;
+  isFavorite?: boolean | null;
+  notes?: string | null;
+  tags?: string[] | null;
+  mainImageId?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  location?: unknown | null;
+}
+export interface UpdateVenueInput {
+  clientMutationId?: string;
+  id: string;
+  venuePatch: VenuePatch;
+}
+export interface DeleteVenueInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateExpenseContactInput {
+  clientMutationId?: string;
+  expenseContact: {
+    expenseId: string;
+    contactId: string;
+  };
+}
+export interface ExpenseContactPatch {
+  expenseId?: string | null;
+  contactId?: string | null;
+}
+export interface UpdateExpenseContactInput {
+  clientMutationId?: string;
+  id: string;
+  expenseContactPatch: ExpenseContactPatch;
+}
+export interface DeleteExpenseContactInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12390,6 +12128,26 @@ export interface DeleteGoalInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateGoalHabitInput {
+  clientMutationId?: string;
+  goalHabit: {
+    goalId: string;
+    habitId: string;
+  };
+}
+export interface GoalHabitPatch {
+  goalId?: string | null;
+  habitId?: string | null;
+}
+export interface UpdateGoalHabitInput {
+  clientMutationId?: string;
+  id: string;
+  goalHabitPatch: GoalHabitPatch;
+}
+export interface DeleteGoalHabitInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateHabitInput {
   clientMutationId?: string;
   habit: {
@@ -12416,68 +12174,6 @@ export interface DeleteHabitInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateGoalHabitInput {
-  clientMutationId?: string;
-  goalHabit: {
-    goalId: string;
-    habitId: string;
-  };
-}
-export interface GoalHabitPatch {
-  goalId?: string | null;
-  habitId?: string | null;
-}
-export interface UpdateGoalHabitInput {
-  clientMutationId?: string;
-  id: string;
-  goalHabitPatch: GoalHabitPatch;
-}
-export interface DeleteGoalHabitInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateActivityLogInput {
-  clientMutationId?: string;
-  activityLog: {
-    activityType: string;
-    completedAt: string;
-    durationMinutes?: number;
-    quantity?: string;
-    quantityUnit?: string;
-    intensity?: string;
-    notes?: string;
-    meta?: Record<string, unknown>;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    habitId?: string;
-  };
-}
-export interface ActivityLogPatch {
-  activityType?: string | null;
-  completedAt?: string | null;
-  durationMinutes?: number | null;
-  quantity?: string | null;
-  quantityUnit?: string | null;
-  intensity?: string | null;
-  notes?: string | null;
-  meta?: Record<string, unknown> | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  habitId?: string | null;
-}
-export interface UpdateActivityLogInput {
-  clientMutationId?: string;
-  id: string;
-  activityLogPatch: ActivityLogPatch;
-}
-export interface DeleteActivityLogInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateGoalProjectInput {
   clientMutationId?: string;
   goalProject: {
@@ -12495,120 +12191,6 @@ export interface UpdateGoalProjectInput {
   goalProjectPatch: GoalProjectPatch;
 }
 export interface DeleteGoalProjectInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateTaskContactInput {
-  clientMutationId?: string;
-  taskContact: {
-    taskId: string;
-    contactId: string;
-  };
-}
-export interface TaskContactPatch {
-  taskId?: string | null;
-  contactId?: string | null;
-}
-export interface UpdateTaskContactInput {
-  clientMutationId?: string;
-  id: string;
-  taskContactPatch: TaskContactPatch;
-}
-export interface DeleteTaskContactInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateExpenseInput {
-  clientMutationId?: string;
-  expense: {
-    description?: string;
-    amount?: string;
-    currency?: string;
-    category?: string;
-    occurredAt?: string;
-    vendor?: string;
-    notes?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    tripId?: string;
-  };
-}
-export interface ExpensePatch {
-  description?: string | null;
-  amount?: string | null;
-  currency?: string | null;
-  category?: string | null;
-  occurredAt?: string | null;
-  vendor?: string | null;
-  notes?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  tripId?: string | null;
-}
-export interface UpdateExpenseInput {
-  clientMutationId?: string;
-  id: string;
-  expensePatch: ExpensePatch;
-}
-export interface DeleteExpenseInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateExpenseContactInput {
-  clientMutationId?: string;
-  expenseContact: {
-    expenseId: string;
-    contactId: string;
-  };
-}
-export interface ExpenseContactPatch {
-  expenseId?: string | null;
-  contactId?: string | null;
-}
-export interface UpdateExpenseContactInput {
-  clientMutationId?: string;
-  id: string;
-  expenseContactPatch: ExpenseContactPatch;
-}
-export interface DeleteExpenseContactInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEmailThreadInput {
-  clientMutationId?: string;
-  emailThread: {
-    providerThreadId?: string;
-    subject?: string;
-    lastMessageAt?: string;
-    summary?: string;
-    status?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface EmailThreadPatch {
-  providerThreadId?: string | null;
-  subject?: string | null;
-  lastMessageAt?: string | null;
-  summary?: string | null;
-  status?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateEmailThreadInput {
-  clientMutationId?: string;
-  id: string;
-  emailThreadPatch: EmailThreadPatch;
-}
-export interface DeleteEmailThreadInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12646,635 +12228,121 @@ export interface DeleteInteractionInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateContactEmailInput {
+export interface CreateMessageInput {
   clientMutationId?: string;
-  contactEmail: {
-    email: string;
-    emailType?: string;
-    isPrimary?: boolean;
-    contactId: string;
-  };
-}
-export interface ContactEmailPatch {
-  email?: string | null;
-  emailType?: string | null;
-  isPrimary?: boolean | null;
-  contactId?: string | null;
-}
-export interface UpdateContactEmailInput {
-  clientMutationId?: string;
-  id: string;
-  contactEmailPatch: ContactEmailPatch;
-}
-export interface DeleteContactEmailInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateContactPhoneInput {
-  clientMutationId?: string;
-  contactPhone: {
-    phone: string;
-    phoneType?: string;
-    isPrimary?: boolean;
-    contactId: string;
-  };
-}
-export interface ContactPhonePatch {
-  phone?: string | null;
-  phoneType?: string | null;
-  isPrimary?: boolean | null;
-  contactId?: string | null;
-}
-export interface UpdateContactPhoneInput {
-  clientMutationId?: string;
-  id: string;
-  contactPhonePatch: ContactPhonePatch;
-}
-export interface DeleteContactPhoneInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateContactAddressInput {
-  clientMutationId?: string;
-  contactAddress: {
-    street?: string;
-    city?: string;
-    state?: string;
-    postalCode?: string;
-    country?: string;
-    addressType?: string;
-    isPrimary?: boolean;
-    contactId: string;
-  };
-}
-export interface ContactAddressPatch {
-  street?: string | null;
-  city?: string | null;
-  state?: string | null;
-  postalCode?: string | null;
-  country?: string | null;
-  addressType?: string | null;
-  isPrimary?: boolean | null;
-  contactId?: string | null;
-}
-export interface UpdateContactAddressInput {
-  clientMutationId?: string;
-  id: string;
-  contactAddressPatch: ContactAddressPatch;
-}
-export interface DeleteContactAddressInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateContactLinkInput {
-  clientMutationId?: string;
-  contactLink: {
-    title?: string;
-    url: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    contactId: string;
-  };
-}
-export interface ContactLinkPatch {
-  title?: string | null;
-  url?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  contactId?: string | null;
-}
-export interface UpdateContactLinkInput {
-  clientMutationId?: string;
-  id: string;
-  contactLinkPatch: ContactLinkPatch;
-}
-export interface DeleteContactLinkInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateAgentLogInput {
-  clientMutationId?: string;
-  agentLog: {
-    agentId?: string;
-    level: string;
-    message: string;
-    context?: Record<string, unknown>;
-    taskId?: string;
+  message: {
+    conversationId: string;
+    role: string;
+    content: string;
+    tokenCount?: number;
+    meta?: Record<string, unknown>;
+    toolCalls?: Record<string, unknown>;
+    toolResults?: Record<string, unknown>;
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
 }
-export interface AgentLogPatch {
-  agentId?: string | null;
-  level?: string | null;
-  message?: string | null;
-  context?: Record<string, unknown> | null;
-  taskId?: string | null;
+export interface MessagePatch {
+  conversationId?: string | null;
+  role?: string | null;
+  content?: string | null;
+  tokenCount?: number | null;
+  meta?: Record<string, unknown> | null;
+  toolCalls?: Record<string, unknown> | null;
+  toolResults?: Record<string, unknown> | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
-export interface UpdateAgentLogInput {
+export interface UpdateMessageInput {
   clientMutationId?: string;
   id: string;
-  agentLogPatch: AgentLogPatch;
+  messagePatch: MessagePatch;
 }
-export interface DeleteAgentLogInput {
+export interface DeleteMessageInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateRuleInput {
+export interface CreateNotesChunkInput {
   clientMutationId?: string;
-  rule: {
-    name: string;
-    description?: string;
-    triggerType?: string;
-    triggerConfig?: Record<string, unknown>;
-    actionType?: string;
-    actionConfig?: Record<string, unknown>;
-    isActive?: boolean;
-    priority?: number;
-    triggerConcept?: string;
-    embeddingText?: string;
+  notesChunk: {
+    notesId: string;
+    content: string;
+    chunkIndex?: number;
     embedding?: number[];
-    embeddingStale?: boolean;
-    triggerConceptEmbedding?: number[];
-    agentId: string;
+    metadata?: Record<string, unknown>;
   };
 }
-export interface RulePatch {
-  name?: string | null;
-  description?: string | null;
-  triggerType?: string | null;
-  triggerConfig?: Record<string, unknown> | null;
-  actionType?: string | null;
-  actionConfig?: Record<string, unknown> | null;
-  isActive?: boolean | null;
-  priority?: number | null;
-  triggerConcept?: string | null;
-  embeddingText?: string | null;
+export interface NotesChunkPatch {
+  notesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  triggerConceptEmbedding?: number[] | null;
-  agentId?: string | null;
+  metadata?: Record<string, unknown> | null;
 }
-export interface UpdateRuleInput {
+export interface UpdateNotesChunkInput {
   clientMutationId?: string;
   id: string;
-  rulePatch: RulePatch;
+  notesChunkPatch: NotesChunkPatch;
 }
-export interface DeleteRuleInput {
+export interface DeleteNotesChunkInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateSkillInput {
+export interface CreatePlaceInput {
   clientMutationId?: string;
-  skill: {
+  place: {
     name: string;
+    address?: string;
     description?: string;
     category?: string;
-    implementation?: string;
-    config?: Record<string, unknown>;
-    isActive?: boolean;
-    intentTrigger?: string;
+    rating?: string;
+    tags?: string[];
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
-    intentTriggerEmbedding?: number[];
-    agentId: string;
+    locationGeo?: unknown;
   };
 }
-export interface SkillPatch {
+export interface PlacePatch {
   name?: string | null;
+  address?: string | null;
   description?: string | null;
   category?: string | null;
-  implementation?: string | null;
-  config?: Record<string, unknown> | null;
-  isActive?: boolean | null;
-  intentTrigger?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  intentTriggerEmbedding?: number[] | null;
-  agentId?: string | null;
-}
-export interface UpdateSkillInput {
-  clientMutationId?: string;
-  id: string;
-  skillPatch: SkillPatch;
-}
-export interface DeleteSkillInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateToolDefinitionInput {
-  clientMutationId?: string;
-  toolDefinition: {
-    name: string;
-    description?: string;
-    toolType?: string;
-    schema?: Record<string, unknown>;
-    config?: Record<string, unknown>;
-    isActive?: boolean;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface ToolDefinitionPatch {
-  name?: string | null;
-  description?: string | null;
-  toolType?: string | null;
-  schema?: Record<string, unknown> | null;
-  config?: Record<string, unknown> | null;
-  isActive?: boolean | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateToolDefinitionInput {
-  clientMutationId?: string;
-  id: string;
-  toolDefinitionPatch: ToolDefinitionPatch;
-}
-export interface DeleteToolDefinitionInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateSkillToolInput {
-  clientMutationId?: string;
-  skillTool: {
-    skillId: string;
-    toolDefinitionId: string;
-  };
-}
-export interface SkillToolPatch {
-  skillId?: string | null;
-  toolDefinitionId?: string | null;
-}
-export interface UpdateSkillToolInput {
-  clientMutationId?: string;
-  id: string;
-  skillToolPatch: SkillToolPatch;
-}
-export interface DeleteSkillToolInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateToolExecutionInput {
-  clientMutationId?: string;
-  toolExecution: {
-    toolDefinitionId: string;
-    messageId?: string;
-    input?: Record<string, unknown>;
-    output?: Record<string, unknown>;
-    status?: string;
-    startedAt?: string;
-    completedAt?: string;
-    error?: string;
-  };
-}
-export interface ToolExecutionPatch {
-  toolDefinitionId?: string | null;
-  messageId?: string | null;
-  input?: Record<string, unknown> | null;
-  output?: Record<string, unknown> | null;
-  status?: string | null;
-  startedAt?: string | null;
-  completedAt?: string | null;
-  error?: string | null;
-}
-export interface UpdateToolExecutionInput {
-  clientMutationId?: string;
-  id: string;
-  toolExecutionPatch: ToolExecutionPatch;
-}
-export interface DeleteToolExecutionInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateAutonomyRecordLinkInput {
-  clientMutationId?: string;
-  autonomyRecordLink: {
-    sourceRecordId: string;
-    targetRecordId: string;
-  };
-}
-export interface AutonomyRecordLinkPatch {
-  sourceRecordId?: string | null;
-  targetRecordId?: string | null;
-}
-export interface UpdateAutonomyRecordLinkInput {
-  clientMutationId?: string;
-  id: string;
-  autonomyRecordLinkPatch: AutonomyRecordLinkPatch;
-}
-export interface DeleteAutonomyRecordLinkInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateAutonomyRecordInput {
-  clientMutationId?: string;
-  autonomyRecord: {
-    title: string;
-    recordType?: string;
-    content?: string;
-    status?: string;
-    priority?: number;
-    source?: string;
-    context?: Record<string, unknown>;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface AutonomyRecordPatch {
-  title?: string | null;
-  recordType?: string | null;
-  content?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  source?: string | null;
-  context?: Record<string, unknown> | null;
+  rating?: string | null;
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
 }
-export interface UpdateAutonomyRecordInput {
+export interface UpdatePlaceInput {
   clientMutationId?: string;
   id: string;
-  autonomyRecordPatch: AutonomyRecordPatch;
+  placePatch: PlacePatch;
 }
-export interface DeleteAutonomyRecordInput {
+export interface DeletePlaceInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateCodebaseDependencyInput {
+export interface CreateProjectContactInput {
   clientMutationId?: string;
-  codebaseDependency: {
-    codebaseId: string;
-    dependencyId: string;
+  projectContact: {
+    projectId: string;
+    contactId: string;
   };
 }
-export interface CodebaseDependencyPatch {
-  codebaseId?: string | null;
-  dependencyId?: string | null;
+export interface ProjectContactPatch {
+  projectId?: string | null;
+  contactId?: string | null;
 }
-export interface UpdateCodebaseDependencyInput {
+export interface UpdateProjectContactInput {
   clientMutationId?: string;
   id: string;
-  codebaseDependencyPatch: CodebaseDependencyPatch;
+  projectContactPatch: ProjectContactPatch;
 }
-export interface DeleteCodebaseDependencyInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateCodebaseInput {
-  clientMutationId?: string;
-  codebase: {
-    name: string;
-    description?: string;
-    repositoryUrl?: string;
-    defaultBranch?: string;
-    language?: string;
-    framework?: string;
-    lastSyncedAt?: string;
-    config?: Record<string, unknown>;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface CodebasePatch {
-  name?: string | null;
-  description?: string | null;
-  repositoryUrl?: string | null;
-  defaultBranch?: string | null;
-  language?: string | null;
-  framework?: string | null;
-  lastSyncedAt?: string | null;
-  config?: Record<string, unknown> | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateCodebaseInput {
-  clientMutationId?: string;
-  id: string;
-  codebasePatch: CodebasePatch;
-}
-export interface DeleteCodebaseInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateCodeChunkInput {
-  clientMutationId?: string;
-  codeChunk: {
-    codebaseId: string;
-    filePath: string;
-    chunkIndex?: number;
-    content: string;
-    language?: string;
-    startLine?: number;
-    endLine?: number;
-    symbolName?: string;
-    symbolType?: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface CodeChunkPatch {
-  codebaseId?: string | null;
-  filePath?: string | null;
-  chunkIndex?: number | null;
-  content?: string | null;
-  language?: string | null;
-  startLine?: number | null;
-  endLine?: number | null;
-  symbolName?: string | null;
-  symbolType?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateCodeChunkInput {
-  clientMutationId?: string;
-  id: string;
-  codeChunkPatch: CodeChunkPatch;
-}
-export interface DeleteCodeChunkInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateRuntimeStateDependencyInput {
-  clientMutationId?: string;
-  runtimeStateDependency: {
-    stateId: string;
-    dependencyId: string;
-  };
-}
-export interface RuntimeStateDependencyPatch {
-  stateId?: string | null;
-  dependencyId?: string | null;
-}
-export interface UpdateRuntimeStateDependencyInput {
-  clientMutationId?: string;
-  id: string;
-  runtimeStateDependencyPatch: RuntimeStateDependencyPatch;
-}
-export interface DeleteRuntimeStateDependencyInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateRuntimeStateInput {
-  clientMutationId?: string;
-  runtimeState: {
-    name: string;
-    stateType?: string;
-    status?: string;
-    data?: Record<string, unknown>;
-    parentId?: string;
-    startedAt?: string;
-    endedAt?: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface RuntimeStatePatch {
-  name?: string | null;
-  stateType?: string | null;
-  status?: string | null;
-  data?: Record<string, unknown> | null;
-  parentId?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateRuntimeStateInput {
-  clientMutationId?: string;
-  id: string;
-  runtimeStatePatch: RuntimeStatePatch;
-}
-export interface DeleteRuntimeStateInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateRuntimeLogInput {
-  clientMutationId?: string;
-  runtimeLog: {
-    runtimeStateId: string;
-    level: string;
-    message: string;
-    context?: Record<string, unknown>;
-    stepIndex?: number;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface RuntimeLogPatch {
-  runtimeStateId?: string | null;
-  level?: string | null;
-  message?: string | null;
-  context?: Record<string, unknown> | null;
-  stepIndex?: number | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateRuntimeLogInput {
-  clientMutationId?: string;
-  id: string;
-  runtimeLogPatch: RuntimeLogPatch;
-}
-export interface DeleteRuntimeLogInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateRuntimeArtifactInput {
-  clientMutationId?: string;
-  runtimeArtifact: {
-    runtimeStateId: string;
-    name: string;
-    artifactType?: string;
-    content?: string;
-    meta?: Record<string, unknown>;
-    sizeBytes?: number;
-  };
-}
-export interface RuntimeArtifactPatch {
-  runtimeStateId?: string | null;
-  name?: string | null;
-  artifactType?: string | null;
-  content?: string | null;
-  meta?: Record<string, unknown> | null;
-  sizeBytes?: number | null;
-}
-export interface UpdateRuntimeArtifactInput {
-  clientMutationId?: string;
-  id: string;
-  runtimeArtifactPatch: RuntimeArtifactPatch;
-}
-export interface DeleteRuntimeArtifactInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateRuntimeMetricInput {
-  clientMutationId?: string;
-  runtimeMetric: {
-    runtimeStateId: string;
-    metricName: string;
-    metricValue: string;
-    unit?: string;
-    meta?: Record<string, unknown>;
-  };
-}
-export interface RuntimeMetricPatch {
-  runtimeStateId?: string | null;
-  metricName?: string | null;
-  metricValue?: string | null;
-  unit?: string | null;
-  meta?: Record<string, unknown> | null;
-}
-export interface UpdateRuntimeMetricInput {
-  clientMutationId?: string;
-  id: string;
-  runtimeMetricPatch: RuntimeMetricPatch;
-}
-export interface DeleteRuntimeMetricInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateCalendarInput {
-  clientMutationId?: string;
-  calendar: {
-    providerAccountId?: string;
-    providerCalendarId?: string;
-    name: string;
-    color?: string;
-  };
-}
-export interface CalendarPatch {
-  providerAccountId?: string | null;
-  providerCalendarId?: string | null;
-  name?: string | null;
-  color?: string | null;
-}
-export interface UpdateCalendarInput {
-  clientMutationId?: string;
-  id: string;
-  calendarPatch: CalendarPatch;
-}
-export interface DeleteCalendarInput {
+export interface DeleteProjectContactInput {
   clientMutationId?: string;
   id: string;
 }
@@ -13306,53 +12374,45 @@ export interface DeleteProviderSyncStateInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateTagInput {
+export interface CreateRawContactInput {
   clientMutationId?: string;
-  tag: {
-    name: string;
-    color?: string;
-    category?: string;
-    usageCount?: number;
-  };
-}
-export interface TagPatch {
-  name?: string | null;
-  color?: string | null;
-  category?: string | null;
-  usageCount?: number | null;
-}
-export interface UpdateTagInput {
-  clientMutationId?: string;
-  id: string;
-  tagPatch: TagPatch;
-}
-export interface DeleteTagInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateRawContactUrlInput {
-  clientMutationId?: string;
-  rawContactUrl: {
-    url: string;
-    urlType?: string;
+  rawContact: {
+    externalId?: string;
     source?: string;
+    firstName?: string;
+    lastName?: string;
+    fullName?: string;
+    headline?: string;
+    bio?: string;
+    location?: string;
+    company?: string;
+    jobTitle?: string;
+    rawData?: Record<string, unknown>;
     confidence?: string;
-    rawContactId: string;
+    ingestedAt?: string;
   };
 }
-export interface RawContactUrlPatch {
-  url?: string | null;
-  urlType?: string | null;
+export interface RawContactPatch {
+  externalId?: string | null;
   source?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  fullName?: string | null;
+  headline?: string | null;
+  bio?: string | null;
+  location?: string | null;
+  company?: string | null;
+  jobTitle?: string | null;
+  rawData?: Record<string, unknown> | null;
   confidence?: string | null;
-  rawContactId?: string | null;
+  ingestedAt?: string | null;
 }
-export interface UpdateRawContactUrlInput {
+export interface UpdateRawContactInput {
   clientMutationId?: string;
   id: string;
-  rawContactUrlPatch: RawContactUrlPatch;
+  rawContactPatch: RawContactPatch;
 }
-export interface DeleteRawContactUrlInput {
+export interface DeleteRawContactInput {
   clientMutationId?: string;
   id: string;
 }
@@ -13412,6 +12472,104 @@ export interface DeleteRawContactPhoneInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateRawContactUrlInput {
+  clientMutationId?: string;
+  rawContactUrl: {
+    url: string;
+    urlType?: string;
+    source?: string;
+    confidence?: string;
+    rawContactId: string;
+  };
+}
+export interface RawContactUrlPatch {
+  url?: string | null;
+  urlType?: string | null;
+  source?: string | null;
+  confidence?: string | null;
+  rawContactId?: string | null;
+}
+export interface UpdateRawContactUrlInput {
+  clientMutationId?: string;
+  id: string;
+  rawContactUrlPatch: RawContactUrlPatch;
+}
+export interface DeleteRawContactUrlInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRuleInput {
+  clientMutationId?: string;
+  rule: {
+    name: string;
+    description?: string;
+    triggerType?: string;
+    triggerConfig?: Record<string, unknown>;
+    actionType?: string;
+    actionConfig?: Record<string, unknown>;
+    isActive?: boolean;
+    priority?: number;
+    triggerConcept?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    triggerConceptEmbedding?: number[];
+    agentId: string;
+  };
+}
+export interface RulePatch {
+  name?: string | null;
+  description?: string | null;
+  triggerType?: string | null;
+  triggerConfig?: Record<string, unknown> | null;
+  actionType?: string | null;
+  actionConfig?: Record<string, unknown> | null;
+  isActive?: boolean | null;
+  priority?: number | null;
+  triggerConcept?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  triggerConceptEmbedding?: number[] | null;
+  agentId?: string | null;
+}
+export interface UpdateRuleInput {
+  clientMutationId?: string;
+  id: string;
+  rulePatch: RulePatch;
+}
+export interface DeleteRuleInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRuntimeArtifactInput {
+  clientMutationId?: string;
+  runtimeArtifact: {
+    runtimeStateId: string;
+    name: string;
+    artifactType?: string;
+    content?: string;
+    meta?: Record<string, unknown>;
+    sizeBytes?: number;
+  };
+}
+export interface RuntimeArtifactPatch {
+  runtimeStateId?: string | null;
+  name?: string | null;
+  artifactType?: string | null;
+  content?: string | null;
+  meta?: Record<string, unknown> | null;
+  sizeBytes?: number | null;
+}
+export interface UpdateRuntimeArtifactInput {
+  clientMutationId?: string;
+  id: string;
+  runtimeArtifactPatch: RuntimeArtifactPatch;
+}
+export interface DeleteRuntimeArtifactInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateRuntimeConfigInput {
   clientMutationId?: string;
   runtimeConfig: {
@@ -13462,6 +12620,64 @@ export interface DeleteRuntimeEventInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateRuntimeLogInput {
+  clientMutationId?: string;
+  runtimeLog: {
+    runtimeStateId: string;
+    level: string;
+    message: string;
+    context?: Record<string, unknown>;
+    stepIndex?: number;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface RuntimeLogPatch {
+  runtimeStateId?: string | null;
+  level?: string | null;
+  message?: string | null;
+  context?: Record<string, unknown> | null;
+  stepIndex?: number | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateRuntimeLogInput {
+  clientMutationId?: string;
+  id: string;
+  runtimeLogPatch: RuntimeLogPatch;
+}
+export interface DeleteRuntimeLogInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRuntimeMetricInput {
+  clientMutationId?: string;
+  runtimeMetric: {
+    runtimeStateId: string;
+    metricName: string;
+    metricValue: string;
+    unit?: string;
+    meta?: Record<string, unknown>;
+  };
+}
+export interface RuntimeMetricPatch {
+  runtimeStateId?: string | null;
+  metricName?: string | null;
+  metricValue?: string | null;
+  unit?: string | null;
+  meta?: Record<string, unknown> | null;
+}
+export interface UpdateRuntimeMetricInput {
+  clientMutationId?: string;
+  id: string;
+  runtimeMetricPatch: RuntimeMetricPatch;
+}
+export interface DeleteRuntimeMetricInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateRuntimeScheduleInput {
   clientMutationId?: string;
   runtimeSchedule: {
@@ -13492,147 +12708,337 @@ export interface DeleteRuntimeScheduleInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateConversationInput {
+export interface CreateRuntimeStateInput {
   clientMutationId?: string;
-  conversation: {
-    title: string;
-    agentId?: string;
-    status?: string;
-    meta?: Record<string, unknown>;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface ConversationPatch {
-  title?: string | null;
-  agentId?: string | null;
-  status?: string | null;
-  meta?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateConversationInput {
-  clientMutationId?: string;
-  id: string;
-  conversationPatch: ConversationPatch;
-}
-export interface DeleteConversationInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateMessageInput {
-  clientMutationId?: string;
-  message: {
-    conversationId: string;
-    role: string;
-    content: string;
-    tokenCount?: number;
-    meta?: Record<string, unknown>;
-    toolCalls?: Record<string, unknown>;
-    toolResults?: Record<string, unknown>;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface MessagePatch {
-  conversationId?: string | null;
-  role?: string | null;
-  content?: string | null;
-  tokenCount?: number | null;
-  meta?: Record<string, unknown> | null;
-  toolCalls?: Record<string, unknown> | null;
-  toolResults?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateMessageInput {
-  clientMutationId?: string;
-  id: string;
-  messagePatch: MessagePatch;
-}
-export interface DeleteMessageInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateRawContactInput {
-  clientMutationId?: string;
-  rawContact: {
-    externalId?: string;
-    source?: string;
-    firstName?: string;
-    lastName?: string;
-    fullName?: string;
-    headline?: string;
-    bio?: string;
-    location?: string;
-    company?: string;
-    jobTitle?: string;
-    rawData?: Record<string, unknown>;
-    confidence?: string;
-    ingestedAt?: string;
-  };
-}
-export interface RawContactPatch {
-  externalId?: string | null;
-  source?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  fullName?: string | null;
-  headline?: string | null;
-  bio?: string | null;
-  location?: string | null;
-  company?: string | null;
-  jobTitle?: string | null;
-  rawData?: Record<string, unknown> | null;
-  confidence?: string | null;
-  ingestedAt?: string | null;
-}
-export interface UpdateRawContactInput {
-  clientMutationId?: string;
-  id: string;
-  rawContactPatch: RawContactPatch;
-}
-export interface DeleteRawContactInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreatePlaceInput {
-  clientMutationId?: string;
-  place: {
+  runtimeState: {
     name: string;
-    address?: string;
+    stateType?: string;
+    status?: string;
+    data?: Record<string, unknown>;
+    parentId?: string;
+    startedAt?: string;
+    endedAt?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface RuntimeStatePatch {
+  name?: string | null;
+  stateType?: string | null;
+  status?: string | null;
+  data?: Record<string, unknown> | null;
+  parentId?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateRuntimeStateInput {
+  clientMutationId?: string;
+  id: string;
+  runtimeStatePatch: RuntimeStatePatch;
+}
+export interface DeleteRuntimeStateInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRuntimeStateDependencyInput {
+  clientMutationId?: string;
+  runtimeStateDependency: {
+    stateId: string;
+    dependencyId: string;
+  };
+}
+export interface RuntimeStateDependencyPatch {
+  stateId?: string | null;
+  dependencyId?: string | null;
+}
+export interface UpdateRuntimeStateDependencyInput {
+  clientMutationId?: string;
+  id: string;
+  runtimeStateDependencyPatch: RuntimeStateDependencyPatch;
+}
+export interface DeleteRuntimeStateDependencyInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateSkillInput {
+  clientMutationId?: string;
+  skill: {
+    name: string;
     description?: string;
     category?: string;
-    rating?: string;
+    implementation?: string;
+    config?: Record<string, unknown>;
+    isActive?: boolean;
+    intentTrigger?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    intentTriggerEmbedding?: number[];
+    agentId: string;
+  };
+}
+export interface SkillPatch {
+  name?: string | null;
+  description?: string | null;
+  category?: string | null;
+  implementation?: string | null;
+  config?: Record<string, unknown> | null;
+  isActive?: boolean | null;
+  intentTrigger?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  intentTriggerEmbedding?: number[] | null;
+  agentId?: string | null;
+}
+export interface UpdateSkillInput {
+  clientMutationId?: string;
+  id: string;
+  skillPatch: SkillPatch;
+}
+export interface DeleteSkillInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateSkillToolInput {
+  clientMutationId?: string;
+  skillTool: {
+    skillId: string;
+    toolDefinitionId: string;
+  };
+}
+export interface SkillToolPatch {
+  skillId?: string | null;
+  toolDefinitionId?: string | null;
+}
+export interface UpdateSkillToolInput {
+  clientMutationId?: string;
+  id: string;
+  skillToolPatch: SkillToolPatch;
+}
+export interface DeleteSkillToolInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateToolDefinitionInput {
+  clientMutationId?: string;
+  toolDefinition: {
+    name: string;
+    description?: string;
+    toolType?: string;
+    schema?: Record<string, unknown>;
+    config?: Record<string, unknown>;
+    isActive?: boolean;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface ToolDefinitionPatch {
+  name?: string | null;
+  description?: string | null;
+  toolType?: string | null;
+  schema?: Record<string, unknown> | null;
+  config?: Record<string, unknown> | null;
+  isActive?: boolean | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateToolDefinitionInput {
+  clientMutationId?: string;
+  id: string;
+  toolDefinitionPatch: ToolDefinitionPatch;
+}
+export interface DeleteToolDefinitionInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTagInput {
+  clientMutationId?: string;
+  tag: {
+    name: string;
+    color?: string;
+    category?: string;
+    usageCount?: number;
+  };
+}
+export interface TagPatch {
+  name?: string | null;
+  color?: string | null;
+  category?: string | null;
+  usageCount?: number | null;
+}
+export interface UpdateTagInput {
+  clientMutationId?: string;
+  id: string;
+  tagPatch: TagPatch;
+}
+export interface DeleteTagInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTaskContactInput {
+  clientMutationId?: string;
+  taskContact: {
+    taskId: string;
+    contactId: string;
+  };
+}
+export interface TaskContactPatch {
+  taskId?: string | null;
+  contactId?: string | null;
+}
+export interface UpdateTaskContactInput {
+  clientMutationId?: string;
+  id: string;
+  taskContactPatch: TaskContactPatch;
+}
+export interface DeleteTaskContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTaskNoteInput {
+  clientMutationId?: string;
+  taskNote: {
+    taskId: string;
+    noteId: string;
+  };
+}
+export interface TaskNotePatch {
+  taskId?: string | null;
+  noteId?: string | null;
+}
+export interface UpdateTaskNoteInput {
+  clientMutationId?: string;
+  id: string;
+  taskNotePatch: TaskNotePatch;
+}
+export interface DeleteTaskNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTaskProjectInput {
+  clientMutationId?: string;
+  taskProject: {
+    taskId: string;
+    projectId: string;
+  };
+}
+export interface TaskProjectPatch {
+  taskId?: string | null;
+  projectId?: string | null;
+}
+export interface UpdateTaskProjectInput {
+  clientMutationId?: string;
+  id: string;
+  taskProjectPatch: TaskProjectPatch;
+}
+export interface DeleteTaskProjectInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateThreadParticipantInput {
+  clientMutationId?: string;
+  threadParticipant: {
+    emailThreadId: string;
+    contactId: string;
+  };
+}
+export interface ThreadParticipantPatch {
+  emailThreadId?: string | null;
+  contactId?: string | null;
+}
+export interface UpdateThreadParticipantInput {
+  clientMutationId?: string;
+  id: string;
+  threadParticipantPatch: ThreadParticipantPatch;
+}
+export interface DeleteThreadParticipantInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateToolExecutionInput {
+  clientMutationId?: string;
+  toolExecution: {
+    toolDefinitionId: string;
+    messageId?: string;
+    input?: Record<string, unknown>;
+    output?: Record<string, unknown>;
+    status?: string;
+    startedAt?: string;
+    completedAt?: string;
+    error?: string;
+  };
+}
+export interface ToolExecutionPatch {
+  toolDefinitionId?: string | null;
+  messageId?: string | null;
+  input?: Record<string, unknown> | null;
+  output?: Record<string, unknown> | null;
+  status?: string | null;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  error?: string | null;
+}
+export interface UpdateToolExecutionInput {
+  clientMutationId?: string;
+  id: string;
+  toolExecutionPatch: ToolExecutionPatch;
+}
+export interface DeleteToolExecutionInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTouchpointInput {
+  clientMutationId?: string;
+  touchpoint: {
+    contactId: string;
+    touchpointType: string;
+    occurredAt: string;
+    subject?: string;
+    summary?: string;
+    sentiment?: string;
+    direction?: string;
+    channel?: string;
+    dealId?: string;
+    companyId?: string;
+    eventId?: string;
+    meta?: Record<string, unknown>;
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
-    locationGeo?: unknown;
   };
 }
-export interface PlacePatch {
-  name?: string | null;
-  address?: string | null;
-  description?: string | null;
-  category?: string | null;
-  rating?: string | null;
+export interface TouchpointPatch {
+  contactId?: string | null;
+  touchpointType?: string | null;
+  occurredAt?: string | null;
+  subject?: string | null;
+  summary?: string | null;
+  sentiment?: string | null;
+  direction?: string | null;
+  channel?: string | null;
+  dealId?: string | null;
+  companyId?: string | null;
+  eventId?: string | null;
+  meta?: Record<string, unknown> | null;
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  locationGeo?: unknown | null;
 }
-export interface UpdatePlaceInput {
+export interface UpdateTouchpointInput {
   clientMutationId?: string;
   id: string;
-  placePatch: PlacePatch;
+  touchpointPatch: TouchpointPatch;
 }
-export interface DeletePlaceInput {
+export interface DeleteTouchpointInput {
   clientMutationId?: string;
   id: string;
 }
@@ -13672,43 +13078,49 @@ export interface DeleteTripInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateHikingTrailInput {
+export interface CreateVenueImageInput {
   clientMutationId?: string;
-  hikingTrail: {
-    name: string;
-    location?: string;
-    description?: string;
-    difficulty?: string;
-    distanceKm?: string;
-    elevationGainm?: string;
-    rating?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    trailheadGeo?: unknown;
+  venueImage: {
+    venueId: string;
+    imageId: string;
   };
 }
-export interface HikingTrailPatch {
-  name?: string | null;
-  location?: string | null;
-  description?: string | null;
-  difficulty?: string | null;
-  distanceKm?: string | null;
-  elevationGainm?: string | null;
-  rating?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  trailheadGeo?: unknown | null;
+export interface VenueImagePatch {
+  venueId?: string | null;
+  imageId?: string | null;
 }
-export interface UpdateHikingTrailInput {
+export interface UpdateVenueImageInput {
   clientMutationId?: string;
   id: string;
-  hikingTrailPatch: HikingTrailPatch;
+  venueImagePatch: VenueImagePatch;
 }
-export interface DeleteHikingTrailInput {
+export interface DeleteVenueImageInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateVenueLinkInput {
+  clientMutationId?: string;
+  venueLink: {
+    title?: string;
+    url: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    venueId: string;
+  };
+}
+export interface VenueLinkPatch {
+  title?: string | null;
+  url?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  venueId?: string | null;
+}
+export interface UpdateVenueLinkInput {
+  clientMutationId?: string;
+  id: string;
+  venueLinkPatch: VenueLinkPatch;
+}
+export interface DeleteVenueLinkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -13731,15 +13143,23 @@ export const connectionFieldsMap = {
     agents: 'Agent',
     agentPrompts: 'AgentPrompt',
   },
-  Task: {
-    contacts: 'Contact',
-    projects: 'Project',
-    notes: 'Note',
+  AutonomyRecord: {
+    autonomyRecordLinksBySourceRecordId: 'AutonomyRecordLink',
+    autonomyRecordLinksByTargetRecordId: 'AutonomyRecordLink',
+    autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId: 'AutonomyRecord',
+    autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId: 'AutonomyRecord',
+  },
+  Calendar: {
     calendarEvents: 'CalendarEvent',
-    taskContacts: 'TaskContact',
-    taskProjects: 'TaskProject',
-    taskNotes: 'TaskNote',
+  },
+  CalendarEvent: {
+    notes: 'Note',
+    tasks: 'Task',
+    calendarAttendees: 'CalendarAttendee',
+    calendarEventContacts: 'CalendarEventContact',
+    calendarEventNotes: 'CalendarEventNote',
     calendarEventTasks: 'CalendarEventTask',
+    contactsByCalendarEventContactCalendarEventIdAndContactId: 'Contact',
   },
   Contact: {
     projects: 'Project',
@@ -13748,6 +13168,7 @@ export const connectionFieldsMap = {
     notes: 'Note',
     memories: 'Memory',
     emails: 'Email',
+    contactsChunksByContactsId: 'ContactsChunk',
     interactions: 'Interaction',
     touchpoints: 'Touchpoint',
     contactEmails: 'ContactEmail',
@@ -13780,19 +13201,32 @@ export const connectionFieldsMap = {
     calendarEventsByCalendarEventContactContactIdAndCalendarEventId: 'CalendarEvent',
     emailThreadsByThreadParticipantContactIdAndEmailThreadId: 'EmailThread',
   },
-  Image: {
+  Note: {
     contacts: 'Contact',
     companies: 'Company',
+    deals: 'Deal',
     events: 'Event',
-    venues: 'Venue',
-    contactsByMainImageId: 'Contact',
-    companiesByMainImageId: 'Company',
-    eventsByMainImageId: 'Event',
-    venuesByMainImageId: 'Venue',
-    contactImages: 'ContactImage',
-    companyImages: 'CompanyImage',
-    eventImages: 'EventImage',
-    venueImages: 'VenueImage',
+    tasks: 'Task',
+    emails: 'Email',
+    calendarEvents: 'CalendarEvent',
+    notesChunksByNotesId: 'NotesChunk',
+    contactNotes: 'ContactNote',
+    companyNotes: 'CompanyNote',
+    dealNotes: 'DealNote',
+    eventNotes: 'EventNote',
+    taskNotes: 'TaskNote',
+    emailNotes: 'EmailNote',
+    calendarEventNotes: 'CalendarEventNote',
+  },
+  Task: {
+    contacts: 'Contact',
+    projects: 'Project',
+    notes: 'Note',
+    calendarEvents: 'CalendarEvent',
+    taskContacts: 'TaskContact',
+    taskProjects: 'TaskProject',
+    taskNotes: 'TaskNote',
+    calendarEventTasks: 'CalendarEventTask',
   },
   Company: {
     notes: 'Note',
@@ -13810,6 +13244,15 @@ export const connectionFieldsMap = {
     eventsByCompanyEventCompanyIdAndEventId: 'Event',
     dealsByDealCompanyCompanyIdAndDealId: 'Deal',
   },
+  Deal: {
+    notes: 'Note',
+    touchpoints: 'Touchpoint',
+    dealContacts: 'DealContact',
+    dealCompanies: 'DealCompany',
+    dealNotes: 'DealNote',
+    contactsByDealContactDealIdAndContactId: 'Contact',
+    companiesByDealCompanyDealIdAndCompanyId: 'Company',
+  },
   Event: {
     venues: 'Venue',
     notes: 'Note',
@@ -13824,37 +13267,25 @@ export const connectionFieldsMap = {
     contactsByContactEventEventIdAndContactId: 'Contact',
     companiesByCompanyEventEventIdAndCompanyId: 'Company',
   },
-  Venue: {
-    events: 'Event',
-    venueLinks: 'VenueLink',
-    venueImages: 'VenueImage',
-    eventVenues: 'EventVenue',
-    imagesByVenueImageVenueIdAndImageId: 'Image',
-  },
-  Note: {
+  Image: {
     contacts: 'Contact',
     companies: 'Company',
-    deals: 'Deal',
     events: 'Event',
-    tasks: 'Task',
-    emails: 'Email',
-    calendarEvents: 'CalendarEvent',
-    contactNotes: 'ContactNote',
-    companyNotes: 'CompanyNote',
-    dealNotes: 'DealNote',
-    eventNotes: 'EventNote',
-    taskNotes: 'TaskNote',
-    emailNotes: 'EmailNote',
-    calendarEventNotes: 'CalendarEventNote',
+    venues: 'Venue',
+    contactsByMainImageId: 'Contact',
+    companiesByMainImageId: 'Company',
+    eventsByMainImageId: 'Event',
+    venuesByMainImageId: 'Venue',
+    contactImages: 'ContactImage',
+    companyImages: 'CompanyImage',
+    eventImages: 'EventImage',
+    venueImages: 'VenueImage',
   },
-  Deal: {
-    notes: 'Note',
-    touchpoints: 'Touchpoint',
-    dealContacts: 'DealContact',
-    dealCompanies: 'DealCompany',
-    dealNotes: 'DealNote',
-    contactsByDealContactDealIdAndContactId: 'Contact',
-    companiesByDealCompanyDealIdAndCompanyId: 'Company',
+  Memory: {
+    contacts: 'Contact',
+    companies: 'Company',
+    contactMemories: 'ContactMemory',
+    companyMemories: 'CompanyMemory',
   },
   Email: {
     notes: 'Note',
@@ -13863,20 +13294,14 @@ export const connectionFieldsMap = {
     emailNotes: 'EmailNote',
     contactsByEmailRecipientEmailIdAndContactId: 'Contact',
   },
-  CalendarEvent: {
-    notes: 'Note',
-    tasks: 'Task',
-    calendarAttendees: 'CalendarAttendee',
-    calendarEventContacts: 'CalendarEventContact',
-    calendarEventNotes: 'CalendarEventNote',
-    calendarEventTasks: 'CalendarEventTask',
-    contactsByCalendarEventContactCalendarEventIdAndContactId: 'Contact',
+  EmailThread: {
+    emails: 'Email',
+    threadParticipants: 'ThreadParticipant',
+    contactsByThreadParticipantEmailThreadIdAndContactId: 'Contact',
   },
-  Memory: {
+  Expense: {
     contacts: 'Contact',
-    companies: 'Company',
-    contactMemories: 'ContactMemory',
-    companyMemories: 'CompanyMemory',
+    expenseContacts: 'ExpenseContact',
   },
   Project: {
     contacts: 'Contact',
@@ -13885,6 +13310,16 @@ export const connectionFieldsMap = {
     projectContacts: 'ProjectContact',
     taskProjects: 'TaskProject',
     goalProjects: 'GoalProject',
+  },
+  Conversation: {
+    messages: 'Message',
+  },
+  Venue: {
+    events: 'Event',
+    venueLinks: 'VenueLink',
+    venueImages: 'VenueImage',
+    eventVenues: 'EventVenue',
+    imagesByVenueImageVenueIdAndImageId: 'Image',
   },
   Goal: {
     habits: 'Habit',
@@ -13897,36 +13332,10 @@ export const connectionFieldsMap = {
     activityLogs: 'ActivityLog',
     goalHabits: 'GoalHabit',
   },
-  Expense: {
-    contacts: 'Contact',
-    expenseContacts: 'ExpenseContact',
-  },
-  EmailThread: {
-    emails: 'Email',
-    threadParticipants: 'ThreadParticipant',
-    contactsByThreadParticipantEmailThreadIdAndContactId: 'Contact',
-  },
-  Skill: {
-    toolDefinitions: 'ToolDefinition',
-    skillTools: 'SkillTool',
-  },
-  ToolDefinition: {
-    skills: 'Skill',
-    toolExecutions: 'ToolExecution',
-    skillTools: 'SkillTool',
-  },
-  AutonomyRecord: {
-    autonomyRecordLinksBySourceRecordId: 'AutonomyRecordLink',
-    autonomyRecordLinksByTargetRecordId: 'AutonomyRecordLink',
-    autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId: 'AutonomyRecord',
-    autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId: 'AutonomyRecord',
-  },
-  Codebase: {
-    codeChunks: 'CodeChunk',
-    codebaseDependencies: 'CodebaseDependency',
-    codebaseDependenciesByDependencyId: 'CodebaseDependency',
-    codebasesByCodebaseDependencyCodebaseIdAndDependencyId: 'Codebase',
-    codebasesByCodebaseDependencyDependencyIdAndCodebaseId: 'Codebase',
+  RawContact: {
+    rawContactEmails: 'RawContactEmail',
+    rawContactPhones: 'RawContactPhone',
+    rawContactUrls: 'RawContactUrl',
   },
   RuntimeState: {
     runtimeLogs: 'RuntimeLog',
@@ -13937,23 +13346,41 @@ export const connectionFieldsMap = {
     runtimeStatesByRuntimeStateDependencyDependencyIdAndStateId: 'RuntimeState',
     runtimeStatesByRuntimeStateDependencyStateIdAndDependencyId: 'RuntimeState',
   },
-  Calendar: {
-    calendarEvents: 'CalendarEvent',
+  Skill: {
+    toolDefinitions: 'ToolDefinition',
+    skillTools: 'SkillTool',
   },
-  Conversation: {
-    messages: 'Message',
-  },
-  RawContact: {
-    rawContactEmails: 'RawContactEmail',
-    rawContactPhones: 'RawContactPhone',
-    rawContactUrls: 'RawContactUrl',
+  ToolDefinition: {
+    skills: 'Skill',
+    toolExecutions: 'ToolExecution',
+    skillTools: 'SkillTool',
   },
   Trip: {
     expenses: 'Expense',
   },
 } as Record<string, Record<string, string>>;
-/** A filter to be used against String fields with pg_trgm support. All fields are combined with a logical ‘and.’ */
 // ============ Custom Input Types (from schema) ============
+export interface RequestUploadUrlInput {
+  /** Bucket key (e.g., "public", "private") */
+  bucketKey: string;
+  /** SHA-256 content hash computed by the client (hex-encoded, 64 chars) */
+  contentHash: string;
+  /** MIME type of the file (e.g., "image/png") */
+  contentType: string;
+  /** File size in bytes */
+  size: number;
+  /** Original filename (optional, for display and Content-Disposition) */
+  filename?: string;
+}
+export interface ConfirmUploadInput {
+  /** The file ID returned by requestUploadUrl */
+  fileId: string;
+}
+export interface ProvisionBucketInput {
+  /** The logical bucket key (e.g., "public", "private") */
+  bucketKey: string;
+}
+/** A filter to be used against String fields with pg_trgm support. All fields are combined with a logical ‘and.’ */
 export interface StringTrgmFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
   isNull?: boolean;
@@ -14034,6 +13461,31 @@ export interface StringTrgmFilter {
   /** Fuzzy matches using pg_trgm word_similarity. Finds the best matching substring within the column value. */
   wordSimilarTo?: TrgmSearchInput;
 }
+/** Input for BM25 ranked text search. Provide a search query string and optional score threshold. */
+export interface Bm25SearchInput {
+  /** The search query text. Uses pg_textsearch BM25 ranking. */
+  query: string;
+  /** Maximum BM25 score threshold (negative values). Only rows with score <= threshold are returned. */
+  threshold?: number;
+}
+/** Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold. */
+export interface VectorNearbyInput {
+  /** Query vector for similarity search. */
+  vector: number[];
+  /** Similarity metric to use (default: COSINE). */
+  metric?: VectorMetric;
+  /** Maximum distance threshold. Only rows within this distance are returned. */
+  distance?: number;
+  /** When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding. */
+  includeChunks?: boolean;
+}
+/** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
+export interface TrgmSearchInput {
+  /** The text to fuzzy-match against. Typos and misspellings are tolerated. */
+  value: string;
+  /** Minimum similarity threshold (0.0 to 1.0). Higher = stricter matching. Default is 0.3. */
+  threshold?: number;
+}
 /** A filter to be used against many `Task` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentToManyTaskFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14097,31 +13549,6 @@ export interface AgentToManyAgentPromptFilter {
   /** Filters to entities where no related entity matches. */
   none?: AgentPromptFilter;
 }
-/** Input for BM25 ranked text search. Provide a search query string and optional score threshold. */
-export interface Bm25SearchInput {
-  /** The search query text. Uses pg_textsearch BM25 ranking. */
-  query: string;
-  /** Maximum BM25 score threshold (negative values). Only rows with score <= threshold are returned. */
-  threshold?: number;
-}
-/** Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold. */
-export interface VectorNearbyInput {
-  /** Query vector for similarity search. */
-  vector: number[];
-  /** Similarity metric to use (default: COSINE). */
-  metric?: VectorMetric;
-  /** Maximum distance threshold. Only rows within this distance are returned. */
-  distance?: number;
-  /** When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding. */
-  includeChunks?: boolean;
-}
-/** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
-export interface TrgmSearchInput {
-  /** The text to fuzzy-match against. Typos and misspellings are tolerated. */
-  value: string;
-  /** Minimum similarity threshold (0.0 to 1.0). Higher = stricter matching. Default is 0.3. */
-  threshold?: number;
-}
 /** A filter to be used against many `AgentPrompt` object types. All fields are combined with a logical ‘and.’ */
 export interface PromptToManyAgentPromptFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14131,35 +13558,53 @@ export interface PromptToManyAgentPromptFilter {
   /** Filters to entities where no related entity matches. */
   none?: AgentPromptFilter;
 }
-/** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskToManyTaskContactFilter {
+/** A filter to be used against many `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’ */
+export interface AutonomyRecordToManyAutonomyRecordLinkFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: TaskContactFilter;
+  some?: AutonomyRecordLinkFilter;
   /** Filters to entities where every related entity matches. */
-  every?: TaskContactFilter;
+  every?: AutonomyRecordLinkFilter;
   /** Filters to entities where no related entity matches. */
-  none?: TaskContactFilter;
+  none?: AutonomyRecordLinkFilter;
 }
-/** A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskToManyTaskProjectFilter {
+/** A filter to be used against many `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarToManyCalendarEventFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: TaskProjectFilter;
+  some?: CalendarEventFilter;
   /** Filters to entities where every related entity matches. */
-  every?: TaskProjectFilter;
+  every?: CalendarEventFilter;
   /** Filters to entities where no related entity matches. */
-  none?: TaskProjectFilter;
+  none?: CalendarEventFilter;
 }
-/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskToManyTaskNoteFilter {
+/** A filter to be used against many `CalendarAttendee` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarAttendeeFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: TaskNoteFilter;
+  some?: CalendarAttendeeFilter;
   /** Filters to entities where every related entity matches. */
-  every?: TaskNoteFilter;
+  every?: CalendarAttendeeFilter;
   /** Filters to entities where no related entity matches. */
-  none?: TaskNoteFilter;
+  none?: CalendarAttendeeFilter;
+}
+/** A filter to be used against many `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarEventContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventContactFilter;
+}
+/** A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarEventNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventNoteFilter;
 }
 /** A filter to be used against many `CalendarEventTask` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskToManyCalendarEventTaskFilter {
+export interface CalendarEventToManyCalendarEventTaskFilter {
   /** Filters to entities where at least one related entity matches. */
   some?: CalendarEventTaskFilter;
   /** Filters to entities where every related entity matches. */
@@ -14193,6 +13638,15 @@ export interface GeographyInterfaceFilter {
   exactlyEquals?: unknown;
   /** They share any portion of space in 2D. */
   intersects?: unknown;
+}
+/** A filter to be used against many `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactsChunkFilter;
 }
 /** A filter to be used against many `Interaction` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyInteractionFilter {
@@ -14392,77 +13846,113 @@ export interface ContactToManyEmailRecipientFilter {
   /** Filters to entities where no related entity matches. */
   none?: EmailRecipientFilter;
 }
-/** A filter to be used against many `Contact` object types. All fields are combined with a logical ‘and.’ */
-export interface ImageToManyContactFilter {
+/** A filter to be used against many `NotesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyNotesChunkFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: ContactFilter;
+  some?: NotesChunkFilter;
   /** Filters to entities where every related entity matches. */
-  every?: ContactFilter;
+  every?: NotesChunkFilter;
   /** Filters to entities where no related entity matches. */
-  none?: ContactFilter;
+  none?: NotesChunkFilter;
 }
-/** A filter to be used against many `Company` object types. All fields are combined with a logical ‘and.’ */
-export interface ImageToManyCompanyFilter {
+/** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyContactNoteFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: CompanyFilter;
+  some?: ContactNoteFilter;
   /** Filters to entities where every related entity matches. */
-  every?: CompanyFilter;
+  every?: ContactNoteFilter;
   /** Filters to entities where no related entity matches. */
-  none?: CompanyFilter;
+  none?: ContactNoteFilter;
 }
-/** A filter to be used against many `Event` object types. All fields are combined with a logical ‘and.’ */
-export interface ImageToManyEventFilter {
+/** A filter to be used against many `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyCompanyNoteFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: EventFilter;
+  some?: CompanyNoteFilter;
   /** Filters to entities where every related entity matches. */
-  every?: EventFilter;
+  every?: CompanyNoteFilter;
   /** Filters to entities where no related entity matches. */
-  none?: EventFilter;
+  none?: CompanyNoteFilter;
 }
-/** A filter to be used against many `Venue` object types. All fields are combined with a logical ‘and.’ */
-export interface ImageToManyVenueFilter {
+/** A filter to be used against many `DealNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyDealNoteFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: VenueFilter;
+  some?: DealNoteFilter;
   /** Filters to entities where every related entity matches. */
-  every?: VenueFilter;
+  every?: DealNoteFilter;
   /** Filters to entities where no related entity matches. */
-  none?: VenueFilter;
+  none?: DealNoteFilter;
 }
-/** A filter to be used against many `ContactImage` object types. All fields are combined with a logical ‘and.’ */
-export interface ImageToManyContactImageFilter {
+/** A filter to be used against many `EventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyEventNoteFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: ContactImageFilter;
+  some?: EventNoteFilter;
   /** Filters to entities where every related entity matches. */
-  every?: ContactImageFilter;
+  every?: EventNoteFilter;
   /** Filters to entities where no related entity matches. */
-  none?: ContactImageFilter;
+  none?: EventNoteFilter;
 }
-/** A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ‘and.’ */
-export interface ImageToManyCompanyImageFilter {
+/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyTaskNoteFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: CompanyImageFilter;
+  some?: TaskNoteFilter;
   /** Filters to entities where every related entity matches. */
-  every?: CompanyImageFilter;
+  every?: TaskNoteFilter;
   /** Filters to entities where no related entity matches. */
-  none?: CompanyImageFilter;
+  none?: TaskNoteFilter;
 }
-/** A filter to be used against many `EventImage` object types. All fields are combined with a logical ‘and.’ */
-export interface ImageToManyEventImageFilter {
+/** A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyEmailNoteFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: EventImageFilter;
+  some?: EmailNoteFilter;
   /** Filters to entities where every related entity matches. */
-  every?: EventImageFilter;
+  every?: EmailNoteFilter;
   /** Filters to entities where no related entity matches. */
-  none?: EventImageFilter;
+  none?: EmailNoteFilter;
 }
-/** A filter to be used against many `VenueImage` object types. All fields are combined with a logical ‘and.’ */
-export interface ImageToManyVenueImageFilter {
+/** A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyCalendarEventNoteFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: VenueImageFilter;
+  some?: CalendarEventNoteFilter;
   /** Filters to entities where every related entity matches. */
-  every?: VenueImageFilter;
+  every?: CalendarEventNoteFilter;
   /** Filters to entities where no related entity matches. */
-  none?: VenueImageFilter;
+  none?: CalendarEventNoteFilter;
+}
+/** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskContactFilter;
+}
+/** A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskProjectFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskProjectFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskProjectFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskProjectFilter;
+}
+/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskNoteFilter;
+}
+/** A filter to be used against many `CalendarEventTask` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyCalendarEventTaskFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventTaskFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventTaskFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventTaskFilter;
 }
 /** A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyToManyTouchpointFilter {
@@ -14537,6 +14027,42 @@ export interface CompanyToManyCompanyMemoryFilter {
   none?: CompanyMemoryFilter;
 }
 /** A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
+export interface DealToManyTouchpointFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TouchpointFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TouchpointFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TouchpointFilter;
+}
+/** A filter to be used against many `DealContact` object types. All fields are combined with a logical ‘and.’ */
+export interface DealToManyDealContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: DealContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: DealContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: DealContactFilter;
+}
+/** A filter to be used against many `DealCompany` object types. All fields are combined with a logical ‘and.’ */
+export interface DealToManyDealCompanyFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: DealCompanyFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: DealCompanyFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: DealCompanyFilter;
+}
+/** A filter to be used against many `DealNote` object types. All fields are combined with a logical ‘and.’ */
+export interface DealToManyDealNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: DealNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: DealNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: DealNoteFilter;
+}
+/** A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
 export interface EventToManyTouchpointFilter {
   /** Filters to entities where at least one related entity matches. */
   some?: TouchpointFilter;
@@ -14599,17 +14125,71 @@ export interface EventToManyEventNoteFilter {
   /** Filters to entities where no related entity matches. */
   none?: EventNoteFilter;
 }
-/** A filter to be used against many `VenueLink` object types. All fields are combined with a logical ‘and.’ */
-export interface VenueToManyVenueLinkFilter {
+/** A filter to be used against many `Contact` object types. All fields are combined with a logical ‘and.’ */
+export interface ImageToManyContactFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: VenueLinkFilter;
+  some?: ContactFilter;
   /** Filters to entities where every related entity matches. */
-  every?: VenueLinkFilter;
+  every?: ContactFilter;
   /** Filters to entities where no related entity matches. */
-  none?: VenueLinkFilter;
+  none?: ContactFilter;
+}
+/** A filter to be used against many `Company` object types. All fields are combined with a logical ‘and.’ */
+export interface ImageToManyCompanyFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CompanyFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CompanyFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CompanyFilter;
+}
+/** A filter to be used against many `Event` object types. All fields are combined with a logical ‘and.’ */
+export interface ImageToManyEventFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EventFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EventFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EventFilter;
+}
+/** A filter to be used against many `Venue` object types. All fields are combined with a logical ‘and.’ */
+export interface ImageToManyVenueFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: VenueFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: VenueFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: VenueFilter;
+}
+/** A filter to be used against many `ContactImage` object types. All fields are combined with a logical ‘and.’ */
+export interface ImageToManyContactImageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactImageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactImageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactImageFilter;
+}
+/** A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ‘and.’ */
+export interface ImageToManyCompanyImageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CompanyImageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CompanyImageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CompanyImageFilter;
+}
+/** A filter to be used against many `EventImage` object types. All fields are combined with a logical ‘and.’ */
+export interface ImageToManyEventImageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EventImageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EventImageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EventImageFilter;
 }
 /** A filter to be used against many `VenueImage` object types. All fields are combined with a logical ‘and.’ */
-export interface VenueToManyVenueImageFilter {
+export interface ImageToManyVenueImageFilter {
   /** Filters to entities where at least one related entity matches. */
   some?: VenueImageFilter;
   /** Filters to entities where every related entity matches. */
@@ -14617,113 +14197,23 @@ export interface VenueToManyVenueImageFilter {
   /** Filters to entities where no related entity matches. */
   none?: VenueImageFilter;
 }
-/** A filter to be used against many `EventVenue` object types. All fields are combined with a logical ‘and.’ */
-export interface VenueToManyEventVenueFilter {
+/** A filter to be used against many `ContactMemory` object types. All fields are combined with a logical ‘and.’ */
+export interface MemoryToManyContactMemoryFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: EventVenueFilter;
+  some?: ContactMemoryFilter;
   /** Filters to entities where every related entity matches. */
-  every?: EventVenueFilter;
+  every?: ContactMemoryFilter;
   /** Filters to entities where no related entity matches. */
-  none?: EventVenueFilter;
+  none?: ContactMemoryFilter;
 }
-/** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyContactNoteFilter {
+/** A filter to be used against many `CompanyMemory` object types. All fields are combined with a logical ‘and.’ */
+export interface MemoryToManyCompanyMemoryFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: ContactNoteFilter;
+  some?: CompanyMemoryFilter;
   /** Filters to entities where every related entity matches. */
-  every?: ContactNoteFilter;
+  every?: CompanyMemoryFilter;
   /** Filters to entities where no related entity matches. */
-  none?: ContactNoteFilter;
-}
-/** A filter to be used against many `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyCompanyNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: CompanyNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: CompanyNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: CompanyNoteFilter;
-}
-/** A filter to be used against many `DealNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyDealNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: DealNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: DealNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: DealNoteFilter;
-}
-/** A filter to be used against many `EventNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyEventNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: EventNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: EventNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: EventNoteFilter;
-}
-/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyTaskNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: TaskNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: TaskNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: TaskNoteFilter;
-}
-/** A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyEmailNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: EmailNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: EmailNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: EmailNoteFilter;
-}
-/** A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyCalendarEventNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: CalendarEventNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: CalendarEventNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: CalendarEventNoteFilter;
-}
-/** A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
-export interface DealToManyTouchpointFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: TouchpointFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: TouchpointFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: TouchpointFilter;
-}
-/** A filter to be used against many `DealContact` object types. All fields are combined with a logical ‘and.’ */
-export interface DealToManyDealContactFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: DealContactFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: DealContactFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: DealContactFilter;
-}
-/** A filter to be used against many `DealCompany` object types. All fields are combined with a logical ‘and.’ */
-export interface DealToManyDealCompanyFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: DealCompanyFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: DealCompanyFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: DealCompanyFilter;
-}
-/** A filter to be used against many `DealNote` object types. All fields are combined with a logical ‘and.’ */
-export interface DealToManyDealNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: DealNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: DealNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: DealNoteFilter;
+  none?: CompanyMemoryFilter;
 }
 /** A filter to be used against many `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailToManyEmailAttachmentFilter {
@@ -14752,59 +14242,32 @@ export interface EmailToManyEmailNoteFilter {
   /** Filters to entities where no related entity matches. */
   none?: EmailNoteFilter;
 }
-/** A filter to be used against many `CalendarAttendee` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarEventToManyCalendarAttendeeFilter {
+/** A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadToManyEmailFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: CalendarAttendeeFilter;
+  some?: EmailFilter;
   /** Filters to entities where every related entity matches. */
-  every?: CalendarAttendeeFilter;
+  every?: EmailFilter;
   /** Filters to entities where no related entity matches. */
-  none?: CalendarAttendeeFilter;
+  none?: EmailFilter;
 }
-/** A filter to be used against many `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarEventToManyCalendarEventContactFilter {
+/** A filter to be used against many `ThreadParticipant` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadToManyThreadParticipantFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: CalendarEventContactFilter;
+  some?: ThreadParticipantFilter;
   /** Filters to entities where every related entity matches. */
-  every?: CalendarEventContactFilter;
+  every?: ThreadParticipantFilter;
   /** Filters to entities where no related entity matches. */
-  none?: CalendarEventContactFilter;
+  none?: ThreadParticipantFilter;
 }
-/** A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarEventToManyCalendarEventNoteFilter {
+/** A filter to be used against many `ExpenseContact` object types. All fields are combined with a logical ‘and.’ */
+export interface ExpenseToManyExpenseContactFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: CalendarEventNoteFilter;
+  some?: ExpenseContactFilter;
   /** Filters to entities where every related entity matches. */
-  every?: CalendarEventNoteFilter;
+  every?: ExpenseContactFilter;
   /** Filters to entities where no related entity matches. */
-  none?: CalendarEventNoteFilter;
-}
-/** A filter to be used against many `CalendarEventTask` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarEventToManyCalendarEventTaskFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: CalendarEventTaskFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: CalendarEventTaskFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: CalendarEventTaskFilter;
-}
-/** A filter to be used against many `ContactMemory` object types. All fields are combined with a logical ‘and.’ */
-export interface MemoryToManyContactMemoryFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactMemoryFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactMemoryFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactMemoryFilter;
-}
-/** A filter to be used against many `CompanyMemory` object types. All fields are combined with a logical ‘and.’ */
-export interface MemoryToManyCompanyMemoryFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: CompanyMemoryFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: CompanyMemoryFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: CompanyMemoryFilter;
+  none?: ExpenseContactFilter;
 }
 /** A filter to be used against many `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectToManyProjectContactFilter {
@@ -14832,6 +14295,42 @@ export interface ProjectToManyGoalProjectFilter {
   every?: GoalProjectFilter;
   /** Filters to entities where no related entity matches. */
   none?: GoalProjectFilter;
+}
+/** A filter to be used against many `Message` object types. All fields are combined with a logical ‘and.’ */
+export interface ConversationToManyMessageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: MessageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: MessageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: MessageFilter;
+}
+/** A filter to be used against many `VenueLink` object types. All fields are combined with a logical ‘and.’ */
+export interface VenueToManyVenueLinkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: VenueLinkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: VenueLinkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: VenueLinkFilter;
+}
+/** A filter to be used against many `VenueImage` object types. All fields are combined with a logical ‘and.’ */
+export interface VenueToManyVenueImageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: VenueImageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: VenueImageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: VenueImageFilter;
+}
+/** A filter to be used against many `EventVenue` object types. All fields are combined with a logical ‘and.’ */
+export interface VenueToManyEventVenueFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EventVenueFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EventVenueFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EventVenueFilter;
 }
 /** A filter to be used against many `GoalHabit` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalToManyGoalHabitFilter {
@@ -14869,86 +14368,32 @@ export interface HabitToManyGoalHabitFilter {
   /** Filters to entities where no related entity matches. */
   none?: GoalHabitFilter;
 }
-/** A filter to be used against many `ExpenseContact` object types. All fields are combined with a logical ‘and.’ */
-export interface ExpenseToManyExpenseContactFilter {
+/** A filter to be used against many `RawContactEmail` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactToManyRawContactEmailFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: ExpenseContactFilter;
+  some?: RawContactEmailFilter;
   /** Filters to entities where every related entity matches. */
-  every?: ExpenseContactFilter;
+  every?: RawContactEmailFilter;
   /** Filters to entities where no related entity matches. */
-  none?: ExpenseContactFilter;
+  none?: RawContactEmailFilter;
 }
-/** A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailThreadToManyEmailFilter {
+/** A filter to be used against many `RawContactPhone` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactToManyRawContactPhoneFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: EmailFilter;
+  some?: RawContactPhoneFilter;
   /** Filters to entities where every related entity matches. */
-  every?: EmailFilter;
+  every?: RawContactPhoneFilter;
   /** Filters to entities where no related entity matches. */
-  none?: EmailFilter;
+  none?: RawContactPhoneFilter;
 }
-/** A filter to be used against many `ThreadParticipant` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailThreadToManyThreadParticipantFilter {
+/** A filter to be used against many `RawContactUrl` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactToManyRawContactUrlFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: ThreadParticipantFilter;
+  some?: RawContactUrlFilter;
   /** Filters to entities where every related entity matches. */
-  every?: ThreadParticipantFilter;
+  every?: RawContactUrlFilter;
   /** Filters to entities where no related entity matches. */
-  none?: ThreadParticipantFilter;
-}
-/** A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’ */
-export interface SkillToManySkillToolFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: SkillToolFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: SkillToolFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: SkillToolFilter;
-}
-/** A filter to be used against many `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
-export interface ToolDefinitionToManyToolExecutionFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ToolExecutionFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ToolExecutionFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ToolExecutionFilter;
-}
-/** A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’ */
-export interface ToolDefinitionToManySkillToolFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: SkillToolFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: SkillToolFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: SkillToolFilter;
-}
-/** A filter to be used against many `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’ */
-export interface AutonomyRecordToManyAutonomyRecordLinkFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: AutonomyRecordLinkFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: AutonomyRecordLinkFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: AutonomyRecordLinkFilter;
-}
-/** A filter to be used against many `CodeChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface CodebaseToManyCodeChunkFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: CodeChunkFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: CodeChunkFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: CodeChunkFilter;
-}
-/** A filter to be used against many `CodebaseDependency` object types. All fields are combined with a logical ‘and.’ */
-export interface CodebaseToManyCodebaseDependencyFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: CodebaseDependencyFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: CodebaseDependencyFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: CodebaseDependencyFilter;
+  none?: RawContactUrlFilter;
 }
 /** A filter to be used against many `RuntimeLog` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateToManyRuntimeLogFilter {
@@ -14986,50 +14431,32 @@ export interface RuntimeStateToManyRuntimeStateDependencyFilter {
   /** Filters to entities where no related entity matches. */
   none?: RuntimeStateDependencyFilter;
 }
-/** A filter to be used against many `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarToManyCalendarEventFilter {
+/** A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’ */
+export interface SkillToManySkillToolFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: CalendarEventFilter;
+  some?: SkillToolFilter;
   /** Filters to entities where every related entity matches. */
-  every?: CalendarEventFilter;
+  every?: SkillToolFilter;
   /** Filters to entities where no related entity matches. */
-  none?: CalendarEventFilter;
+  none?: SkillToolFilter;
 }
-/** A filter to be used against many `Message` object types. All fields are combined with a logical ‘and.’ */
-export interface ConversationToManyMessageFilter {
+/** A filter to be used against many `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
+export interface ToolDefinitionToManyToolExecutionFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: MessageFilter;
+  some?: ToolExecutionFilter;
   /** Filters to entities where every related entity matches. */
-  every?: MessageFilter;
+  every?: ToolExecutionFilter;
   /** Filters to entities where no related entity matches. */
-  none?: MessageFilter;
+  none?: ToolExecutionFilter;
 }
-/** A filter to be used against many `RawContactEmail` object types. All fields are combined with a logical ‘and.’ */
-export interface RawContactToManyRawContactEmailFilter {
+/** A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’ */
+export interface ToolDefinitionToManySkillToolFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: RawContactEmailFilter;
+  some?: SkillToolFilter;
   /** Filters to entities where every related entity matches. */
-  every?: RawContactEmailFilter;
+  every?: SkillToolFilter;
   /** Filters to entities where no related entity matches. */
-  none?: RawContactEmailFilter;
-}
-/** A filter to be used against many `RawContactPhone` object types. All fields are combined with a logical ‘and.’ */
-export interface RawContactToManyRawContactPhoneFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: RawContactPhoneFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: RawContactPhoneFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: RawContactPhoneFilter;
-}
-/** A filter to be used against many `RawContactUrl` object types. All fields are combined with a logical ‘and.’ */
-export interface RawContactToManyRawContactUrlFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: RawContactUrlFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: RawContactUrlFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: RawContactUrlFilter;
+  none?: SkillToolFilter;
 }
 /** A filter to be used against many `Expense` object types. All fields are combined with a logical ‘and.’ */
 export interface TripToManyExpenseFilter {
@@ -15040,6 +14467,8 @@ export interface TripToManyExpenseFilter {
   /** Filters to entities where no related entity matches. */
   none?: ExpenseFilter;
 }
+/** Similarity metric for vector search */
+export type VectorMetric = 'COSINE' | 'L2' | 'IP';
 /** A filter to be used against `Task` object types. All fields are combined with a logical ‘and.’ */
 export interface TaskFilter {
   /** Filter by the object’s `agentId` field. */
@@ -15113,12 +14542,12 @@ export interface TaskFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `AgentLog` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentLogFilter {
@@ -15165,12 +14594,12 @@ export interface AgentLogFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Rule` object types. All fields are combined with a logical ‘and.’ */
 export interface RuleFilter {
@@ -15235,12 +14664,12 @@ export interface RuleFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Skill` object types. All fields are combined with a logical ‘and.’ */
 export interface SkillFilter {
@@ -15305,12 +14734,12 @@ export interface SkillFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `AgentCollaborator` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentCollaboratorFilter {
@@ -15392,12 +14821,12 @@ export interface MemoryFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `AgentPrompt` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentPromptFilter {
@@ -15416,58 +14845,171 @@ export interface AgentPromptFilter {
   /** Filter by the object’s `prompt` relation. */
   prompt?: PromptFilter;
 }
-/** Similarity metric for vector search */
-export type VectorMetric = 'COSINE' | 'L2' | 'IP';
-/** A filter to be used against `TaskContact` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskContactFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
+/** A filter to be used against `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’ */
+export interface AutonomyRecordLinkFilter {
+  /** Filter by the object’s `sourceRecordId` field. */
+  sourceRecordId?: UUIDFilter;
+  /** Filter by the object’s `targetRecordId` field. */
+  targetRecordId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AutonomyRecordLinkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AutonomyRecordLinkFilter[];
+  /** Negates the expression. */
+  not?: AutonomyRecordLinkFilter;
+  /** Filter by the object’s `sourceRecord` relation. */
+  sourceRecord?: AutonomyRecordFilter;
+  /** Filter by the object’s `targetRecord` relation. */
+  targetRecord?: AutonomyRecordFilter;
+}
+/** A filter to be used against `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventFilter {
+  /** Filter by the object’s `providerEventId` field. */
+  providerEventId?: StringTrgmFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `startTime` field. */
+  startTime?: DatetimeFilter;
+  /** Filter by the object’s `endTime` field. */
+  endTime?: DatetimeFilter;
+  /** Filter by the object’s `meetingUrl` field. */
+  meetingUrl?: StringTrgmFilter;
+  /** Filter by the object’s `organizerContactId` field. */
+  organizerContactId?: UUIDFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `calendarId` field. */
+  calendarId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventFilter;
+  /** Filter by the object’s `calendar` relation. */
+  calendar?: CalendarFilter;
+  /** Filter by the object’s `organizerContact` relation. */
+  organizerContact?: ContactFilter;
+  /** A related `organizerContact` exists. */
+  organizerContactExists?: boolean;
+  /** Filter by the object’s `calendarAttendees` relation. */
+  calendarAttendees?: CalendarEventToManyCalendarAttendeeFilter;
+  /** `calendarAttendees` exist. */
+  calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `calendarEventContacts` relation. */
+  calendarEventContacts?: CalendarEventToManyCalendarEventContactFilter;
+  /** `calendarEventContacts` exist. */
+  calendarEventContactsExist?: boolean;
+  /** Filter by the object’s `calendarEventNotes` relation. */
+  calendarEventNotes?: CalendarEventToManyCalendarEventNoteFilter;
+  /** `calendarEventNotes` exist. */
+  calendarEventNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventTasks` relation. */
+  calendarEventTasks?: CalendarEventToManyCalendarEventTaskFilter;
+  /** `calendarEventTasks` exist. */
+  calendarEventTasksExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_event_id` column. */
+  trgmProviderEventId?: TrgmSearchInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `meeting_url` column. */
+  trgmMeetingUrl?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+/** A filter to be used against `CalendarAttendee` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarAttendeeFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `responseStatus` field. */
+  responseStatus?: StringFilter;
+  /** Filter by the object’s `role` field. */
+  role?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarAttendeeFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarAttendeeFilter[];
+  /** Negates the expression. */
+  not?: CalendarAttendeeFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** A related `contact` exists. */
+  contactExists?: boolean;
+}
+/** A filter to be used against `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventContactFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: TaskContactFilter[];
+  and?: CalendarEventContactFilter[];
   /** Checks for any expressions in this list. */
-  or?: TaskContactFilter[];
+  or?: CalendarEventContactFilter[];
   /** Negates the expression. */
-  not?: TaskContactFilter;
+  not?: CalendarEventContactFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
 }
-/** A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskProjectFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Filter by the object’s `projectId` field. */
-  projectId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: TaskProjectFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TaskProjectFilter[];
-  /** Negates the expression. */
-  not?: TaskProjectFilter;
-  /** Filter by the object’s `project` relation. */
-  project?: ProjectFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
-}
-/** A filter to be used against `TaskNote` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskNoteFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
+/** A filter to be used against `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventNoteFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
   /** Filter by the object’s `noteId` field. */
   noteId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: TaskNoteFilter[];
+  and?: CalendarEventNoteFilter[];
   /** Checks for any expressions in this list. */
-  or?: TaskNoteFilter[];
+  or?: CalendarEventNoteFilter[];
   /** Negates the expression. */
-  not?: TaskNoteFilter;
+  not?: CalendarEventNoteFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
 }
 /** A filter to be used against `CalendarEventTask` object types. All fields are combined with a logical ‘and.’ */
 export interface CalendarEventTaskFilter {
@@ -15485,6 +15027,35 @@ export interface CalendarEventTaskFilter {
   calendarEvent?: CalendarEventFilter;
   /** Filter by the object’s `task` relation. */
   task?: TaskFilter;
+}
+/** A filter to be used against `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `contactsId` field. */
+  contactsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactsChunkFilter[];
+  /** Negates the expression. */
+  not?: ContactsChunkFilter;
+  /** Filter by the object’s `contacts` relation. */
+  contacts?: ContactFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `Interaction` object types. All fields are combined with a logical ‘and.’ */
 export interface InteractionFilter {
@@ -15533,12 +15104,12 @@ export interface InteractionFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
 export interface TouchpointFilter {
@@ -15619,12 +15190,12 @@ export interface TouchpointFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `ContactEmail` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactEmailFilter {
@@ -15826,7 +15397,7 @@ export interface ContactRelationshipFilter {
 /** A filter to be used against `Email` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailFilter {
   /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringTrgmFilter;
+  providerMessageId?: StringFilter;
   /** Filter by the object’s `fromContactId` field. */
   fromContactId?: UUIDFilter;
   /** Filter by the object’s `to` field. */
@@ -15836,11 +15407,11 @@ export interface EmailFilter {
   /** Filter by the object’s `bcc` field. */
   bcc?: JSONFilter;
   /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
+  subject?: StringFilter;
   /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringTrgmFilter;
+  bodyText?: StringFilter;
   /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringTrgmFilter;
+  bodyHtml?: StringFilter;
   /** Filter by the object’s `sentAt` field. */
   sentAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
@@ -15852,7 +15423,7 @@ export interface EmailFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -15885,144 +15456,6 @@ export interface EmailFilter {
   emailNotes?: EmailToManyEmailNoteFilter;
   /** `emailNotes` exist. */
   emailNotesExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_message_id` column. */
-  trgmProviderMessageId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `body_text` column. */
-  trgmBodyText?: TrgmSearchInput;
-  /** TRGM search on the `body_html` column. */
-  trgmBodyHtml?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarEventFilter {
-  /** Filter by the object’s `providerEventId` field. */
-  providerEventId?: StringTrgmFilter;
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `startTime` field. */
-  startTime?: DatetimeFilter;
-  /** Filter by the object’s `endTime` field. */
-  endTime?: DatetimeFilter;
-  /** Filter by the object’s `meetingUrl` field. */
-  meetingUrl?: StringTrgmFilter;
-  /** Filter by the object’s `organizerContactId` field. */
-  organizerContactId?: UUIDFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `calendarId` field. */
-  calendarId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarEventFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarEventFilter[];
-  /** Negates the expression. */
-  not?: CalendarEventFilter;
-  /** Filter by the object’s `calendar` relation. */
-  calendar?: CalendarFilter;
-  /** Filter by the object’s `organizerContact` relation. */
-  organizerContact?: ContactFilter;
-  /** A related `organizerContact` exists. */
-  organizerContactExists?: boolean;
-  /** Filter by the object’s `calendarAttendees` relation. */
-  calendarAttendees?: CalendarEventToManyCalendarAttendeeFilter;
-  /** `calendarAttendees` exist. */
-  calendarAttendeesExist?: boolean;
-  /** Filter by the object’s `calendarEventContacts` relation. */
-  calendarEventContacts?: CalendarEventToManyCalendarEventContactFilter;
-  /** `calendarEventContacts` exist. */
-  calendarEventContactsExist?: boolean;
-  /** Filter by the object’s `calendarEventNotes` relation. */
-  calendarEventNotes?: CalendarEventToManyCalendarEventNoteFilter;
-  /** `calendarEventNotes` exist. */
-  calendarEventNotesExist?: boolean;
-  /** Filter by the object’s `calendarEventTasks` relation. */
-  calendarEventTasks?: CalendarEventToManyCalendarEventTaskFilter;
-  /** `calendarEventTasks` exist. */
-  calendarEventTasksExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_event_id` column. */
-  trgmProviderEventId?: TrgmSearchInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `meeting_url` column. */
-  trgmMeetingUrl?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `CalendarAttendee` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarAttendeeFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `responseStatus` field. */
-  responseStatus?: StringFilter;
-  /** Filter by the object’s `role` field. */
-  role?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `calendarEventId` field. */
-  calendarEventId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarAttendeeFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarAttendeeFilter[];
-  /** Negates the expression. */
-  not?: CalendarAttendeeFilter;
-  /** Filter by the object’s `calendarEvent` relation. */
-  calendarEvent?: CalendarEventFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** A related `contact` exists. */
-  contactExists?: boolean;
 }
 /** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectContactFilter {
@@ -16041,22 +15474,22 @@ export interface ProjectContactFilter {
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
 }
-/** A filter to be used against `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarEventContactFilter {
-  /** Filter by the object’s `calendarEventId` field. */
-  calendarEventId?: UUIDFilter;
+/** A filter to be used against `TaskContact` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskContactFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: CalendarEventContactFilter[];
+  and?: TaskContactFilter[];
   /** Checks for any expressions in this list. */
-  or?: CalendarEventContactFilter[];
+  or?: TaskContactFilter[];
   /** Negates the expression. */
-  not?: CalendarEventContactFilter;
-  /** Filter by the object’s `calendarEvent` relation. */
-  calendarEvent?: CalendarEventFilter;
+  not?: TaskContactFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
 }
 /** A filter to be used against `ExpenseContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ExpenseContactFilter {
@@ -16143,6 +15576,297 @@ export interface EmailRecipientFilter {
   /** Filter by the object’s `email` relation. */
   email?: EmailFilter;
 }
+/** A filter to be used against `NotesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface NotesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `notesId` field. */
+  notesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: NotesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: NotesChunkFilter[];
+  /** Negates the expression. */
+  not?: NotesChunkFilter;
+  /** Filter by the object’s `notes` relation. */
+  notes?: NoteFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyNoteFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyNoteFilter[];
+  /** Negates the expression. */
+  not?: CompanyNoteFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `DealNote` object types. All fields are combined with a logical ‘and.’ */
+export interface DealNoteFilter {
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealNoteFilter[];
+  /** Negates the expression. */
+  not?: DealNoteFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `EventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface EventNoteFilter {
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventNoteFilter[];
+  /** Negates the expression. */
+  not?: EventNoteFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskNoteFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskNoteFilter[];
+  /** Negates the expression. */
+  not?: TaskNoteFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+/** A filter to be used against `EmailNote` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailNoteFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailNoteFilter[];
+  /** Negates the expression. */
+  not?: EmailNoteFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskProjectFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskProjectFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskProjectFilter[];
+  /** Negates the expression. */
+  not?: TaskProjectFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+/** A filter to be used against `CompanyLink` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyLinkFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyLinkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyLinkFilter[];
+  /** Negates the expression. */
+  not?: CompanyLinkFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `CompanyImage` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyImageFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `imageId` field. */
+  imageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyImageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyImageFilter[];
+  /** Negates the expression. */
+  not?: CompanyImageFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `image` relation. */
+  image?: ImageFilter;
+}
+/** A filter to be used against `CompanyEvent` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyEventFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyEventFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyEventFilter[];
+  /** Negates the expression. */
+  not?: CompanyEventFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+}
+/** A filter to be used against `DealCompany` object types. All fields are combined with a logical ‘and.’ */
+export interface DealCompanyFilter {
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealCompanyFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealCompanyFilter[];
+  /** Negates the expression. */
+  not?: DealCompanyFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+}
+/** A filter to be used against `CompanyMemory` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyMemoryFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `memoryId` field. */
+  memoryId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyMemoryFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyMemoryFilter[];
+  /** Negates the expression. */
+  not?: CompanyMemoryFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `memory` relation. */
+  memory?: MemoryFilter;
+}
+/** A filter to be used against `EventLink` object types. All fields are combined with a logical ‘and.’ */
+export interface EventLinkFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventLinkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventLinkFilter[];
+  /** Negates the expression. */
+  not?: EventLinkFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `EventImage` object types. All fields are combined with a logical ‘and.’ */
+export interface EventImageFilter {
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `imageId` field. */
+  imageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventImageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventImageFilter[];
+  /** Negates the expression. */
+  not?: EventImageFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** Filter by the object’s `image` relation. */
+  image?: ImageFilter;
+}
+/** A filter to be used against `EventVenue` object types. All fields are combined with a logical ‘and.’ */
+export interface EventVenueFilter {
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `venueId` field. */
+  venueId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventVenueFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventVenueFilter[];
+  /** Negates the expression. */
+  not?: EventVenueFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** Filter by the object’s `venue` relation. */
+  venue?: VenueFilter;
+}
 /** A filter to be used against `Contact` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactFilter {
   /** Filter by the object’s `firstName` field. */
@@ -16195,6 +15919,10 @@ export interface ContactFilter {
   mainImage?: ImageFilter;
   /** A related `mainImage` exists. */
   mainImageExists?: boolean;
+  /** Filter by the object’s `contactsChunksByContactsId` relation. */
+  contactsChunksByContactsId?: ContactToManyContactsChunkFilter;
+  /** `contactsChunksByContactsId` exist. */
+  contactsChunksByContactsIdExist?: boolean;
   /** Filter by the object’s `interactions` relation. */
   interactions?: ContactToManyInteractionFilter;
   /** `interactions` exist. */
@@ -16312,12 +16040,12 @@ export interface ContactFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Company` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyFilter {
@@ -16406,12 +16134,12 @@ export interface CompanyFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Event` object types. All fields are combined with a logical ‘and.’ */
 export interface EventFilter {
@@ -16506,12 +16234,12 @@ export interface EventFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Venue` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueFilter {
@@ -16606,46 +16334,12 @@ export interface VenueFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `CompanyImage` object types. All fields are combined with a logical ‘and.’ */
-export interface CompanyImageFilter {
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `imageId` field. */
-  imageId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyImageFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyImageFilter[];
-  /** Negates the expression. */
-  not?: CompanyImageFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `image` relation. */
-  image?: ImageFilter;
-}
-/** A filter to be used against `EventImage` object types. All fields are combined with a logical ‘and.’ */
-export interface EventImageFilter {
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Filter by the object’s `imageId` field. */
-  imageId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EventImageFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EventImageFilter[];
-  /** Negates the expression. */
-  not?: EventImageFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** Filter by the object’s `image` relation. */
-  image?: ImageFilter;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `VenueImage` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueImageFilter {
@@ -16663,246 +16357,6 @@ export interface VenueImageFilter {
   image?: ImageFilter;
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
-}
-/** A filter to be used against `CompanyLink` object types. All fields are combined with a logical ‘and.’ */
-export interface CompanyLinkFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringFilter;
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyLinkFilter[];
-  /** Negates the expression. */
-  not?: CompanyLinkFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-/** A filter to be used against `CompanyEvent` object types. All fields are combined with a logical ‘and.’ */
-export interface CompanyEventFilter {
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyEventFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyEventFilter[];
-  /** Negates the expression. */
-  not?: CompanyEventFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-}
-/** A filter to be used against `DealCompany` object types. All fields are combined with a logical ‘and.’ */
-export interface DealCompanyFilter {
-  /** Filter by the object’s `dealId` field. */
-  dealId?: UUIDFilter;
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: DealCompanyFilter[];
-  /** Checks for any expressions in this list. */
-  or?: DealCompanyFilter[];
-  /** Negates the expression. */
-  not?: DealCompanyFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `deal` relation. */
-  deal?: DealFilter;
-}
-/** A filter to be used against `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
-export interface CompanyNoteFilter {
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyNoteFilter[];
-  /** Negates the expression. */
-  not?: CompanyNoteFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-/** A filter to be used against `CompanyMemory` object types. All fields are combined with a logical ‘and.’ */
-export interface CompanyMemoryFilter {
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `memoryId` field. */
-  memoryId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyMemoryFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyMemoryFilter[];
-  /** Negates the expression. */
-  not?: CompanyMemoryFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `memory` relation. */
-  memory?: MemoryFilter;
-}
-/** A filter to be used against `EventLink` object types. All fields are combined with a logical ‘and.’ */
-export interface EventLinkFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringFilter;
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EventLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EventLinkFilter[];
-  /** Negates the expression. */
-  not?: EventLinkFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-/** A filter to be used against `EventVenue` object types. All fields are combined with a logical ‘and.’ */
-export interface EventVenueFilter {
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Filter by the object’s `venueId` field. */
-  venueId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EventVenueFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EventVenueFilter[];
-  /** Negates the expression. */
-  not?: EventVenueFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** Filter by the object’s `venue` relation. */
-  venue?: VenueFilter;
-}
-/** A filter to be used against `EventNote` object types. All fields are combined with a logical ‘and.’ */
-export interface EventNoteFilter {
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EventNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EventNoteFilter[];
-  /** Negates the expression. */
-  not?: EventNoteFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-/** A filter to be used against `VenueLink` object types. All fields are combined with a logical ‘and.’ */
-export interface VenueLinkFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringFilter;
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `venueId` field. */
-  venueId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: VenueLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: VenueLinkFilter[];
-  /** Negates the expression. */
-  not?: VenueLinkFilter;
-  /** Filter by the object’s `venue` relation. */
-  venue?: VenueFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-/** A filter to be used against `DealNote` object types. All fields are combined with a logical ‘and.’ */
-export interface DealNoteFilter {
-  /** Filter by the object’s `dealId` field. */
-  dealId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: DealNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: DealNoteFilter[];
-  /** Negates the expression. */
-  not?: DealNoteFilter;
-  /** Filter by the object’s `deal` relation. */
-  deal?: DealFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-/** A filter to be used against `EmailNote` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailNoteFilter {
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailNoteFilter[];
-  /** Negates the expression. */
-  not?: EmailNoteFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-/** A filter to be used against `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarEventNoteFilter {
-  /** Filter by the object’s `calendarEventId` field. */
-  calendarEventId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CalendarEventNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CalendarEventNoteFilter[];
-  /** Negates the expression. */
-  not?: CalendarEventNoteFilter;
-  /** Filter by the object’s `calendarEvent` relation. */
-  calendarEvent?: CalendarEventFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
 }
 /** A filter to be used against `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailAttachmentFilter {
@@ -16949,6 +16403,89 @@ export interface GoalProjectFilter {
   goal?: GoalFilter;
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
+}
+/** A filter to be used against `Message` object types. All fields are combined with a logical ‘and.’ */
+export interface MessageFilter {
+  /** Filter by the object’s `conversationId` field. */
+  conversationId?: UUIDFilter;
+  /** Filter by the object’s `role` field. */
+  role?: StringTrgmFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `tokenCount` field. */
+  tokenCount?: IntFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `toolCalls` field. */
+  toolCalls?: JSONFilter;
+  /** Filter by the object’s `toolResults` field. */
+  toolResults?: JSONFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: MessageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MessageFilter[];
+  /** Negates the expression. */
+  not?: MessageFilter;
+  /** Filter by the object’s `conversation` relation. */
+  conversation?: ConversationFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `role` column. */
+  trgmRole?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+/** A filter to be used against `VenueLink` object types. All fields are combined with a logical ‘and.’ */
+export interface VenueLinkFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `venueId` field. */
+  venueId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: VenueLinkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: VenueLinkFilter[];
+  /** Negates the expression. */
+  not?: VenueLinkFilter;
+  /** Filter by the object’s `venue` relation. */
+  venue?: VenueFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `GoalHabit` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalHabitFilter {
@@ -17026,337 +16563,12 @@ export interface ActivityLogFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `SkillTool` object types. All fields are combined with a logical ‘and.’ */
-export interface SkillToolFilter {
-  /** Filter by the object’s `skillId` field. */
-  skillId?: UUIDFilter;
-  /** Filter by the object’s `toolDefinitionId` field. */
-  toolDefinitionId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: SkillToolFilter[];
-  /** Checks for any expressions in this list. */
-  or?: SkillToolFilter[];
-  /** Negates the expression. */
-  not?: SkillToolFilter;
-  /** Filter by the object’s `skill` relation. */
-  skill?: SkillFilter;
-  /** Filter by the object’s `toolDefinition` relation. */
-  toolDefinition?: ToolDefinitionFilter;
-}
-/** A filter to be used against `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
-export interface ToolExecutionFilter {
-  /** Filter by the object’s `toolDefinitionId` field. */
-  toolDefinitionId?: UUIDFilter;
-  /** Filter by the object’s `messageId` field. */
-  messageId?: UUIDFilter;
-  /** Filter by the object’s `input` field. */
-  input?: JSONFilter;
-  /** Filter by the object’s `output` field. */
-  output?: JSONFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringFilter;
-  /** Filter by the object’s `startedAt` field. */
-  startedAt?: DatetimeFilter;
-  /** Filter by the object’s `completedAt` field. */
-  completedAt?: DatetimeFilter;
-  /** Filter by the object’s `error` field. */
-  error?: StringFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: ToolExecutionFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ToolExecutionFilter[];
-  /** Negates the expression. */
-  not?: ToolExecutionFilter;
-  /** Filter by the object’s `toolDefinition` relation. */
-  toolDefinition?: ToolDefinitionFilter;
-}
-/** A filter to be used against `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’ */
-export interface AutonomyRecordLinkFilter {
-  /** Filter by the object’s `sourceRecordId` field. */
-  sourceRecordId?: UUIDFilter;
-  /** Filter by the object’s `targetRecordId` field. */
-  targetRecordId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: AutonomyRecordLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AutonomyRecordLinkFilter[];
-  /** Negates the expression. */
-  not?: AutonomyRecordLinkFilter;
-  /** Filter by the object’s `sourceRecord` relation. */
-  sourceRecord?: AutonomyRecordFilter;
-  /** Filter by the object’s `targetRecord` relation. */
-  targetRecord?: AutonomyRecordFilter;
-}
-/** A filter to be used against `CodeChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface CodeChunkFilter {
-  /** Filter by the object’s `codebaseId` field. */
-  codebaseId?: UUIDFilter;
-  /** Filter by the object’s `filePath` field. */
-  filePath?: StringTrgmFilter;
-  /** Filter by the object’s `chunkIndex` field. */
-  chunkIndex?: IntFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
-  /** Filter by the object’s `startLine` field. */
-  startLine?: IntFilter;
-  /** Filter by the object’s `endLine` field. */
-  endLine?: IntFilter;
-  /** Filter by the object’s `symbolName` field. */
-  symbolName?: StringTrgmFilter;
-  /** Filter by the object’s `symbolType` field. */
-  symbolType?: StringTrgmFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: CodeChunkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CodeChunkFilter[];
-  /** Negates the expression. */
-  not?: CodeChunkFilter;
-  /** Filter by the object’s `codebase` relation. */
-  codebase?: CodebaseFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `file_path` column. */
-  trgmFilePath?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `symbol_name` column. */
-  trgmSymbolName?: TrgmSearchInput;
-  /** TRGM search on the `symbol_type` column. */
-  trgmSymbolType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `CodebaseDependency` object types. All fields are combined with a logical ‘and.’ */
-export interface CodebaseDependencyFilter {
-  /** Filter by the object’s `codebaseId` field. */
-  codebaseId?: UUIDFilter;
-  /** Filter by the object’s `dependencyId` field. */
-  dependencyId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CodebaseDependencyFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CodebaseDependencyFilter[];
-  /** Negates the expression. */
-  not?: CodebaseDependencyFilter;
-  /** Filter by the object’s `codebase` relation. */
-  codebase?: CodebaseFilter;
-  /** Filter by the object’s `dependency` relation. */
-  dependency?: CodebaseFilter;
-}
-/** A filter to be used against `RuntimeLog` object types. All fields are combined with a logical ‘and.’ */
-export interface RuntimeLogFilter {
-  /** Filter by the object’s `runtimeStateId` field. */
-  runtimeStateId?: UUIDFilter;
-  /** Filter by the object’s `level` field. */
-  level?: StringTrgmFilter;
-  /** Filter by the object’s `message` field. */
-  message?: StringTrgmFilter;
-  /** Filter by the object’s `context` field. */
-  context?: JSONFilter;
-  /** Filter by the object’s `stepIndex` field. */
-  stepIndex?: IntFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeLogFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeLogFilter[];
-  /** Negates the expression. */
-  not?: RuntimeLogFilter;
-  /** Filter by the object’s `runtimeState` relation. */
-  runtimeState?: RuntimeStateFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `level` column. */
-  trgmLevel?: TrgmSearchInput;
-  /** TRGM search on the `message` column. */
-  trgmMessage?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `RuntimeArtifact` object types. All fields are combined with a logical ‘and.’ */
-export interface RuntimeArtifactFilter {
-  /** Filter by the object’s `runtimeStateId` field. */
-  runtimeStateId?: UUIDFilter;
-  /** Filter by the object’s `name` field. */
-  name?: StringFilter;
-  /** Filter by the object’s `artifactType` field. */
-  artifactType?: StringFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `sizeBytes` field. */
-  sizeBytes?: IntFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeArtifactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeArtifactFilter[];
-  /** Negates the expression. */
-  not?: RuntimeArtifactFilter;
-  /** Filter by the object’s `runtimeState` relation. */
-  runtimeState?: RuntimeStateFilter;
-}
-/** A filter to be used against `RuntimeMetric` object types. All fields are combined with a logical ‘and.’ */
-export interface RuntimeMetricFilter {
-  /** Filter by the object’s `runtimeStateId` field. */
-  runtimeStateId?: UUIDFilter;
-  /** Filter by the object’s `metricName` field. */
-  metricName?: StringFilter;
-  /** Filter by the object’s `metricValue` field. */
-  metricValue?: BigFloatFilter;
-  /** Filter by the object’s `unit` field. */
-  unit?: StringFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeMetricFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeMetricFilter[];
-  /** Negates the expression. */
-  not?: RuntimeMetricFilter;
-  /** Filter by the object’s `runtimeState` relation. */
-  runtimeState?: RuntimeStateFilter;
-}
-/** A filter to be used against `RuntimeStateDependency` object types. All fields are combined with a logical ‘and.’ */
-export interface RuntimeStateDependencyFilter {
-  /** Filter by the object’s `stateId` field. */
-  stateId?: UUIDFilter;
-  /** Filter by the object’s `dependencyId` field. */
-  dependencyId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: RuntimeStateDependencyFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RuntimeStateDependencyFilter[];
-  /** Negates the expression. */
-  not?: RuntimeStateDependencyFilter;
-  /** Filter by the object’s `dependency` relation. */
-  dependency?: RuntimeStateFilter;
-  /** Filter by the object’s `state` relation. */
-  state?: RuntimeStateFilter;
-}
-/** A filter to be used against `Message` object types. All fields are combined with a logical ‘and.’ */
-export interface MessageFilter {
-  /** Filter by the object’s `conversationId` field. */
-  conversationId?: UUIDFilter;
-  /** Filter by the object’s `role` field. */
-  role?: StringTrgmFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `tokenCount` field. */
-  tokenCount?: IntFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `toolCalls` field. */
-  toolCalls?: JSONFilter;
-  /** Filter by the object’s `toolResults` field. */
-  toolResults?: JSONFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: MessageFilter[];
-  /** Checks for any expressions in this list. */
-  or?: MessageFilter[];
-  /** Negates the expression. */
-  not?: MessageFilter;
-  /** Filter by the object’s `conversation` relation. */
-  conversation?: ConversationFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `role` column. */
-  trgmRole?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `RawContactEmail` object types. All fields are combined with a logical ‘and.’ */
 export interface RawContactEmailFilter {
@@ -17443,6 +16655,179 @@ export interface RawContactUrlFilter {
   /** Filter by the object’s `rawContact` relation. */
   rawContact?: RawContactFilter;
 }
+/** A filter to be used against `RuntimeLog` object types. All fields are combined with a logical ‘and.’ */
+export interface RuntimeLogFilter {
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
+  /** Filter by the object’s `level` field. */
+  level?: StringTrgmFilter;
+  /** Filter by the object’s `message` field. */
+  message?: StringTrgmFilter;
+  /** Filter by the object’s `context` field. */
+  context?: JSONFilter;
+  /** Filter by the object’s `stepIndex` field. */
+  stepIndex?: IntFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeLogFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeLogFilter[];
+  /** Negates the expression. */
+  not?: RuntimeLogFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `level` column. */
+  trgmLevel?: TrgmSearchInput;
+  /** TRGM search on the `message` column. */
+  trgmMessage?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+/** A filter to be used against `RuntimeArtifact` object types. All fields are combined with a logical ‘and.’ */
+export interface RuntimeArtifactFilter {
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
+  /** Filter by the object’s `name` field. */
+  name?: StringFilter;
+  /** Filter by the object’s `artifactType` field. */
+  artifactType?: StringFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeArtifactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeArtifactFilter[];
+  /** Negates the expression. */
+  not?: RuntimeArtifactFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
+}
+/** A filter to be used against `RuntimeMetric` object types. All fields are combined with a logical ‘and.’ */
+export interface RuntimeMetricFilter {
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
+  /** Filter by the object’s `metricName` field. */
+  metricName?: StringFilter;
+  /** Filter by the object’s `metricValue` field. */
+  metricValue?: BigFloatFilter;
+  /** Filter by the object’s `unit` field. */
+  unit?: StringFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeMetricFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeMetricFilter[];
+  /** Negates the expression. */
+  not?: RuntimeMetricFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
+}
+/** A filter to be used against `RuntimeStateDependency` object types. All fields are combined with a logical ‘and.’ */
+export interface RuntimeStateDependencyFilter {
+  /** Filter by the object’s `stateId` field. */
+  stateId?: UUIDFilter;
+  /** Filter by the object’s `dependencyId` field. */
+  dependencyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeStateDependencyFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeStateDependencyFilter[];
+  /** Negates the expression. */
+  not?: RuntimeStateDependencyFilter;
+  /** Filter by the object’s `dependency` relation. */
+  dependency?: RuntimeStateFilter;
+  /** Filter by the object’s `state` relation. */
+  state?: RuntimeStateFilter;
+}
+/** A filter to be used against `SkillTool` object types. All fields are combined with a logical ‘and.’ */
+export interface SkillToolFilter {
+  /** Filter by the object’s `skillId` field. */
+  skillId?: UUIDFilter;
+  /** Filter by the object’s `toolDefinitionId` field. */
+  toolDefinitionId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: SkillToolFilter[];
+  /** Checks for any expressions in this list. */
+  or?: SkillToolFilter[];
+  /** Negates the expression. */
+  not?: SkillToolFilter;
+  /** Filter by the object’s `skill` relation. */
+  skill?: SkillFilter;
+  /** Filter by the object’s `toolDefinition` relation. */
+  toolDefinition?: ToolDefinitionFilter;
+}
+/** A filter to be used against `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
+export interface ToolExecutionFilter {
+  /** Filter by the object’s `toolDefinitionId` field. */
+  toolDefinitionId?: UUIDFilter;
+  /** Filter by the object’s `messageId` field. */
+  messageId?: UUIDFilter;
+  /** Filter by the object’s `input` field. */
+  input?: JSONFilter;
+  /** Filter by the object’s `output` field. */
+  output?: JSONFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringFilter;
+  /** Filter by the object’s `startedAt` field. */
+  startedAt?: DatetimeFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `error` field. */
+  error?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ToolExecutionFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ToolExecutionFilter[];
+  /** Negates the expression. */
+  not?: ToolExecutionFilter;
+  /** Filter by the object’s `toolDefinition` relation. */
+  toolDefinition?: ToolDefinitionFilter;
+}
 /** A filter to be used against `Expense` object types. All fields are combined with a logical ‘and.’ */
 export interface ExpenseFilter {
   /** Filter by the object’s `description` field. */
@@ -17506,12 +16891,12 @@ export interface ExpenseFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against UUID fields. All fields are combined with a logical ‘and.’ */
 export interface UUIDFilter {
@@ -17750,12 +17135,12 @@ export interface AgentFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 /** A filter to be used against String List fields. All fields are combined with a logical ‘and.’ */
 export interface StringListFilter {
@@ -17845,99 +17230,29 @@ export interface PromptFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-/** A filter to be used against `Project` object types. All fields are combined with a logical ‘and.’ */
-export interface ProjectFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `projectType` field. */
-  projectType?: StringTrgmFilter;
-  /** Filter by the object’s `priority` field. */
-  priority?: IntFilter;
-  /** Filter by the object’s `startedAt` field. */
-  startedAt?: DatetimeFilter;
-  /** Filter by the object’s `targetDate` field. */
-  targetDate?: DatetimeFilter;
-  /** Filter by the object’s `completedAt` field. */
-  completedAt?: DatetimeFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: ProjectFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ProjectFilter[];
-  /** Negates the expression. */
-  not?: ProjectFilter;
-  /** Filter by the object’s `projectContacts` relation. */
-  projectContacts?: ProjectToManyProjectContactFilter;
-  /** `projectContacts` exist. */
-  projectContactsExist?: boolean;
-  /** Filter by the object’s `taskProjects` relation. */
-  taskProjects?: ProjectToManyTaskProjectFilter;
-  /** `taskProjects` exist. */
-  taskProjectsExist?: boolean;
-  /** Filter by the object’s `goalProjects` relation. */
-  goalProjects?: ProjectToManyGoalProjectFilter;
-  /** `goalProjects` exist. */
-  goalProjectsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `project_type` column. */
-  trgmProjectType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `Note` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteFilter {
+/** A filter to be used against `AutonomyRecord` object types. All fields are combined with a logical ‘and.’ */
+export interface AutonomyRecordFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `recordType` field. */
+  recordType?: StringTrgmFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
-  /** Filter by the object’s `abstract` field. */
-  abstract?: StringTrgmFilter;
-  /** Filter by the object’s `overview` field. */
-  overview?: StringTrgmFilter;
-  /** Filter by the object’s `activeCount` field. */
-  activeCount?: IntFilter;
-  /** Filter by the object’s `lastAccessedAt` field. */
-  lastAccessedAt?: DatetimeFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `priority` field. */
+  priority?: IntFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringTrgmFilter;
+  /** Filter by the object’s `context` field. */
+  context?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `id` field. */
@@ -17953,132 +17268,88 @@ export interface NoteFilter {
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: NoteFilter[];
+  and?: AutonomyRecordFilter[];
   /** Checks for any expressions in this list. */
-  or?: NoteFilter[];
+  or?: AutonomyRecordFilter[];
   /** Negates the expression. */
-  not?: NoteFilter;
-  /** Filter by the object’s `contactNotes` relation. */
-  contactNotes?: NoteToManyContactNoteFilter;
-  /** `contactNotes` exist. */
-  contactNotesExist?: boolean;
-  /** Filter by the object’s `companyNotes` relation. */
-  companyNotes?: NoteToManyCompanyNoteFilter;
-  /** `companyNotes` exist. */
-  companyNotesExist?: boolean;
-  /** Filter by the object’s `dealNotes` relation. */
-  dealNotes?: NoteToManyDealNoteFilter;
-  /** `dealNotes` exist. */
-  dealNotesExist?: boolean;
-  /** Filter by the object’s `eventNotes` relation. */
-  eventNotes?: NoteToManyEventNoteFilter;
-  /** `eventNotes` exist. */
-  eventNotesExist?: boolean;
-  /** Filter by the object’s `taskNotes` relation. */
-  taskNotes?: NoteToManyTaskNoteFilter;
-  /** `taskNotes` exist. */
-  taskNotesExist?: boolean;
-  /** Filter by the object’s `emailNotes` relation. */
-  emailNotes?: NoteToManyEmailNoteFilter;
-  /** `emailNotes` exist. */
-  emailNotesExist?: boolean;
-  /** Filter by the object’s `calendarEventNotes` relation. */
-  calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
-  /** `calendarEventNotes` exist. */
-  calendarEventNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
+  not?: AutonomyRecordFilter;
+  /** Filter by the object’s `autonomyRecordLinksBySourceRecordId` relation. */
+  autonomyRecordLinksBySourceRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
+  /** `autonomyRecordLinksBySourceRecordId` exist. */
+  autonomyRecordLinksBySourceRecordIdExist?: boolean;
+  /** Filter by the object’s `autonomyRecordLinksByTargetRecordId` relation. */
+  autonomyRecordLinksByTargetRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
+  /** `autonomyRecordLinksByTargetRecordId` exist. */
+  autonomyRecordLinksByTargetRecordIdExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `record_type` column. */
+  trgmRecordType?: TrgmSearchInput;
   /** TRGM search on the `content` column. */
   trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `abstract` column. */
-  trgmAbstract?: TrgmSearchInput;
-  /** TRGM search on the `overview` column. */
-  trgmOverview?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `source` column. */
+  trgmSource?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-/** A filter to be used against `Deal` object types. All fields are combined with a logical ‘and.’ */
-export interface DealFilter {
+/** A filter to be used against FullText fields. All fields are combined with a logical ‘and.’ */
+export interface FullTextFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: string;
+  /** Not equal to the specified value. */
+  notEqualTo?: string;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: string;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: string;
+  /** Included in the specified list. */
+  in?: string[];
+  /** Not included in the specified list. */
+  notIn?: string[];
+  /** Performs a full text search on the field. */
+  matches?: string;
+}
+/** A filter to be used against `Calendar` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarFilter {
+  /** Filter by the object’s `providerAccountId` field. */
+  providerAccountId?: StringFilter;
+  /** Filter by the object’s `providerCalendarId` field. */
+  providerCalendarId?: StringFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `stage` field. */
-  stage?: StringTrgmFilter;
-  /** Filter by the object’s `value` field. */
-  value?: BigFloatFilter;
-  /** Filter by the object’s `currency` field. */
-  currency?: StringTrgmFilter;
-  /** Filter by the object’s `expectedCloseDate` field. */
-  expectedCloseDate?: DatetimeFilter;
-  /** Filter by the object’s `notesText` field. */
-  notesText?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
+  name?: StringFilter;
+  /** Filter by the object’s `color` field. */
+  color?: StringFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: DealFilter[];
+  and?: CalendarFilter[];
   /** Checks for any expressions in this list. */
-  or?: DealFilter[];
+  or?: CalendarFilter[];
   /** Negates the expression. */
-  not?: DealFilter;
-  /** Filter by the object’s `touchpoints` relation. */
-  touchpoints?: DealToManyTouchpointFilter;
-  /** `touchpoints` exist. */
-  touchpointsExist?: boolean;
-  /** Filter by the object’s `dealContacts` relation. */
-  dealContacts?: DealToManyDealContactFilter;
-  /** `dealContacts` exist. */
-  dealContactsExist?: boolean;
-  /** Filter by the object’s `dealCompanies` relation. */
-  dealCompanies?: DealToManyDealCompanyFilter;
-  /** `dealCompanies` exist. */
-  dealCompaniesExist?: boolean;
-  /** Filter by the object’s `dealNotes` relation. */
-  dealNotes?: DealToManyDealNoteFilter;
-  /** `dealNotes` exist. */
-  dealNotesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `stage` column. */
-  trgmStage?: TrgmSearchInput;
-  /** TRGM search on the `currency` column. */
-  trgmCurrency?: TrgmSearchInput;
-  /** TRGM search on the `notes_text` column. */
-  trgmNotesText?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
+  not?: CalendarFilter;
+  /** Filter by the object’s `calendarEvents` relation. */
+  calendarEvents?: CalendarToManyCalendarEventFilter;
+  /** `calendarEvents` exist. */
+  calendarEventsExist?: boolean;
 }
 /** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
 export interface StringFilter {
@@ -18157,6 +17428,164 @@ export interface StringFilter {
   /** Greater than or equal to the specified value (case-insensitive). */
   greaterThanOrEqualToInsensitive?: string;
 }
+/** A filter to be used against `Note` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteFilter {
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `abstract` field. */
+  abstract?: StringTrgmFilter;
+  /** Filter by the object’s `overview` field. */
+  overview?: StringTrgmFilter;
+  /** Filter by the object’s `activeCount` field. */
+  activeCount?: IntFilter;
+  /** Filter by the object’s `lastAccessedAt` field. */
+  lastAccessedAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: NoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: NoteFilter[];
+  /** Negates the expression. */
+  not?: NoteFilter;
+  /** Filter by the object’s `notesChunksByNotesId` relation. */
+  notesChunksByNotesId?: NoteToManyNotesChunkFilter;
+  /** `notesChunksByNotesId` exist. */
+  notesChunksByNotesIdExist?: boolean;
+  /** Filter by the object’s `contactNotes` relation. */
+  contactNotes?: NoteToManyContactNoteFilter;
+  /** `contactNotes` exist. */
+  contactNotesExist?: boolean;
+  /** Filter by the object’s `companyNotes` relation. */
+  companyNotes?: NoteToManyCompanyNoteFilter;
+  /** `companyNotes` exist. */
+  companyNotesExist?: boolean;
+  /** Filter by the object’s `dealNotes` relation. */
+  dealNotes?: NoteToManyDealNoteFilter;
+  /** `dealNotes` exist. */
+  dealNotesExist?: boolean;
+  /** Filter by the object’s `eventNotes` relation. */
+  eventNotes?: NoteToManyEventNoteFilter;
+  /** `eventNotes` exist. */
+  eventNotesExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: NoteToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: NoteToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventNotes` relation. */
+  calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
+  /** `calendarEventNotes` exist. */
+  calendarEventNotesExist?: boolean;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `abstract` column. */
+  trgmAbstract?: TrgmSearchInput;
+  /** TRGM search on the `overview` column. */
+  trgmOverview?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+/** A filter to be used against `Deal` object types. All fields are combined with a logical ‘and.’ */
+export interface DealFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `stage` field. */
+  stage?: StringTrgmFilter;
+  /** Filter by the object’s `value` field. */
+  value?: BigFloatFilter;
+  /** Filter by the object���s `currency` field. */
+  currency?: StringTrgmFilter;
+  /** Filter by the object’s `expectedCloseDate` field. */
+  expectedCloseDate?: DatetimeFilter;
+  /** Filter by the object’s `notesText` field. */
+  notesText?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealFilter[];
+  /** Negates the expression. */
+  not?: DealFilter;
+  /** Filter by the object’s `touchpoints` relation. */
+  touchpoints?: DealToManyTouchpointFilter;
+  /** `touchpoints` exist. */
+  touchpointsExist?: boolean;
+  /** Filter by the object’s `dealContacts` relation. */
+  dealContacts?: DealToManyDealContactFilter;
+  /** `dealContacts` exist. */
+  dealContactsExist?: boolean;
+  /** Filter by the object’s `dealCompanies` relation. */
+  dealCompanies?: DealToManyDealCompanyFilter;
+  /** `dealCompanies` exist. */
+  dealCompaniesExist?: boolean;
+  /** Filter by the object’s `dealNotes` relation. */
+  dealNotes?: DealToManyDealNoteFilter;
+  /** `dealNotes` exist. */
+  dealNotesExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `stage` column. */
+  trgmStage?: TrgmSearchInput;
+  /** TRGM search on the `currency` column. */
+  trgmCurrency?: TrgmSearchInput;
+  /** TRGM search on the `notes_text` column. */
+  trgmNotesText?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
 /** A filter to be used against `Image` object types. All fields are combined with a logical ‘and.’ */
 export interface ImageFilter {
   /** Filter by the object’s `url` field. */
@@ -18218,25 +17647,6 @@ export interface ImageFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-/** A filter to be used against FullText fields. All fields are combined with a logical ‘and.’ */
-export interface FullTextFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: string;
-  /** Not equal to the specified value. */
-  notEqualTo?: string;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
-  /** Included in the specified list. */
-  in?: string[];
-  /** Not included in the specified list. */
-  notIn?: string[];
-  /** Performs a full text search on the field. */
-  matches?: string;
-}
 /** A filter to be used against `EmailThread` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailThreadFilter {
   /** Filter by the object’s `providerThreadId` field. */
@@ -18296,39 +17706,86 @@ export interface EmailThreadFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-/** A filter to be used against `Calendar` object types. All fields are combined with a logical ‘and.’ */
-export interface CalendarFilter {
-  /** Filter by the object’s `providerAccountId` field. */
-  providerAccountId?: StringFilter;
-  /** Filter by the object’s `providerCalendarId` field. */
-  providerCalendarId?: StringFilter;
+/** A filter to be used against `Project` object types. All fields are combined with a logical ‘and.’ */
+export interface ProjectFilter {
   /** Filter by the object’s `name` field. */
-  name?: StringFilter;
-  /** Filter by the object’s `color` field. */
-  color?: StringFilter;
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `projectType` field. */
+  projectType?: StringTrgmFilter;
+  /** Filter by the object’s `priority` field. */
+  priority?: IntFilter;
+  /** Filter by the object’s `startedAt` field. */
+  startedAt?: DatetimeFilter;
+  /** Filter by the object’s `targetDate` field. */
+  targetDate?: DatetimeFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `config` field. */
+  config?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: CalendarFilter[];
+  and?: ProjectFilter[];
   /** Checks for any expressions in this list. */
-  or?: CalendarFilter[];
+  or?: ProjectFilter[];
   /** Negates the expression. */
-  not?: CalendarFilter;
-  /** Filter by the object’s `calendarEvents` relation. */
-  calendarEvents?: CalendarToManyCalendarEventFilter;
-  /** `calendarEvents` exist. */
-  calendarEventsExist?: boolean;
+  not?: ProjectFilter;
+  /** Filter by the object’s `projectContacts` relation. */
+  projectContacts?: ProjectToManyProjectContactFilter;
+  /** `projectContacts` exist. */
+  projectContactsExist?: boolean;
+  /** Filter by the object’s `taskProjects` relation. */
+  taskProjects?: ProjectToManyTaskProjectFilter;
+  /** `taskProjects` exist. */
+  taskProjectsExist?: boolean;
+  /** Filter by the object’s `goalProjects` relation. */
+  goalProjects?: ProjectToManyGoalProjectFilter;
+  /** `goalProjects` exist. */
+  goalProjectsExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `project_type` column. */
+  trgmProjectType?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 /** A filter to be used against Date fields. All fields are combined with a logical ‘and.’ */
 export interface DateFilter {
@@ -18433,12 +17890,62 @@ export interface GoalFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
+}
+/** A filter to be used against `Conversation` object types. All fields are combined with a logical ‘and.’ */
+export interface ConversationFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: ConversationFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ConversationFilter[];
+  /** Negates the expression. */
+  not?: ConversationFilter;
+  /** Filter by the object’s `messages` relation. */
+  messages?: ConversationToManyMessageFilter;
+  /** `messages` exist. */
+  messagesExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Habit` object types. All fields are combined with a logical ‘and.’ */
 export interface HabitFilter {
@@ -18473,209 +17980,58 @@ export interface HabitFilter {
   /** `goalHabits` exist. */
   goalHabitsExist?: boolean;
 }
-/** A filter to be used against `ToolDefinition` object types. All fields are combined with a logical ‘and.’ */
-export interface ToolDefinitionFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `toolType` field. */
-  toolType?: StringTrgmFilter;
-  /** Filter by the object’s `schema` field. */
-  schema?: JSONFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
-  /** Filter by the object’s `isActive` field. */
-  isActive?: BooleanFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: ToolDefinitionFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ToolDefinitionFilter[];
-  /** Negates the expression. */
-  not?: ToolDefinitionFilter;
-  /** Filter by the object’s `toolExecutions` relation. */
-  toolExecutions?: ToolDefinitionToManyToolExecutionFilter;
-  /** `toolExecutions` exist. */
-  toolExecutionsExist?: boolean;
-  /** Filter by the object’s `skillTools` relation. */
-  skillTools?: ToolDefinitionToManySkillToolFilter;
-  /** `skillTools` exist. */
-  skillToolsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `tool_type` column. */
-  trgmToolType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `AutonomyRecord` object types. All fields are combined with a logical ‘and.’ */
-export interface AutonomyRecordFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `recordType` field. */
-  recordType?: StringTrgmFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `priority` field. */
-  priority?: IntFilter;
+/** A filter to be used against `RawContact` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactFilter {
+  /** Filter by the object’s `externalId` field. */
+  externalId?: StringFilter;
   /** Filter by the object’s `source` field. */
-  source?: StringTrgmFilter;
-  /** Filter by the object’s `context` field. */
-  context?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
+  source?: StringFilter;
+  /** Filter by the object’s `firstName` field. */
+  firstName?: StringFilter;
+  /** Filter by the object’s `lastName` field. */
+  lastName?: StringFilter;
+  /** Filter by the object’s `fullName` field. */
+  fullName?: StringFilter;
+  /** Filter by the object’s `headline` field. */
+  headline?: StringFilter;
+  /** Filter by the object’s `bio` field. */
+  bio?: StringFilter;
+  /** Filter by the object’s `location` field. */
+  location?: StringFilter;
+  /** Filter by the object’s `company` field. */
+  company?: StringFilter;
+  /** Filter by the object’s `jobTitle` field. */
+  jobTitle?: StringFilter;
+  /** Filter by the object’s `rawData` field. */
+  rawData?: JSONFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: AutonomyRecordFilter[];
+  and?: RawContactFilter[];
   /** Checks for any expressions in this list. */
-  or?: AutonomyRecordFilter[];
+  or?: RawContactFilter[];
   /** Negates the expression. */
-  not?: AutonomyRecordFilter;
-  /** Filter by the object’s `autonomyRecordLinksBySourceRecordId` relation. */
-  autonomyRecordLinksBySourceRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
-  /** `autonomyRecordLinksBySourceRecordId` exist. */
-  autonomyRecordLinksBySourceRecordIdExist?: boolean;
-  /** Filter by the object’s `autonomyRecordLinksByTargetRecordId` relation. */
-  autonomyRecordLinksByTargetRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
-  /** `autonomyRecordLinksByTargetRecordId` exist. */
-  autonomyRecordLinksByTargetRecordIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `record_type` column. */
-  trgmRecordType?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `source` column. */
-  trgmSource?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `Codebase` object types. All fields are combined with a logical ‘and.’ */
-export interface CodebaseFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `repositoryUrl` field. */
-  repositoryUrl?: StringTrgmFilter;
-  /** Filter by the object’s `defaultBranch` field. */
-  defaultBranch?: StringTrgmFilter;
-  /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
-  /** Filter by the object’s `framework` field. */
-  framework?: StringTrgmFilter;
-  /** Filter by the object’s `lastSyncedAt` field. */
-  lastSyncedAt?: DatetimeFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: CodebaseFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CodebaseFilter[];
-  /** Negates the expression. */
-  not?: CodebaseFilter;
-  /** Filter by the object’s `codeChunks` relation. */
-  codeChunks?: CodebaseToManyCodeChunkFilter;
-  /** `codeChunks` exist. */
-  codeChunksExist?: boolean;
-  /** Filter by the object’s `codebaseDependencies` relation. */
-  codebaseDependencies?: CodebaseToManyCodebaseDependencyFilter;
-  /** `codebaseDependencies` exist. */
-  codebaseDependenciesExist?: boolean;
-  /** Filter by the object’s `codebaseDependenciesByDependencyId` relation. */
-  codebaseDependenciesByDependencyId?: CodebaseToManyCodebaseDependencyFilter;
-  /** `codebaseDependenciesByDependencyId` exist. */
-  codebaseDependenciesByDependencyIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `repository_url` column. */
-  trgmRepositoryUrl?: TrgmSearchInput;
-  /** TRGM search on the `default_branch` column. */
-  trgmDefaultBranch?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `framework` column. */
-  trgmFramework?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
+  not?: RawContactFilter;
+  /** Filter by the object’s `rawContactEmails` relation. */
+  rawContactEmails?: RawContactToManyRawContactEmailFilter;
+  /** `rawContactEmails` exist. */
+  rawContactEmailsExist?: boolean;
+  /** Filter by the object’s `rawContactPhones` relation. */
+  rawContactPhones?: RawContactToManyRawContactPhoneFilter;
+  /** `rawContactPhones` exist. */
+  rawContactPhonesExist?: boolean;
+  /** Filter by the object’s `rawContactUrls` relation. */
+  rawContactUrls?: RawContactToManyRawContactUrlFilter;
+  /** `rawContactUrls` exist. */
+  rawContactUrlsExist?: boolean;
 }
 /** A filter to be used against `RuntimeState` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateFilter {
@@ -18744,23 +18100,27 @@ export interface RuntimeStateFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
-/** A filter to be used against `Conversation` object types. All fields are combined with a logical ‘and.’ */
-export interface ConversationFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
+/** A filter to be used against `ToolDefinition` object types. All fields are combined with a logical ‘and.’ */
+export interface ToolDefinitionFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `toolType` field. */
+  toolType?: StringTrgmFilter;
+  /** Filter by the object’s `schema` field. */
+  schema?: JSONFilter;
+  /** Filter by the object’s `config` field. */
+  config?: JSONFilter;
+  /** Filter by the object’s `isActive` field. */
+  isActive?: BooleanFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
@@ -18774,85 +18134,38 @@ export interface ConversationFilter {
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: ConversationFilter[];
+  and?: ToolDefinitionFilter[];
   /** Checks for any expressions in this list. */
-  or?: ConversationFilter[];
+  or?: ToolDefinitionFilter[];
   /** Negates the expression. */
-  not?: ConversationFilter;
-  /** Filter by the object’s `messages` relation. */
-  messages?: ConversationToManyMessageFilter;
-  /** `messages` exist. */
-  messagesExist?: boolean;
+  not?: ToolDefinitionFilter;
+  /** Filter by the object’s `toolExecutions` relation. */
+  toolExecutions?: ToolDefinitionToManyToolExecutionFilter;
+  /** `toolExecutions` exist. */
+  toolExecutionsExist?: boolean;
+  /** Filter by the object’s `skillTools` relation. */
+  skillTools?: ToolDefinitionToManySkillToolFilter;
+  /** `skillTools` exist. */
+  skillToolsExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `tool_type` column. */
+  trgmToolType?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `RawContact` object types. All fields are combined with a logical ‘and.’ */
-export interface RawContactFilter {
-  /** Filter by the object’s `externalId` field. */
-  externalId?: StringFilter;
-  /** Filter by the object’s `source` field. */
-  source?: StringFilter;
-  /** Filter by the object’s `firstName` field. */
-  firstName?: StringFilter;
-  /** Filter by the object’s `lastName` field. */
-  lastName?: StringFilter;
-  /** Filter by the object’s `fullName` field. */
-  fullName?: StringFilter;
-  /** Filter by the object’s `headline` field. */
-  headline?: StringFilter;
-  /** Filter by the object’s `bio` field. */
-  bio?: StringFilter;
-  /** Filter by the object’s `location` field. */
-  location?: StringFilter;
-  /** Filter by the object’s `company` field. */
-  company?: StringFilter;
-  /** Filter by the object’s `jobTitle` field. */
-  jobTitle?: StringFilter;
-  /** Filter by the object’s `rawData` field. */
-  rawData?: JSONFilter;
-  /** Filter by the object’s `confidence` field. */
-  confidence?: BigFloatFilter;
-  /** Filter by the object’s `ingestedAt` field. */
-  ingestedAt?: DatetimeFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: RawContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: RawContactFilter[];
-  /** Negates the expression. */
-  not?: RawContactFilter;
-  /** Filter by the object’s `rawContactEmails` relation. */
-  rawContactEmails?: RawContactToManyRawContactEmailFilter;
-  /** `rawContactEmails` exist. */
-  rawContactEmailsExist?: boolean;
-  /** Filter by the object’s `rawContactPhones` relation. */
-  rawContactPhones?: RawContactToManyRawContactPhoneFilter;
-  /** `rawContactPhones` exist. */
-  rawContactPhonesExist?: boolean;
-  /** Filter by the object’s `rawContactUrls` relation. */
-  rawContactUrls?: RawContactToManyRawContactUrlFilter;
-  /** `rawContactUrls` exist. */
-  rawContactUrlsExist?: boolean;
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Trip` object types. All fields are combined with a logical ‘and.’ */
 export interface TripFilter {
@@ -18905,23 +18218,111 @@ export interface TripFilter {
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
    * simultaneously. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
-  fullTextSearch?: string;
+  unifiedSearch?: string;
 }
 // ============ Payload/Return Types (for custom operations) ============
-export interface CreateAgentCollaboratorPayload {
-  clientMutationId?: string | null;
-  /** The `AgentCollaborator` that was created by this mutation. */
-  agentCollaborator?: AgentCollaborator | null;
+export interface RequestUploadUrlPayload {
+  /** Presigned PUT URL (null if file was deduplicated) */
+  uploadUrl?: string | null;
+  /** The file ID (existing if deduplicated, new if fresh upload) */
+  fileId: string;
+  /** The S3 object key */
+  key: string;
+  /** Whether this file was deduplicated (already exists with same hash) */
+  deduplicated: boolean;
+  /** Presigned URL expiry time (null if deduplicated) */
+  expiresAt?: string | null;
 }
-export type CreateAgentCollaboratorPayloadSelect = {
+export type RequestUploadUrlPayloadSelect = {
+  uploadUrl?: boolean;
+  fileId?: boolean;
+  key?: boolean;
+  deduplicated?: boolean;
+  expiresAt?: boolean;
+};
+export interface ConfirmUploadPayload {
+  /** The confirmed file ID */
+  fileId: string;
+  /** New file status */
+  status: string;
+  /** Whether confirmation succeeded */
+  success: boolean;
+}
+export type ConfirmUploadPayloadSelect = {
+  fileId?: boolean;
+  status?: boolean;
+  success?: boolean;
+};
+export interface ProvisionBucketPayload {
+  /** Whether provisioning succeeded */
+  success: boolean;
+  /** The S3 bucket name that was provisioned */
+  bucketName: string;
+  /** The access type applied */
+  accessType: string;
+  /** The storage provider used */
+  provider: string;
+  /** The S3 endpoint (null for AWS S3 default) */
+  endpoint?: string | null;
+  /** Error message if provisioning failed */
+  error?: string | null;
+}
+export type ProvisionBucketPayloadSelect = {
+  success?: boolean;
+  bucketName?: boolean;
+  accessType?: boolean;
+  provider?: boolean;
+  endpoint?: boolean;
+  error?: boolean;
+};
+export interface CreateActivityLogPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLog` that was created by this mutation. */
+  activityLog?: ActivityLog | null;
+  activityLogEdge?: ActivityLogEdge | null;
+}
+export type CreateActivityLogPayloadSelect = {
   clientMutationId?: boolean;
-  agentCollaborator?: {
-    select: AgentCollaboratorSelect;
+  activityLog?: {
+    select: ActivityLogSelect;
+  };
+  activityLogEdge?: {
+    select: ActivityLogEdgeSelect;
+  };
+};
+export interface UpdateActivityLogPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLog` that was updated by this mutation. */
+  activityLog?: ActivityLog | null;
+  activityLogEdge?: ActivityLogEdge | null;
+}
+export type UpdateActivityLogPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLog?: {
+    select: ActivityLogSelect;
+  };
+  activityLogEdge?: {
+    select: ActivityLogEdgeSelect;
+  };
+};
+export interface DeleteActivityLogPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLog` that was deleted by this mutation. */
+  activityLog?: ActivityLog | null;
+  activityLogEdge?: ActivityLogEdge | null;
+}
+export type DeleteActivityLogPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLog?: {
+    select: ActivityLogSelect;
+  };
+  activityLogEdge?: {
+    select: ActivityLogEdgeSelect;
   };
 };
 export interface CreateAgentPayload {
@@ -18969,6 +18370,73 @@ export type DeleteAgentPayloadSelect = {
     select: AgentEdgeSelect;
   };
 };
+export interface CreateAgentCollaboratorPayload {
+  clientMutationId?: string | null;
+  /** The `AgentCollaborator` that was created by this mutation. */
+  agentCollaborator?: AgentCollaborator | null;
+}
+export type CreateAgentCollaboratorPayloadSelect = {
+  clientMutationId?: boolean;
+  agentCollaborator?: {
+    select: AgentCollaboratorSelect;
+  };
+};
+export interface CreateAgentLogPayload {
+  clientMutationId?: string | null;
+  /** The `AgentLog` that was created by this mutation. */
+  agentLog?: AgentLog | null;
+  agentLogEdge?: AgentLogEdge | null;
+}
+export type CreateAgentLogPayloadSelect = {
+  clientMutationId?: boolean;
+  agentLog?: {
+    select: AgentLogSelect;
+  };
+  agentLogEdge?: {
+    select: AgentLogEdgeSelect;
+  };
+};
+export interface UpdateAgentLogPayload {
+  clientMutationId?: string | null;
+  /** The `AgentLog` that was updated by this mutation. */
+  agentLog?: AgentLog | null;
+  agentLogEdge?: AgentLogEdge | null;
+}
+export type UpdateAgentLogPayloadSelect = {
+  clientMutationId?: boolean;
+  agentLog?: {
+    select: AgentLogSelect;
+  };
+  agentLogEdge?: {
+    select: AgentLogEdgeSelect;
+  };
+};
+export interface DeleteAgentLogPayload {
+  clientMutationId?: string | null;
+  /** The `AgentLog` that was deleted by this mutation. */
+  agentLog?: AgentLog | null;
+  agentLogEdge?: AgentLogEdge | null;
+}
+export type DeleteAgentLogPayloadSelect = {
+  clientMutationId?: boolean;
+  agentLog?: {
+    select: AgentLogSelect;
+  };
+  agentLogEdge?: {
+    select: AgentLogEdgeSelect;
+  };
+};
+export interface CreateAgentPromptPayload {
+  clientMutationId?: string | null;
+  /** The `AgentPrompt` that was created by this mutation. */
+  agentPrompt?: AgentPrompt | null;
+}
+export type CreateAgentPromptPayloadSelect = {
+  clientMutationId?: boolean;
+  agentPrompt?: {
+    select: AgentPromptSelect;
+  };
+};
 export interface CreatePromptPayload {
   clientMutationId?: string | null;
   /** The `Prompt` that was created by this mutation. */
@@ -19014,753 +18482,150 @@ export type DeletePromptPayloadSelect = {
     select: PromptEdgeSelect;
   };
 };
-export interface CreateAgentPromptPayload {
+export interface CreateAutonomyRecordPayload {
   clientMutationId?: string | null;
-  /** The `AgentPrompt` that was created by this mutation. */
-  agentPrompt?: AgentPrompt | null;
+  /** The `AutonomyRecord` that was created by this mutation. */
+  autonomyRecord?: AutonomyRecord | null;
+  autonomyRecordEdge?: AutonomyRecordEdge | null;
 }
-export type CreateAgentPromptPayloadSelect = {
+export type CreateAutonomyRecordPayloadSelect = {
   clientMutationId?: boolean;
-  agentPrompt?: {
-    select: AgentPromptSelect;
+  autonomyRecord?: {
+    select: AutonomyRecordSelect;
+  };
+  autonomyRecordEdge?: {
+    select: AutonomyRecordEdgeSelect;
   };
 };
-export interface CreateTaskPayload {
+export interface UpdateAutonomyRecordPayload {
   clientMutationId?: string | null;
-  /** The `Task` that was created by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
+  /** The `AutonomyRecord` that was updated by this mutation. */
+  autonomyRecord?: AutonomyRecord | null;
+  autonomyRecordEdge?: AutonomyRecordEdge | null;
 }
-export type CreateTaskPayloadSelect = {
+export type UpdateAutonomyRecordPayloadSelect = {
   clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
+  autonomyRecord?: {
+    select: AutonomyRecordSelect;
   };
-  taskEdge?: {
-    select: TaskEdgeSelect;
+  autonomyRecordEdge?: {
+    select: AutonomyRecordEdgeSelect;
   };
 };
-export interface UpdateTaskPayload {
+export interface DeleteAutonomyRecordPayload {
   clientMutationId?: string | null;
-  /** The `Task` that was updated by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
+  /** The `AutonomyRecord` that was deleted by this mutation. */
+  autonomyRecord?: AutonomyRecord | null;
+  autonomyRecordEdge?: AutonomyRecordEdge | null;
 }
-export type UpdateTaskPayloadSelect = {
+export type DeleteAutonomyRecordPayloadSelect = {
   clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
+  autonomyRecord?: {
+    select: AutonomyRecordSelect;
   };
-  taskEdge?: {
-    select: TaskEdgeSelect;
+  autonomyRecordEdge?: {
+    select: AutonomyRecordEdgeSelect;
   };
 };
-export interface DeleteTaskPayload {
+export interface CreateAutonomyRecordLinkPayload {
   clientMutationId?: string | null;
-  /** The `Task` that was deleted by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
+  /** The `AutonomyRecordLink` that was created by this mutation. */
+  autonomyRecordLink?: AutonomyRecordLink | null;
 }
-export type DeleteTaskPayloadSelect = {
+export type CreateAutonomyRecordLinkPayloadSelect = {
   clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
-  };
-  taskEdge?: {
-    select: TaskEdgeSelect;
+  autonomyRecordLink?: {
+    select: AutonomyRecordLinkSelect;
   };
 };
-export interface CreateContactPayload {
+export interface CreateCalendarAttendeePayload {
   clientMutationId?: string | null;
-  /** The `Contact` that was created by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
+  /** The `CalendarAttendee` that was created by this mutation. */
+  calendarAttendee?: CalendarAttendee | null;
+  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
 }
-export type CreateContactPayloadSelect = {
+export type CreateCalendarAttendeePayloadSelect = {
   clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
+  calendarAttendee?: {
+    select: CalendarAttendeeSelect;
   };
-  contactEdge?: {
-    select: ContactEdgeSelect;
+  calendarAttendeeEdge?: {
+    select: CalendarAttendeeEdgeSelect;
   };
 };
-export interface UpdateContactPayload {
+export interface UpdateCalendarAttendeePayload {
   clientMutationId?: string | null;
-  /** The `Contact` that was updated by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
+  /** The `CalendarAttendee` that was updated by this mutation. */
+  calendarAttendee?: CalendarAttendee | null;
+  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
 }
-export type UpdateContactPayloadSelect = {
+export type UpdateCalendarAttendeePayloadSelect = {
   clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
+  calendarAttendee?: {
+    select: CalendarAttendeeSelect;
   };
-  contactEdge?: {
-    select: ContactEdgeSelect;
+  calendarAttendeeEdge?: {
+    select: CalendarAttendeeEdgeSelect;
   };
 };
-export interface DeleteContactPayload {
+export interface DeleteCalendarAttendeePayload {
   clientMutationId?: string | null;
-  /** The `Contact` that was deleted by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
+  /** The `CalendarAttendee` that was deleted by this mutation. */
+  calendarAttendee?: CalendarAttendee | null;
+  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
 }
-export type DeleteContactPayloadSelect = {
+export type DeleteCalendarAttendeePayloadSelect = {
   clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
+  calendarAttendee?: {
+    select: CalendarAttendeeSelect;
   };
-  contactEdge?: {
-    select: ContactEdgeSelect;
+  calendarAttendeeEdge?: {
+    select: CalendarAttendeeEdgeSelect;
   };
 };
-export interface CreateImagePayload {
+export interface CreateCalendarPayload {
   clientMutationId?: string | null;
-  /** The `Image` that was created by this mutation. */
-  image?: Image | null;
-  imageEdge?: ImageEdge | null;
+  /** The `Calendar` that was created by this mutation. */
+  calendar?: Calendar | null;
+  calendarEdge?: CalendarEdge | null;
 }
-export type CreateImagePayloadSelect = {
+export type CreateCalendarPayloadSelect = {
   clientMutationId?: boolean;
-  image?: {
-    select: ImageSelect;
+  calendar?: {
+    select: CalendarSelect;
   };
-  imageEdge?: {
-    select: ImageEdgeSelect;
+  calendarEdge?: {
+    select: CalendarEdgeSelect;
   };
 };
-export interface UpdateImagePayload {
+export interface UpdateCalendarPayload {
   clientMutationId?: string | null;
-  /** The `Image` that was updated by this mutation. */
-  image?: Image | null;
-  imageEdge?: ImageEdge | null;
+  /** The `Calendar` that was updated by this mutation. */
+  calendar?: Calendar | null;
+  calendarEdge?: CalendarEdge | null;
 }
-export type UpdateImagePayloadSelect = {
+export type UpdateCalendarPayloadSelect = {
   clientMutationId?: boolean;
-  image?: {
-    select: ImageSelect;
+  calendar?: {
+    select: CalendarSelect;
   };
-  imageEdge?: {
-    select: ImageEdgeSelect;
+  calendarEdge?: {
+    select: CalendarEdgeSelect;
   };
 };
-export interface DeleteImagePayload {
+export interface DeleteCalendarPayload {
   clientMutationId?: string | null;
-  /** The `Image` that was deleted by this mutation. */
-  image?: Image | null;
-  imageEdge?: ImageEdge | null;
+  /** The `Calendar` that was deleted by this mutation. */
+  calendar?: Calendar | null;
+  calendarEdge?: CalendarEdge | null;
 }
-export type DeleteImagePayloadSelect = {
+export type DeleteCalendarPayloadSelect = {
   clientMutationId?: boolean;
-  image?: {
-    select: ImageSelect;
-  };
-  imageEdge?: {
-    select: ImageEdgeSelect;
-  };
-};
-export interface CreateContactImagePayload {
-  clientMutationId?: string | null;
-  /** The `ContactImage` that was created by this mutation. */
-  contactImage?: ContactImage | null;
-}
-export type CreateContactImagePayloadSelect = {
-  clientMutationId?: boolean;
-  contactImage?: {
-    select: ContactImageSelect;
-  };
-};
-export interface CreateCompanyPayload {
-  clientMutationId?: string | null;
-  /** The `Company` that was created by this mutation. */
-  company?: Company | null;
-  companyEdge?: CompanyEdge | null;
-}
-export type CreateCompanyPayloadSelect = {
-  clientMutationId?: boolean;
-  company?: {
-    select: CompanySelect;
-  };
-  companyEdge?: {
-    select: CompanyEdgeSelect;
-  };
-};
-export interface UpdateCompanyPayload {
-  clientMutationId?: string | null;
-  /** The `Company` that was updated by this mutation. */
-  company?: Company | null;
-  companyEdge?: CompanyEdge | null;
-}
-export type UpdateCompanyPayloadSelect = {
-  clientMutationId?: boolean;
-  company?: {
-    select: CompanySelect;
-  };
-  companyEdge?: {
-    select: CompanyEdgeSelect;
-  };
-};
-export interface DeleteCompanyPayload {
-  clientMutationId?: string | null;
-  /** The `Company` that was deleted by this mutation. */
-  company?: Company | null;
-  companyEdge?: CompanyEdge | null;
-}
-export type DeleteCompanyPayloadSelect = {
-  clientMutationId?: boolean;
-  company?: {
-    select: CompanySelect;
-  };
-  companyEdge?: {
-    select: CompanyEdgeSelect;
-  };
-};
-export interface CreateCompanyImagePayload {
-  clientMutationId?: string | null;
-  /** The `CompanyImage` that was created by this mutation. */
-  companyImage?: CompanyImage | null;
-}
-export type CreateCompanyImagePayloadSelect = {
-  clientMutationId?: boolean;
-  companyImage?: {
-    select: CompanyImageSelect;
-  };
-};
-export interface CreateContactCompanyPayload {
-  clientMutationId?: string | null;
-  /** The `ContactCompany` that was created by this mutation. */
-  contactCompany?: ContactCompany | null;
-}
-export type CreateContactCompanyPayloadSelect = {
-  clientMutationId?: boolean;
-  contactCompany?: {
-    select: ContactCompanySelect;
-  };
-};
-export interface CreateEventPayload {
-  clientMutationId?: string | null;
-  /** The `Event` that was created by this mutation. */
-  event?: Event | null;
-  eventEdge?: EventEdge | null;
-}
-export type CreateEventPayloadSelect = {
-  clientMutationId?: boolean;
-  event?: {
-    select: EventSelect;
-  };
-  eventEdge?: {
-    select: EventEdgeSelect;
-  };
-};
-export interface UpdateEventPayload {
-  clientMutationId?: string | null;
-  /** The `Event` that was updated by this mutation. */
-  event?: Event | null;
-  eventEdge?: EventEdge | null;
-}
-export type UpdateEventPayloadSelect = {
-  clientMutationId?: boolean;
-  event?: {
-    select: EventSelect;
-  };
-  eventEdge?: {
-    select: EventEdgeSelect;
-  };
-};
-export interface DeleteEventPayload {
-  clientMutationId?: string | null;
-  /** The `Event` that was deleted by this mutation. */
-  event?: Event | null;
-  eventEdge?: EventEdge | null;
-}
-export type DeleteEventPayloadSelect = {
-  clientMutationId?: boolean;
-  event?: {
-    select: EventSelect;
-  };
-  eventEdge?: {
-    select: EventEdgeSelect;
-  };
-};
-export interface CreateEventImagePayload {
-  clientMutationId?: string | null;
-  /** The `EventImage` that was created by this mutation. */
-  eventImage?: EventImage | null;
-}
-export type CreateEventImagePayloadSelect = {
-  clientMutationId?: boolean;
-  eventImage?: {
-    select: EventImageSelect;
-  };
-};
-export interface CreateContactEventPayload {
-  clientMutationId?: string | null;
-  /** The `ContactEvent` that was created by this mutation. */
-  contactEvent?: ContactEvent | null;
-}
-export type CreateContactEventPayloadSelect = {
-  clientMutationId?: boolean;
-  contactEvent?: {
-    select: ContactEventSelect;
-  };
-};
-export interface CreateCompanyEventPayload {
-  clientMutationId?: string | null;
-  /** The `CompanyEvent` that was created by this mutation. */
-  companyEvent?: CompanyEvent | null;
-}
-export type CreateCompanyEventPayloadSelect = {
-  clientMutationId?: boolean;
-  companyEvent?: {
-    select: CompanyEventSelect;
-  };
-};
-export interface CreateVenuePayload {
-  clientMutationId?: string | null;
-  /** The `Venue` that was created by this mutation. */
-  venue?: Venue | null;
-  venueEdge?: VenueEdge | null;
-}
-export type CreateVenuePayloadSelect = {
-  clientMutationId?: boolean;
-  venue?: {
-    select: VenueSelect;
-  };
-  venueEdge?: {
-    select: VenueEdgeSelect;
-  };
-};
-export interface UpdateVenuePayload {
-  clientMutationId?: string | null;
-  /** The `Venue` that was updated by this mutation. */
-  venue?: Venue | null;
-  venueEdge?: VenueEdge | null;
-}
-export type UpdateVenuePayloadSelect = {
-  clientMutationId?: boolean;
-  venue?: {
-    select: VenueSelect;
-  };
-  venueEdge?: {
-    select: VenueEdgeSelect;
-  };
-};
-export interface DeleteVenuePayload {
-  clientMutationId?: string | null;
-  /** The `Venue` that was deleted by this mutation. */
-  venue?: Venue | null;
-  venueEdge?: VenueEdge | null;
-}
-export type DeleteVenuePayloadSelect = {
-  clientMutationId?: boolean;
-  venue?: {
-    select: VenueSelect;
-  };
-  venueEdge?: {
-    select: VenueEdgeSelect;
-  };
-};
-export interface CreateVenueImagePayload {
-  clientMutationId?: string | null;
-  /** The `VenueImage` that was created by this mutation. */
-  venueImage?: VenueImage | null;
-}
-export type CreateVenueImagePayloadSelect = {
-  clientMutationId?: boolean;
-  venueImage?: {
-    select: VenueImageSelect;
-  };
-};
-export interface CreateEventVenuePayload {
-  clientMutationId?: string | null;
-  /** The `EventVenue` that was created by this mutation. */
-  eventVenue?: EventVenue | null;
-}
-export type CreateEventVenuePayloadSelect = {
-  clientMutationId?: boolean;
-  eventVenue?: {
-    select: EventVenueSelect;
-  };
-};
-export interface CreateVenueLinkPayload {
-  clientMutationId?: string | null;
-  /** The `VenueLink` that was created by this mutation. */
-  venueLink?: VenueLink | null;
-  venueLinkEdge?: VenueLinkEdge | null;
-}
-export type CreateVenueLinkPayloadSelect = {
-  clientMutationId?: boolean;
-  venueLink?: {
-    select: VenueLinkSelect;
-  };
-  venueLinkEdge?: {
-    select: VenueLinkEdgeSelect;
-  };
-};
-export interface UpdateVenueLinkPayload {
-  clientMutationId?: string | null;
-  /** The `VenueLink` that was updated by this mutation. */
-  venueLink?: VenueLink | null;
-  venueLinkEdge?: VenueLinkEdge | null;
-}
-export type UpdateVenueLinkPayloadSelect = {
-  clientMutationId?: boolean;
-  venueLink?: {
-    select: VenueLinkSelect;
-  };
-  venueLinkEdge?: {
-    select: VenueLinkEdgeSelect;
-  };
-};
-export interface DeleteVenueLinkPayload {
-  clientMutationId?: string | null;
-  /** The `VenueLink` that was deleted by this mutation. */
-  venueLink?: VenueLink | null;
-  venueLinkEdge?: VenueLinkEdge | null;
-}
-export type DeleteVenueLinkPayloadSelect = {
-  clientMutationId?: boolean;
-  venueLink?: {
-    select: VenueLinkSelect;
-  };
-  venueLinkEdge?: {
-    select: VenueLinkEdgeSelect;
-  };
-};
-export interface CreateNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was created by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type CreateNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
-export interface UpdateNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was updated by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type UpdateNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
-export interface DeleteNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was deleted by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type DeleteNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
-export interface CreateContactNotePayload {
-  clientMutationId?: string | null;
-  /** The `ContactNote` that was created by this mutation. */
-  contactNote?: ContactNote | null;
-}
-export type CreateContactNotePayloadSelect = {
-  clientMutationId?: boolean;
-  contactNote?: {
-    select: ContactNoteSelect;
-  };
-};
-export interface CreateCompanyNotePayload {
-  clientMutationId?: string | null;
-  /** The `CompanyNote` that was created by this mutation. */
-  companyNote?: CompanyNote | null;
-}
-export type CreateCompanyNotePayloadSelect = {
-  clientMutationId?: boolean;
-  companyNote?: {
-    select: CompanyNoteSelect;
-  };
-};
-export interface CreateDealPayload {
-  clientMutationId?: string | null;
-  /** The `Deal` that was created by this mutation. */
-  deal?: Deal | null;
-  dealEdge?: DealEdge | null;
-}
-export type CreateDealPayloadSelect = {
-  clientMutationId?: boolean;
-  deal?: {
-    select: DealSelect;
-  };
-  dealEdge?: {
-    select: DealEdgeSelect;
-  };
-};
-export interface UpdateDealPayload {
-  clientMutationId?: string | null;
-  /** The `Deal` that was updated by this mutation. */
-  deal?: Deal | null;
-  dealEdge?: DealEdge | null;
-}
-export type UpdateDealPayloadSelect = {
-  clientMutationId?: boolean;
-  deal?: {
-    select: DealSelect;
-  };
-  dealEdge?: {
-    select: DealEdgeSelect;
-  };
-};
-export interface DeleteDealPayload {
-  clientMutationId?: string | null;
-  /** The `Deal` that was deleted by this mutation. */
-  deal?: Deal | null;
-  dealEdge?: DealEdge | null;
-}
-export type DeleteDealPayloadSelect = {
-  clientMutationId?: boolean;
-  deal?: {
-    select: DealSelect;
-  };
-  dealEdge?: {
-    select: DealEdgeSelect;
-  };
-};
-export interface CreateDealContactPayload {
-  clientMutationId?: string | null;
-  /** The `DealContact` that was created by this mutation. */
-  dealContact?: DealContact | null;
-}
-export type CreateDealContactPayloadSelect = {
-  clientMutationId?: boolean;
-  dealContact?: {
-    select: DealContactSelect;
-  };
-};
-export interface CreateDealCompanyPayload {
-  clientMutationId?: string | null;
-  /** The `DealCompany` that was created by this mutation. */
-  dealCompany?: DealCompany | null;
-}
-export type CreateDealCompanyPayloadSelect = {
-  clientMutationId?: boolean;
-  dealCompany?: {
-    select: DealCompanySelect;
-  };
-};
-export interface CreateDealNotePayload {
-  clientMutationId?: string | null;
-  /** The `DealNote` that was created by this mutation. */
-  dealNote?: DealNote | null;
-}
-export type CreateDealNotePayloadSelect = {
-  clientMutationId?: boolean;
-  dealNote?: {
-    select: DealNoteSelect;
-  };
-};
-export interface CreateTouchpointPayload {
-  clientMutationId?: string | null;
-  /** The `Touchpoint` that was created by this mutation. */
-  touchpoint?: Touchpoint | null;
-  touchpointEdge?: TouchpointEdge | null;
-}
-export type CreateTouchpointPayloadSelect = {
-  clientMutationId?: boolean;
-  touchpoint?: {
-    select: TouchpointSelect;
-  };
-  touchpointEdge?: {
-    select: TouchpointEdgeSelect;
-  };
-};
-export interface UpdateTouchpointPayload {
-  clientMutationId?: string | null;
-  /** The `Touchpoint` that was updated by this mutation. */
-  touchpoint?: Touchpoint | null;
-  touchpointEdge?: TouchpointEdge | null;
-}
-export type UpdateTouchpointPayloadSelect = {
-  clientMutationId?: boolean;
-  touchpoint?: {
-    select: TouchpointSelect;
-  };
-  touchpointEdge?: {
-    select: TouchpointEdgeSelect;
-  };
-};
-export interface DeleteTouchpointPayload {
-  clientMutationId?: string | null;
-  /** The `Touchpoint` that was deleted by this mutation. */
-  touchpoint?: Touchpoint | null;
-  touchpointEdge?: TouchpointEdge | null;
-}
-export type DeleteTouchpointPayloadSelect = {
-  clientMutationId?: boolean;
-  touchpoint?: {
-    select: TouchpointSelect;
-  };
-  touchpointEdge?: {
-    select: TouchpointEdgeSelect;
-  };
-};
-export interface CreateEventNotePayload {
-  clientMutationId?: string | null;
-  /** The `EventNote` that was created by this mutation. */
-  eventNote?: EventNote | null;
-}
-export type CreateEventNotePayloadSelect = {
-  clientMutationId?: boolean;
-  eventNote?: {
-    select: EventNoteSelect;
-  };
-};
-export interface CreateTaskNotePayload {
-  clientMutationId?: string | null;
-  /** The `TaskNote` that was created by this mutation. */
-  taskNote?: TaskNote | null;
-}
-export type CreateTaskNotePayloadSelect = {
-  clientMutationId?: boolean;
-  taskNote?: {
-    select: TaskNoteSelect;
-  };
-};
-export interface CreateEmailPayload {
-  clientMutationId?: string | null;
-  /** The `Email` that was created by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
-}
-export type CreateEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
-  };
-  emailEdge?: {
-    select: EmailEdgeSelect;
-  };
-};
-export interface UpdateEmailPayload {
-  clientMutationId?: string | null;
-  /** The `Email` that was updated by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
-}
-export type UpdateEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
-  };
-  emailEdge?: {
-    select: EmailEdgeSelect;
-  };
-};
-export interface DeleteEmailPayload {
-  clientMutationId?: string | null;
-  /** The `Email` that was deleted by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
-}
-export type DeleteEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
-  };
-  emailEdge?: {
-    select: EmailEdgeSelect;
-  };
-};
-export interface CreateEmailRecipientPayload {
-  clientMutationId?: string | null;
-  /** The `EmailRecipient` that was created by this mutation. */
-  emailRecipient?: EmailRecipient | null;
-}
-export type CreateEmailRecipientPayloadSelect = {
-  clientMutationId?: boolean;
-  emailRecipient?: {
-    select: EmailRecipientSelect;
-  };
-};
-export interface CreateEmailNotePayload {
-  clientMutationId?: string | null;
-  /** The `EmailNote` that was created by this mutation. */
-  emailNote?: EmailNote | null;
-}
-export type CreateEmailNotePayloadSelect = {
-  clientMutationId?: boolean;
-  emailNote?: {
-    select: EmailNoteSelect;
-  };
-};
-export interface CreateThreadParticipantPayload {
-  clientMutationId?: string | null;
-  /** The `ThreadParticipant` that was created by this mutation. */
-  threadParticipant?: ThreadParticipant | null;
-}
-export type CreateThreadParticipantPayloadSelect = {
-  clientMutationId?: boolean;
-  threadParticipant?: {
-    select: ThreadParticipantSelect;
-  };
-};
-export interface CreateEmailAttachmentPayload {
-  clientMutationId?: string | null;
-  /** The `EmailAttachment` that was created by this mutation. */
-  emailAttachment?: EmailAttachment | null;
-  emailAttachmentEdge?: EmailAttachmentEdge | null;
-}
-export type CreateEmailAttachmentPayloadSelect = {
-  clientMutationId?: boolean;
-  emailAttachment?: {
-    select: EmailAttachmentSelect;
-  };
-  emailAttachmentEdge?: {
-    select: EmailAttachmentEdgeSelect;
-  };
-};
-export interface UpdateEmailAttachmentPayload {
-  clientMutationId?: string | null;
-  /** The `EmailAttachment` that was updated by this mutation. */
-  emailAttachment?: EmailAttachment | null;
-  emailAttachmentEdge?: EmailAttachmentEdge | null;
-}
-export type UpdateEmailAttachmentPayloadSelect = {
-  clientMutationId?: boolean;
-  emailAttachment?: {
-    select: EmailAttachmentSelect;
-  };
-  emailAttachmentEdge?: {
-    select: EmailAttachmentEdgeSelect;
-  };
-};
-export interface DeleteEmailAttachmentPayload {
-  clientMutationId?: string | null;
-  /** The `EmailAttachment` that was deleted by this mutation. */
-  emailAttachment?: EmailAttachment | null;
-  emailAttachmentEdge?: EmailAttachmentEdge | null;
-}
-export type DeleteEmailAttachmentPayloadSelect = {
-  clientMutationId?: boolean;
-  emailAttachment?: {
-    select: EmailAttachmentSelect;
-  };
-  emailAttachmentEdge?: {
-    select: EmailAttachmentEdgeSelect;
+  calendar?: {
+    select: CalendarSelect;
+  };
+  calendarEdge?: {
+    select: CalendarEdgeSelect;
   };
 };
 export interface CreateCalendarEventPayload {
@@ -19819,6 +18684,51 @@ export type CreateCalendarEventContactPayloadSelect = {
     select: CalendarEventContactSelect;
   };
 };
+export interface CreateContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was created by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type CreateContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
+export interface UpdateContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was updated by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type UpdateContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
+export interface DeleteContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was deleted by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type DeleteContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
 export interface CreateCalendarEventNotePayload {
   clientMutationId?: string | null;
   /** The `CalendarEventNote` that was created by this mutation. */
@@ -19828,6 +18738,51 @@ export type CreateCalendarEventNotePayloadSelect = {
   clientMutationId?: boolean;
   calendarEventNote?: {
     select: CalendarEventNoteSelect;
+  };
+};
+export interface CreateNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was created by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type CreateNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
+  };
+};
+export interface UpdateNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was updated by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type UpdateNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
+  };
+};
+export interface DeleteNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was deleted by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type DeleteNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
   };
 };
 export interface CreateCalendarEventTaskPayload {
@@ -19841,161 +18796,251 @@ export type CreateCalendarEventTaskPayloadSelect = {
     select: CalendarEventTaskSelect;
   };
 };
-export interface CreateCalendarAttendeePayload {
+export interface CreateTaskPayload {
   clientMutationId?: string | null;
-  /** The `CalendarAttendee` that was created by this mutation. */
-  calendarAttendee?: CalendarAttendee | null;
-  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
+  /** The `Task` that was created by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
 }
-export type CreateCalendarAttendeePayloadSelect = {
+export type CreateTaskPayloadSelect = {
   clientMutationId?: boolean;
-  calendarAttendee?: {
-    select: CalendarAttendeeSelect;
+  task?: {
+    select: TaskSelect;
   };
-  calendarAttendeeEdge?: {
-    select: CalendarAttendeeEdgeSelect;
+  taskEdge?: {
+    select: TaskEdgeSelect;
   };
 };
-export interface UpdateCalendarAttendeePayload {
+export interface UpdateTaskPayload {
   clientMutationId?: string | null;
-  /** The `CalendarAttendee` that was updated by this mutation. */
-  calendarAttendee?: CalendarAttendee | null;
-  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
+  /** The `Task` that was updated by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
 }
-export type UpdateCalendarAttendeePayloadSelect = {
+export type UpdateTaskPayloadSelect = {
   clientMutationId?: boolean;
-  calendarAttendee?: {
-    select: CalendarAttendeeSelect;
+  task?: {
+    select: TaskSelect;
   };
-  calendarAttendeeEdge?: {
-    select: CalendarAttendeeEdgeSelect;
+  taskEdge?: {
+    select: TaskEdgeSelect;
   };
 };
-export interface DeleteCalendarAttendeePayload {
+export interface DeleteTaskPayload {
   clientMutationId?: string | null;
-  /** The `CalendarAttendee` that was deleted by this mutation. */
-  calendarAttendee?: CalendarAttendee | null;
-  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
+  /** The `Task` that was deleted by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
 }
-export type DeleteCalendarAttendeePayloadSelect = {
+export type DeleteTaskPayloadSelect = {
   clientMutationId?: boolean;
-  calendarAttendee?: {
-    select: CalendarAttendeeSelect;
+  task?: {
+    select: TaskSelect;
   };
-  calendarAttendeeEdge?: {
-    select: CalendarAttendeeEdgeSelect;
+  taskEdge?: {
+    select: TaskEdgeSelect;
   };
 };
-export interface CreateEventLinkPayload {
+export interface CreateCompanyPayload {
   clientMutationId?: string | null;
-  /** The `EventLink` that was created by this mutation. */
-  eventLink?: EventLink | null;
-  eventLinkEdge?: EventLinkEdge | null;
+  /** The `Company` that was created by this mutation. */
+  company?: Company | null;
+  companyEdge?: CompanyEdge | null;
 }
-export type CreateEventLinkPayloadSelect = {
+export type CreateCompanyPayloadSelect = {
   clientMutationId?: boolean;
-  eventLink?: {
-    select: EventLinkSelect;
+  company?: {
+    select: CompanySelect;
   };
-  eventLinkEdge?: {
-    select: EventLinkEdgeSelect;
+  companyEdge?: {
+    select: CompanyEdgeSelect;
   };
 };
-export interface UpdateEventLinkPayload {
+export interface UpdateCompanyPayload {
   clientMutationId?: string | null;
-  /** The `EventLink` that was updated by this mutation. */
-  eventLink?: EventLink | null;
-  eventLinkEdge?: EventLinkEdge | null;
+  /** The `Company` that was updated by this mutation. */
+  company?: Company | null;
+  companyEdge?: CompanyEdge | null;
 }
-export type UpdateEventLinkPayloadSelect = {
+export type UpdateCompanyPayloadSelect = {
   clientMutationId?: boolean;
-  eventLink?: {
-    select: EventLinkSelect;
+  company?: {
+    select: CompanySelect;
   };
-  eventLinkEdge?: {
-    select: EventLinkEdgeSelect;
+  companyEdge?: {
+    select: CompanyEdgeSelect;
   };
 };
-export interface DeleteEventLinkPayload {
+export interface DeleteCompanyPayload {
   clientMutationId?: string | null;
-  /** The `EventLink` that was deleted by this mutation. */
-  eventLink?: EventLink | null;
-  eventLinkEdge?: EventLinkEdge | null;
+  /** The `Company` that was deleted by this mutation. */
+  company?: Company | null;
+  companyEdge?: CompanyEdge | null;
 }
-export type DeleteEventLinkPayloadSelect = {
+export type DeleteCompanyPayloadSelect = {
   clientMutationId?: boolean;
-  eventLink?: {
-    select: EventLinkSelect;
+  company?: {
+    select: CompanySelect;
   };
-  eventLinkEdge?: {
-    select: EventLinkEdgeSelect;
+  companyEdge?: {
+    select: CompanyEdgeSelect;
   };
 };
-export interface CreateMemoryPayload {
+export interface CreateDealPayload {
   clientMutationId?: string | null;
-  /** The `Memory` that was created by this mutation. */
-  memory?: Memory | null;
-  memoryEdge?: MemoryEdge | null;
+  /** The `Deal` that was created by this mutation. */
+  deal?: Deal | null;
+  dealEdge?: DealEdge | null;
 }
-export type CreateMemoryPayloadSelect = {
+export type CreateDealPayloadSelect = {
   clientMutationId?: boolean;
-  memory?: {
-    select: MemorySelect;
+  deal?: {
+    select: DealSelect;
   };
-  memoryEdge?: {
-    select: MemoryEdgeSelect;
+  dealEdge?: {
+    select: DealEdgeSelect;
   };
 };
-export interface UpdateMemoryPayload {
+export interface UpdateDealPayload {
   clientMutationId?: string | null;
-  /** The `Memory` that was updated by this mutation. */
-  memory?: Memory | null;
-  memoryEdge?: MemoryEdge | null;
+  /** The `Deal` that was updated by this mutation. */
+  deal?: Deal | null;
+  dealEdge?: DealEdge | null;
 }
-export type UpdateMemoryPayloadSelect = {
+export type UpdateDealPayloadSelect = {
   clientMutationId?: boolean;
-  memory?: {
-    select: MemorySelect;
+  deal?: {
+    select: DealSelect;
   };
-  memoryEdge?: {
-    select: MemoryEdgeSelect;
+  dealEdge?: {
+    select: DealEdgeSelect;
   };
 };
-export interface DeleteMemoryPayload {
+export interface DeleteDealPayload {
   clientMutationId?: string | null;
-  /** The `Memory` that was deleted by this mutation. */
-  memory?: Memory | null;
-  memoryEdge?: MemoryEdge | null;
+  /** The `Deal` that was deleted by this mutation. */
+  deal?: Deal | null;
+  dealEdge?: DealEdge | null;
 }
-export type DeleteMemoryPayloadSelect = {
+export type DeleteDealPayloadSelect = {
   clientMutationId?: boolean;
-  memory?: {
-    select: MemorySelect;
+  deal?: {
+    select: DealSelect;
   };
-  memoryEdge?: {
-    select: MemoryEdgeSelect;
-  };
-};
-export interface CreateContactMemoryPayload {
-  clientMutationId?: string | null;
-  /** The `ContactMemory` that was created by this mutation. */
-  contactMemory?: ContactMemory | null;
-}
-export type CreateContactMemoryPayloadSelect = {
-  clientMutationId?: boolean;
-  contactMemory?: {
-    select: ContactMemorySelect;
+  dealEdge?: {
+    select: DealEdgeSelect;
   };
 };
-export interface CreateCompanyMemoryPayload {
+export interface CreateCompanyEventPayload {
   clientMutationId?: string | null;
-  /** The `CompanyMemory` that was created by this mutation. */
-  companyMemory?: CompanyMemory | null;
+  /** The `CompanyEvent` that was created by this mutation. */
+  companyEvent?: CompanyEvent | null;
 }
-export type CreateCompanyMemoryPayloadSelect = {
+export type CreateCompanyEventPayloadSelect = {
   clientMutationId?: boolean;
-  companyMemory?: {
-    select: CompanyMemorySelect;
+  companyEvent?: {
+    select: CompanyEventSelect;
+  };
+};
+export interface CreateEventPayload {
+  clientMutationId?: string | null;
+  /** The `Event` that was created by this mutation. */
+  event?: Event | null;
+  eventEdge?: EventEdge | null;
+}
+export type CreateEventPayloadSelect = {
+  clientMutationId?: boolean;
+  event?: {
+    select: EventSelect;
+  };
+  eventEdge?: {
+    select: EventEdgeSelect;
+  };
+};
+export interface UpdateEventPayload {
+  clientMutationId?: string | null;
+  /** The `Event` that was updated by this mutation. */
+  event?: Event | null;
+  eventEdge?: EventEdge | null;
+}
+export type UpdateEventPayloadSelect = {
+  clientMutationId?: boolean;
+  event?: {
+    select: EventSelect;
+  };
+  eventEdge?: {
+    select: EventEdgeSelect;
+  };
+};
+export interface DeleteEventPayload {
+  clientMutationId?: string | null;
+  /** The `Event` that was deleted by this mutation. */
+  event?: Event | null;
+  eventEdge?: EventEdge | null;
+}
+export type DeleteEventPayloadSelect = {
+  clientMutationId?: boolean;
+  event?: {
+    select: EventSelect;
+  };
+  eventEdge?: {
+    select: EventEdgeSelect;
+  };
+};
+export interface CreateCompanyImagePayload {
+  clientMutationId?: string | null;
+  /** The `CompanyImage` that was created by this mutation. */
+  companyImage?: CompanyImage | null;
+}
+export type CreateCompanyImagePayloadSelect = {
+  clientMutationId?: boolean;
+  companyImage?: {
+    select: CompanyImageSelect;
+  };
+};
+export interface CreateImagePayload {
+  clientMutationId?: string | null;
+  /** The `Image` that was created by this mutation. */
+  image?: Image | null;
+  imageEdge?: ImageEdge | null;
+}
+export type CreateImagePayloadSelect = {
+  clientMutationId?: boolean;
+  image?: {
+    select: ImageSelect;
+  };
+  imageEdge?: {
+    select: ImageEdgeSelect;
+  };
+};
+export interface UpdateImagePayload {
+  clientMutationId?: string | null;
+  /** The `Image` that was updated by this mutation. */
+  image?: Image | null;
+  imageEdge?: ImageEdge | null;
+}
+export type UpdateImagePayloadSelect = {
+  clientMutationId?: boolean;
+  image?: {
+    select: ImageSelect;
+  };
+  imageEdge?: {
+    select: ImageEdgeSelect;
+  };
+};
+export interface DeleteImagePayload {
+  clientMutationId?: string | null;
+  /** The `Image` that was deleted by this mutation. */
+  image?: Image | null;
+  imageEdge?: ImageEdge | null;
+}
+export type DeleteImagePayloadSelect = {
+  clientMutationId?: boolean;
+  image?: {
+    select: ImageSelect;
+  };
+  imageEdge?: {
+    select: ImageEdgeSelect;
   };
 };
 export interface CreateCompanyLinkPayload {
@@ -20043,486 +19088,71 @@ export type DeleteCompanyLinkPayloadSelect = {
     select: CompanyLinkEdgeSelect;
   };
 };
-export interface CreateContactRelationshipPayload {
+export interface CreateMemoryPayload {
   clientMutationId?: string | null;
-  /** The `ContactRelationship` that was created by this mutation. */
-  contactRelationship?: ContactRelationship | null;
+  /** The `Memory` that was created by this mutation. */
+  memory?: Memory | null;
+  memoryEdge?: MemoryEdge | null;
 }
-export type CreateContactRelationshipPayloadSelect = {
+export type CreateMemoryPayloadSelect = {
   clientMutationId?: boolean;
-  contactRelationship?: {
-    select: ContactRelationshipSelect;
+  memory?: {
+    select: MemorySelect;
+  };
+  memoryEdge?: {
+    select: MemoryEdgeSelect;
   };
 };
-export interface CreateProjectPayload {
+export interface UpdateMemoryPayload {
   clientMutationId?: string | null;
-  /** The `Project` that was created by this mutation. */
-  project?: Project | null;
-  projectEdge?: ProjectEdge | null;
+  /** The `Memory` that was updated by this mutation. */
+  memory?: Memory | null;
+  memoryEdge?: MemoryEdge | null;
 }
-export type CreateProjectPayloadSelect = {
+export type UpdateMemoryPayloadSelect = {
   clientMutationId?: boolean;
-  project?: {
-    select: ProjectSelect;
+  memory?: {
+    select: MemorySelect;
   };
-  projectEdge?: {
-    select: ProjectEdgeSelect;
+  memoryEdge?: {
+    select: MemoryEdgeSelect;
   };
 };
-export interface UpdateProjectPayload {
+export interface DeleteMemoryPayload {
   clientMutationId?: string | null;
-  /** The `Project` that was updated by this mutation. */
-  project?: Project | null;
-  projectEdge?: ProjectEdge | null;
+  /** The `Memory` that was deleted by this mutation. */
+  memory?: Memory | null;
+  memoryEdge?: MemoryEdge | null;
 }
-export type UpdateProjectPayloadSelect = {
+export type DeleteMemoryPayloadSelect = {
   clientMutationId?: boolean;
-  project?: {
-    select: ProjectSelect;
+  memory?: {
+    select: MemorySelect;
   };
-  projectEdge?: {
-    select: ProjectEdgeSelect;
+  memoryEdge?: {
+    select: MemoryEdgeSelect;
   };
 };
-export interface DeleteProjectPayload {
+export interface CreateCompanyMemoryPayload {
   clientMutationId?: string | null;
-  /** The `Project` that was deleted by this mutation. */
-  project?: Project | null;
-  projectEdge?: ProjectEdge | null;
+  /** The `CompanyMemory` that was created by this mutation. */
+  companyMemory?: CompanyMemory | null;
 }
-export type DeleteProjectPayloadSelect = {
+export type CreateCompanyMemoryPayloadSelect = {
   clientMutationId?: boolean;
-  project?: {
-    select: ProjectSelect;
-  };
-  projectEdge?: {
-    select: ProjectEdgeSelect;
+  companyMemory?: {
+    select: CompanyMemorySelect;
   };
 };
-export interface CreateProjectContactPayload {
+export interface CreateCompanyNotePayload {
   clientMutationId?: string | null;
-  /** The `ProjectContact` that was created by this mutation. */
-  projectContact?: ProjectContact | null;
+  /** The `CompanyNote` that was created by this mutation. */
+  companyNote?: CompanyNote | null;
 }
-export type CreateProjectContactPayloadSelect = {
+export type CreateCompanyNotePayloadSelect = {
   clientMutationId?: boolean;
-  projectContact?: {
-    select: ProjectContactSelect;
-  };
-};
-export interface CreateTaskProjectPayload {
-  clientMutationId?: string | null;
-  /** The `TaskProject` that was created by this mutation. */
-  taskProject?: TaskProject | null;
-}
-export type CreateTaskProjectPayloadSelect = {
-  clientMutationId?: boolean;
-  taskProject?: {
-    select: TaskProjectSelect;
-  };
-};
-export interface CreateGoalPayload {
-  clientMutationId?: string | null;
-  /** The `Goal` that was created by this mutation. */
-  goal?: Goal | null;
-  goalEdge?: GoalEdge | null;
-}
-export type CreateGoalPayloadSelect = {
-  clientMutationId?: boolean;
-  goal?: {
-    select: GoalSelect;
-  };
-  goalEdge?: {
-    select: GoalEdgeSelect;
-  };
-};
-export interface UpdateGoalPayload {
-  clientMutationId?: string | null;
-  /** The `Goal` that was updated by this mutation. */
-  goal?: Goal | null;
-  goalEdge?: GoalEdge | null;
-}
-export type UpdateGoalPayloadSelect = {
-  clientMutationId?: boolean;
-  goal?: {
-    select: GoalSelect;
-  };
-  goalEdge?: {
-    select: GoalEdgeSelect;
-  };
-};
-export interface DeleteGoalPayload {
-  clientMutationId?: string | null;
-  /** The `Goal` that was deleted by this mutation. */
-  goal?: Goal | null;
-  goalEdge?: GoalEdge | null;
-}
-export type DeleteGoalPayloadSelect = {
-  clientMutationId?: boolean;
-  goal?: {
-    select: GoalSelect;
-  };
-  goalEdge?: {
-    select: GoalEdgeSelect;
-  };
-};
-export interface CreateHabitPayload {
-  clientMutationId?: string | null;
-  /** The `Habit` that was created by this mutation. */
-  habit?: Habit | null;
-  habitEdge?: HabitEdge | null;
-}
-export type CreateHabitPayloadSelect = {
-  clientMutationId?: boolean;
-  habit?: {
-    select: HabitSelect;
-  };
-  habitEdge?: {
-    select: HabitEdgeSelect;
-  };
-};
-export interface UpdateHabitPayload {
-  clientMutationId?: string | null;
-  /** The `Habit` that was updated by this mutation. */
-  habit?: Habit | null;
-  habitEdge?: HabitEdge | null;
-}
-export type UpdateHabitPayloadSelect = {
-  clientMutationId?: boolean;
-  habit?: {
-    select: HabitSelect;
-  };
-  habitEdge?: {
-    select: HabitEdgeSelect;
-  };
-};
-export interface DeleteHabitPayload {
-  clientMutationId?: string | null;
-  /** The `Habit` that was deleted by this mutation. */
-  habit?: Habit | null;
-  habitEdge?: HabitEdge | null;
-}
-export type DeleteHabitPayloadSelect = {
-  clientMutationId?: boolean;
-  habit?: {
-    select: HabitSelect;
-  };
-  habitEdge?: {
-    select: HabitEdgeSelect;
-  };
-};
-export interface CreateGoalHabitPayload {
-  clientMutationId?: string | null;
-  /** The `GoalHabit` that was created by this mutation. */
-  goalHabit?: GoalHabit | null;
-}
-export type CreateGoalHabitPayloadSelect = {
-  clientMutationId?: boolean;
-  goalHabit?: {
-    select: GoalHabitSelect;
-  };
-};
-export interface CreateActivityLogPayload {
-  clientMutationId?: string | null;
-  /** The `ActivityLog` that was created by this mutation. */
-  activityLog?: ActivityLog | null;
-  activityLogEdge?: ActivityLogEdge | null;
-}
-export type CreateActivityLogPayloadSelect = {
-  clientMutationId?: boolean;
-  activityLog?: {
-    select: ActivityLogSelect;
-  };
-  activityLogEdge?: {
-    select: ActivityLogEdgeSelect;
-  };
-};
-export interface UpdateActivityLogPayload {
-  clientMutationId?: string | null;
-  /** The `ActivityLog` that was updated by this mutation. */
-  activityLog?: ActivityLog | null;
-  activityLogEdge?: ActivityLogEdge | null;
-}
-export type UpdateActivityLogPayloadSelect = {
-  clientMutationId?: boolean;
-  activityLog?: {
-    select: ActivityLogSelect;
-  };
-  activityLogEdge?: {
-    select: ActivityLogEdgeSelect;
-  };
-};
-export interface DeleteActivityLogPayload {
-  clientMutationId?: string | null;
-  /** The `ActivityLog` that was deleted by this mutation. */
-  activityLog?: ActivityLog | null;
-  activityLogEdge?: ActivityLogEdge | null;
-}
-export type DeleteActivityLogPayloadSelect = {
-  clientMutationId?: boolean;
-  activityLog?: {
-    select: ActivityLogSelect;
-  };
-  activityLogEdge?: {
-    select: ActivityLogEdgeSelect;
-  };
-};
-export interface CreateGoalProjectPayload {
-  clientMutationId?: string | null;
-  /** The `GoalProject` that was created by this mutation. */
-  goalProject?: GoalProject | null;
-}
-export type CreateGoalProjectPayloadSelect = {
-  clientMutationId?: boolean;
-  goalProject?: {
-    select: GoalProjectSelect;
-  };
-};
-export interface CreateTaskContactPayload {
-  clientMutationId?: string | null;
-  /** The `TaskContact` that was created by this mutation. */
-  taskContact?: TaskContact | null;
-}
-export type CreateTaskContactPayloadSelect = {
-  clientMutationId?: boolean;
-  taskContact?: {
-    select: TaskContactSelect;
-  };
-};
-export interface CreateExpensePayload {
-  clientMutationId?: string | null;
-  /** The `Expense` that was created by this mutation. */
-  expense?: Expense | null;
-  expenseEdge?: ExpenseEdge | null;
-}
-export type CreateExpensePayloadSelect = {
-  clientMutationId?: boolean;
-  expense?: {
-    select: ExpenseSelect;
-  };
-  expenseEdge?: {
-    select: ExpenseEdgeSelect;
-  };
-};
-export interface UpdateExpensePayload {
-  clientMutationId?: string | null;
-  /** The `Expense` that was updated by this mutation. */
-  expense?: Expense | null;
-  expenseEdge?: ExpenseEdge | null;
-}
-export type UpdateExpensePayloadSelect = {
-  clientMutationId?: boolean;
-  expense?: {
-    select: ExpenseSelect;
-  };
-  expenseEdge?: {
-    select: ExpenseEdgeSelect;
-  };
-};
-export interface DeleteExpensePayload {
-  clientMutationId?: string | null;
-  /** The `Expense` that was deleted by this mutation. */
-  expense?: Expense | null;
-  expenseEdge?: ExpenseEdge | null;
-}
-export type DeleteExpensePayloadSelect = {
-  clientMutationId?: boolean;
-  expense?: {
-    select: ExpenseSelect;
-  };
-  expenseEdge?: {
-    select: ExpenseEdgeSelect;
-  };
-};
-export interface CreateExpenseContactPayload {
-  clientMutationId?: string | null;
-  /** The `ExpenseContact` that was created by this mutation. */
-  expenseContact?: ExpenseContact | null;
-}
-export type CreateExpenseContactPayloadSelect = {
-  clientMutationId?: boolean;
-  expenseContact?: {
-    select: ExpenseContactSelect;
-  };
-};
-export interface CreateEmailThreadPayload {
-  clientMutationId?: string | null;
-  /** The `EmailThread` that was created by this mutation. */
-  emailThread?: EmailThread | null;
-  emailThreadEdge?: EmailThreadEdge | null;
-}
-export type CreateEmailThreadPayloadSelect = {
-  clientMutationId?: boolean;
-  emailThread?: {
-    select: EmailThreadSelect;
-  };
-  emailThreadEdge?: {
-    select: EmailThreadEdgeSelect;
-  };
-};
-export interface UpdateEmailThreadPayload {
-  clientMutationId?: string | null;
-  /** The `EmailThread` that was updated by this mutation. */
-  emailThread?: EmailThread | null;
-  emailThreadEdge?: EmailThreadEdge | null;
-}
-export type UpdateEmailThreadPayloadSelect = {
-  clientMutationId?: boolean;
-  emailThread?: {
-    select: EmailThreadSelect;
-  };
-  emailThreadEdge?: {
-    select: EmailThreadEdgeSelect;
-  };
-};
-export interface DeleteEmailThreadPayload {
-  clientMutationId?: string | null;
-  /** The `EmailThread` that was deleted by this mutation. */
-  emailThread?: EmailThread | null;
-  emailThreadEdge?: EmailThreadEdge | null;
-}
-export type DeleteEmailThreadPayloadSelect = {
-  clientMutationId?: boolean;
-  emailThread?: {
-    select: EmailThreadSelect;
-  };
-  emailThreadEdge?: {
-    select: EmailThreadEdgeSelect;
-  };
-};
-export interface CreateInteractionPayload {
-  clientMutationId?: string | null;
-  /** The `Interaction` that was created by this mutation. */
-  interaction?: Interaction | null;
-  interactionEdge?: InteractionEdge | null;
-}
-export type CreateInteractionPayloadSelect = {
-  clientMutationId?: boolean;
-  interaction?: {
-    select: InteractionSelect;
-  };
-  interactionEdge?: {
-    select: InteractionEdgeSelect;
-  };
-};
-export interface UpdateInteractionPayload {
-  clientMutationId?: string | null;
-  /** The `Interaction` that was updated by this mutation. */
-  interaction?: Interaction | null;
-  interactionEdge?: InteractionEdge | null;
-}
-export type UpdateInteractionPayloadSelect = {
-  clientMutationId?: boolean;
-  interaction?: {
-    select: InteractionSelect;
-  };
-  interactionEdge?: {
-    select: InteractionEdgeSelect;
-  };
-};
-export interface DeleteInteractionPayload {
-  clientMutationId?: string | null;
-  /** The `Interaction` that was deleted by this mutation. */
-  interaction?: Interaction | null;
-  interactionEdge?: InteractionEdge | null;
-}
-export type DeleteInteractionPayloadSelect = {
-  clientMutationId?: boolean;
-  interaction?: {
-    select: InteractionSelect;
-  };
-  interactionEdge?: {
-    select: InteractionEdgeSelect;
-  };
-};
-export interface CreateContactEmailPayload {
-  clientMutationId?: string | null;
-  /** The `ContactEmail` that was created by this mutation. */
-  contactEmail?: ContactEmail | null;
-  contactEmailEdge?: ContactEmailEdge | null;
-}
-export type CreateContactEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  contactEmail?: {
-    select: ContactEmailSelect;
-  };
-  contactEmailEdge?: {
-    select: ContactEmailEdgeSelect;
-  };
-};
-export interface UpdateContactEmailPayload {
-  clientMutationId?: string | null;
-  /** The `ContactEmail` that was updated by this mutation. */
-  contactEmail?: ContactEmail | null;
-  contactEmailEdge?: ContactEmailEdge | null;
-}
-export type UpdateContactEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  contactEmail?: {
-    select: ContactEmailSelect;
-  };
-  contactEmailEdge?: {
-    select: ContactEmailEdgeSelect;
-  };
-};
-export interface DeleteContactEmailPayload {
-  clientMutationId?: string | null;
-  /** The `ContactEmail` that was deleted by this mutation. */
-  contactEmail?: ContactEmail | null;
-  contactEmailEdge?: ContactEmailEdge | null;
-}
-export type DeleteContactEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  contactEmail?: {
-    select: ContactEmailSelect;
-  };
-  contactEmailEdge?: {
-    select: ContactEmailEdgeSelect;
-  };
-};
-export interface CreateContactPhonePayload {
-  clientMutationId?: string | null;
-  /** The `ContactPhone` that was created by this mutation. */
-  contactPhone?: ContactPhone | null;
-  contactPhoneEdge?: ContactPhoneEdge | null;
-}
-export type CreateContactPhonePayloadSelect = {
-  clientMutationId?: boolean;
-  contactPhone?: {
-    select: ContactPhoneSelect;
-  };
-  contactPhoneEdge?: {
-    select: ContactPhoneEdgeSelect;
-  };
-};
-export interface UpdateContactPhonePayload {
-  clientMutationId?: string | null;
-  /** The `ContactPhone` that was updated by this mutation. */
-  contactPhone?: ContactPhone | null;
-  contactPhoneEdge?: ContactPhoneEdge | null;
-}
-export type UpdateContactPhonePayloadSelect = {
-  clientMutationId?: boolean;
-  contactPhone?: {
-    select: ContactPhoneSelect;
-  };
-  contactPhoneEdge?: {
-    select: ContactPhoneEdgeSelect;
-  };
-};
-export interface DeleteContactPhonePayload {
-  clientMutationId?: string | null;
-  /** The `ContactPhone` that was deleted by this mutation. */
-  contactPhone?: ContactPhone | null;
-  contactPhoneEdge?: ContactPhoneEdge | null;
-}
-export type DeleteContactPhonePayloadSelect = {
-  clientMutationId?: boolean;
-  contactPhone?: {
-    select: ContactPhoneSelect;
-  };
-  contactPhoneEdge?: {
-    select: ContactPhoneEdgeSelect;
+  companyNote?: {
+    select: CompanyNoteSelect;
   };
 };
 export interface CreateContactAddressPayload {
@@ -20570,6 +19200,219 @@ export type DeleteContactAddressPayloadSelect = {
     select: ContactAddressEdgeSelect;
   };
 };
+export interface CreateContactCompanyPayload {
+  clientMutationId?: string | null;
+  /** The `ContactCompany` that was created by this mutation. */
+  contactCompany?: ContactCompany | null;
+}
+export type CreateContactCompanyPayloadSelect = {
+  clientMutationId?: boolean;
+  contactCompany?: {
+    select: ContactCompanySelect;
+  };
+};
+export interface CreateContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was created by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type CreateContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
+  };
+};
+export interface UpdateContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was updated by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type UpdateContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
+  };
+};
+export interface DeleteContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was deleted by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type DeleteContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
+  };
+};
+export interface CreateEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was created by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type CreateEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
+export interface UpdateEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was updated by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type UpdateEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
+export interface DeleteEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was deleted by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type DeleteEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
+export interface CreateEmailThreadPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThread` that was created by this mutation. */
+  emailThread?: EmailThread | null;
+  emailThreadEdge?: EmailThreadEdge | null;
+}
+export type CreateEmailThreadPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  emailThreadEdge?: {
+    select: EmailThreadEdgeSelect;
+  };
+};
+export interface UpdateEmailThreadPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThread` that was updated by this mutation. */
+  emailThread?: EmailThread | null;
+  emailThreadEdge?: EmailThreadEdge | null;
+}
+export type UpdateEmailThreadPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  emailThreadEdge?: {
+    select: EmailThreadEdgeSelect;
+  };
+};
+export interface DeleteEmailThreadPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThread` that was deleted by this mutation. */
+  emailThread?: EmailThread | null;
+  emailThreadEdge?: EmailThreadEdge | null;
+}
+export type DeleteEmailThreadPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  emailThreadEdge?: {
+    select: EmailThreadEdgeSelect;
+  };
+};
+export interface CreateContactEventPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEvent` that was created by this mutation. */
+  contactEvent?: ContactEvent | null;
+}
+export type CreateContactEventPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEvent?: {
+    select: ContactEventSelect;
+  };
+};
+export interface CreateExpensePayload {
+  clientMutationId?: string | null;
+  /** The `Expense` that was created by this mutation. */
+  expense?: Expense | null;
+  expenseEdge?: ExpenseEdge | null;
+}
+export type CreateExpensePayloadSelect = {
+  clientMutationId?: boolean;
+  expense?: {
+    select: ExpenseSelect;
+  };
+  expenseEdge?: {
+    select: ExpenseEdgeSelect;
+  };
+};
+export interface UpdateExpensePayload {
+  clientMutationId?: string | null;
+  /** The `Expense` that was updated by this mutation. */
+  expense?: Expense | null;
+  expenseEdge?: ExpenseEdge | null;
+}
+export type UpdateExpensePayloadSelect = {
+  clientMutationId?: boolean;
+  expense?: {
+    select: ExpenseSelect;
+  };
+  expenseEdge?: {
+    select: ExpenseEdgeSelect;
+  };
+};
+export interface DeleteExpensePayload {
+  clientMutationId?: string | null;
+  /** The `Expense` that was deleted by this mutation. */
+  expense?: Expense | null;
+  expenseEdge?: ExpenseEdge | null;
+}
+export type DeleteExpensePayloadSelect = {
+  clientMutationId?: boolean;
+  expense?: {
+    select: ExpenseSelect;
+  };
+  expenseEdge?: {
+    select: ExpenseEdgeSelect;
+  };
+};
+export interface CreateContactImagePayload {
+  clientMutationId?: string | null;
+  /** The `ContactImage` that was created by this mutation. */
+  contactImage?: ContactImage | null;
+}
+export type CreateContactImagePayloadSelect = {
+  clientMutationId?: boolean;
+  contactImage?: {
+    select: ContactImageSelect;
+  };
+};
 export interface CreateContactLinkPayload {
   clientMutationId?: string | null;
   /** The `ContactLink` that was created by this mutation. */
@@ -20615,633 +19458,754 @@ export type DeleteContactLinkPayloadSelect = {
     select: ContactLinkEdgeSelect;
   };
 };
-export interface CreateAgentLogPayload {
+export interface CreateContactMemoryPayload {
   clientMutationId?: string | null;
-  /** The `AgentLog` that was created by this mutation. */
-  agentLog?: AgentLog | null;
-  agentLogEdge?: AgentLogEdge | null;
+  /** The `ContactMemory` that was created by this mutation. */
+  contactMemory?: ContactMemory | null;
 }
-export type CreateAgentLogPayloadSelect = {
+export type CreateContactMemoryPayloadSelect = {
   clientMutationId?: boolean;
-  agentLog?: {
-    select: AgentLogSelect;
-  };
-  agentLogEdge?: {
-    select: AgentLogEdgeSelect;
+  contactMemory?: {
+    select: ContactMemorySelect;
   };
 };
-export interface UpdateAgentLogPayload {
+export interface CreateContactNotePayload {
   clientMutationId?: string | null;
-  /** The `AgentLog` that was updated by this mutation. */
-  agentLog?: AgentLog | null;
-  agentLogEdge?: AgentLogEdge | null;
+  /** The `ContactNote` that was created by this mutation. */
+  contactNote?: ContactNote | null;
 }
-export type UpdateAgentLogPayloadSelect = {
+export type CreateContactNotePayloadSelect = {
   clientMutationId?: boolean;
-  agentLog?: {
-    select: AgentLogSelect;
-  };
-  agentLogEdge?: {
-    select: AgentLogEdgeSelect;
+  contactNote?: {
+    select: ContactNoteSelect;
   };
 };
-export interface DeleteAgentLogPayload {
+export interface CreateContactPhonePayload {
   clientMutationId?: string | null;
-  /** The `AgentLog` that was deleted by this mutation. */
-  agentLog?: AgentLog | null;
-  agentLogEdge?: AgentLogEdge | null;
+  /** The `ContactPhone` that was created by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
 }
-export type DeleteAgentLogPayloadSelect = {
+export type CreateContactPhonePayloadSelect = {
   clientMutationId?: boolean;
-  agentLog?: {
-    select: AgentLogSelect;
+  contactPhone?: {
+    select: ContactPhoneSelect;
   };
-  agentLogEdge?: {
-    select: AgentLogEdgeSelect;
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
   };
 };
-export interface CreateRulePayload {
+export interface UpdateContactPhonePayload {
   clientMutationId?: string | null;
-  /** The `Rule` that was created by this mutation. */
-  rule?: Rule | null;
-  ruleEdge?: RuleEdge | null;
+  /** The `ContactPhone` that was updated by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
 }
-export type CreateRulePayloadSelect = {
+export type UpdateContactPhonePayloadSelect = {
   clientMutationId?: boolean;
-  rule?: {
-    select: RuleSelect;
+  contactPhone?: {
+    select: ContactPhoneSelect;
   };
-  ruleEdge?: {
-    select: RuleEdgeSelect;
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
   };
 };
-export interface UpdateRulePayload {
+export interface DeleteContactPhonePayload {
   clientMutationId?: string | null;
-  /** The `Rule` that was updated by this mutation. */
-  rule?: Rule | null;
-  ruleEdge?: RuleEdge | null;
+  /** The `ContactPhone` that was deleted by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
 }
-export type UpdateRulePayloadSelect = {
+export type DeleteContactPhonePayloadSelect = {
   clientMutationId?: boolean;
-  rule?: {
-    select: RuleSelect;
+  contactPhone?: {
+    select: ContactPhoneSelect;
   };
-  ruleEdge?: {
-    select: RuleEdgeSelect;
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
   };
 };
-export interface DeleteRulePayload {
+export interface CreateProjectPayload {
   clientMutationId?: string | null;
-  /** The `Rule` that was deleted by this mutation. */
-  rule?: Rule | null;
-  ruleEdge?: RuleEdge | null;
+  /** The `Project` that was created by this mutation. */
+  project?: Project | null;
+  projectEdge?: ProjectEdge | null;
 }
-export type DeleteRulePayloadSelect = {
+export type CreateProjectPayloadSelect = {
   clientMutationId?: boolean;
-  rule?: {
-    select: RuleSelect;
+  project?: {
+    select: ProjectSelect;
   };
-  ruleEdge?: {
-    select: RuleEdgeSelect;
+  projectEdge?: {
+    select: ProjectEdgeSelect;
   };
 };
-export interface CreateSkillPayload {
+export interface UpdateProjectPayload {
   clientMutationId?: string | null;
-  /** The `Skill` that was created by this mutation. */
-  skill?: Skill | null;
-  skillEdge?: SkillEdge | null;
+  /** The `Project` that was updated by this mutation. */
+  project?: Project | null;
+  projectEdge?: ProjectEdge | null;
 }
-export type CreateSkillPayloadSelect = {
+export type UpdateProjectPayloadSelect = {
   clientMutationId?: boolean;
-  skill?: {
-    select: SkillSelect;
+  project?: {
+    select: ProjectSelect;
   };
-  skillEdge?: {
-    select: SkillEdgeSelect;
+  projectEdge?: {
+    select: ProjectEdgeSelect;
   };
 };
-export interface UpdateSkillPayload {
+export interface DeleteProjectPayload {
   clientMutationId?: string | null;
-  /** The `Skill` that was updated by this mutation. */
-  skill?: Skill | null;
-  skillEdge?: SkillEdge | null;
+  /** The `Project` that was deleted by this mutation. */
+  project?: Project | null;
+  projectEdge?: ProjectEdge | null;
 }
-export type UpdateSkillPayloadSelect = {
+export type DeleteProjectPayloadSelect = {
   clientMutationId?: boolean;
-  skill?: {
-    select: SkillSelect;
+  project?: {
+    select: ProjectSelect;
   };
-  skillEdge?: {
-    select: SkillEdgeSelect;
+  projectEdge?: {
+    select: ProjectEdgeSelect;
   };
 };
-export interface DeleteSkillPayload {
+export interface CreateContactRelationshipPayload {
   clientMutationId?: string | null;
-  /** The `Skill` that was deleted by this mutation. */
-  skill?: Skill | null;
-  skillEdge?: SkillEdge | null;
+  /** The `ContactRelationship` that was created by this mutation. */
+  contactRelationship?: ContactRelationship | null;
 }
-export type DeleteSkillPayloadSelect = {
+export type CreateContactRelationshipPayloadSelect = {
   clientMutationId?: boolean;
-  skill?: {
-    select: SkillSelect;
-  };
-  skillEdge?: {
-    select: SkillEdgeSelect;
+  contactRelationship?: {
+    select: ContactRelationshipSelect;
   };
 };
-export interface CreateToolDefinitionPayload {
+export interface CreateContactsChunkPayload {
   clientMutationId?: string | null;
-  /** The `ToolDefinition` that was created by this mutation. */
-  toolDefinition?: ToolDefinition | null;
-  toolDefinitionEdge?: ToolDefinitionEdge | null;
+  /** The `ContactsChunk` that was created by this mutation. */
+  contactsChunk?: ContactsChunk | null;
+  contactsChunkEdge?: ContactsChunkEdge | null;
 }
-export type CreateToolDefinitionPayloadSelect = {
+export type CreateContactsChunkPayloadSelect = {
   clientMutationId?: boolean;
-  toolDefinition?: {
-    select: ToolDefinitionSelect;
+  contactsChunk?: {
+    select: ContactsChunkSelect;
   };
-  toolDefinitionEdge?: {
-    select: ToolDefinitionEdgeSelect;
+  contactsChunkEdge?: {
+    select: ContactsChunkEdgeSelect;
   };
 };
-export interface UpdateToolDefinitionPayload {
+export interface UpdateContactsChunkPayload {
   clientMutationId?: string | null;
-  /** The `ToolDefinition` that was updated by this mutation. */
-  toolDefinition?: ToolDefinition | null;
-  toolDefinitionEdge?: ToolDefinitionEdge | null;
+  /** The `ContactsChunk` that was updated by this mutation. */
+  contactsChunk?: ContactsChunk | null;
+  contactsChunkEdge?: ContactsChunkEdge | null;
 }
-export type UpdateToolDefinitionPayloadSelect = {
+export type UpdateContactsChunkPayloadSelect = {
   clientMutationId?: boolean;
-  toolDefinition?: {
-    select: ToolDefinitionSelect;
+  contactsChunk?: {
+    select: ContactsChunkSelect;
   };
-  toolDefinitionEdge?: {
-    select: ToolDefinitionEdgeSelect;
+  contactsChunkEdge?: {
+    select: ContactsChunkEdgeSelect;
   };
 };
-export interface DeleteToolDefinitionPayload {
+export interface DeleteContactsChunkPayload {
   clientMutationId?: string | null;
-  /** The `ToolDefinition` that was deleted by this mutation. */
-  toolDefinition?: ToolDefinition | null;
-  toolDefinitionEdge?: ToolDefinitionEdge | null;
+  /** The `ContactsChunk` that was deleted by this mutation. */
+  contactsChunk?: ContactsChunk | null;
+  contactsChunkEdge?: ContactsChunkEdge | null;
 }
-export type DeleteToolDefinitionPayloadSelect = {
+export type DeleteContactsChunkPayloadSelect = {
   clientMutationId?: boolean;
-  toolDefinition?: {
-    select: ToolDefinitionSelect;
+  contactsChunk?: {
+    select: ContactsChunkSelect;
   };
-  toolDefinitionEdge?: {
-    select: ToolDefinitionEdgeSelect;
+  contactsChunkEdge?: {
+    select: ContactsChunkEdgeSelect;
   };
 };
-export interface CreateSkillToolPayload {
+export interface CreateConversationPayload {
   clientMutationId?: string | null;
-  /** The `SkillTool` that was created by this mutation. */
-  skillTool?: SkillTool | null;
+  /** The `Conversation` that was created by this mutation. */
+  conversation?: Conversation | null;
+  conversationEdge?: ConversationEdge | null;
 }
-export type CreateSkillToolPayloadSelect = {
+export type CreateConversationPayloadSelect = {
   clientMutationId?: boolean;
-  skillTool?: {
-    select: SkillToolSelect;
+  conversation?: {
+    select: ConversationSelect;
+  };
+  conversationEdge?: {
+    select: ConversationEdgeSelect;
   };
 };
-export interface CreateToolExecutionPayload {
+export interface UpdateConversationPayload {
   clientMutationId?: string | null;
-  /** The `ToolExecution` that was created by this mutation. */
-  toolExecution?: ToolExecution | null;
-  toolExecutionEdge?: ToolExecutionEdge | null;
+  /** The `Conversation` that was updated by this mutation. */
+  conversation?: Conversation | null;
+  conversationEdge?: ConversationEdge | null;
 }
-export type CreateToolExecutionPayloadSelect = {
+export type UpdateConversationPayloadSelect = {
   clientMutationId?: boolean;
-  toolExecution?: {
-    select: ToolExecutionSelect;
+  conversation?: {
+    select: ConversationSelect;
   };
-  toolExecutionEdge?: {
-    select: ToolExecutionEdgeSelect;
+  conversationEdge?: {
+    select: ConversationEdgeSelect;
   };
 };
-export interface UpdateToolExecutionPayload {
+export interface DeleteConversationPayload {
   clientMutationId?: string | null;
-  /** The `ToolExecution` that was updated by this mutation. */
-  toolExecution?: ToolExecution | null;
-  toolExecutionEdge?: ToolExecutionEdge | null;
+  /** The `Conversation` that was deleted by this mutation. */
+  conversation?: Conversation | null;
+  conversationEdge?: ConversationEdge | null;
 }
-export type UpdateToolExecutionPayloadSelect = {
+export type DeleteConversationPayloadSelect = {
   clientMutationId?: boolean;
-  toolExecution?: {
-    select: ToolExecutionSelect;
+  conversation?: {
+    select: ConversationSelect;
   };
-  toolExecutionEdge?: {
-    select: ToolExecutionEdgeSelect;
+  conversationEdge?: {
+    select: ConversationEdgeSelect;
   };
 };
-export interface DeleteToolExecutionPayload {
+export interface CreateDealCompanyPayload {
   clientMutationId?: string | null;
-  /** The `ToolExecution` that was deleted by this mutation. */
-  toolExecution?: ToolExecution | null;
-  toolExecutionEdge?: ToolExecutionEdge | null;
+  /** The `DealCompany` that was created by this mutation. */
+  dealCompany?: DealCompany | null;
 }
-export type DeleteToolExecutionPayloadSelect = {
+export type CreateDealCompanyPayloadSelect = {
   clientMutationId?: boolean;
-  toolExecution?: {
-    select: ToolExecutionSelect;
-  };
-  toolExecutionEdge?: {
-    select: ToolExecutionEdgeSelect;
+  dealCompany?: {
+    select: DealCompanySelect;
   };
 };
-export interface CreateAutonomyRecordLinkPayload {
+export interface CreateDealContactPayload {
   clientMutationId?: string | null;
-  /** The `AutonomyRecordLink` that was created by this mutation. */
-  autonomyRecordLink?: AutonomyRecordLink | null;
+  /** The `DealContact` that was created by this mutation. */
+  dealContact?: DealContact | null;
 }
-export type CreateAutonomyRecordLinkPayloadSelect = {
+export type CreateDealContactPayloadSelect = {
   clientMutationId?: boolean;
-  autonomyRecordLink?: {
-    select: AutonomyRecordLinkSelect;
+  dealContact?: {
+    select: DealContactSelect;
   };
 };
-export interface CreateAutonomyRecordPayload {
+export interface CreateDealNotePayload {
   clientMutationId?: string | null;
-  /** The `AutonomyRecord` that was created by this mutation. */
-  autonomyRecord?: AutonomyRecord | null;
-  autonomyRecordEdge?: AutonomyRecordEdge | null;
+  /** The `DealNote` that was created by this mutation. */
+  dealNote?: DealNote | null;
 }
-export type CreateAutonomyRecordPayloadSelect = {
+export type CreateDealNotePayloadSelect = {
   clientMutationId?: boolean;
-  autonomyRecord?: {
-    select: AutonomyRecordSelect;
-  };
-  autonomyRecordEdge?: {
-    select: AutonomyRecordEdgeSelect;
+  dealNote?: {
+    select: DealNoteSelect;
   };
 };
-export interface UpdateAutonomyRecordPayload {
+export interface CreateEmailAttachmentPayload {
   clientMutationId?: string | null;
-  /** The `AutonomyRecord` that was updated by this mutation. */
-  autonomyRecord?: AutonomyRecord | null;
-  autonomyRecordEdge?: AutonomyRecordEdge | null;
+  /** The `EmailAttachment` that was created by this mutation. */
+  emailAttachment?: EmailAttachment | null;
+  emailAttachmentEdge?: EmailAttachmentEdge | null;
 }
-export type UpdateAutonomyRecordPayloadSelect = {
+export type CreateEmailAttachmentPayloadSelect = {
   clientMutationId?: boolean;
-  autonomyRecord?: {
-    select: AutonomyRecordSelect;
+  emailAttachment?: {
+    select: EmailAttachmentSelect;
   };
-  autonomyRecordEdge?: {
-    select: AutonomyRecordEdgeSelect;
+  emailAttachmentEdge?: {
+    select: EmailAttachmentEdgeSelect;
   };
 };
-export interface DeleteAutonomyRecordPayload {
+export interface UpdateEmailAttachmentPayload {
   clientMutationId?: string | null;
-  /** The `AutonomyRecord` that was deleted by this mutation. */
-  autonomyRecord?: AutonomyRecord | null;
-  autonomyRecordEdge?: AutonomyRecordEdge | null;
+  /** The `EmailAttachment` that was updated by this mutation. */
+  emailAttachment?: EmailAttachment | null;
+  emailAttachmentEdge?: EmailAttachmentEdge | null;
 }
-export type DeleteAutonomyRecordPayloadSelect = {
+export type UpdateEmailAttachmentPayloadSelect = {
   clientMutationId?: boolean;
-  autonomyRecord?: {
-    select: AutonomyRecordSelect;
+  emailAttachment?: {
+    select: EmailAttachmentSelect;
   };
-  autonomyRecordEdge?: {
-    select: AutonomyRecordEdgeSelect;
+  emailAttachmentEdge?: {
+    select: EmailAttachmentEdgeSelect;
   };
 };
-export interface CreateCodebaseDependencyPayload {
+export interface DeleteEmailAttachmentPayload {
   clientMutationId?: string | null;
-  /** The `CodebaseDependency` that was created by this mutation. */
-  codebaseDependency?: CodebaseDependency | null;
+  /** The `EmailAttachment` that was deleted by this mutation. */
+  emailAttachment?: EmailAttachment | null;
+  emailAttachmentEdge?: EmailAttachmentEdge | null;
 }
-export type CreateCodebaseDependencyPayloadSelect = {
+export type DeleteEmailAttachmentPayloadSelect = {
   clientMutationId?: boolean;
-  codebaseDependency?: {
-    select: CodebaseDependencySelect;
+  emailAttachment?: {
+    select: EmailAttachmentSelect;
+  };
+  emailAttachmentEdge?: {
+    select: EmailAttachmentEdgeSelect;
   };
 };
-export interface CreateCodebasePayload {
+export interface CreateEmailNotePayload {
   clientMutationId?: string | null;
-  /** The `Codebase` that was created by this mutation. */
-  codebase?: Codebase | null;
-  codebaseEdge?: CodebaseEdge | null;
+  /** The `EmailNote` that was created by this mutation. */
+  emailNote?: EmailNote | null;
 }
-export type CreateCodebasePayloadSelect = {
+export type CreateEmailNotePayloadSelect = {
   clientMutationId?: boolean;
-  codebase?: {
-    select: CodebaseSelect;
-  };
-  codebaseEdge?: {
-    select: CodebaseEdgeSelect;
+  emailNote?: {
+    select: EmailNoteSelect;
   };
 };
-export interface UpdateCodebasePayload {
+export interface CreateEmailRecipientPayload {
   clientMutationId?: string | null;
-  /** The `Codebase` that was updated by this mutation. */
-  codebase?: Codebase | null;
-  codebaseEdge?: CodebaseEdge | null;
+  /** The `EmailRecipient` that was created by this mutation. */
+  emailRecipient?: EmailRecipient | null;
 }
-export type UpdateCodebasePayloadSelect = {
+export type CreateEmailRecipientPayloadSelect = {
   clientMutationId?: boolean;
-  codebase?: {
-    select: CodebaseSelect;
-  };
-  codebaseEdge?: {
-    select: CodebaseEdgeSelect;
+  emailRecipient?: {
+    select: EmailRecipientSelect;
   };
 };
-export interface DeleteCodebasePayload {
+export interface CreateEventImagePayload {
   clientMutationId?: string | null;
-  /** The `Codebase` that was deleted by this mutation. */
-  codebase?: Codebase | null;
-  codebaseEdge?: CodebaseEdge | null;
+  /** The `EventImage` that was created by this mutation. */
+  eventImage?: EventImage | null;
 }
-export type DeleteCodebasePayloadSelect = {
+export type CreateEventImagePayloadSelect = {
   clientMutationId?: boolean;
-  codebase?: {
-    select: CodebaseSelect;
-  };
-  codebaseEdge?: {
-    select: CodebaseEdgeSelect;
+  eventImage?: {
+    select: EventImageSelect;
   };
 };
-export interface CreateCodeChunkPayload {
+export interface CreateEventLinkPayload {
   clientMutationId?: string | null;
-  /** The `CodeChunk` that was created by this mutation. */
-  codeChunk?: CodeChunk | null;
-  codeChunkEdge?: CodeChunkEdge | null;
+  /** The `EventLink` that was created by this mutation. */
+  eventLink?: EventLink | null;
+  eventLinkEdge?: EventLinkEdge | null;
 }
-export type CreateCodeChunkPayloadSelect = {
+export type CreateEventLinkPayloadSelect = {
   clientMutationId?: boolean;
-  codeChunk?: {
-    select: CodeChunkSelect;
+  eventLink?: {
+    select: EventLinkSelect;
   };
-  codeChunkEdge?: {
-    select: CodeChunkEdgeSelect;
+  eventLinkEdge?: {
+    select: EventLinkEdgeSelect;
   };
 };
-export interface UpdateCodeChunkPayload {
+export interface UpdateEventLinkPayload {
   clientMutationId?: string | null;
-  /** The `CodeChunk` that was updated by this mutation. */
-  codeChunk?: CodeChunk | null;
-  codeChunkEdge?: CodeChunkEdge | null;
+  /** The `EventLink` that was updated by this mutation. */
+  eventLink?: EventLink | null;
+  eventLinkEdge?: EventLinkEdge | null;
 }
-export type UpdateCodeChunkPayloadSelect = {
+export type UpdateEventLinkPayloadSelect = {
   clientMutationId?: boolean;
-  codeChunk?: {
-    select: CodeChunkSelect;
+  eventLink?: {
+    select: EventLinkSelect;
   };
-  codeChunkEdge?: {
-    select: CodeChunkEdgeSelect;
+  eventLinkEdge?: {
+    select: EventLinkEdgeSelect;
   };
 };
-export interface DeleteCodeChunkPayload {
+export interface DeleteEventLinkPayload {
   clientMutationId?: string | null;
-  /** The `CodeChunk` that was deleted by this mutation. */
-  codeChunk?: CodeChunk | null;
-  codeChunkEdge?: CodeChunkEdge | null;
+  /** The `EventLink` that was deleted by this mutation. */
+  eventLink?: EventLink | null;
+  eventLinkEdge?: EventLinkEdge | null;
 }
-export type DeleteCodeChunkPayloadSelect = {
+export type DeleteEventLinkPayloadSelect = {
   clientMutationId?: boolean;
-  codeChunk?: {
-    select: CodeChunkSelect;
+  eventLink?: {
+    select: EventLinkSelect;
   };
-  codeChunkEdge?: {
-    select: CodeChunkEdgeSelect;
+  eventLinkEdge?: {
+    select: EventLinkEdgeSelect;
   };
 };
-export interface CreateRuntimeStateDependencyPayload {
+export interface CreateEventNotePayload {
   clientMutationId?: string | null;
-  /** The `RuntimeStateDependency` that was created by this mutation. */
-  runtimeStateDependency?: RuntimeStateDependency | null;
+  /** The `EventNote` that was created by this mutation. */
+  eventNote?: EventNote | null;
 }
-export type CreateRuntimeStateDependencyPayloadSelect = {
+export type CreateEventNotePayloadSelect = {
   clientMutationId?: boolean;
-  runtimeStateDependency?: {
-    select: RuntimeStateDependencySelect;
+  eventNote?: {
+    select: EventNoteSelect;
   };
 };
-export interface CreateRuntimeStatePayload {
+export interface CreateEventVenuePayload {
   clientMutationId?: string | null;
-  /** The `RuntimeState` that was created by this mutation. */
-  runtimeState?: RuntimeState | null;
-  runtimeStateEdge?: RuntimeStateEdge | null;
+  /** The `EventVenue` that was created by this mutation. */
+  eventVenue?: EventVenue | null;
 }
-export type CreateRuntimeStatePayloadSelect = {
+export type CreateEventVenuePayloadSelect = {
   clientMutationId?: boolean;
-  runtimeState?: {
-    select: RuntimeStateSelect;
-  };
-  runtimeStateEdge?: {
-    select: RuntimeStateEdgeSelect;
+  eventVenue?: {
+    select: EventVenueSelect;
   };
 };
-export interface UpdateRuntimeStatePayload {
+export interface CreateVenuePayload {
   clientMutationId?: string | null;
-  /** The `RuntimeState` that was updated by this mutation. */
-  runtimeState?: RuntimeState | null;
-  runtimeStateEdge?: RuntimeStateEdge | null;
+  /** The `Venue` that was created by this mutation. */
+  venue?: Venue | null;
+  venueEdge?: VenueEdge | null;
 }
-export type UpdateRuntimeStatePayloadSelect = {
+export type CreateVenuePayloadSelect = {
   clientMutationId?: boolean;
-  runtimeState?: {
-    select: RuntimeStateSelect;
+  venue?: {
+    select: VenueSelect;
   };
-  runtimeStateEdge?: {
-    select: RuntimeStateEdgeSelect;
+  venueEdge?: {
+    select: VenueEdgeSelect;
   };
 };
-export interface DeleteRuntimeStatePayload {
+export interface UpdateVenuePayload {
   clientMutationId?: string | null;
-  /** The `RuntimeState` that was deleted by this mutation. */
-  runtimeState?: RuntimeState | null;
-  runtimeStateEdge?: RuntimeStateEdge | null;
+  /** The `Venue` that was updated by this mutation. */
+  venue?: Venue | null;
+  venueEdge?: VenueEdge | null;
 }
-export type DeleteRuntimeStatePayloadSelect = {
+export type UpdateVenuePayloadSelect = {
   clientMutationId?: boolean;
-  runtimeState?: {
-    select: RuntimeStateSelect;
+  venue?: {
+    select: VenueSelect;
   };
-  runtimeStateEdge?: {
-    select: RuntimeStateEdgeSelect;
+  venueEdge?: {
+    select: VenueEdgeSelect;
   };
 };
-export interface CreateRuntimeLogPayload {
+export interface DeleteVenuePayload {
   clientMutationId?: string | null;
-  /** The `RuntimeLog` that was created by this mutation. */
-  runtimeLog?: RuntimeLog | null;
-  runtimeLogEdge?: RuntimeLogEdge | null;
+  /** The `Venue` that was deleted by this mutation. */
+  venue?: Venue | null;
+  venueEdge?: VenueEdge | null;
 }
-export type CreateRuntimeLogPayloadSelect = {
+export type DeleteVenuePayloadSelect = {
   clientMutationId?: boolean;
-  runtimeLog?: {
-    select: RuntimeLogSelect;
+  venue?: {
+    select: VenueSelect;
   };
-  runtimeLogEdge?: {
-    select: RuntimeLogEdgeSelect;
+  venueEdge?: {
+    select: VenueEdgeSelect;
   };
 };
-export interface UpdateRuntimeLogPayload {
+export interface CreateExpenseContactPayload {
   clientMutationId?: string | null;
-  /** The `RuntimeLog` that was updated by this mutation. */
-  runtimeLog?: RuntimeLog | null;
-  runtimeLogEdge?: RuntimeLogEdge | null;
+  /** The `ExpenseContact` that was created by this mutation. */
+  expenseContact?: ExpenseContact | null;
 }
-export type UpdateRuntimeLogPayloadSelect = {
+export type CreateExpenseContactPayloadSelect = {
   clientMutationId?: boolean;
-  runtimeLog?: {
-    select: RuntimeLogSelect;
-  };
-  runtimeLogEdge?: {
-    select: RuntimeLogEdgeSelect;
+  expenseContact?: {
+    select: ExpenseContactSelect;
   };
 };
-export interface DeleteRuntimeLogPayload {
+export interface CreateGoalPayload {
   clientMutationId?: string | null;
-  /** The `RuntimeLog` that was deleted by this mutation. */
-  runtimeLog?: RuntimeLog | null;
-  runtimeLogEdge?: RuntimeLogEdge | null;
+  /** The `Goal` that was created by this mutation. */
+  goal?: Goal | null;
+  goalEdge?: GoalEdge | null;
 }
-export type DeleteRuntimeLogPayloadSelect = {
+export type CreateGoalPayloadSelect = {
   clientMutationId?: boolean;
-  runtimeLog?: {
-    select: RuntimeLogSelect;
+  goal?: {
+    select: GoalSelect;
   };
-  runtimeLogEdge?: {
-    select: RuntimeLogEdgeSelect;
+  goalEdge?: {
+    select: GoalEdgeSelect;
   };
 };
-export interface CreateRuntimeArtifactPayload {
+export interface UpdateGoalPayload {
   clientMutationId?: string | null;
-  /** The `RuntimeArtifact` that was created by this mutation. */
-  runtimeArtifact?: RuntimeArtifact | null;
-  runtimeArtifactEdge?: RuntimeArtifactEdge | null;
+  /** The `Goal` that was updated by this mutation. */
+  goal?: Goal | null;
+  goalEdge?: GoalEdge | null;
 }
-export type CreateRuntimeArtifactPayloadSelect = {
+export type UpdateGoalPayloadSelect = {
   clientMutationId?: boolean;
-  runtimeArtifact?: {
-    select: RuntimeArtifactSelect;
+  goal?: {
+    select: GoalSelect;
   };
-  runtimeArtifactEdge?: {
-    select: RuntimeArtifactEdgeSelect;
+  goalEdge?: {
+    select: GoalEdgeSelect;
   };
 };
-export interface UpdateRuntimeArtifactPayload {
+export interface DeleteGoalPayload {
   clientMutationId?: string | null;
-  /** The `RuntimeArtifact` that was updated by this mutation. */
-  runtimeArtifact?: RuntimeArtifact | null;
-  runtimeArtifactEdge?: RuntimeArtifactEdge | null;
+  /** The `Goal` that was deleted by this mutation. */
+  goal?: Goal | null;
+  goalEdge?: GoalEdge | null;
 }
-export type UpdateRuntimeArtifactPayloadSelect = {
+export type DeleteGoalPayloadSelect = {
   clientMutationId?: boolean;
-  runtimeArtifact?: {
-    select: RuntimeArtifactSelect;
+  goal?: {
+    select: GoalSelect;
   };
-  runtimeArtifactEdge?: {
-    select: RuntimeArtifactEdgeSelect;
+  goalEdge?: {
+    select: GoalEdgeSelect;
   };
 };
-export interface DeleteRuntimeArtifactPayload {
+export interface CreateGoalHabitPayload {
   clientMutationId?: string | null;
-  /** The `RuntimeArtifact` that was deleted by this mutation. */
-  runtimeArtifact?: RuntimeArtifact | null;
-  runtimeArtifactEdge?: RuntimeArtifactEdge | null;
+  /** The `GoalHabit` that was created by this mutation. */
+  goalHabit?: GoalHabit | null;
 }
-export type DeleteRuntimeArtifactPayloadSelect = {
+export type CreateGoalHabitPayloadSelect = {
   clientMutationId?: boolean;
-  runtimeArtifact?: {
-    select: RuntimeArtifactSelect;
-  };
-  runtimeArtifactEdge?: {
-    select: RuntimeArtifactEdgeSelect;
+  goalHabit?: {
+    select: GoalHabitSelect;
   };
 };
-export interface CreateRuntimeMetricPayload {
+export interface CreateHabitPayload {
   clientMutationId?: string | null;
-  /** The `RuntimeMetric` that was created by this mutation. */
-  runtimeMetric?: RuntimeMetric | null;
-  runtimeMetricEdge?: RuntimeMetricEdge | null;
+  /** The `Habit` that was created by this mutation. */
+  habit?: Habit | null;
+  habitEdge?: HabitEdge | null;
 }
-export type CreateRuntimeMetricPayloadSelect = {
+export type CreateHabitPayloadSelect = {
   clientMutationId?: boolean;
-  runtimeMetric?: {
-    select: RuntimeMetricSelect;
+  habit?: {
+    select: HabitSelect;
   };
-  runtimeMetricEdge?: {
-    select: RuntimeMetricEdgeSelect;
+  habitEdge?: {
+    select: HabitEdgeSelect;
   };
 };
-export interface UpdateRuntimeMetricPayload {
+export interface UpdateHabitPayload {
   clientMutationId?: string | null;
-  /** The `RuntimeMetric` that was updated by this mutation. */
-  runtimeMetric?: RuntimeMetric | null;
-  runtimeMetricEdge?: RuntimeMetricEdge | null;
+  /** The `Habit` that was updated by this mutation. */
+  habit?: Habit | null;
+  habitEdge?: HabitEdge | null;
 }
-export type UpdateRuntimeMetricPayloadSelect = {
+export type UpdateHabitPayloadSelect = {
   clientMutationId?: boolean;
-  runtimeMetric?: {
-    select: RuntimeMetricSelect;
+  habit?: {
+    select: HabitSelect;
   };
-  runtimeMetricEdge?: {
-    select: RuntimeMetricEdgeSelect;
+  habitEdge?: {
+    select: HabitEdgeSelect;
   };
 };
-export interface DeleteRuntimeMetricPayload {
+export interface DeleteHabitPayload {
   clientMutationId?: string | null;
-  /** The `RuntimeMetric` that was deleted by this mutation. */
-  runtimeMetric?: RuntimeMetric | null;
-  runtimeMetricEdge?: RuntimeMetricEdge | null;
+  /** The `Habit` that was deleted by this mutation. */
+  habit?: Habit | null;
+  habitEdge?: HabitEdge | null;
 }
-export type DeleteRuntimeMetricPayloadSelect = {
+export type DeleteHabitPayloadSelect = {
   clientMutationId?: boolean;
-  runtimeMetric?: {
-    select: RuntimeMetricSelect;
+  habit?: {
+    select: HabitSelect;
   };
-  runtimeMetricEdge?: {
-    select: RuntimeMetricEdgeSelect;
+  habitEdge?: {
+    select: HabitEdgeSelect;
   };
 };
-export interface CreateCalendarPayload {
+export interface CreateGoalProjectPayload {
   clientMutationId?: string | null;
-  /** The `Calendar` that was created by this mutation. */
-  calendar?: Calendar | null;
-  calendarEdge?: CalendarEdge | null;
+  /** The `GoalProject` that was created by this mutation. */
+  goalProject?: GoalProject | null;
 }
-export type CreateCalendarPayloadSelect = {
+export type CreateGoalProjectPayloadSelect = {
   clientMutationId?: boolean;
-  calendar?: {
-    select: CalendarSelect;
-  };
-  calendarEdge?: {
-    select: CalendarEdgeSelect;
+  goalProject?: {
+    select: GoalProjectSelect;
   };
 };
-export interface UpdateCalendarPayload {
+export interface CreateInteractionPayload {
   clientMutationId?: string | null;
-  /** The `Calendar` that was updated by this mutation. */
-  calendar?: Calendar | null;
-  calendarEdge?: CalendarEdge | null;
+  /** The `Interaction` that was created by this mutation. */
+  interaction?: Interaction | null;
+  interactionEdge?: InteractionEdge | null;
 }
-export type UpdateCalendarPayloadSelect = {
+export type CreateInteractionPayloadSelect = {
   clientMutationId?: boolean;
-  calendar?: {
-    select: CalendarSelect;
+  interaction?: {
+    select: InteractionSelect;
   };
-  calendarEdge?: {
-    select: CalendarEdgeSelect;
+  interactionEdge?: {
+    select: InteractionEdgeSelect;
   };
 };
-export interface DeleteCalendarPayload {
+export interface UpdateInteractionPayload {
   clientMutationId?: string | null;
-  /** The `Calendar` that was deleted by this mutation. */
-  calendar?: Calendar | null;
-  calendarEdge?: CalendarEdge | null;
+  /** The `Interaction` that was updated by this mutation. */
+  interaction?: Interaction | null;
+  interactionEdge?: InteractionEdge | null;
 }
-export type DeleteCalendarPayloadSelect = {
+export type UpdateInteractionPayloadSelect = {
   clientMutationId?: boolean;
-  calendar?: {
-    select: CalendarSelect;
+  interaction?: {
+    select: InteractionSelect;
   };
-  calendarEdge?: {
-    select: CalendarEdgeSelect;
+  interactionEdge?: {
+    select: InteractionEdgeSelect;
+  };
+};
+export interface DeleteInteractionPayload {
+  clientMutationId?: string | null;
+  /** The `Interaction` that was deleted by this mutation. */
+  interaction?: Interaction | null;
+  interactionEdge?: InteractionEdge | null;
+}
+export type DeleteInteractionPayloadSelect = {
+  clientMutationId?: boolean;
+  interaction?: {
+    select: InteractionSelect;
+  };
+  interactionEdge?: {
+    select: InteractionEdgeSelect;
+  };
+};
+export interface CreateMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was created by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type CreateMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
+export interface UpdateMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was updated by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type UpdateMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
+export interface DeleteMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was deleted by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type DeleteMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
+export interface CreateNotesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `NotesChunk` that was created by this mutation. */
+  notesChunk?: NotesChunk | null;
+  notesChunkEdge?: NotesChunkEdge | null;
+}
+export type CreateNotesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  notesChunk?: {
+    select: NotesChunkSelect;
+  };
+  notesChunkEdge?: {
+    select: NotesChunkEdgeSelect;
+  };
+};
+export interface UpdateNotesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `NotesChunk` that was updated by this mutation. */
+  notesChunk?: NotesChunk | null;
+  notesChunkEdge?: NotesChunkEdge | null;
+}
+export type UpdateNotesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  notesChunk?: {
+    select: NotesChunkSelect;
+  };
+  notesChunkEdge?: {
+    select: NotesChunkEdgeSelect;
+  };
+};
+export interface DeleteNotesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `NotesChunk` that was deleted by this mutation. */
+  notesChunk?: NotesChunk | null;
+  notesChunkEdge?: NotesChunkEdge | null;
+}
+export type DeleteNotesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  notesChunk?: {
+    select: NotesChunkSelect;
+  };
+  notesChunkEdge?: {
+    select: NotesChunkEdgeSelect;
+  };
+};
+export interface CreatePlacePayload {
+  clientMutationId?: string | null;
+  /** The `Place` that was created by this mutation. */
+  place?: Place | null;
+  placeEdge?: PlaceEdge | null;
+}
+export type CreatePlacePayloadSelect = {
+  clientMutationId?: boolean;
+  place?: {
+    select: PlaceSelect;
+  };
+  placeEdge?: {
+    select: PlaceEdgeSelect;
+  };
+};
+export interface UpdatePlacePayload {
+  clientMutationId?: string | null;
+  /** The `Place` that was updated by this mutation. */
+  place?: Place | null;
+  placeEdge?: PlaceEdge | null;
+}
+export type UpdatePlacePayloadSelect = {
+  clientMutationId?: boolean;
+  place?: {
+    select: PlaceSelect;
+  };
+  placeEdge?: {
+    select: PlaceEdgeSelect;
+  };
+};
+export interface DeletePlacePayload {
+  clientMutationId?: string | null;
+  /** The `Place` that was deleted by this mutation. */
+  place?: Place | null;
+  placeEdge?: PlaceEdge | null;
+}
+export type DeletePlacePayloadSelect = {
+  clientMutationId?: boolean;
+  place?: {
+    select: PlaceSelect;
+  };
+  placeEdge?: {
+    select: PlaceEdgeSelect;
+  };
+};
+export interface CreateProjectContactPayload {
+  clientMutationId?: string | null;
+  /** The `ProjectContact` that was created by this mutation. */
+  projectContact?: ProjectContact | null;
+}
+export type CreateProjectContactPayloadSelect = {
+  clientMutationId?: boolean;
+  projectContact?: {
+    select: ProjectContactSelect;
   };
 };
 export interface CreateProviderSyncStatePayload {
@@ -21289,94 +20253,49 @@ export type DeleteProviderSyncStatePayloadSelect = {
     select: ProviderSyncStateEdgeSelect;
   };
 };
-export interface CreateTagPayload {
+export interface CreateRawContactPayload {
   clientMutationId?: string | null;
-  /** The `Tag` that was created by this mutation. */
-  tag?: Tag | null;
-  tagEdge?: TagEdge | null;
+  /** The `RawContact` that was created by this mutation. */
+  rawContact?: RawContact | null;
+  rawContactEdge?: RawContactEdge | null;
 }
-export type CreateTagPayloadSelect = {
+export type CreateRawContactPayloadSelect = {
   clientMutationId?: boolean;
-  tag?: {
-    select: TagSelect;
+  rawContact?: {
+    select: RawContactSelect;
   };
-  tagEdge?: {
-    select: TagEdgeSelect;
+  rawContactEdge?: {
+    select: RawContactEdgeSelect;
   };
 };
-export interface UpdateTagPayload {
+export interface UpdateRawContactPayload {
   clientMutationId?: string | null;
-  /** The `Tag` that was updated by this mutation. */
-  tag?: Tag | null;
-  tagEdge?: TagEdge | null;
+  /** The `RawContact` that was updated by this mutation. */
+  rawContact?: RawContact | null;
+  rawContactEdge?: RawContactEdge | null;
 }
-export type UpdateTagPayloadSelect = {
+export type UpdateRawContactPayloadSelect = {
   clientMutationId?: boolean;
-  tag?: {
-    select: TagSelect;
+  rawContact?: {
+    select: RawContactSelect;
   };
-  tagEdge?: {
-    select: TagEdgeSelect;
+  rawContactEdge?: {
+    select: RawContactEdgeSelect;
   };
 };
-export interface DeleteTagPayload {
+export interface DeleteRawContactPayload {
   clientMutationId?: string | null;
-  /** The `Tag` that was deleted by this mutation. */
-  tag?: Tag | null;
-  tagEdge?: TagEdge | null;
+  /** The `RawContact` that was deleted by this mutation. */
+  rawContact?: RawContact | null;
+  rawContactEdge?: RawContactEdge | null;
 }
-export type DeleteTagPayloadSelect = {
+export type DeleteRawContactPayloadSelect = {
   clientMutationId?: boolean;
-  tag?: {
-    select: TagSelect;
+  rawContact?: {
+    select: RawContactSelect;
   };
-  tagEdge?: {
-    select: TagEdgeSelect;
-  };
-};
-export interface CreateRawContactUrlPayload {
-  clientMutationId?: string | null;
-  /** The `RawContactUrl` that was created by this mutation. */
-  rawContactUrl?: RawContactUrl | null;
-  rawContactUrlEdge?: RawContactUrlEdge | null;
-}
-export type CreateRawContactUrlPayloadSelect = {
-  clientMutationId?: boolean;
-  rawContactUrl?: {
-    select: RawContactUrlSelect;
-  };
-  rawContactUrlEdge?: {
-    select: RawContactUrlEdgeSelect;
-  };
-};
-export interface UpdateRawContactUrlPayload {
-  clientMutationId?: string | null;
-  /** The `RawContactUrl` that was updated by this mutation. */
-  rawContactUrl?: RawContactUrl | null;
-  rawContactUrlEdge?: RawContactUrlEdge | null;
-}
-export type UpdateRawContactUrlPayloadSelect = {
-  clientMutationId?: boolean;
-  rawContactUrl?: {
-    select: RawContactUrlSelect;
-  };
-  rawContactUrlEdge?: {
-    select: RawContactUrlEdgeSelect;
-  };
-};
-export interface DeleteRawContactUrlPayload {
-  clientMutationId?: string | null;
-  /** The `RawContactUrl` that was deleted by this mutation. */
-  rawContactUrl?: RawContactUrl | null;
-  rawContactUrlEdge?: RawContactUrlEdge | null;
-}
-export type DeleteRawContactUrlPayloadSelect = {
-  clientMutationId?: boolean;
-  rawContactUrl?: {
-    select: RawContactUrlSelect;
-  };
-  rawContactUrlEdge?: {
-    select: RawContactUrlEdgeSelect;
+  rawContactEdge?: {
+    select: RawContactEdgeSelect;
   };
 };
 export interface CreateRawContactEmailPayload {
@@ -21469,6 +20388,141 @@ export type DeleteRawContactPhonePayloadSelect = {
     select: RawContactPhoneEdgeSelect;
   };
 };
+export interface CreateRawContactUrlPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactUrl` that was created by this mutation. */
+  rawContactUrl?: RawContactUrl | null;
+  rawContactUrlEdge?: RawContactUrlEdge | null;
+}
+export type CreateRawContactUrlPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactUrl?: {
+    select: RawContactUrlSelect;
+  };
+  rawContactUrlEdge?: {
+    select: RawContactUrlEdgeSelect;
+  };
+};
+export interface UpdateRawContactUrlPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactUrl` that was updated by this mutation. */
+  rawContactUrl?: RawContactUrl | null;
+  rawContactUrlEdge?: RawContactUrlEdge | null;
+}
+export type UpdateRawContactUrlPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactUrl?: {
+    select: RawContactUrlSelect;
+  };
+  rawContactUrlEdge?: {
+    select: RawContactUrlEdgeSelect;
+  };
+};
+export interface DeleteRawContactUrlPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactUrl` that was deleted by this mutation. */
+  rawContactUrl?: RawContactUrl | null;
+  rawContactUrlEdge?: RawContactUrlEdge | null;
+}
+export type DeleteRawContactUrlPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactUrl?: {
+    select: RawContactUrlSelect;
+  };
+  rawContactUrlEdge?: {
+    select: RawContactUrlEdgeSelect;
+  };
+};
+export interface CreateRulePayload {
+  clientMutationId?: string | null;
+  /** The `Rule` that was created by this mutation. */
+  rule?: Rule | null;
+  ruleEdge?: RuleEdge | null;
+}
+export type CreateRulePayloadSelect = {
+  clientMutationId?: boolean;
+  rule?: {
+    select: RuleSelect;
+  };
+  ruleEdge?: {
+    select: RuleEdgeSelect;
+  };
+};
+export interface UpdateRulePayload {
+  clientMutationId?: string | null;
+  /** The `Rule` that was updated by this mutation. */
+  rule?: Rule | null;
+  ruleEdge?: RuleEdge | null;
+}
+export type UpdateRulePayloadSelect = {
+  clientMutationId?: boolean;
+  rule?: {
+    select: RuleSelect;
+  };
+  ruleEdge?: {
+    select: RuleEdgeSelect;
+  };
+};
+export interface DeleteRulePayload {
+  clientMutationId?: string | null;
+  /** The `Rule` that was deleted by this mutation. */
+  rule?: Rule | null;
+  ruleEdge?: RuleEdge | null;
+}
+export type DeleteRulePayloadSelect = {
+  clientMutationId?: boolean;
+  rule?: {
+    select: RuleSelect;
+  };
+  ruleEdge?: {
+    select: RuleEdgeSelect;
+  };
+};
+export interface CreateRuntimeArtifactPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeArtifact` that was created by this mutation. */
+  runtimeArtifact?: RuntimeArtifact | null;
+  runtimeArtifactEdge?: RuntimeArtifactEdge | null;
+}
+export type CreateRuntimeArtifactPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeArtifact?: {
+    select: RuntimeArtifactSelect;
+  };
+  runtimeArtifactEdge?: {
+    select: RuntimeArtifactEdgeSelect;
+  };
+};
+export interface UpdateRuntimeArtifactPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeArtifact` that was updated by this mutation. */
+  runtimeArtifact?: RuntimeArtifact | null;
+  runtimeArtifactEdge?: RuntimeArtifactEdge | null;
+}
+export type UpdateRuntimeArtifactPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeArtifact?: {
+    select: RuntimeArtifactSelect;
+  };
+  runtimeArtifactEdge?: {
+    select: RuntimeArtifactEdgeSelect;
+  };
+};
+export interface DeleteRuntimeArtifactPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeArtifact` that was deleted by this mutation. */
+  runtimeArtifact?: RuntimeArtifact | null;
+  runtimeArtifactEdge?: RuntimeArtifactEdge | null;
+}
+export type DeleteRuntimeArtifactPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeArtifact?: {
+    select: RuntimeArtifactSelect;
+  };
+  runtimeArtifactEdge?: {
+    select: RuntimeArtifactEdgeSelect;
+  };
+};
 export interface CreateRuntimeConfigPayload {
   clientMutationId?: string | null;
   /** The `RuntimeConfig` that was created by this mutation. */
@@ -21559,6 +20613,96 @@ export type DeleteRuntimeEventPayloadSelect = {
     select: RuntimeEventEdgeSelect;
   };
 };
+export interface CreateRuntimeLogPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeLog` that was created by this mutation. */
+  runtimeLog?: RuntimeLog | null;
+  runtimeLogEdge?: RuntimeLogEdge | null;
+}
+export type CreateRuntimeLogPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeLog?: {
+    select: RuntimeLogSelect;
+  };
+  runtimeLogEdge?: {
+    select: RuntimeLogEdgeSelect;
+  };
+};
+export interface UpdateRuntimeLogPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeLog` that was updated by this mutation. */
+  runtimeLog?: RuntimeLog | null;
+  runtimeLogEdge?: RuntimeLogEdge | null;
+}
+export type UpdateRuntimeLogPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeLog?: {
+    select: RuntimeLogSelect;
+  };
+  runtimeLogEdge?: {
+    select: RuntimeLogEdgeSelect;
+  };
+};
+export interface DeleteRuntimeLogPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeLog` that was deleted by this mutation. */
+  runtimeLog?: RuntimeLog | null;
+  runtimeLogEdge?: RuntimeLogEdge | null;
+}
+export type DeleteRuntimeLogPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeLog?: {
+    select: RuntimeLogSelect;
+  };
+  runtimeLogEdge?: {
+    select: RuntimeLogEdgeSelect;
+  };
+};
+export interface CreateRuntimeMetricPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeMetric` that was created by this mutation. */
+  runtimeMetric?: RuntimeMetric | null;
+  runtimeMetricEdge?: RuntimeMetricEdge | null;
+}
+export type CreateRuntimeMetricPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeMetric?: {
+    select: RuntimeMetricSelect;
+  };
+  runtimeMetricEdge?: {
+    select: RuntimeMetricEdgeSelect;
+  };
+};
+export interface UpdateRuntimeMetricPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeMetric` that was updated by this mutation. */
+  runtimeMetric?: RuntimeMetric | null;
+  runtimeMetricEdge?: RuntimeMetricEdge | null;
+}
+export type UpdateRuntimeMetricPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeMetric?: {
+    select: RuntimeMetricSelect;
+  };
+  runtimeMetricEdge?: {
+    select: RuntimeMetricEdgeSelect;
+  };
+};
+export interface DeleteRuntimeMetricPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeMetric` that was deleted by this mutation. */
+  runtimeMetric?: RuntimeMetric | null;
+  runtimeMetricEdge?: RuntimeMetricEdge | null;
+}
+export type DeleteRuntimeMetricPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeMetric?: {
+    select: RuntimeMetricSelect;
+  };
+  runtimeMetricEdge?: {
+    select: RuntimeMetricEdgeSelect;
+  };
+};
 export interface CreateRuntimeSchedulePayload {
   clientMutationId?: string | null;
   /** The `RuntimeSchedule` that was created by this mutation. */
@@ -21604,184 +20748,340 @@ export type DeleteRuntimeSchedulePayloadSelect = {
     select: RuntimeScheduleEdgeSelect;
   };
 };
-export interface CreateConversationPayload {
+export interface CreateRuntimeStatePayload {
   clientMutationId?: string | null;
-  /** The `Conversation` that was created by this mutation. */
-  conversation?: Conversation | null;
-  conversationEdge?: ConversationEdge | null;
+  /** The `RuntimeState` that was created by this mutation. */
+  runtimeState?: RuntimeState | null;
+  runtimeStateEdge?: RuntimeStateEdge | null;
 }
-export type CreateConversationPayloadSelect = {
+export type CreateRuntimeStatePayloadSelect = {
   clientMutationId?: boolean;
-  conversation?: {
-    select: ConversationSelect;
+  runtimeState?: {
+    select: RuntimeStateSelect;
   };
-  conversationEdge?: {
-    select: ConversationEdgeSelect;
+  runtimeStateEdge?: {
+    select: RuntimeStateEdgeSelect;
   };
 };
-export interface UpdateConversationPayload {
+export interface UpdateRuntimeStatePayload {
   clientMutationId?: string | null;
-  /** The `Conversation` that was updated by this mutation. */
-  conversation?: Conversation | null;
-  conversationEdge?: ConversationEdge | null;
+  /** The `RuntimeState` that was updated by this mutation. */
+  runtimeState?: RuntimeState | null;
+  runtimeStateEdge?: RuntimeStateEdge | null;
 }
-export type UpdateConversationPayloadSelect = {
+export type UpdateRuntimeStatePayloadSelect = {
   clientMutationId?: boolean;
-  conversation?: {
-    select: ConversationSelect;
+  runtimeState?: {
+    select: RuntimeStateSelect;
   };
-  conversationEdge?: {
-    select: ConversationEdgeSelect;
+  runtimeStateEdge?: {
+    select: RuntimeStateEdgeSelect;
   };
 };
-export interface DeleteConversationPayload {
+export interface DeleteRuntimeStatePayload {
   clientMutationId?: string | null;
-  /** The `Conversation` that was deleted by this mutation. */
-  conversation?: Conversation | null;
-  conversationEdge?: ConversationEdge | null;
+  /** The `RuntimeState` that was deleted by this mutation. */
+  runtimeState?: RuntimeState | null;
+  runtimeStateEdge?: RuntimeStateEdge | null;
 }
-export type DeleteConversationPayloadSelect = {
+export type DeleteRuntimeStatePayloadSelect = {
   clientMutationId?: boolean;
-  conversation?: {
-    select: ConversationSelect;
+  runtimeState?: {
+    select: RuntimeStateSelect;
   };
-  conversationEdge?: {
-    select: ConversationEdgeSelect;
+  runtimeStateEdge?: {
+    select: RuntimeStateEdgeSelect;
   };
 };
-export interface CreateMessagePayload {
+export interface CreateRuntimeStateDependencyPayload {
   clientMutationId?: string | null;
-  /** The `Message` that was created by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
+  /** The `RuntimeStateDependency` that was created by this mutation. */
+  runtimeStateDependency?: RuntimeStateDependency | null;
 }
-export type CreateMessagePayloadSelect = {
+export type CreateRuntimeStateDependencyPayloadSelect = {
   clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
+  runtimeStateDependency?: {
+    select: RuntimeStateDependencySelect;
   };
 };
-export interface UpdateMessagePayload {
+export interface CreateSkillPayload {
   clientMutationId?: string | null;
-  /** The `Message` that was updated by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
+  /** The `Skill` that was created by this mutation. */
+  skill?: Skill | null;
+  skillEdge?: SkillEdge | null;
 }
-export type UpdateMessagePayloadSelect = {
+export type CreateSkillPayloadSelect = {
   clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
+  skill?: {
+    select: SkillSelect;
   };
-  messageEdge?: {
-    select: MessageEdgeSelect;
+  skillEdge?: {
+    select: SkillEdgeSelect;
   };
 };
-export interface DeleteMessagePayload {
+export interface UpdateSkillPayload {
   clientMutationId?: string | null;
-  /** The `Message` that was deleted by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
+  /** The `Skill` that was updated by this mutation. */
+  skill?: Skill | null;
+  skillEdge?: SkillEdge | null;
 }
-export type DeleteMessagePayloadSelect = {
+export type UpdateSkillPayloadSelect = {
   clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
+  skill?: {
+    select: SkillSelect;
   };
-  messageEdge?: {
-    select: MessageEdgeSelect;
+  skillEdge?: {
+    select: SkillEdgeSelect;
   };
 };
-export interface CreateRawContactPayload {
+export interface DeleteSkillPayload {
   clientMutationId?: string | null;
-  /** The `RawContact` that was created by this mutation. */
-  rawContact?: RawContact | null;
-  rawContactEdge?: RawContactEdge | null;
+  /** The `Skill` that was deleted by this mutation. */
+  skill?: Skill | null;
+  skillEdge?: SkillEdge | null;
 }
-export type CreateRawContactPayloadSelect = {
+export type DeleteSkillPayloadSelect = {
   clientMutationId?: boolean;
-  rawContact?: {
-    select: RawContactSelect;
+  skill?: {
+    select: SkillSelect;
   };
-  rawContactEdge?: {
-    select: RawContactEdgeSelect;
+  skillEdge?: {
+    select: SkillEdgeSelect;
   };
 };
-export interface UpdateRawContactPayload {
+export interface CreateSkillToolPayload {
   clientMutationId?: string | null;
-  /** The `RawContact` that was updated by this mutation. */
-  rawContact?: RawContact | null;
-  rawContactEdge?: RawContactEdge | null;
+  /** The `SkillTool` that was created by this mutation. */
+  skillTool?: SkillTool | null;
 }
-export type UpdateRawContactPayloadSelect = {
+export type CreateSkillToolPayloadSelect = {
   clientMutationId?: boolean;
-  rawContact?: {
-    select: RawContactSelect;
-  };
-  rawContactEdge?: {
-    select: RawContactEdgeSelect;
+  skillTool?: {
+    select: SkillToolSelect;
   };
 };
-export interface DeleteRawContactPayload {
+export interface CreateToolDefinitionPayload {
   clientMutationId?: string | null;
-  /** The `RawContact` that was deleted by this mutation. */
-  rawContact?: RawContact | null;
-  rawContactEdge?: RawContactEdge | null;
+  /** The `ToolDefinition` that was created by this mutation. */
+  toolDefinition?: ToolDefinition | null;
+  toolDefinitionEdge?: ToolDefinitionEdge | null;
 }
-export type DeleteRawContactPayloadSelect = {
+export type CreateToolDefinitionPayloadSelect = {
   clientMutationId?: boolean;
-  rawContact?: {
-    select: RawContactSelect;
+  toolDefinition?: {
+    select: ToolDefinitionSelect;
   };
-  rawContactEdge?: {
-    select: RawContactEdgeSelect;
+  toolDefinitionEdge?: {
+    select: ToolDefinitionEdgeSelect;
   };
 };
-export interface CreatePlacePayload {
+export interface UpdateToolDefinitionPayload {
   clientMutationId?: string | null;
-  /** The `Place` that was created by this mutation. */
-  place?: Place | null;
-  placeEdge?: PlaceEdge | null;
+  /** The `ToolDefinition` that was updated by this mutation. */
+  toolDefinition?: ToolDefinition | null;
+  toolDefinitionEdge?: ToolDefinitionEdge | null;
 }
-export type CreatePlacePayloadSelect = {
+export type UpdateToolDefinitionPayloadSelect = {
   clientMutationId?: boolean;
-  place?: {
-    select: PlaceSelect;
+  toolDefinition?: {
+    select: ToolDefinitionSelect;
   };
-  placeEdge?: {
-    select: PlaceEdgeSelect;
+  toolDefinitionEdge?: {
+    select: ToolDefinitionEdgeSelect;
   };
 };
-export interface UpdatePlacePayload {
+export interface DeleteToolDefinitionPayload {
   clientMutationId?: string | null;
-  /** The `Place` that was updated by this mutation. */
-  place?: Place | null;
-  placeEdge?: PlaceEdge | null;
+  /** The `ToolDefinition` that was deleted by this mutation. */
+  toolDefinition?: ToolDefinition | null;
+  toolDefinitionEdge?: ToolDefinitionEdge | null;
 }
-export type UpdatePlacePayloadSelect = {
+export type DeleteToolDefinitionPayloadSelect = {
   clientMutationId?: boolean;
-  place?: {
-    select: PlaceSelect;
+  toolDefinition?: {
+    select: ToolDefinitionSelect;
   };
-  placeEdge?: {
-    select: PlaceEdgeSelect;
+  toolDefinitionEdge?: {
+    select: ToolDefinitionEdgeSelect;
   };
 };
-export interface DeletePlacePayload {
+export interface CreateTagPayload {
   clientMutationId?: string | null;
-  /** The `Place` that was deleted by this mutation. */
-  place?: Place | null;
-  placeEdge?: PlaceEdge | null;
+  /** The `Tag` that was created by this mutation. */
+  tag?: Tag | null;
+  tagEdge?: TagEdge | null;
 }
-export type DeletePlacePayloadSelect = {
+export type CreateTagPayloadSelect = {
   clientMutationId?: boolean;
-  place?: {
-    select: PlaceSelect;
+  tag?: {
+    select: TagSelect;
   };
-  placeEdge?: {
-    select: PlaceEdgeSelect;
+  tagEdge?: {
+    select: TagEdgeSelect;
+  };
+};
+export interface UpdateTagPayload {
+  clientMutationId?: string | null;
+  /** The `Tag` that was updated by this mutation. */
+  tag?: Tag | null;
+  tagEdge?: TagEdge | null;
+}
+export type UpdateTagPayloadSelect = {
+  clientMutationId?: boolean;
+  tag?: {
+    select: TagSelect;
+  };
+  tagEdge?: {
+    select: TagEdgeSelect;
+  };
+};
+export interface DeleteTagPayload {
+  clientMutationId?: string | null;
+  /** The `Tag` that was deleted by this mutation. */
+  tag?: Tag | null;
+  tagEdge?: TagEdge | null;
+}
+export type DeleteTagPayloadSelect = {
+  clientMutationId?: boolean;
+  tag?: {
+    select: TagSelect;
+  };
+  tagEdge?: {
+    select: TagEdgeSelect;
+  };
+};
+export interface CreateTaskContactPayload {
+  clientMutationId?: string | null;
+  /** The `TaskContact` that was created by this mutation. */
+  taskContact?: TaskContact | null;
+}
+export type CreateTaskContactPayloadSelect = {
+  clientMutationId?: boolean;
+  taskContact?: {
+    select: TaskContactSelect;
+  };
+};
+export interface CreateTaskNotePayload {
+  clientMutationId?: string | null;
+  /** The `TaskNote` that was created by this mutation. */
+  taskNote?: TaskNote | null;
+}
+export type CreateTaskNotePayloadSelect = {
+  clientMutationId?: boolean;
+  taskNote?: {
+    select: TaskNoteSelect;
+  };
+};
+export interface CreateTaskProjectPayload {
+  clientMutationId?: string | null;
+  /** The `TaskProject` that was created by this mutation. */
+  taskProject?: TaskProject | null;
+}
+export type CreateTaskProjectPayloadSelect = {
+  clientMutationId?: boolean;
+  taskProject?: {
+    select: TaskProjectSelect;
+  };
+};
+export interface CreateThreadParticipantPayload {
+  clientMutationId?: string | null;
+  /** The `ThreadParticipant` that was created by this mutation. */
+  threadParticipant?: ThreadParticipant | null;
+}
+export type CreateThreadParticipantPayloadSelect = {
+  clientMutationId?: boolean;
+  threadParticipant?: {
+    select: ThreadParticipantSelect;
+  };
+};
+export interface CreateToolExecutionPayload {
+  clientMutationId?: string | null;
+  /** The `ToolExecution` that was created by this mutation. */
+  toolExecution?: ToolExecution | null;
+  toolExecutionEdge?: ToolExecutionEdge | null;
+}
+export type CreateToolExecutionPayloadSelect = {
+  clientMutationId?: boolean;
+  toolExecution?: {
+    select: ToolExecutionSelect;
+  };
+  toolExecutionEdge?: {
+    select: ToolExecutionEdgeSelect;
+  };
+};
+export interface UpdateToolExecutionPayload {
+  clientMutationId?: string | null;
+  /** The `ToolExecution` that was updated by this mutation. */
+  toolExecution?: ToolExecution | null;
+  toolExecutionEdge?: ToolExecutionEdge | null;
+}
+export type UpdateToolExecutionPayloadSelect = {
+  clientMutationId?: boolean;
+  toolExecution?: {
+    select: ToolExecutionSelect;
+  };
+  toolExecutionEdge?: {
+    select: ToolExecutionEdgeSelect;
+  };
+};
+export interface DeleteToolExecutionPayload {
+  clientMutationId?: string | null;
+  /** The `ToolExecution` that was deleted by this mutation. */
+  toolExecution?: ToolExecution | null;
+  toolExecutionEdge?: ToolExecutionEdge | null;
+}
+export type DeleteToolExecutionPayloadSelect = {
+  clientMutationId?: boolean;
+  toolExecution?: {
+    select: ToolExecutionSelect;
+  };
+  toolExecutionEdge?: {
+    select: ToolExecutionEdgeSelect;
+  };
+};
+export interface CreateTouchpointPayload {
+  clientMutationId?: string | null;
+  /** The `Touchpoint` that was created by this mutation. */
+  touchpoint?: Touchpoint | null;
+  touchpointEdge?: TouchpointEdge | null;
+}
+export type CreateTouchpointPayloadSelect = {
+  clientMutationId?: boolean;
+  touchpoint?: {
+    select: TouchpointSelect;
+  };
+  touchpointEdge?: {
+    select: TouchpointEdgeSelect;
+  };
+};
+export interface UpdateTouchpointPayload {
+  clientMutationId?: string | null;
+  /** The `Touchpoint` that was updated by this mutation. */
+  touchpoint?: Touchpoint | null;
+  touchpointEdge?: TouchpointEdge | null;
+}
+export type UpdateTouchpointPayloadSelect = {
+  clientMutationId?: boolean;
+  touchpoint?: {
+    select: TouchpointSelect;
+  };
+  touchpointEdge?: {
+    select: TouchpointEdgeSelect;
+  };
+};
+export interface DeleteTouchpointPayload {
+  clientMutationId?: string | null;
+  /** The `Touchpoint` that was deleted by this mutation. */
+  touchpoint?: Touchpoint | null;
+  touchpointEdge?: TouchpointEdge | null;
+}
+export type DeleteTouchpointPayloadSelect = {
+  clientMutationId?: boolean;
+  touchpoint?: {
+    select: TouchpointSelect;
+  };
+  touchpointEdge?: {
+    select: TouchpointEdgeSelect;
   };
 };
 export interface CreateTripPayload {
@@ -21829,49 +21129,72 @@ export type DeleteTripPayloadSelect = {
     select: TripEdgeSelect;
   };
 };
-export interface CreateHikingTrailPayload {
+export interface CreateVenueImagePayload {
   clientMutationId?: string | null;
-  /** The `HikingTrail` that was created by this mutation. */
-  hikingTrail?: HikingTrail | null;
-  hikingTrailEdge?: HikingTrailEdge | null;
+  /** The `VenueImage` that was created by this mutation. */
+  venueImage?: VenueImage | null;
 }
-export type CreateHikingTrailPayloadSelect = {
+export type CreateVenueImagePayloadSelect = {
   clientMutationId?: boolean;
-  hikingTrail?: {
-    select: HikingTrailSelect;
-  };
-  hikingTrailEdge?: {
-    select: HikingTrailEdgeSelect;
+  venueImage?: {
+    select: VenueImageSelect;
   };
 };
-export interface UpdateHikingTrailPayload {
+export interface CreateVenueLinkPayload {
   clientMutationId?: string | null;
-  /** The `HikingTrail` that was updated by this mutation. */
-  hikingTrail?: HikingTrail | null;
-  hikingTrailEdge?: HikingTrailEdge | null;
+  /** The `VenueLink` that was created by this mutation. */
+  venueLink?: VenueLink | null;
+  venueLinkEdge?: VenueLinkEdge | null;
 }
-export type UpdateHikingTrailPayloadSelect = {
+export type CreateVenueLinkPayloadSelect = {
   clientMutationId?: boolean;
-  hikingTrail?: {
-    select: HikingTrailSelect;
+  venueLink?: {
+    select: VenueLinkSelect;
   };
-  hikingTrailEdge?: {
-    select: HikingTrailEdgeSelect;
+  venueLinkEdge?: {
+    select: VenueLinkEdgeSelect;
   };
 };
-export interface DeleteHikingTrailPayload {
+export interface UpdateVenueLinkPayload {
   clientMutationId?: string | null;
-  /** The `HikingTrail` that was deleted by this mutation. */
-  hikingTrail?: HikingTrail | null;
-  hikingTrailEdge?: HikingTrailEdge | null;
+  /** The `VenueLink` that was updated by this mutation. */
+  venueLink?: VenueLink | null;
+  venueLinkEdge?: VenueLinkEdge | null;
 }
-export type DeleteHikingTrailPayloadSelect = {
+export type UpdateVenueLinkPayloadSelect = {
   clientMutationId?: boolean;
-  hikingTrail?: {
-    select: HikingTrailSelect;
+  venueLink?: {
+    select: VenueLinkSelect;
   };
-  hikingTrailEdge?: {
-    select: HikingTrailEdgeSelect;
+  venueLinkEdge?: {
+    select: VenueLinkEdgeSelect;
+  };
+};
+export interface DeleteVenueLinkPayload {
+  clientMutationId?: string | null;
+  /** The `VenueLink` that was deleted by this mutation. */
+  venueLink?: VenueLink | null;
+  venueLinkEdge?: VenueLinkEdge | null;
+}
+export type DeleteVenueLinkPayloadSelect = {
+  clientMutationId?: boolean;
+  venueLink?: {
+    select: VenueLinkSelect;
+  };
+  venueLinkEdge?: {
+    select: VenueLinkEdgeSelect;
+  };
+};
+/** A `ActivityLog` edge in the connection. */
+export interface ActivityLogEdge {
+  cursor?: string | null;
+  /** The `ActivityLog` at the end of the edge. */
+  node?: ActivityLog | null;
+}
+export type ActivityLogEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ActivityLogSelect;
   };
 };
 /** A `Agent` edge in the connection. */
@@ -21886,6 +21209,18 @@ export type AgentEdgeSelect = {
     select: AgentSelect;
   };
 };
+/** A `AgentLog` edge in the connection. */
+export interface AgentLogEdge {
+  cursor?: string | null;
+  /** The `AgentLog` at the end of the edge. */
+  node?: AgentLog | null;
+}
+export type AgentLogEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: AgentLogSelect;
+  };
+};
 /** A `Prompt` edge in the connection. */
 export interface PromptEdge {
   cursor?: string | null;
@@ -21898,160 +21233,16 @@ export type PromptEdgeSelect = {
     select: PromptSelect;
   };
 };
-/** A `Task` edge in the connection. */
-export interface TaskEdge {
+/** A `AutonomyRecord` edge in the connection. */
+export interface AutonomyRecordEdge {
   cursor?: string | null;
-  /** The `Task` at the end of the edge. */
-  node?: Task | null;
+  /** The `AutonomyRecord` at the end of the edge. */
+  node?: AutonomyRecord | null;
 }
-export type TaskEdgeSelect = {
+export type AutonomyRecordEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: TaskSelect;
-  };
-};
-/** A `Contact` edge in the connection. */
-export interface ContactEdge {
-  cursor?: string | null;
-  /** The `Contact` at the end of the edge. */
-  node?: Contact | null;
-}
-export type ContactEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ContactSelect;
-  };
-};
-/** A `Image` edge in the connection. */
-export interface ImageEdge {
-  cursor?: string | null;
-  /** The `Image` at the end of the edge. */
-  node?: Image | null;
-}
-export type ImageEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ImageSelect;
-  };
-};
-/** A `Company` edge in the connection. */
-export interface CompanyEdge {
-  cursor?: string | null;
-  /** The `Company` at the end of the edge. */
-  node?: Company | null;
-}
-export type CompanyEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: CompanySelect;
-  };
-};
-/** A `Event` edge in the connection. */
-export interface EventEdge {
-  cursor?: string | null;
-  /** The `Event` at the end of the edge. */
-  node?: Event | null;
-}
-export type EventEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: EventSelect;
-  };
-};
-/** A `Venue` edge in the connection. */
-export interface VenueEdge {
-  cursor?: string | null;
-  /** The `Venue` at the end of the edge. */
-  node?: Venue | null;
-}
-export type VenueEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: VenueSelect;
-  };
-};
-/** A `VenueLink` edge in the connection. */
-export interface VenueLinkEdge {
-  cursor?: string | null;
-  /** The `VenueLink` at the end of the edge. */
-  node?: VenueLink | null;
-}
-export type VenueLinkEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: VenueLinkSelect;
-  };
-};
-/** A `Note` edge in the connection. */
-export interface NoteEdge {
-  cursor?: string | null;
-  /** The `Note` at the end of the edge. */
-  node?: Note | null;
-}
-export type NoteEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: NoteSelect;
-  };
-};
-/** A `Deal` edge in the connection. */
-export interface DealEdge {
-  cursor?: string | null;
-  /** The `Deal` at the end of the edge. */
-  node?: Deal | null;
-}
-export type DealEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: DealSelect;
-  };
-};
-/** A `Touchpoint` edge in the connection. */
-export interface TouchpointEdge {
-  cursor?: string | null;
-  /** The `Touchpoint` at the end of the edge. */
-  node?: Touchpoint | null;
-}
-export type TouchpointEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: TouchpointSelect;
-  };
-};
-/** A `Email` edge in the connection. */
-export interface EmailEdge {
-  cursor?: string | null;
-  /** The `Email` at the end of the edge. */
-  node?: Email | null;
-}
-export type EmailEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: EmailSelect;
-  };
-};
-/** A `EmailAttachment` edge in the connection. */
-export interface EmailAttachmentEdge {
-  cursor?: string | null;
-  /** The `EmailAttachment` at the end of the edge. */
-  node?: EmailAttachment | null;
-}
-export type EmailAttachmentEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: EmailAttachmentSelect;
-  };
-};
-/** A `CalendarEvent` edge in the connection. */
-export interface CalendarEventEdge {
-  cursor?: string | null;
-  /** The `CalendarEvent` at the end of the edge. */
-  node?: CalendarEvent | null;
-}
-export type CalendarEventEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: CalendarEventSelect;
+    select: AutonomyRecordSelect;
   };
 };
 /** A `CalendarAttendee` edge in the connection. */
@@ -22066,28 +21257,112 @@ export type CalendarAttendeeEdgeSelect = {
     select: CalendarAttendeeSelect;
   };
 };
-/** A `EventLink` edge in the connection. */
-export interface EventLinkEdge {
+/** A `Calendar` edge in the connection. */
+export interface CalendarEdge {
   cursor?: string | null;
-  /** The `EventLink` at the end of the edge. */
-  node?: EventLink | null;
+  /** The `Calendar` at the end of the edge. */
+  node?: Calendar | null;
 }
-export type EventLinkEdgeSelect = {
+export type CalendarEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: EventLinkSelect;
+    select: CalendarSelect;
   };
 };
-/** A `Memory` edge in the connection. */
-export interface MemoryEdge {
+/** A `CalendarEvent` edge in the connection. */
+export interface CalendarEventEdge {
   cursor?: string | null;
-  /** The `Memory` at the end of the edge. */
-  node?: Memory | null;
+  /** The `CalendarEvent` at the end of the edge. */
+  node?: CalendarEvent | null;
 }
-export type MemoryEdgeSelect = {
+export type CalendarEventEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: MemorySelect;
+    select: CalendarEventSelect;
+  };
+};
+/** A `Contact` edge in the connection. */
+export interface ContactEdge {
+  cursor?: string | null;
+  /** The `Contact` at the end of the edge. */
+  node?: Contact | null;
+}
+export type ContactEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactSelect;
+  };
+};
+/** A `Note` edge in the connection. */
+export interface NoteEdge {
+  cursor?: string | null;
+  /** The `Note` at the end of the edge. */
+  node?: Note | null;
+}
+export type NoteEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: NoteSelect;
+  };
+};
+/** A `Task` edge in the connection. */
+export interface TaskEdge {
+  cursor?: string | null;
+  /** The `Task` at the end of the edge. */
+  node?: Task | null;
+}
+export type TaskEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TaskSelect;
+  };
+};
+/** A `Company` edge in the connection. */
+export interface CompanyEdge {
+  cursor?: string | null;
+  /** The `Company` at the end of the edge. */
+  node?: Company | null;
+}
+export type CompanyEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CompanySelect;
+  };
+};
+/** A `Deal` edge in the connection. */
+export interface DealEdge {
+  cursor?: string | null;
+  /** The `Deal` at the end of the edge. */
+  node?: Deal | null;
+}
+export type DealEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: DealSelect;
+  };
+};
+/** A `Event` edge in the connection. */
+export interface EventEdge {
+  cursor?: string | null;
+  /** The `Event` at the end of the edge. */
+  node?: Event | null;
+}
+export type EventEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EventSelect;
+  };
+};
+/** A `Image` edge in the connection. */
+export interface ImageEdge {
+  cursor?: string | null;
+  /** The `Image` at the end of the edge. */
+  node?: Image | null;
+}
+export type ImageEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ImageSelect;
   };
 };
 /** A `CompanyLink` edge in the connection. */
@@ -22102,6 +21377,102 @@ export type CompanyLinkEdgeSelect = {
     select: CompanyLinkSelect;
   };
 };
+/** A `Memory` edge in the connection. */
+export interface MemoryEdge {
+  cursor?: string | null;
+  /** The `Memory` at the end of the edge. */
+  node?: Memory | null;
+}
+export type MemoryEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: MemorySelect;
+  };
+};
+/** A `ContactAddress` edge in the connection. */
+export interface ContactAddressEdge {
+  cursor?: string | null;
+  /** The `ContactAddress` at the end of the edge. */
+  node?: ContactAddress | null;
+}
+export type ContactAddressEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactAddressSelect;
+  };
+};
+/** A `ContactEmail` edge in the connection. */
+export interface ContactEmailEdge {
+  cursor?: string | null;
+  /** The `ContactEmail` at the end of the edge. */
+  node?: ContactEmail | null;
+}
+export type ContactEmailEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactEmailSelect;
+  };
+};
+/** A `Email` edge in the connection. */
+export interface EmailEdge {
+  cursor?: string | null;
+  /** The `Email` at the end of the edge. */
+  node?: Email | null;
+}
+export type EmailEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailSelect;
+  };
+};
+/** A `EmailThread` edge in the connection. */
+export interface EmailThreadEdge {
+  cursor?: string | null;
+  /** The `EmailThread` at the end of the edge. */
+  node?: EmailThread | null;
+}
+export type EmailThreadEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailThreadSelect;
+  };
+};
+/** A `Expense` edge in the connection. */
+export interface ExpenseEdge {
+  cursor?: string | null;
+  /** The `Expense` at the end of the edge. */
+  node?: Expense | null;
+}
+export type ExpenseEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ExpenseSelect;
+  };
+};
+/** A `ContactLink` edge in the connection. */
+export interface ContactLinkEdge {
+  cursor?: string | null;
+  /** The `ContactLink` at the end of the edge. */
+  node?: ContactLink | null;
+}
+export type ContactLinkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactLinkSelect;
+  };
+};
+/** A `ContactPhone` edge in the connection. */
+export interface ContactPhoneEdge {
+  cursor?: string | null;
+  /** The `ContactPhone` at the end of the edge. */
+  node?: ContactPhone | null;
+}
+export type ContactPhoneEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactPhoneSelect;
+  };
+};
 /** A `Project` edge in the connection. */
 export interface ProjectEdge {
   cursor?: string | null;
@@ -22112,6 +21483,66 @@ export type ProjectEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ProjectSelect;
+  };
+};
+/** A `ContactsChunk` edge in the connection. */
+export interface ContactsChunkEdge {
+  cursor?: string | null;
+  /** The `ContactsChunk` at the end of the edge. */
+  node?: ContactsChunk | null;
+}
+export type ContactsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactsChunkSelect;
+  };
+};
+/** A `Conversation` edge in the connection. */
+export interface ConversationEdge {
+  cursor?: string | null;
+  /** The `Conversation` at the end of the edge. */
+  node?: Conversation | null;
+}
+export type ConversationEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ConversationSelect;
+  };
+};
+/** A `EmailAttachment` edge in the connection. */
+export interface EmailAttachmentEdge {
+  cursor?: string | null;
+  /** The `EmailAttachment` at the end of the edge. */
+  node?: EmailAttachment | null;
+}
+export type EmailAttachmentEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailAttachmentSelect;
+  };
+};
+/** A `EventLink` edge in the connection. */
+export interface EventLinkEdge {
+  cursor?: string | null;
+  /** The `EventLink` at the end of the edge. */
+  node?: EventLink | null;
+}
+export type EventLinkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EventLinkSelect;
+  };
+};
+/** A `Venue` edge in the connection. */
+export interface VenueEdge {
+  cursor?: string | null;
+  /** The `Venue` at the end of the edge. */
+  node?: Venue | null;
+}
+export type VenueEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: VenueSelect;
   };
 };
 /** A `Goal` edge in the connection. */
@@ -22138,42 +21569,6 @@ export type HabitEdgeSelect = {
     select: HabitSelect;
   };
 };
-/** A `ActivityLog` edge in the connection. */
-export interface ActivityLogEdge {
-  cursor?: string | null;
-  /** The `ActivityLog` at the end of the edge. */
-  node?: ActivityLog | null;
-}
-export type ActivityLogEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ActivityLogSelect;
-  };
-};
-/** A `Expense` edge in the connection. */
-export interface ExpenseEdge {
-  cursor?: string | null;
-  /** The `Expense` at the end of the edge. */
-  node?: Expense | null;
-}
-export type ExpenseEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ExpenseSelect;
-  };
-};
-/** A `EmailThread` edge in the connection. */
-export interface EmailThreadEdge {
-  cursor?: string | null;
-  /** The `EmailThread` at the end of the edge. */
-  node?: EmailThread | null;
-}
-export type EmailThreadEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: EmailThreadSelect;
-  };
-};
 /** A `Interaction` edge in the connection. */
 export interface InteractionEdge {
   cursor?: string | null;
@@ -22186,208 +21581,40 @@ export type InteractionEdgeSelect = {
     select: InteractionSelect;
   };
 };
-/** A `ContactEmail` edge in the connection. */
-export interface ContactEmailEdge {
+/** A `Message` edge in the connection. */
+export interface MessageEdge {
   cursor?: string | null;
-  /** The `ContactEmail` at the end of the edge. */
-  node?: ContactEmail | null;
+  /** The `Message` at the end of the edge. */
+  node?: Message | null;
 }
-export type ContactEmailEdgeSelect = {
+export type MessageEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: ContactEmailSelect;
+    select: MessageSelect;
   };
 };
-/** A `ContactPhone` edge in the connection. */
-export interface ContactPhoneEdge {
+/** A `NotesChunk` edge in the connection. */
+export interface NotesChunkEdge {
   cursor?: string | null;
-  /** The `ContactPhone` at the end of the edge. */
-  node?: ContactPhone | null;
+  /** The `NotesChunk` at the end of the edge. */
+  node?: NotesChunk | null;
 }
-export type ContactPhoneEdgeSelect = {
+export type NotesChunkEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: ContactPhoneSelect;
+    select: NotesChunkSelect;
   };
 };
-/** A `ContactAddress` edge in the connection. */
-export interface ContactAddressEdge {
+/** A `Place` edge in the connection. */
+export interface PlaceEdge {
   cursor?: string | null;
-  /** The `ContactAddress` at the end of the edge. */
-  node?: ContactAddress | null;
+  /** The `Place` at the end of the edge. */
+  node?: Place | null;
 }
-export type ContactAddressEdgeSelect = {
+export type PlaceEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: ContactAddressSelect;
-  };
-};
-/** A `ContactLink` edge in the connection. */
-export interface ContactLinkEdge {
-  cursor?: string | null;
-  /** The `ContactLink` at the end of the edge. */
-  node?: ContactLink | null;
-}
-export type ContactLinkEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ContactLinkSelect;
-  };
-};
-/** A `AgentLog` edge in the connection. */
-export interface AgentLogEdge {
-  cursor?: string | null;
-  /** The `AgentLog` at the end of the edge. */
-  node?: AgentLog | null;
-}
-export type AgentLogEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: AgentLogSelect;
-  };
-};
-/** A `Rule` edge in the connection. */
-export interface RuleEdge {
-  cursor?: string | null;
-  /** The `Rule` at the end of the edge. */
-  node?: Rule | null;
-}
-export type RuleEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: RuleSelect;
-  };
-};
-/** A `Skill` edge in the connection. */
-export interface SkillEdge {
-  cursor?: string | null;
-  /** The `Skill` at the end of the edge. */
-  node?: Skill | null;
-}
-export type SkillEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: SkillSelect;
-  };
-};
-/** A `ToolDefinition` edge in the connection. */
-export interface ToolDefinitionEdge {
-  cursor?: string | null;
-  /** The `ToolDefinition` at the end of the edge. */
-  node?: ToolDefinition | null;
-}
-export type ToolDefinitionEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ToolDefinitionSelect;
-  };
-};
-/** A `ToolExecution` edge in the connection. */
-export interface ToolExecutionEdge {
-  cursor?: string | null;
-  /** The `ToolExecution` at the end of the edge. */
-  node?: ToolExecution | null;
-}
-export type ToolExecutionEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ToolExecutionSelect;
-  };
-};
-/** A `AutonomyRecord` edge in the connection. */
-export interface AutonomyRecordEdge {
-  cursor?: string | null;
-  /** The `AutonomyRecord` at the end of the edge. */
-  node?: AutonomyRecord | null;
-}
-export type AutonomyRecordEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: AutonomyRecordSelect;
-  };
-};
-/** A `Codebase` edge in the connection. */
-export interface CodebaseEdge {
-  cursor?: string | null;
-  /** The `Codebase` at the end of the edge. */
-  node?: Codebase | null;
-}
-export type CodebaseEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: CodebaseSelect;
-  };
-};
-/** A `CodeChunk` edge in the connection. */
-export interface CodeChunkEdge {
-  cursor?: string | null;
-  /** The `CodeChunk` at the end of the edge. */
-  node?: CodeChunk | null;
-}
-export type CodeChunkEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: CodeChunkSelect;
-  };
-};
-/** A `RuntimeState` edge in the connection. */
-export interface RuntimeStateEdge {
-  cursor?: string | null;
-  /** The `RuntimeState` at the end of the edge. */
-  node?: RuntimeState | null;
-}
-export type RuntimeStateEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: RuntimeStateSelect;
-  };
-};
-/** A `RuntimeLog` edge in the connection. */
-export interface RuntimeLogEdge {
-  cursor?: string | null;
-  /** The `RuntimeLog` at the end of the edge. */
-  node?: RuntimeLog | null;
-}
-export type RuntimeLogEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: RuntimeLogSelect;
-  };
-};
-/** A `RuntimeArtifact` edge in the connection. */
-export interface RuntimeArtifactEdge {
-  cursor?: string | null;
-  /** The `RuntimeArtifact` at the end of the edge. */
-  node?: RuntimeArtifact | null;
-}
-export type RuntimeArtifactEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: RuntimeArtifactSelect;
-  };
-};
-/** A `RuntimeMetric` edge in the connection. */
-export interface RuntimeMetricEdge {
-  cursor?: string | null;
-  /** The `RuntimeMetric` at the end of the edge. */
-  node?: RuntimeMetric | null;
-}
-export type RuntimeMetricEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: RuntimeMetricSelect;
-  };
-};
-/** A `Calendar` edge in the connection. */
-export interface CalendarEdge {
-  cursor?: string | null;
-  /** The `Calendar` at the end of the edge. */
-  node?: Calendar | null;
-}
-export type CalendarEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: CalendarSelect;
+    select: PlaceSelect;
   };
 };
 /** A `ProviderSyncState` edge in the connection. */
@@ -22402,28 +21629,16 @@ export type ProviderSyncStateEdgeSelect = {
     select: ProviderSyncStateSelect;
   };
 };
-/** A `Tag` edge in the connection. */
-export interface TagEdge {
+/** A `RawContact` edge in the connection. */
+export interface RawContactEdge {
   cursor?: string | null;
-  /** The `Tag` at the end of the edge. */
-  node?: Tag | null;
+  /** The `RawContact` at the end of the edge. */
+  node?: RawContact | null;
 }
-export type TagEdgeSelect = {
+export type RawContactEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: TagSelect;
-  };
-};
-/** A `RawContactUrl` edge in the connection. */
-export interface RawContactUrlEdge {
-  cursor?: string | null;
-  /** The `RawContactUrl` at the end of the edge. */
-  node?: RawContactUrl | null;
-}
-export type RawContactUrlEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: RawContactUrlSelect;
+    select: RawContactSelect;
   };
 };
 /** A `RawContactEmail` edge in the connection. */
@@ -22450,6 +21665,42 @@ export type RawContactPhoneEdgeSelect = {
     select: RawContactPhoneSelect;
   };
 };
+/** A `RawContactUrl` edge in the connection. */
+export interface RawContactUrlEdge {
+  cursor?: string | null;
+  /** The `RawContactUrl` at the end of the edge. */
+  node?: RawContactUrl | null;
+}
+export type RawContactUrlEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RawContactUrlSelect;
+  };
+};
+/** A `Rule` edge in the connection. */
+export interface RuleEdge {
+  cursor?: string | null;
+  /** The `Rule` at the end of the edge. */
+  node?: Rule | null;
+}
+export type RuleEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RuleSelect;
+  };
+};
+/** A `RuntimeArtifact` edge in the connection. */
+export interface RuntimeArtifactEdge {
+  cursor?: string | null;
+  /** The `RuntimeArtifact` at the end of the edge. */
+  node?: RuntimeArtifact | null;
+}
+export type RuntimeArtifactEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RuntimeArtifactSelect;
+  };
+};
 /** A `RuntimeConfig` edge in the connection. */
 export interface RuntimeConfigEdge {
   cursor?: string | null;
@@ -22474,6 +21725,30 @@ export type RuntimeEventEdgeSelect = {
     select: RuntimeEventSelect;
   };
 };
+/** A `RuntimeLog` edge in the connection. */
+export interface RuntimeLogEdge {
+  cursor?: string | null;
+  /** The `RuntimeLog` at the end of the edge. */
+  node?: RuntimeLog | null;
+}
+export type RuntimeLogEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RuntimeLogSelect;
+  };
+};
+/** A `RuntimeMetric` edge in the connection. */
+export interface RuntimeMetricEdge {
+  cursor?: string | null;
+  /** The `RuntimeMetric` at the end of the edge. */
+  node?: RuntimeMetric | null;
+}
+export type RuntimeMetricEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RuntimeMetricSelect;
+  };
+};
 /** A `RuntimeSchedule` edge in the connection. */
 export interface RuntimeScheduleEdge {
   cursor?: string | null;
@@ -22486,52 +21761,76 @@ export type RuntimeScheduleEdgeSelect = {
     select: RuntimeScheduleSelect;
   };
 };
-/** A `Conversation` edge in the connection. */
-export interface ConversationEdge {
+/** A `RuntimeState` edge in the connection. */
+export interface RuntimeStateEdge {
   cursor?: string | null;
-  /** The `Conversation` at the end of the edge. */
-  node?: Conversation | null;
+  /** The `RuntimeState` at the end of the edge. */
+  node?: RuntimeState | null;
 }
-export type ConversationEdgeSelect = {
+export type RuntimeStateEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: ConversationSelect;
+    select: RuntimeStateSelect;
   };
 };
-/** A `Message` edge in the connection. */
-export interface MessageEdge {
+/** A `Skill` edge in the connection. */
+export interface SkillEdge {
   cursor?: string | null;
-  /** The `Message` at the end of the edge. */
-  node?: Message | null;
+  /** The `Skill` at the end of the edge. */
+  node?: Skill | null;
 }
-export type MessageEdgeSelect = {
+export type SkillEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: MessageSelect;
+    select: SkillSelect;
   };
 };
-/** A `RawContact` edge in the connection. */
-export interface RawContactEdge {
+/** A `ToolDefinition` edge in the connection. */
+export interface ToolDefinitionEdge {
   cursor?: string | null;
-  /** The `RawContact` at the end of the edge. */
-  node?: RawContact | null;
+  /** The `ToolDefinition` at the end of the edge. */
+  node?: ToolDefinition | null;
 }
-export type RawContactEdgeSelect = {
+export type ToolDefinitionEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: RawContactSelect;
+    select: ToolDefinitionSelect;
   };
 };
-/** A `Place` edge in the connection. */
-export interface PlaceEdge {
+/** A `Tag` edge in the connection. */
+export interface TagEdge {
   cursor?: string | null;
-  /** The `Place` at the end of the edge. */
-  node?: Place | null;
+  /** The `Tag` at the end of the edge. */
+  node?: Tag | null;
 }
-export type PlaceEdgeSelect = {
+export type TagEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: PlaceSelect;
+    select: TagSelect;
+  };
+};
+/** A `ToolExecution` edge in the connection. */
+export interface ToolExecutionEdge {
+  cursor?: string | null;
+  /** The `ToolExecution` at the end of the edge. */
+  node?: ToolExecution | null;
+}
+export type ToolExecutionEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ToolExecutionSelect;
+  };
+};
+/** A `Touchpoint` edge in the connection. */
+export interface TouchpointEdge {
+  cursor?: string | null;
+  /** The `Touchpoint` at the end of the edge. */
+  node?: Touchpoint | null;
+}
+export type TouchpointEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TouchpointSelect;
   };
 };
 /** A `Trip` edge in the connection. */
@@ -22546,15 +21845,15 @@ export type TripEdgeSelect = {
     select: TripSelect;
   };
 };
-/** A `HikingTrail` edge in the connection. */
-export interface HikingTrailEdge {
+/** A `VenueLink` edge in the connection. */
+export interface VenueLinkEdge {
   cursor?: string | null;
-  /** The `HikingTrail` at the end of the edge. */
-  node?: HikingTrail | null;
+  /** The `VenueLink` at the end of the edge. */
+  node?: VenueLink | null;
 }
-export type HikingTrailEdgeSelect = {
+export type VenueLinkEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: HikingTrailSelect;
+    select: VenueLinkSelect;
   };
 };

@@ -12,8 +12,8 @@ agentic-db event-image list --where.<field>.<op> <value> --orderBy <values>
 agentic-db event-image list --limit 10 --after <cursor>
 agentic-db event-image find-first --where.<field>.<op> <value>
 agentic-db event-image get --id <UUID>
-agentic-db event-image create --eventId <UUID> --imageId <UUID> --entityId <UUID>
-agentic-db event-image update --id <UUID> [--eventId <UUID>] [--imageId <UUID>] [--entityId <UUID>]
+agentic-db event-image create --eventId <UUID> --imageId <UUID>
+agentic-db event-image update --id <UUID> [--eventId <UUID>] [--imageId <UUID>]
 agentic-db event-image delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db event-image list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a eventImage
 
 ```bash
-agentic-db event-image create --eventId <UUID> --imageId <UUID> --entityId <UUID>
+agentic-db event-image create --eventId <UUID> --imageId <UUID>
 ```
 
 ### Get a eventImage by id

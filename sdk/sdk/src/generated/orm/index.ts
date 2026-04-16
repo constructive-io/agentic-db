@@ -5,105 +5,105 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
-import { AgentCollaboratorModel } from './models/agentCollaborator';
+import { ActivityLogModel } from './models/activityLog';
 import { AgentModel } from './models/agent';
-import { PromptModel } from './models/prompt';
+import { AgentCollaboratorModel } from './models/agentCollaborator';
+import { AgentLogModel } from './models/agentLog';
 import { AgentPromptModel } from './models/agentPrompt';
-import { TaskModel } from './models/task';
-import { ContactModel } from './models/contact';
-import { ImageModel } from './models/image';
-import { ContactImageModel } from './models/contactImage';
-import { CompanyModel } from './models/company';
-import { CompanyImageModel } from './models/companyImage';
-import { ContactCompanyModel } from './models/contactCompany';
-import { EventModel } from './models/event';
-import { EventImageModel } from './models/eventImage';
-import { ContactEventModel } from './models/contactEvent';
-import { CompanyEventModel } from './models/companyEvent';
-import { VenueModel } from './models/venue';
-import { VenueImageModel } from './models/venueImage';
-import { EventVenueModel } from './models/eventVenue';
-import { VenueLinkModel } from './models/venueLink';
-import { NoteModel } from './models/note';
-import { ContactNoteModel } from './models/contactNote';
-import { CompanyNoteModel } from './models/companyNote';
-import { DealModel } from './models/deal';
-import { DealContactModel } from './models/dealContact';
-import { DealCompanyModel } from './models/dealCompany';
-import { DealNoteModel } from './models/dealNote';
-import { TouchpointModel } from './models/touchpoint';
-import { EventNoteModel } from './models/eventNote';
-import { TaskNoteModel } from './models/taskNote';
-import { EmailModel } from './models/email';
-import { EmailRecipientModel } from './models/emailRecipient';
-import { EmailNoteModel } from './models/emailNote';
-import { ThreadParticipantModel } from './models/threadParticipant';
-import { EmailAttachmentModel } from './models/emailAttachment';
+import { PromptModel } from './models/prompt';
+import { AutonomyRecordModel } from './models/autonomyRecord';
+import { AutonomyRecordLinkModel } from './models/autonomyRecordLink';
+import { CalendarAttendeeModel } from './models/calendarAttendee';
+import { CalendarModel } from './models/calendar';
 import { CalendarEventModel } from './models/calendarEvent';
 import { CalendarEventContactModel } from './models/calendarEventContact';
+import { ContactModel } from './models/contact';
 import { CalendarEventNoteModel } from './models/calendarEventNote';
+import { NoteModel } from './models/note';
 import { CalendarEventTaskModel } from './models/calendarEventTask';
-import { CalendarAttendeeModel } from './models/calendarAttendee';
-import { EventLinkModel } from './models/eventLink';
-import { MemoryModel } from './models/memory';
-import { ContactMemoryModel } from './models/contactMemory';
-import { CompanyMemoryModel } from './models/companyMemory';
+import { TaskModel } from './models/task';
+import { CompanyModel } from './models/company';
+import { DealModel } from './models/deal';
+import { CompanyEventModel } from './models/companyEvent';
+import { EventModel } from './models/event';
+import { CompanyImageModel } from './models/companyImage';
+import { ImageModel } from './models/image';
 import { CompanyLinkModel } from './models/companyLink';
-import { ContactRelationshipModel } from './models/contactRelationship';
-import { ProjectModel } from './models/project';
-import { ProjectContactModel } from './models/projectContact';
-import { TaskProjectModel } from './models/taskProject';
-import { GoalModel } from './models/goal';
-import { HabitModel } from './models/habit';
-import { GoalHabitModel } from './models/goalHabit';
-import { ActivityLogModel } from './models/activityLog';
-import { GoalProjectModel } from './models/goalProject';
-import { TaskContactModel } from './models/taskContact';
-import { ExpenseModel } from './models/expense';
-import { ExpenseContactModel } from './models/expenseContact';
-import { EmailThreadModel } from './models/emailThread';
-import { InteractionModel } from './models/interaction';
-import { ContactEmailModel } from './models/contactEmail';
-import { ContactPhoneModel } from './models/contactPhone';
+import { MemoryModel } from './models/memory';
+import { CompanyMemoryModel } from './models/companyMemory';
+import { CompanyNoteModel } from './models/companyNote';
 import { ContactAddressModel } from './models/contactAddress';
+import { ContactCompanyModel } from './models/contactCompany';
+import { ContactEmailModel } from './models/contactEmail';
+import { EmailModel } from './models/email';
+import { EmailThreadModel } from './models/emailThread';
+import { ContactEventModel } from './models/contactEvent';
+import { ExpenseModel } from './models/expense';
+import { ContactImageModel } from './models/contactImage';
 import { ContactLinkModel } from './models/contactLink';
-import { AgentLogModel } from './models/agentLog';
-import { RuleModel } from './models/rule';
-import { SkillModel } from './models/skill';
-import { ToolDefinitionModel } from './models/toolDefinition';
-import { SkillToolModel } from './models/skillTool';
-import { ToolExecutionModel } from './models/toolExecution';
-import { AutonomyRecordLinkModel } from './models/autonomyRecordLink';
-import { AutonomyRecordModel } from './models/autonomyRecord';
-import { CodebaseDependencyModel } from './models/codebaseDependency';
-import { CodebaseModel } from './models/codebase';
-import { CodeChunkModel } from './models/codeChunk';
-import { RuntimeStateDependencyModel } from './models/runtimeStateDependency';
-import { RuntimeStateModel } from './models/runtimeState';
-import { RuntimeLogModel } from './models/runtimeLog';
-import { RuntimeArtifactModel } from './models/runtimeArtifact';
-import { RuntimeMetricModel } from './models/runtimeMetric';
-import { CalendarModel } from './models/calendar';
+import { ContactMemoryModel } from './models/contactMemory';
+import { ContactNoteModel } from './models/contactNote';
+import { ContactPhoneModel } from './models/contactPhone';
+import { ProjectModel } from './models/project';
+import { ContactRelationshipModel } from './models/contactRelationship';
+import { ContactsChunkModel } from './models/contactsChunk';
+import { ConversationModel } from './models/conversation';
+import { DealCompanyModel } from './models/dealCompany';
+import { DealContactModel } from './models/dealContact';
+import { DealNoteModel } from './models/dealNote';
+import { EmailAttachmentModel } from './models/emailAttachment';
+import { EmailNoteModel } from './models/emailNote';
+import { EmailRecipientModel } from './models/emailRecipient';
+import { EventImageModel } from './models/eventImage';
+import { EventLinkModel } from './models/eventLink';
+import { EventNoteModel } from './models/eventNote';
+import { EventVenueModel } from './models/eventVenue';
+import { VenueModel } from './models/venue';
+import { ExpenseContactModel } from './models/expenseContact';
+import { GoalModel } from './models/goal';
+import { GoalHabitModel } from './models/goalHabit';
+import { HabitModel } from './models/habit';
+import { GoalProjectModel } from './models/goalProject';
+import { InteractionModel } from './models/interaction';
+import { MessageModel } from './models/message';
+import { NotesChunkModel } from './models/notesChunk';
+import { PlaceModel } from './models/place';
+import { ProjectContactModel } from './models/projectContact';
 import { ProviderSyncStateModel } from './models/providerSyncState';
-import { TagModel } from './models/tag';
-import { RawContactUrlModel } from './models/rawContactUrl';
+import { RawContactModel } from './models/rawContact';
 import { RawContactEmailModel } from './models/rawContactEmail';
 import { RawContactPhoneModel } from './models/rawContactPhone';
+import { RawContactUrlModel } from './models/rawContactUrl';
+import { RuleModel } from './models/rule';
+import { RuntimeArtifactModel } from './models/runtimeArtifact';
 import { RuntimeConfigModel } from './models/runtimeConfig';
 import { RuntimeEventModel } from './models/runtimeEvent';
+import { RuntimeLogModel } from './models/runtimeLog';
+import { RuntimeMetricModel } from './models/runtimeMetric';
 import { RuntimeScheduleModel } from './models/runtimeSchedule';
-import { ConversationModel } from './models/conversation';
-import { MessageModel } from './models/message';
-import { RawContactModel } from './models/rawContact';
-import { PlaceModel } from './models/place';
+import { RuntimeStateModel } from './models/runtimeState';
+import { RuntimeStateDependencyModel } from './models/runtimeStateDependency';
+import { SkillModel } from './models/skill';
+import { SkillToolModel } from './models/skillTool';
+import { ToolDefinitionModel } from './models/toolDefinition';
+import { TagModel } from './models/tag';
+import { TaskContactModel } from './models/taskContact';
+import { TaskNoteModel } from './models/taskNote';
+import { TaskProjectModel } from './models/taskProject';
+import { ThreadParticipantModel } from './models/threadParticipant';
+import { ToolExecutionModel } from './models/toolExecution';
+import { TouchpointModel } from './models/touchpoint';
 import { TripModel } from './models/trip';
-import { HikingTrailModel } from './models/hikingTrail';
+import { VenueImageModel } from './models/venueImage';
+import { VenueLinkModel } from './models/venueLink';
+import { createMutationOperations } from './mutation';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
 export * from './select-types';
 export * from './models';
 export { NodeHttpAdapter } from './node-fetch';
+export { createMutationOperations } from './mutation';
 /**
  * Create an ORM client instance
  *
@@ -130,98 +130,97 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
-    agentCollaborator: new AgentCollaboratorModel(client),
+    activityLog: new ActivityLogModel(client),
     agent: new AgentModel(client),
-    prompt: new PromptModel(client),
+    agentCollaborator: new AgentCollaboratorModel(client),
+    agentLog: new AgentLogModel(client),
     agentPrompt: new AgentPromptModel(client),
-    task: new TaskModel(client),
-    contact: new ContactModel(client),
-    image: new ImageModel(client),
-    contactImage: new ContactImageModel(client),
-    company: new CompanyModel(client),
-    companyImage: new CompanyImageModel(client),
-    contactCompany: new ContactCompanyModel(client),
-    event: new EventModel(client),
-    eventImage: new EventImageModel(client),
-    contactEvent: new ContactEventModel(client),
-    companyEvent: new CompanyEventModel(client),
-    venue: new VenueModel(client),
-    venueImage: new VenueImageModel(client),
-    eventVenue: new EventVenueModel(client),
-    venueLink: new VenueLinkModel(client),
-    note: new NoteModel(client),
-    contactNote: new ContactNoteModel(client),
-    companyNote: new CompanyNoteModel(client),
-    deal: new DealModel(client),
-    dealContact: new DealContactModel(client),
-    dealCompany: new DealCompanyModel(client),
-    dealNote: new DealNoteModel(client),
-    touchpoint: new TouchpointModel(client),
-    eventNote: new EventNoteModel(client),
-    taskNote: new TaskNoteModel(client),
-    email: new EmailModel(client),
-    emailRecipient: new EmailRecipientModel(client),
-    emailNote: new EmailNoteModel(client),
-    threadParticipant: new ThreadParticipantModel(client),
-    emailAttachment: new EmailAttachmentModel(client),
+    prompt: new PromptModel(client),
+    autonomyRecord: new AutonomyRecordModel(client),
+    autonomyRecordLink: new AutonomyRecordLinkModel(client),
+    calendarAttendee: new CalendarAttendeeModel(client),
+    calendar: new CalendarModel(client),
     calendarEvent: new CalendarEventModel(client),
     calendarEventContact: new CalendarEventContactModel(client),
+    contact: new ContactModel(client),
     calendarEventNote: new CalendarEventNoteModel(client),
+    note: new NoteModel(client),
     calendarEventTask: new CalendarEventTaskModel(client),
-    calendarAttendee: new CalendarAttendeeModel(client),
-    eventLink: new EventLinkModel(client),
-    memory: new MemoryModel(client),
-    contactMemory: new ContactMemoryModel(client),
-    companyMemory: new CompanyMemoryModel(client),
+    task: new TaskModel(client),
+    company: new CompanyModel(client),
+    deal: new DealModel(client),
+    companyEvent: new CompanyEventModel(client),
+    event: new EventModel(client),
+    companyImage: new CompanyImageModel(client),
+    image: new ImageModel(client),
     companyLink: new CompanyLinkModel(client),
-    contactRelationship: new ContactRelationshipModel(client),
-    project: new ProjectModel(client),
-    projectContact: new ProjectContactModel(client),
-    taskProject: new TaskProjectModel(client),
-    goal: new GoalModel(client),
-    habit: new HabitModel(client),
-    goalHabit: new GoalHabitModel(client),
-    activityLog: new ActivityLogModel(client),
-    goalProject: new GoalProjectModel(client),
-    taskContact: new TaskContactModel(client),
-    expense: new ExpenseModel(client),
-    expenseContact: new ExpenseContactModel(client),
-    emailThread: new EmailThreadModel(client),
-    interaction: new InteractionModel(client),
-    contactEmail: new ContactEmailModel(client),
-    contactPhone: new ContactPhoneModel(client),
+    memory: new MemoryModel(client),
+    companyMemory: new CompanyMemoryModel(client),
+    companyNote: new CompanyNoteModel(client),
     contactAddress: new ContactAddressModel(client),
+    contactCompany: new ContactCompanyModel(client),
+    contactEmail: new ContactEmailModel(client),
+    email: new EmailModel(client),
+    emailThread: new EmailThreadModel(client),
+    contactEvent: new ContactEventModel(client),
+    expense: new ExpenseModel(client),
+    contactImage: new ContactImageModel(client),
     contactLink: new ContactLinkModel(client),
-    agentLog: new AgentLogModel(client),
-    rule: new RuleModel(client),
-    skill: new SkillModel(client),
-    toolDefinition: new ToolDefinitionModel(client),
-    skillTool: new SkillToolModel(client),
-    toolExecution: new ToolExecutionModel(client),
-    autonomyRecordLink: new AutonomyRecordLinkModel(client),
-    autonomyRecord: new AutonomyRecordModel(client),
-    codebaseDependency: new CodebaseDependencyModel(client),
-    codebase: new CodebaseModel(client),
-    codeChunk: new CodeChunkModel(client),
-    runtimeStateDependency: new RuntimeStateDependencyModel(client),
-    runtimeState: new RuntimeStateModel(client),
-    runtimeLog: new RuntimeLogModel(client),
-    runtimeArtifact: new RuntimeArtifactModel(client),
-    runtimeMetric: new RuntimeMetricModel(client),
-    calendar: new CalendarModel(client),
+    contactMemory: new ContactMemoryModel(client),
+    contactNote: new ContactNoteModel(client),
+    contactPhone: new ContactPhoneModel(client),
+    project: new ProjectModel(client),
+    contactRelationship: new ContactRelationshipModel(client),
+    contactsChunk: new ContactsChunkModel(client),
+    conversation: new ConversationModel(client),
+    dealCompany: new DealCompanyModel(client),
+    dealContact: new DealContactModel(client),
+    dealNote: new DealNoteModel(client),
+    emailAttachment: new EmailAttachmentModel(client),
+    emailNote: new EmailNoteModel(client),
+    emailRecipient: new EmailRecipientModel(client),
+    eventImage: new EventImageModel(client),
+    eventLink: new EventLinkModel(client),
+    eventNote: new EventNoteModel(client),
+    eventVenue: new EventVenueModel(client),
+    venue: new VenueModel(client),
+    expenseContact: new ExpenseContactModel(client),
+    goal: new GoalModel(client),
+    goalHabit: new GoalHabitModel(client),
+    habit: new HabitModel(client),
+    goalProject: new GoalProjectModel(client),
+    interaction: new InteractionModel(client),
+    message: new MessageModel(client),
+    notesChunk: new NotesChunkModel(client),
+    place: new PlaceModel(client),
+    projectContact: new ProjectContactModel(client),
     providerSyncState: new ProviderSyncStateModel(client),
-    tag: new TagModel(client),
-    rawContactUrl: new RawContactUrlModel(client),
+    rawContact: new RawContactModel(client),
     rawContactEmail: new RawContactEmailModel(client),
     rawContactPhone: new RawContactPhoneModel(client),
+    rawContactUrl: new RawContactUrlModel(client),
+    rule: new RuleModel(client),
+    runtimeArtifact: new RuntimeArtifactModel(client),
     runtimeConfig: new RuntimeConfigModel(client),
     runtimeEvent: new RuntimeEventModel(client),
+    runtimeLog: new RuntimeLogModel(client),
+    runtimeMetric: new RuntimeMetricModel(client),
     runtimeSchedule: new RuntimeScheduleModel(client),
-    conversation: new ConversationModel(client),
-    message: new MessageModel(client),
-    rawContact: new RawContactModel(client),
-    place: new PlaceModel(client),
+    runtimeState: new RuntimeStateModel(client),
+    runtimeStateDependency: new RuntimeStateDependencyModel(client),
+    skill: new SkillModel(client),
+    skillTool: new SkillToolModel(client),
+    toolDefinition: new ToolDefinitionModel(client),
+    tag: new TagModel(client),
+    taskContact: new TaskContactModel(client),
+    taskNote: new TaskNoteModel(client),
+    taskProject: new TaskProjectModel(client),
+    threadParticipant: new ThreadParticipantModel(client),
+    toolExecution: new ToolExecutionModel(client),
+    touchpoint: new TouchpointModel(client),
     trip: new TripModel(client),
-    hikingTrail: new HikingTrailModel(client),
+    venueImage: new VenueImageModel(client),
+    venueLink: new VenueLinkModel(client),
+    mutation: createMutationOperations(client),
   };
 }

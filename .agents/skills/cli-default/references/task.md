@@ -19,8 +19,8 @@ agentic-db task list --limit 10 --after <cursor>
 agentic-db task find-first --where.<field>.<op> <value>
 agentic-db task search <query>
 agentic-db task get --id <UUID>
-agentic-db task create --entityId <UUID> --title <String> [--agentId <UUID>] [--description <String>] [--status <String>] [--priority <Int>] [--result <String>] [--startedAt <Datetime>] [--completedAt <Datetime>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db task update --id <UUID> [--entityId <UUID>] [--agentId <UUID>] [--title <String>] [--description <String>] [--status <String>] [--priority <Int>] [--result <String>] [--startedAt <Datetime>] [--completedAt <Datetime>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db task create --title <String> [--agentId <UUID>] [--description <String>] [--status <String>] [--priority <Int>] [--result <String>] [--startedAt <Datetime>] [--completedAt <Datetime>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db task update --id <UUID> [--agentId <UUID>] [--title <String>] [--description <String>] [--status <String>] [--priority <Int>] [--result <String>] [--startedAt <Datetime>] [--completedAt <Datetime>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db task delete --id <UUID>
 ```
 
@@ -137,7 +137,7 @@ agentic-db task search "query" --limit 10 --select id,title,searchScore
 ### Create a task
 
 ```bash
-agentic-db task create --entityId <UUID> --title <String> [--agentId <UUID>] [--description <String>] [--status <String>] [--priority <Int>] [--result <String>] [--startedAt <Datetime>] [--completedAt <Datetime>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db task create --title <String> [--agentId <UUID>] [--description <String>] [--status <String>] [--priority <Int>] [--result <String>] [--startedAt <Datetime>] [--completedAt <Datetime>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a task by id

@@ -12,8 +12,8 @@ agentic-db runtime-metric list --where.<field>.<op> <value> --orderBy <values>
 agentic-db runtime-metric list --limit 10 --after <cursor>
 agentic-db runtime-metric find-first --where.<field>.<op> <value>
 agentic-db runtime-metric get --id <UUID>
-agentic-db runtime-metric create --entityId <UUID> --runtimeStateId <UUID> --metricName <String> --metricValue <BigFloat> [--unit <String>] [--meta <JSON>]
-agentic-db runtime-metric update --id <UUID> [--entityId <UUID>] [--runtimeStateId <UUID>] [--metricName <String>] [--metricValue <BigFloat>] [--unit <String>] [--meta <JSON>]
+agentic-db runtime-metric create --runtimeStateId <UUID> --metricName <String> --metricValue <BigFloat> [--unit <String>] [--meta <JSON>]
+agentic-db runtime-metric update --id <UUID> [--runtimeStateId <UUID>] [--metricName <String>] [--metricValue <BigFloat>] [--unit <String>] [--meta <JSON>]
 agentic-db runtime-metric delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db runtime-metric list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a runtimeMetric
 
 ```bash
-agentic-db runtime-metric create --entityId <UUID> --runtimeStateId <UUID> --metricName <String> --metricValue <BigFloat> [--unit <String>] [--meta <JSON>]
+agentic-db runtime-metric create --runtimeStateId <UUID> --metricName <String> --metricValue <BigFloat> [--unit <String>] [--meta <JSON>]
 ```
 
 ### Get a runtimeMetric by id

@@ -97,46 +97,6 @@ export class ContactRelationshipModel {
       variables,
     });
   }
-  findOne<S extends ContactRelationshipSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, ContactRelationshipSelect>
-  ): QueryBuilder<{
-    contactRelationship: InferSelectResult<ContactRelationshipWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'ContactRelationship',
-      'contactRelationships',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'ContactRelationshipFilter',
-      'ContactRelationshipOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'ContactRelationship',
-      fieldName: 'contactRelationship',
-      document,
-      variables,
-      transform: (data: {
-        contactRelationships?: {
-          nodes?: InferSelectResult<ContactRelationshipWithRelations, S>[];
-        };
-      }) => ({
-        contactRelationship: data.contactRelationships?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends ContactRelationshipSelect>(
     args: CreateArgs<S, CreateContactRelationshipInput['contactRelationship']> & {
       select: S;
@@ -160,76 +120,6 @@ export class ContactRelationshipModel {
       operation: 'mutation',
       operationName: 'ContactRelationship',
       fieldName: 'createContactRelationship',
-      document,
-      variables,
-    });
-  }
-  update<S extends ContactRelationshipSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      ContactRelationshipPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, ContactRelationshipSelect>
-  ): QueryBuilder<{
-    updateContactRelationship: {
-      contactRelationship: InferSelectResult<ContactRelationshipWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'ContactRelationship',
-      'updateContactRelationship',
-      'contactRelationship',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateContactRelationshipInput',
-      'id',
-      'contactRelationshipPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ContactRelationship',
-      fieldName: 'updateContactRelationship',
-      document,
-      variables,
-    });
-  }
-  delete<S extends ContactRelationshipSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, ContactRelationshipSelect>
-  ): QueryBuilder<{
-    deleteContactRelationship: {
-      contactRelationship: InferSelectResult<ContactRelationshipWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'ContactRelationship',
-      'deleteContactRelationship',
-      'contactRelationship',
-      {
-        id: args.where.id,
-      },
-      'DeleteContactRelationshipInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ContactRelationship',
-      fieldName: 'deleteContactRelationship',
       document,
       variables,
     });

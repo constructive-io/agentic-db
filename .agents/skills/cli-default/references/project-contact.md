@@ -12,8 +12,8 @@ agentic-db project-contact list --where.<field>.<op> <value> --orderBy <values>
 agentic-db project-contact list --limit 10 --after <cursor>
 agentic-db project-contact find-first --where.<field>.<op> <value>
 agentic-db project-contact get --id <UUID>
-agentic-db project-contact create --projectId <UUID> --contactId <UUID> --entityId <UUID>
-agentic-db project-contact update --id <UUID> [--projectId <UUID>] [--contactId <UUID>] [--entityId <UUID>]
+agentic-db project-contact create --projectId <UUID> --contactId <UUID>
+agentic-db project-contact update --id <UUID> [--projectId <UUID>] [--contactId <UUID>]
 agentic-db project-contact delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db project-contact list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a projectContact
 
 ```bash
-agentic-db project-contact create --projectId <UUID> --contactId <UUID> --entityId <UUID>
+agentic-db project-contact create --projectId <UUID> --contactId <UUID>
 ```
 
 ### Get a projectContact by id

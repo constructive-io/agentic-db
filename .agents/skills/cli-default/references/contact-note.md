@@ -12,8 +12,8 @@ agentic-db contact-note list --where.<field>.<op> <value> --orderBy <values>
 agentic-db contact-note list --limit 10 --after <cursor>
 agentic-db contact-note find-first --where.<field>.<op> <value>
 agentic-db contact-note get --id <UUID>
-agentic-db contact-note create --contactId <UUID> --noteId <UUID> --entityId <UUID>
-agentic-db contact-note update --id <UUID> [--contactId <UUID>] [--noteId <UUID>] [--entityId <UUID>]
+agentic-db contact-note create --contactId <UUID> --noteId <UUID>
+agentic-db contact-note update --id <UUID> [--contactId <UUID>] [--noteId <UUID>]
 agentic-db contact-note delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db contact-note list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a contactNote
 
 ```bash
-agentic-db contact-note create --contactId <UUID> --noteId <UUID> --entityId <UUID>
+agentic-db contact-note create --contactId <UUID> --noteId <UUID>
 ```
 
 ### Get a contactNote by id

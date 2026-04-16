@@ -97,46 +97,6 @@ export class ThreadParticipantModel {
       variables,
     });
   }
-  findOne<S extends ThreadParticipantSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, ThreadParticipantSelect>
-  ): QueryBuilder<{
-    threadParticipant: InferSelectResult<ThreadParticipantWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'ThreadParticipant',
-      'threadParticipants',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'ThreadParticipantFilter',
-      'ThreadParticipantOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'ThreadParticipant',
-      fieldName: 'threadParticipant',
-      document,
-      variables,
-      transform: (data: {
-        threadParticipants?: {
-          nodes?: InferSelectResult<ThreadParticipantWithRelations, S>[];
-        };
-      }) => ({
-        threadParticipant: data.threadParticipants?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends ThreadParticipantSelect>(
     args: CreateArgs<S, CreateThreadParticipantInput['threadParticipant']> & {
       select: S;
@@ -160,76 +120,6 @@ export class ThreadParticipantModel {
       operation: 'mutation',
       operationName: 'ThreadParticipant',
       fieldName: 'createThreadParticipant',
-      document,
-      variables,
-    });
-  }
-  update<S extends ThreadParticipantSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      ThreadParticipantPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, ThreadParticipantSelect>
-  ): QueryBuilder<{
-    updateThreadParticipant: {
-      threadParticipant: InferSelectResult<ThreadParticipantWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'ThreadParticipant',
-      'updateThreadParticipant',
-      'threadParticipant',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateThreadParticipantInput',
-      'id',
-      'threadParticipantPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ThreadParticipant',
-      fieldName: 'updateThreadParticipant',
-      document,
-      variables,
-    });
-  }
-  delete<S extends ThreadParticipantSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, ThreadParticipantSelect>
-  ): QueryBuilder<{
-    deleteThreadParticipant: {
-      threadParticipant: InferSelectResult<ThreadParticipantWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'ThreadParticipant',
-      'deleteThreadParticipant',
-      'threadParticipant',
-      {
-        id: args.where.id,
-      },
-      'DeleteThreadParticipantInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ThreadParticipant',
-      fieldName: 'deleteThreadParticipant',
       document,
       variables,
     });

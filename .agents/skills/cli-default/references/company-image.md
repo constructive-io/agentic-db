@@ -12,8 +12,8 @@ agentic-db company-image list --where.<field>.<op> <value> --orderBy <values>
 agentic-db company-image list --limit 10 --after <cursor>
 agentic-db company-image find-first --where.<field>.<op> <value>
 agentic-db company-image get --id <UUID>
-agentic-db company-image create --companyId <UUID> --imageId <UUID> --entityId <UUID>
-agentic-db company-image update --id <UUID> [--companyId <UUID>] [--imageId <UUID>] [--entityId <UUID>]
+agentic-db company-image create --companyId <UUID> --imageId <UUID>
+agentic-db company-image update --id <UUID> [--companyId <UUID>] [--imageId <UUID>]
 agentic-db company-image delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db company-image list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a companyImage
 
 ```bash
-agentic-db company-image create --companyId <UUID> --imageId <UUID> --entityId <UUID>
+agentic-db company-image create --companyId <UUID> --imageId <UUID>
 ```
 
 ### Get a companyImage by id

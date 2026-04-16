@@ -12,8 +12,8 @@ agentic-db email-recipient list --where.<field>.<op> <value> --orderBy <values>
 agentic-db email-recipient list --limit 10 --after <cursor>
 agentic-db email-recipient find-first --where.<field>.<op> <value>
 agentic-db email-recipient get --id <UUID>
-agentic-db email-recipient create --emailId <UUID> --contactId <UUID> --entityId <UUID>
-agentic-db email-recipient update --id <UUID> [--emailId <UUID>] [--contactId <UUID>] [--entityId <UUID>]
+agentic-db email-recipient create --emailId <UUID> --contactId <UUID>
+agentic-db email-recipient update --id <UUID> [--emailId <UUID>] [--contactId <UUID>]
 agentic-db email-recipient delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db email-recipient list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a emailRecipient
 
 ```bash
-agentic-db email-recipient create --emailId <UUID> --contactId <UUID> --entityId <UUID>
+agentic-db email-recipient create --emailId <UUID> --contactId <UUID>
 ```
 
 ### Get a emailRecipient by id

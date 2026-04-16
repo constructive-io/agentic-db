@@ -16,8 +16,6 @@ import type {
 } from '../../orm/input-types';
 import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
-  id: 'uuid',
-  entityId: 'uuid',
   toolDefinitionId: 'uuid',
   messageId: 'uuid',
   input: 'json',
@@ -26,6 +24,7 @@ const fieldSchema: FieldSchema = {
   startedAt: 'string',
   completedAt: 'string',
   error: 'string',
+  id: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
 };
@@ -80,8 +79,6 @@ async function handleTableSubcommand(
 async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       toolDefinitionId: true,
       messageId: true,
       input: true,
@@ -90,6 +87,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       startedAt: true,
       completedAt: true,
       error: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
     };
@@ -112,8 +110,6 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
 async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       toolDefinitionId: true,
       messageId: true,
       input: true,
@@ -122,6 +118,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       startedAt: true,
       completedAt: true,
       error: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
     };
@@ -156,8 +153,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          id: true,
-          entityId: true,
           toolDefinitionId: true,
           messageId: true,
           input: true,
@@ -166,6 +161,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           startedAt: true,
           completedAt: true,
           error: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -183,12 +179,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
       {
         type: 'text',
         name: 'toolDefinitionId',
@@ -254,7 +244,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.toolExecution
       .create({
         data: {
-          entityId: cleanedData.entityId,
           toolDefinitionId: cleanedData.toolDefinitionId,
           messageId: cleanedData.messageId,
           input: cleanedData.input,
@@ -265,8 +254,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           error: cleanedData.error,
         },
         select: {
-          id: true,
-          entityId: true,
           toolDefinitionId: true,
           messageId: true,
           input: true,
@@ -275,6 +262,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           completedAt: true,
           error: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -297,12 +285,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'id',
         message: 'id',
         required: true,
-      },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
       },
       {
         type: 'text',
@@ -369,7 +351,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          entityId: cleanedData.entityId,
           toolDefinitionId: cleanedData.toolDefinitionId,
           messageId: cleanedData.messageId,
           input: cleanedData.input,
@@ -380,8 +361,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           error: cleanedData.error,
         },
         select: {
-          id: true,
-          entityId: true,
           toolDefinitionId: true,
           messageId: true,
           input: true,
@@ -390,6 +369,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           completedAt: true,
           error: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },

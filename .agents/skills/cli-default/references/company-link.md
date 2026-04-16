@@ -19,8 +19,8 @@ agentic-db company-link list --limit 10 --after <cursor>
 agentic-db company-link find-first --where.<field>.<op> <value>
 agentic-db company-link search <query>
 agentic-db company-link get --id <UUID>
-agentic-db company-link create --entityId <UUID> --url <String> --companyId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db company-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--companyId <UUID>]
+agentic-db company-link create --url <String> --companyId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db company-link update --id <UUID> [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--companyId <UUID>]
 agentic-db company-link delete --id <UUID>
 ```
 
@@ -95,7 +95,7 @@ agentic-db company-link search "query" --limit 10 --select id,title,searchScore
 ### Create a companyLink
 
 ```bash
-agentic-db company-link create --entityId <UUID> --url <String> --companyId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db company-link create --url <String> --companyId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a companyLink by id

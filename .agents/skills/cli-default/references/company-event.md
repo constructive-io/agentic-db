@@ -12,8 +12,8 @@ agentic-db company-event list --where.<field>.<op> <value> --orderBy <values>
 agentic-db company-event list --limit 10 --after <cursor>
 agentic-db company-event find-first --where.<field>.<op> <value>
 agentic-db company-event get --id <UUID>
-agentic-db company-event create --companyId <UUID> --eventId <UUID> --entityId <UUID>
-agentic-db company-event update --id <UUID> [--companyId <UUID>] [--eventId <UUID>] [--entityId <UUID>]
+agentic-db company-event create --companyId <UUID> --eventId <UUID>
+agentic-db company-event update --id <UUID> [--companyId <UUID>] [--eventId <UUID>]
 agentic-db company-event delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db company-event list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a companyEvent
 
 ```bash
-agentic-db company-event create --companyId <UUID> --eventId <UUID> --entityId <UUID>
+agentic-db company-event create --companyId <UUID> --eventId <UUID>
 ```
 
 ### Get a companyEvent by id

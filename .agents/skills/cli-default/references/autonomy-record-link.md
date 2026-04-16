@@ -12,8 +12,8 @@ agentic-db autonomy-record-link list --where.<field>.<op> <value> --orderBy <val
 agentic-db autonomy-record-link list --limit 10 --after <cursor>
 agentic-db autonomy-record-link find-first --where.<field>.<op> <value>
 agentic-db autonomy-record-link get --id <UUID>
-agentic-db autonomy-record-link create --sourceRecordId <UUID> --targetRecordId <UUID> --entityId <UUID>
-agentic-db autonomy-record-link update --id <UUID> [--sourceRecordId <UUID>] [--targetRecordId <UUID>] [--entityId <UUID>]
+agentic-db autonomy-record-link create --sourceRecordId <UUID> --targetRecordId <UUID>
+agentic-db autonomy-record-link update --id <UUID> [--sourceRecordId <UUID>] [--targetRecordId <UUID>]
 agentic-db autonomy-record-link delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db autonomy-record-link list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a autonomyRecordLink
 
 ```bash
-agentic-db autonomy-record-link create --sourceRecordId <UUID> --targetRecordId <UUID> --entityId <UUID>
+agentic-db autonomy-record-link create --sourceRecordId <UUID> --targetRecordId <UUID>
 ```
 
 ### Get a autonomyRecordLink by id

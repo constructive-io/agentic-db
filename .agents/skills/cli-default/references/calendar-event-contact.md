@@ -12,8 +12,8 @@ agentic-db calendar-event-contact list --where.<field>.<op> <value> --orderBy <v
 agentic-db calendar-event-contact list --limit 10 --after <cursor>
 agentic-db calendar-event-contact find-first --where.<field>.<op> <value>
 agentic-db calendar-event-contact get --id <UUID>
-agentic-db calendar-event-contact create --calendarEventId <UUID> --contactId <UUID> --entityId <UUID>
-agentic-db calendar-event-contact update --id <UUID> [--calendarEventId <UUID>] [--contactId <UUID>] [--entityId <UUID>]
+agentic-db calendar-event-contact create --calendarEventId <UUID> --contactId <UUID>
+agentic-db calendar-event-contact update --id <UUID> [--calendarEventId <UUID>] [--contactId <UUID>]
 agentic-db calendar-event-contact delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db calendar-event-contact list --where.id.equalTo <value> --orderBy ID_A
 ### Create a calendarEventContact
 
 ```bash
-agentic-db calendar-event-contact create --calendarEventId <UUID> --contactId <UUID> --entityId <UUID>
+agentic-db calendar-event-contact create --calendarEventId <UUID> --contactId <UUID>
 ```
 
 ### Get a calendarEventContact by id

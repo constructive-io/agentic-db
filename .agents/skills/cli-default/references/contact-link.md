@@ -19,8 +19,8 @@ agentic-db contact-link list --limit 10 --after <cursor>
 agentic-db contact-link find-first --where.<field>.<op> <value>
 agentic-db contact-link search <query>
 agentic-db contact-link get --id <UUID>
-agentic-db contact-link create --entityId <UUID> --url <String> --contactId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db contact-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--contactId <UUID>]
+agentic-db contact-link create --url <String> --contactId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db contact-link update --id <UUID> [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--contactId <UUID>]
 agentic-db contact-link delete --id <UUID>
 ```
 
@@ -95,7 +95,7 @@ agentic-db contact-link search "query" --limit 10 --select id,title,searchScore
 ### Create a contactLink
 
 ```bash
-agentic-db contact-link create --entityId <UUID> --url <String> --contactId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db contact-link create --url <String> --contactId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a contactLink by id

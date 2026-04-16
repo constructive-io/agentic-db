@@ -12,8 +12,8 @@ agentic-db thread-participant list --where.<field>.<op> <value> --orderBy <value
 agentic-db thread-participant list --limit 10 --after <cursor>
 agentic-db thread-participant find-first --where.<field>.<op> <value>
 agentic-db thread-participant get --id <UUID>
-agentic-db thread-participant create --emailThreadId <UUID> --contactId <UUID> --entityId <UUID>
-agentic-db thread-participant update --id <UUID> [--emailThreadId <UUID>] [--contactId <UUID>] [--entityId <UUID>]
+agentic-db thread-participant create --emailThreadId <UUID> --contactId <UUID>
+agentic-db thread-participant update --id <UUID> [--emailThreadId <UUID>] [--contactId <UUID>]
 agentic-db thread-participant delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db thread-participant list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a threadParticipant
 
 ```bash
-agentic-db thread-participant create --emailThreadId <UUID> --contactId <UUID> --entityId <UUID>
+agentic-db thread-participant create --emailThreadId <UUID> --contactId <UUID>
 ```
 
 ### Get a threadParticipant by id

@@ -12,8 +12,8 @@ agentic-db expense-contact list --where.<field>.<op> <value> --orderBy <values>
 agentic-db expense-contact list --limit 10 --after <cursor>
 agentic-db expense-contact find-first --where.<field>.<op> <value>
 agentic-db expense-contact get --id <UUID>
-agentic-db expense-contact create --expenseId <UUID> --contactId <UUID> --entityId <UUID>
-agentic-db expense-contact update --id <UUID> [--expenseId <UUID>] [--contactId <UUID>] [--entityId <UUID>]
+agentic-db expense-contact create --expenseId <UUID> --contactId <UUID>
+agentic-db expense-contact update --id <UUID> [--expenseId <UUID>] [--contactId <UUID>]
 agentic-db expense-contact delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db expense-contact list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a expenseContact
 
 ```bash
-agentic-db expense-contact create --expenseId <UUID> --contactId <UUID> --entityId <UUID>
+agentic-db expense-contact create --expenseId <UUID> --contactId <UUID>
 ```
 
 ### Get a expenseContact by id

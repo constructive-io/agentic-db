@@ -12,8 +12,8 @@ agentic-db goal-project list --where.<field>.<op> <value> --orderBy <values>
 agentic-db goal-project list --limit 10 --after <cursor>
 agentic-db goal-project find-first --where.<field>.<op> <value>
 agentic-db goal-project get --id <UUID>
-agentic-db goal-project create --goalId <UUID> --projectId <UUID> --entityId <UUID>
-agentic-db goal-project update --id <UUID> [--goalId <UUID>] [--projectId <UUID>] [--entityId <UUID>]
+agentic-db goal-project create --goalId <UUID> --projectId <UUID>
+agentic-db goal-project update --id <UUID> [--goalId <UUID>] [--projectId <UUID>]
 agentic-db goal-project delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db goal-project list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a goalProject
 
 ```bash
-agentic-db goal-project create --goalId <UUID> --projectId <UUID> --entityId <UUID>
+agentic-db goal-project create --goalId <UUID> --projectId <UUID>
 ```
 
 ### Get a goalProject by id

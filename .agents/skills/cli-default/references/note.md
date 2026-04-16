@@ -19,8 +19,8 @@ agentic-db note list --limit 10 --after <cursor>
 agentic-db note find-first --where.<field>.<op> <value>
 agentic-db note search <query>
 agentic-db note get --id <UUID>
-agentic-db note create --entityId <UUID> --content <String> [--abstract <String>] [--overview <String>] [--activeCount <Int>] [--lastAccessedAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db note update --id <UUID> [--entityId <UUID>] [--content <String>] [--abstract <String>] [--overview <String>] [--activeCount <Int>] [--lastAccessedAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db note create --content <String> [--abstract <String>] [--overview <String>] [--activeCount <Int>] [--lastAccessedAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db note update --id <UUID> [--content <String>] [--abstract <String>] [--overview <String>] [--activeCount <Int>] [--lastAccessedAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db note delete --id <UUID>
 ```
 
@@ -137,7 +137,7 @@ agentic-db note search "query" --limit 10 --select id,title,searchScore
 ### Create a note
 
 ```bash
-agentic-db note create --entityId <UUID> --content <String> [--abstract <String>] [--overview <String>] [--activeCount <Int>] [--lastAccessedAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db note create --content <String> [--abstract <String>] [--overview <String>] [--activeCount <Int>] [--lastAccessedAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a note by id

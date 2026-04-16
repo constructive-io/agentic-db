@@ -12,8 +12,8 @@ agentic-db task-project list --where.<field>.<op> <value> --orderBy <values>
 agentic-db task-project list --limit 10 --after <cursor>
 agentic-db task-project find-first --where.<field>.<op> <value>
 agentic-db task-project get --id <UUID>
-agentic-db task-project create --taskId <UUID> --projectId <UUID> --entityId <UUID>
-agentic-db task-project update --id <UUID> [--taskId <UUID>] [--projectId <UUID>] [--entityId <UUID>]
+agentic-db task-project create --taskId <UUID> --projectId <UUID>
+agentic-db task-project update --id <UUID> [--taskId <UUID>] [--projectId <UUID>]
 agentic-db task-project delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db task-project list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a taskProject
 
 ```bash
-agentic-db task-project create --taskId <UUID> --projectId <UUID> --entityId <UUID>
+agentic-db task-project create --taskId <UUID> --projectId <UUID>
 ```
 
 ### Get a taskProject by id

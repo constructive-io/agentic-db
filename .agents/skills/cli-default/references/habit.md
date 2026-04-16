@@ -12,8 +12,8 @@ agentic-db habit list --where.<field>.<op> <value> --orderBy <values>
 agentic-db habit list --limit 10 --after <cursor>
 agentic-db habit find-first --where.<field>.<op> <value>
 agentic-db habit get --id <UUID>
-agentic-db habit create --entityId <UUID> --name <String> [--frequency <String>] [--streak <Int>] [--lastCompletedAt <Datetime>] [--tags <String>]
-agentic-db habit update --id <UUID> [--entityId <UUID>] [--name <String>] [--frequency <String>] [--streak <Int>] [--lastCompletedAt <Datetime>] [--tags <String>]
+agentic-db habit create --name <String> [--frequency <String>] [--streak <Int>] [--lastCompletedAt <Datetime>] [--tags <String>]
+agentic-db habit update --id <UUID> [--name <String>] [--frequency <String>] [--streak <Int>] [--lastCompletedAt <Datetime>] [--tags <String>]
 agentic-db habit delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db habit list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a habit
 
 ```bash
-agentic-db habit create --entityId <UUID> --name <String> [--frequency <String>] [--streak <Int>] [--lastCompletedAt <Datetime>] [--tags <String>]
+agentic-db habit create --name <String> [--frequency <String>] [--streak <Int>] [--lastCompletedAt <Datetime>] [--tags <String>]
 ```
 
 ### Get a habit by id

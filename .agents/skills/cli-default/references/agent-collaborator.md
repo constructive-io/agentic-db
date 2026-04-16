@@ -12,8 +12,8 @@ agentic-db agent-collaborator list --where.<field>.<op> <value> --orderBy <value
 agentic-db agent-collaborator list --limit 10 --after <cursor>
 agentic-db agent-collaborator find-first --where.<field>.<op> <value>
 agentic-db agent-collaborator get --id <UUID>
-agentic-db agent-collaborator create --agentId <UUID> --collaboratorId <UUID> --entityId <UUID>
-agentic-db agent-collaborator update --id <UUID> [--agentId <UUID>] [--collaboratorId <UUID>] [--entityId <UUID>]
+agentic-db agent-collaborator create --agentId <UUID> --collaboratorId <UUID>
+agentic-db agent-collaborator update --id <UUID> [--agentId <UUID>] [--collaboratorId <UUID>]
 agentic-db agent-collaborator delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db agent-collaborator list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a agentCollaborator
 
 ```bash
-agentic-db agent-collaborator create --agentId <UUID> --collaboratorId <UUID> --entityId <UUID>
+agentic-db agent-collaborator create --agentId <UUID> --collaboratorId <UUID>
 ```
 
 ### Get a agentCollaborator by id

@@ -12,8 +12,8 @@ agentic-db runtime-event list --where.<field>.<op> <value> --orderBy <values>
 agentic-db runtime-event list --limit 10 --after <cursor>
 agentic-db runtime-event find-first --where.<field>.<op> <value>
 agentic-db runtime-event get --id <UUID>
-agentic-db runtime-event create --entityId <UUID> --eventType <String> --payload <JSON> [--source <String>] [--processedAt <Datetime>] [--status <String>]
-agentic-db runtime-event update --id <UUID> [--entityId <UUID>] [--eventType <String>] [--payload <JSON>] [--source <String>] [--processedAt <Datetime>] [--status <String>]
+agentic-db runtime-event create --eventType <String> --payload <JSON> [--source <String>] [--processedAt <Datetime>] [--status <String>]
+agentic-db runtime-event update --id <UUID> [--eventType <String>] [--payload <JSON>] [--source <String>] [--processedAt <Datetime>] [--status <String>]
 agentic-db runtime-event delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db runtime-event list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a runtimeEvent
 
 ```bash
-agentic-db runtime-event create --entityId <UUID> --eventType <String> --payload <JSON> [--source <String>] [--processedAt <Datetime>] [--status <String>]
+agentic-db runtime-event create --eventType <String> --payload <JSON> [--source <String>] [--processedAt <Datetime>] [--status <String>]
 ```
 
 ### Get a runtimeEvent by id

@@ -12,8 +12,8 @@ agentic-db company-memory list --where.<field>.<op> <value> --orderBy <values>
 agentic-db company-memory list --limit 10 --after <cursor>
 agentic-db company-memory find-first --where.<field>.<op> <value>
 agentic-db company-memory get --id <UUID>
-agentic-db company-memory create --companyId <UUID> --memoryId <UUID> --entityId <UUID>
-agentic-db company-memory update --id <UUID> [--companyId <UUID>] [--memoryId <UUID>] [--entityId <UUID>]
+agentic-db company-memory create --companyId <UUID> --memoryId <UUID>
+agentic-db company-memory update --id <UUID> [--companyId <UUID>] [--memoryId <UUID>]
 agentic-db company-memory delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db company-memory list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a companyMemory
 
 ```bash
-agentic-db company-memory create --companyId <UUID> --memoryId <UUID> --entityId <UUID>
+agentic-db company-memory create --companyId <UUID> --memoryId <UUID>
 ```
 
 ### Get a companyMemory by id

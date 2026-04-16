@@ -12,8 +12,8 @@ agentic-db event-note list --where.<field>.<op> <value> --orderBy <values>
 agentic-db event-note list --limit 10 --after <cursor>
 agentic-db event-note find-first --where.<field>.<op> <value>
 agentic-db event-note get --id <UUID>
-agentic-db event-note create --eventId <UUID> --noteId <UUID> --entityId <UUID>
-agentic-db event-note update --id <UUID> [--eventId <UUID>] [--noteId <UUID>] [--entityId <UUID>]
+agentic-db event-note create --eventId <UUID> --noteId <UUID>
+agentic-db event-note update --id <UUID> [--eventId <UUID>] [--noteId <UUID>]
 agentic-db event-note delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db event-note list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a eventNote
 
 ```bash
-agentic-db event-note create --eventId <UUID> --noteId <UUID> --entityId <UUID>
+agentic-db event-note create --eventId <UUID> --noteId <UUID>
 ```
 
 ### Get a eventNote by id

@@ -12,8 +12,8 @@ agentic-db runtime-state-dependency list --where.<field>.<op> <value> --orderBy 
 agentic-db runtime-state-dependency list --limit 10 --after <cursor>
 agentic-db runtime-state-dependency find-first --where.<field>.<op> <value>
 agentic-db runtime-state-dependency get --id <UUID>
-agentic-db runtime-state-dependency create --stateId <UUID> --dependencyId <UUID> --entityId <UUID>
-agentic-db runtime-state-dependency update --id <UUID> [--stateId <UUID>] [--dependencyId <UUID>] [--entityId <UUID>]
+agentic-db runtime-state-dependency create --stateId <UUID> --dependencyId <UUID>
+agentic-db runtime-state-dependency update --id <UUID> [--stateId <UUID>] [--dependencyId <UUID>]
 agentic-db runtime-state-dependency delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db runtime-state-dependency list --where.id.equalTo <value> --orderBy ID
 ### Create a runtimeStateDependency
 
 ```bash
-agentic-db runtime-state-dependency create --stateId <UUID> --dependencyId <UUID> --entityId <UUID>
+agentic-db runtime-state-dependency create --stateId <UUID> --dependencyId <UUID>
 ```
 
 ### Get a runtimeStateDependency by id

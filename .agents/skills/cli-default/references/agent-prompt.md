@@ -12,8 +12,8 @@ agentic-db agent-prompt list --where.<field>.<op> <value> --orderBy <values>
 agentic-db agent-prompt list --limit 10 --after <cursor>
 agentic-db agent-prompt find-first --where.<field>.<op> <value>
 agentic-db agent-prompt get --id <UUID>
-agentic-db agent-prompt create --agentId <UUID> --promptId <UUID> --entityId <UUID>
-agentic-db agent-prompt update --id <UUID> [--agentId <UUID>] [--promptId <UUID>] [--entityId <UUID>]
+agentic-db agent-prompt create --agentId <UUID> --promptId <UUID>
+agentic-db agent-prompt update --id <UUID> [--agentId <UUID>] [--promptId <UUID>]
 agentic-db agent-prompt delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db agent-prompt list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a agentPrompt
 
 ```bash
-agentic-db agent-prompt create --agentId <UUID> --promptId <UUID> --entityId <UUID>
+agentic-db agent-prompt create --agentId <UUID> --promptId <UUID>
 ```
 
 ### Get a agentPrompt by id

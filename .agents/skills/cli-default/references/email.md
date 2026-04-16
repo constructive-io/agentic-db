@@ -7,7 +7,7 @@ CRUD operations for Email records via agentic-db CLI
 **pgvector embedding fields:** `embedding`
 High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-**Unified Search API fields:** `searchTsv`, `embeddingTextBm25Score`, `providerMessageIdTrgmSimilarity`, `subjectTrgmSimilarity`, `bodyTextTrgmSimilarity`, `bodyHtmlTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Unified Search API fields:** `searchTsv`
 Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 ## Usage
@@ -19,8 +19,8 @@ agentic-db email list --limit 10 --after <cursor>
 agentic-db email find-first --where.<field>.<op> <value>
 agentic-db email search <query>
 agentic-db email get --id <UUID>
-agentic-db email create --entityId <UUID> --emailThreadId <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db email update --id <UUID> [--entityId <UUID>] [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--emailThreadId <UUID>]
+agentic-db email create --emailThreadId <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db email update --id <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--emailThreadId <UUID>]
 agentic-db email delete --id <UUID>
 ```
 
@@ -91,46 +91,10 @@ EMBEDDER_PROVIDER=ollama agentic-db email update --embedding "new text to embed"
 agentic-db email list --where.searchTsv "search query" --select title,tsvRank
 ```
 
-### BM25 keyword search via `bm25EmbeddingText`
-
-```bash
-agentic-db email list --where.bm25EmbeddingText.query "search query" --select title,embeddingTextBm25Score
-```
-
-### Fuzzy search via trigram similarity (`trgmProviderMessageId`)
-
-```bash
-agentic-db email list --where.trgmProviderMessageId.value "approximate query" --where.trgmProviderMessageId.threshold 0.3 --select title,providerMessageIdTrgmSimilarity
-```
-
-### Fuzzy search via trigram similarity (`trgmSubject`)
-
-```bash
-agentic-db email list --where.trgmSubject.value "approximate query" --where.trgmSubject.threshold 0.3 --select title,subjectTrgmSimilarity
-```
-
-### Fuzzy search via trigram similarity (`trgmBodyText`)
-
-```bash
-agentic-db email list --where.trgmBodyText.value "approximate query" --where.trgmBodyText.threshold 0.3 --select title,bodyTextTrgmSimilarity
-```
-
-### Fuzzy search via trigram similarity (`trgmBodyHtml`)
-
-```bash
-agentic-db email list --where.trgmBodyHtml.value "approximate query" --where.trgmBodyHtml.threshold 0.3 --select title,bodyHtmlTrgmSimilarity
-```
-
-### Fuzzy search via trigram similarity (`trgmEmbeddingText`)
-
-```bash
-agentic-db email list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
-```
-
 ### Composite search (fullTextSearch dispatches to all text adapters)
 
 ```bash
-agentic-db email list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,providerMessageIdTrgmSimilarity,subjectTrgmSimilarity,bodyTextTrgmSimilarity,bodyHtmlTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db email list --where.fullTextSearch "search query" --select title,tsvRank
 ```
 
 ### Search with pagination and field projection
@@ -143,7 +107,7 @@ agentic-db email search "query" --limit 10 --select id,title,searchScore
 ### Create a email
 
 ```bash
-agentic-db email create --entityId <UUID> --emailThreadId <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db email create --emailThreadId <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a email by id

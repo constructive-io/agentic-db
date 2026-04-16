@@ -16,12 +16,11 @@ import type {
 } from '../../orm/input-types';
 import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
-  id: 'uuid',
-  entityId: 'uuid',
   name: 'string',
   color: 'string',
   category: 'string',
   usageCount: 'int',
+  id: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
 };
@@ -76,12 +75,11 @@ async function handleTableSubcommand(
 async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       name: true,
       color: true,
       category: true,
       usageCount: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
     };
@@ -104,12 +102,11 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
 async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       name: true,
       color: true,
       category: true,
       usageCount: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
     };
@@ -144,12 +141,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          id: true,
-          entityId: true,
           name: true,
           color: true,
           category: true,
           usageCount: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -167,12 +163,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
       {
         type: 'text',
         name: 'name',
@@ -207,19 +197,17 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.tag
       .create({
         data: {
-          entityId: cleanedData.entityId,
           name: cleanedData.name,
           color: cleanedData.color,
           category: cleanedData.category,
           usageCount: cleanedData.usageCount,
         },
         select: {
-          id: true,
-          entityId: true,
           name: true,
           color: true,
           category: true,
           usageCount: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -242,12 +230,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'id',
         message: 'id',
         required: true,
-      },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
       },
       {
         type: 'text',
@@ -286,19 +268,17 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          entityId: cleanedData.entityId,
           name: cleanedData.name,
           color: cleanedData.color,
           category: cleanedData.category,
           usageCount: cleanedData.usageCount,
         },
         select: {
-          id: true,
-          entityId: true,
           name: true,
           color: true,
           category: true,
           usageCount: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },

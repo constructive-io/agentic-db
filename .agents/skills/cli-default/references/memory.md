@@ -19,8 +19,8 @@ agentic-db memory list --limit 10 --after <cursor>
 agentic-db memory find-first --where.<field>.<op> <value>
 agentic-db memory search <query>
 agentic-db memory get --id <UUID>
-agentic-db memory create --entityId <UUID> --title <String> [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>] [--agentId <UUID>]
-agentic-db memory update --id <UUID> [--entityId <UUID>] [--title <String>] [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>] [--agentId <UUID>]
+agentic-db memory create --title <String> [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>] [--agentId <UUID>]
+agentic-db memory update --id <UUID> [--title <String>] [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>] [--agentId <UUID>]
 agentic-db memory delete --id <UUID>
 ```
 
@@ -137,7 +137,7 @@ agentic-db memory search "query" --limit 10 --select id,title,searchScore
 ### Create a memory
 
 ```bash
-agentic-db memory create --entityId <UUID> --title <String> [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>] [--agentId <UUID>]
+agentic-db memory create --title <String> [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>] [--agentId <UUID>]
 ```
 
 ### Get a memory by id
