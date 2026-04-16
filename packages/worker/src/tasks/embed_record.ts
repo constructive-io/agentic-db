@@ -152,13 +152,6 @@ const TABLE_CONFIGS: Record<string, TableConfig> = {
     chunkModelName: 'placeChunk',
     chunkFkField: 'placeId',
   },
-  itinerary_items: {
-    modelName: 'itineraryItem',
-    textFields: ['title', 'description', 'tags'],
-    summaryFields: ['title', 'description'],
-    chunkModelName: 'itineraryItemChunk',
-    chunkFkField: 'itineraryItemId',
-  },
 };
 
 // ~6000 chars ~ ~1500 tokens; nomic-embed-text has 8192 token limit

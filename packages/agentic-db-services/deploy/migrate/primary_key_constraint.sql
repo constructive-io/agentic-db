@@ -29,7 +29,6 @@ INSERT INTO metaschema_public.primary_key_constraint (
   field_ids
 ) VALUES
   ('03028a2d-13d7-45e6-4809-221d4ee5fbb4', '019d937b-b671-77da-9a1e-5b9b26705894', '37468336-5c6e-071c-c7e1-465f06c17861', 'runtime_metrics_pkey', 'p', '{ea708a9c-d301-66be-f3cc-a3f20c6d3b7e}'),
-  ('057e4900-fa9a-139c-f294-6fd611a7b390', '019d937b-b671-77da-9a1e-5b9b26705894', '5f2e54c0-bd38-52a4-01f2-b2e99e742319', 'code_chunks_pkey', 'p', '{624d7cd1-3d64-6d05-cc6e-92ac5cef5cea}'),
   ('0619357c-0eb1-08b9-ad9b-e6c6f60e15ed', '019d937b-b671-77da-9a1e-5b9b26705894', '7e00e80e-355e-6b6a-874b-b956fb88c141', 'company_links_pkey', 'p', '{d66b58f8-002d-bab0-c73a-f6dc26467517}'),
   ('07025c91-b42d-ee9f-5232-7759bde62985', '019d937b-b671-77da-9a1e-5b9b26705894', '037ea3b0-bed8-b144-b7d4-af62282cf2b5', 'goals_pkey', 'p', '{d7ddae73-058e-4921-ecfe-a2ff48a4ae48}'),
   ('09c1ff35-5126-3e39-6bc6-663fec87eebc', '019d937b-b671-77da-9a1e-5b9b26705894', '7e2948e3-505c-135b-a5d0-77451a71acfe', 'email_threads_pkey', 'p', '{1bea6e21-4a75-0787-75ee-d4a34a809919}'),
@@ -80,7 +79,6 @@ INSERT INTO metaschema_public.primary_key_constraint (
   ('d9be7d5e-06d8-f8e0-a480-f2918462ef4a', '019d937b-b671-77da-9a1e-5b9b26705894', 'b09f1e46-2dfa-0014-6450-c4c4bf5663a8', 'activity_logs_pkey', 'p', '{e41a2bc0-a4f0-25d8-acf0-28db0e3b3e7e}'),
   ('e07e0b11-68ec-09d6-d221-bae69743f378', '019d937b-b671-77da-9a1e-5b9b26705894', '0fbb4a04-7bcd-68ae-ff0a-01421a8ae745', 'calendar_events_pkey', 'p', '{3cc639ae-a2d0-9b8a-c7c1-96fcf2560204}'),
   ('e4fcb851-c0c7-a735-23ad-e34f600b1043', '019d937b-b671-77da-9a1e-5b9b26705894', 'bb2e1e7a-0c58-0617-419c-7e767db6634d', 'notes_pkey', 'p', '{c488ff50-bfa7-0eb6-e694-75ccc42a9219}'),
-  ('e6c39207-680f-d091-5cd4-65e44147af12', '019d937b-b671-77da-9a1e-5b9b26705894', '2caebfe9-9b9b-54c2-39cd-737bf064ecd5', 'codebases_pkey', 'p', '{d841ffbc-99a7-343c-387e-177f93de84f4}'),
   ('eb80b4a8-05a6-2eff-ab8a-f23503fd05df', '019d937b-b671-77da-9a1e-5b9b26705894', '95d8f3b2-c7e8-d66d-803e-d18fb7c2d693', 'agents_pkey', 'p', '{38e76129-df28-e0aa-8a67-17ff5920e971}'),
   ('ecbfbb39-395f-a4ba-8cb7-dc4b85552bd2', '019d937b-b671-77da-9a1e-5b9b26705894', 'fde07769-59cd-eb3e-18ab-89685f191f9c', 'event_links_pkey', 'p', '{494540c7-46b2-a9d8-7428-2eaa332d3b5e}'),
   ('ee2054aa-364a-26ae-3edc-76a6ed8ad0dc', '019d937b-b671-77da-9a1e-5b9b26705894', 'e8e24050-18e9-b1c9-6a74-2fc415100c64', 'prompts_pkey', 'p', '{ad9ae4d2-364c-e7b1-0cfc-352b2fc63b4c}');
