@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/constructive-io/agentic-db/compare/agentic-db@0.1.0...agentic-db@0.2.0) (2026-04-16)
+
+### Bug Fixes
+
+- remove publishConfig.directory from pgpm SQL packages ([70b4e75](https://github.com/constructive-io/agentic-db/commit/70b4e7588497a7cce70c88c0f9fdf955c6ffdc08))
+
 # 0.1.0 (2026-04-16)
 
 ### Bug Fixes
