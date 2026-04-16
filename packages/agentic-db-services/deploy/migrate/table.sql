@@ -63,7 +63,6 @@ INSERT INTO metaschema_public.table (
   ('546cf1d0-f56b-9b51-598a-a1b8184a054c', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'deal_contacts', NULL),
   ('58183483-29ba-c4ff-9d79-6a1772579a98', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'contact_links', NULL),
   ('5a7b13f1-aec0-9268-00f3-6844710aa4ef', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'event_venues', NULL),
-  ('5e50e679-e5b0-8515-8081-d83824933a22', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'hiking_trails', NULL),
   ('5f2e54c0-bd38-52a4-01f2-b2e99e742319', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'code_chunks', NULL),
   ('6791117f-2437-e2dd-b400-291e23098edd', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'autonomy_records', NULL),
   ('6cb7b5ea-fd14-1281-334d-7e6b2b6f6dd2', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'messages', NULL),

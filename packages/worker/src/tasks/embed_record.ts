@@ -145,13 +145,6 @@ const TABLE_CONFIGS: Record<string, TableConfig> = {
     chunkModelName: 'conversationChunk',
     chunkFkField: 'conversationId',
   },
-  hiking_trails: {
-    modelName: 'hikingTrail',
-    textFields: ['name', 'description', 'tags'],
-    summaryFields: ['name', 'description'],
-    chunkModelName: 'hikingTrailChunk',
-    chunkFkField: 'hikingTrailId',
-  },
   places: {
     modelName: 'place',
     textFields: ['name', 'description', 'tags'],

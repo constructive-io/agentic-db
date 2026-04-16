@@ -83,8 +83,7 @@ INSERT INTO metaschema_public.primary_key_constraint (
   ('e6c39207-680f-d091-5cd4-65e44147af12', '019d937b-b671-77da-9a1e-5b9b26705894', '2caebfe9-9b9b-54c2-39cd-737bf064ecd5', 'codebases_pkey', 'p', '{d841ffbc-99a7-343c-387e-177f93de84f4}'),
   ('eb80b4a8-05a6-2eff-ab8a-f23503fd05df', '019d937b-b671-77da-9a1e-5b9b26705894', '95d8f3b2-c7e8-d66d-803e-d18fb7c2d693', 'agents_pkey', 'p', '{38e76129-df28-e0aa-8a67-17ff5920e971}'),
   ('ecbfbb39-395f-a4ba-8cb7-dc4b85552bd2', '019d937b-b671-77da-9a1e-5b9b26705894', 'fde07769-59cd-eb3e-18ab-89685f191f9c', 'event_links_pkey', 'p', '{494540c7-46b2-a9d8-7428-2eaa332d3b5e}'),
-  ('ee2054aa-364a-26ae-3edc-76a6ed8ad0dc', '019d937b-b671-77da-9a1e-5b9b26705894', 'e8e24050-18e9-b1c9-6a74-2fc415100c64', 'prompts_pkey', 'p', '{ad9ae4d2-364c-e7b1-0cfc-352b2fc63b4c}'),
-  ('f992e481-dabc-e1f5-b126-c279628c2961', '019d937b-b671-77da-9a1e-5b9b26705894', '5e50e679-e5b0-8515-8081-d83824933a22', 'hiking_trails_pkey', 'p', '{5135641c-e412-b27d-27ee-c988eaa1395d}');
+  ('ee2054aa-364a-26ae-3edc-76a6ed8ad0dc', '019d937b-b671-77da-9a1e-5b9b26705894', 'e8e24050-18e9-b1c9-6a74-2fc415100c64', 'prompts_pkey', 'p', '{ad9ae4d2-364c-e7b1-0cfc-352b2fc63b4c}');
 
 
 SET session_replication_role TO DEFAULT;
