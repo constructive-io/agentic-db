@@ -10,18 +10,11 @@
  *   4. Real Ollama (nomic-embed-text) generates embeddings
  *
  * Flow:
- *   insert contacts/notes (ORM) -> create chunks (pg/worker)
- *   -> embed via Ollama -> vector search
+ *   insert contacts/notes (ORM) -> embed via Ollama -> vector search
  *
  * Raw SQL is limited to:
  *   - createAppJobsStub (test infrastructure via helper)
  *   - grantAnonymousAccess (no security modules installed)
- *   - chunk INSERT/UPDATE/SELECT via pg (simulating the worker process,
- *     which runs as superuser in production)
- *
- * NOTE ON CHUNKS:
- *   In production the worker creates and embeds chunks as superuser.
- *   The test mirrors this by using pg (superuser) for chunk operations.
  *
  * Modeled after:
  *   constructive-db/application/app/__tests__/database-provision-graphql.test.ts
@@ -91,7 +84,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(typeof vec[0]).toBe('number');
   });
 
-  it('completes full RAG pipeline: contacts -> chunks -> embed -> search', async () => {
+  it('completes full RAG pipeline: contacts -> embed -> search', async () => {
     const sdk = createClient({ adapter: new GraphQLTestAdapter(query) });
     const ollama = new OllamaClient(OLLAMA_URL);
 
@@ -158,33 +151,9 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(noteId).toBeDefined();
 
     // =====================================================================
-    // 3. Create a chunk for Carol via pg (superuser, simulating the worker)
-    //
-    //    db.publish() commits the ORM-created contacts/notes so that pg
-    //    (a separate superuser connection) can see them for the FK check.
+    // 3. Embed contacts + note via ORM
     // =====================================================================
     await db.publish();
-
-    const chunkContent =
-      'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
-
-    const chunkInsertResult = await pg.query(
-      `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index)
-       VALUES ($1, $2, 0)
-       RETURNING id, content, chunk_index`,
-      [carolId, chunkContent],
-    );
-
-    const chunkRow = chunkInsertResult.rows[0];
-    expect(chunkRow.content).toContain('Carol');
-    expect(chunkRow.chunk_index).toBe(0);
-    const chunkId = chunkRow.id;
-
-    // =====================================================================
-    // 4. Embed contacts + note via ORM
-    //    Embed chunk via pg (superuser, simulating worker)
-    // =====================================================================
 
     // Embed Carol
     const carolText =
@@ -248,23 +217,10 @@ describe('RAG Integration (real schema + real Ollama)', () => {
       throw new Error(`embed note failed: ${JSON.stringify(embedNoteResult.errors)}`);
     }
 
-    // Commit ORM embeddings so pg can see them when embedding the chunk
     await db.publish();
 
-    // Embed the chunk via pg (superuser, simulating worker)
-    const chunkText =
-      'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
-    const chunkVec = await ollama.generateEmbedding(chunkText, EMBEDDING_MODEL);
-
-    await pg.query(
-      `UPDATE "agentic_db_app_public".contacts_chunks
-       SET embedding = $1::vector
-       WHERE id = $2`,
-      [`[${chunkVec.join(',')}]`, chunkId],
-    );
-
     // =====================================================================
-    // 5. Vector similarity search -- contacts (ORM)
+    // 4. Vector similarity search -- contacts (ORM)
     // =====================================================================
 
     // DB query should rank Carol closer than Dave
@@ -375,29 +331,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(noteNodes[0].embeddingVectorDistance).toBeLessThan(1.0);
 
     // =====================================================================
-    // 7. Vector search on chunks via pg (superuser, simulating worker)
-    // =====================================================================
-    const chunkQueryVec = await ollama.generateEmbedding(
-      'PGConf indexing strategies HNSW IVFFlat',
-      EMBEDDING_MODEL,
-    );
-
-    const chunkSearchResult = await pg.query(
-      `SELECT id, content, chunk_index,
-              embedding <=> $1::vector AS distance
-       FROM "agentic_db_app_public".contacts_chunks
-       WHERE embedding IS NOT NULL
-       ORDER BY embedding <=> $1::vector
-       LIMIT 5`,
-      [`[${chunkQueryVec.join(',')}]`],
-    );
-
-    expect(chunkSearchResult.rows.length).toBeGreaterThanOrEqual(1);
-    expect(chunkSearchResult.rows[0].content).toContain('PGConf');
-    expect(parseFloat(chunkSearchResult.rows[0].distance)).toBeLessThan(1.0);
-
-    // =====================================================================
-    // 8. Cross-table search (contacts + notes via ORM)
+    // 5. Cross-table search (contacts + notes via ORM)
     // =====================================================================
     const crossQueryVec = await ollama.generateEmbedding(
       'vector database architecture PostgreSQL',

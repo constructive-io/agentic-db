@@ -15,8 +15,10 @@
  * Without a JWT context current_database_id() returns NULL, which violates
  * the NOT NULL constraint on app_jobs.jobs.database_id.
  *
- * We fix this by overriding jwt_private.current_database_id() to return a
- * dummy UUID so the real add_job function can INSERT successfully.
+ * We fix this by:
+ *   1. Overriding jwt_private.current_database_id() to return a dummy UUID
+ *   2. Granting the anonymous role access to the app_jobs schema so the
+ *      trigger functions can execute successfully.
  */
 export async function createAppJobsStub(pg: any): Promise<void> {
   await pg.query(`
@@ -26,6 +28,11 @@ export async function createAppJobsStub(pg: any): Promise<void> {
       RETURN '00000000-0000-0000-0000-000000000000'::uuid;
     END;
     $$ LANGUAGE plpgsql;
+
+    GRANT USAGE ON SCHEMA app_jobs TO anonymous;
+    GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO anonymous;
+    GRANT ALL ON ALL TABLES IN SCHEMA app_jobs TO anonymous;
+    GRANT ALL ON ALL SEQUENCES IN SCHEMA app_jobs TO anonymous;
   `);
 }
 

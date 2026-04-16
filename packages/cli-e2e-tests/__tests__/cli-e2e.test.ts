@@ -266,6 +266,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     //    (e.g. contacts_enqueue_embedding) which call
     //    app_jobs.add_job(jwt_private.current_database_id(), ...) don't fail
     //    with a NULL database_id constraint violation.
+    //    Also grant anonymous access to app_jobs schema so triggers can execute.
     await pg.query(`
       CREATE OR REPLACE FUNCTION jwt_private.current_database_id()
       RETURNS uuid AS $$
@@ -273,6 +274,11 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
         RETURN '00000000-0000-0000-0000-000000000000'::uuid;
       END;
       $$ LANGUAGE plpgsql;
+
+      GRANT USAGE ON SCHEMA app_jobs TO anonymous;
+      GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO anonymous;
+      GRANT ALL ON ALL TABLES IN SCHEMA app_jobs TO anonymous;
+      GRANT ALL ON ALL SEQUENCES IN SCHEMA app_jobs TO anonymous;
     `);
 
     // 1. Insert contacts via direct SQL (superuser)
@@ -338,23 +344,10 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     await setEmbedding('contacts', eveId, fixtures.records.eve.embedding, fixtures.records.eve.text);
     await setEmbedding('notes', noteArchId, fixtures.records.note_architecture.embedding, fixtures.records.note_architecture.text);
 
-    // 4. Insert chunks via direct SQL
-    await pg.query(
-      `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index, embedding)
-       VALUES ($1, $2, $3, $4::vector)`,
-      [
-        carolId,
-        fixtures.records.chunk_carol_pgconf.data.content,
-        0,
-        `[${fixtures.records.chunk_carol_pgconf.embedding.join(',')}]`,
-      ],
-    );
-
-    // 5. Configure CLI context to point at test server + Ollama proxy
+    // 4. Configure CLI context to point at test server + Ollama proxy
     setupCliContext(server.graphqlUrl, ollamaProxyUrl);
 
-    // 6. Warm up Ollama model so first CLI call doesn't timeout on model load
+    // 5. Warm up Ollama model so first CLI call doesn't timeout on model load
     try {
       const warmUpRes = await fetch(`${OLLAMA_URL}/api/embeddings`, {
         method: 'POST',

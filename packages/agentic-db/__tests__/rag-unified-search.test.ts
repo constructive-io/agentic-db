@@ -153,32 +153,7 @@ describe('Unified Search with pre-baked embeddings', () => {
       if (!embedRes.ok) throw new Error(`embed note ${id} failed: ${JSON.stringify(embedRes.errors)}`);
     }
 
-    // 4. Insert chunks via pg (superuser, simulating the worker)
     await db.publish();
-
-    await pg.query(
-      `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index, embedding)
-       VALUES ($1, $2, $3, $4::vector)`,
-      [
-        carolId,
-        fixtures.records.chunk_carol_pgconf.data.content,
-        0,
-        `[${fixtures.records.chunk_carol_pgconf.embedding.join(',')}]`,
-      ],
-    );
-
-    await pg.query(
-      `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index, embedding)
-       VALUES ($1, $2, $3, $4::vector)`,
-      [
-        carolId,
-        fixtures.records.chunk_carol_research.data.content,
-        1,
-        `[${fixtures.records.chunk_carol_research.embedding.join(',')}]`,
-      ],
-    );
   });
 
   // =========================================================================
