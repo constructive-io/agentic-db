@@ -29,24 +29,24 @@ INSERT INTO metaschema_public.default_privilege (
   grantee_name,
   is_grant
 ) VALUES
-  ('019d937b-b6de-7417-b64b-b18dc53c82e1', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'tables', 'ALL', 'administrator', true),
-  ('019d937b-b6ee-7c5f-9bbe-cbd81c73ed54', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'sequences', 'ALL', 'administrator', true),
-  ('019d937b-b728-776c-b9b1-8a6ddf622bcc', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'functions', 'ALL', 'administrator', true),
-  ('019d937b-b741-7902-b860-b96c01cfe55a', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'functions', 'ALL', 'authenticated', true),
-  ('019d937b-b759-7530-96b7-eb992e3720f8', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'sequences', 'ALL', 'authenticated', true),
-  ('019d937b-b770-7a4e-8934-619aa88d3a29', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'functions', 'ALL', 'anonymous', true),
-  ('019d937b-b7f5-7684-80c1-30e9fa790b71', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'tables', 'ALL', 'administrator', true),
-  ('019d937b-b80e-7c69-b01a-9fb38fbda806', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'sequences', 'ALL', 'administrator', true),
-  ('019d937b-b826-7c3e-83e0-c41ab790de0a', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'functions', 'ALL', 'administrator', true),
-  ('019d937b-b83e-7e7f-96f2-f1310452c3f6', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'functions', 'ALL', 'authenticated', true),
-  ('019d937b-b856-74fb-85d5-18d87d818438', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'sequences', 'ALL', 'authenticated', true),
-  ('019d937b-b86d-7387-93af-300521cc0bcf', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'functions', 'ALL', 'anonymous', true),
-  ('019d937b-d6b8-739d-8091-ad739ddcfe72', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'tables', 'ALL', 'administrator', true),
-  ('019d937b-d6e2-79ff-9457-41cafd04f6b1', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'sequences', 'ALL', 'administrator', true),
-  ('019d937b-d709-7657-a59d-0b9595803a63', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'functions', 'ALL', 'administrator', true),
-  ('019d937b-d730-721c-85d3-84dfefc62b9d', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'functions', 'ALL', 'authenticated', true),
-  ('019d937b-d756-7e94-883c-b99a3e526987', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'sequences', 'ALL', 'authenticated', true),
-  ('019d937b-d77e-7c85-b1a6-3fdf5f5435ab', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'functions', 'ALL', 'anonymous', true);
+  ('019d9485-aee9-7836-aa7d-1d4a7b774175', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'tables', 'ALL', 'administrator', true),
+  ('019d9485-aef9-7c46-9c7d-fccefd245842', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'sequences', 'ALL', 'administrator', true),
+  ('019d9485-af04-73c1-9702-c34d1caa145e', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'functions', 'ALL', 'administrator', true),
+  ('019d9485-af0e-7f14-a7c8-a48080977211', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'functions', 'ALL', 'authenticated', true),
+  ('019d9485-af19-7333-80c8-d0e2ac2f11cc', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'sequences', 'ALL', 'authenticated', true),
+  ('019d9485-af23-7360-b748-d6c3f40e70a5', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'functions', 'ALL', 'anonymous', true),
+  ('019d9485-af67-70f1-b560-e436be77d04e', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'tables', 'ALL', 'administrator', true),
+  ('019d9485-af74-767d-85e8-abd080cc03a7', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'sequences', 'ALL', 'administrator', true),
+  ('019d9485-af7e-791f-8e72-5dec6de8289a', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'functions', 'ALL', 'administrator', true),
+  ('019d9485-af88-7729-9916-243b76f42bfb', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'functions', 'ALL', 'authenticated', true),
+  ('019d9485-af93-7062-8520-58b00f8ef73f', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'sequences', 'ALL', 'authenticated', true),
+  ('019d9485-af9c-7dfc-90c7-79f5bd187e6e', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'functions', 'ALL', 'anonymous', true),
+  ('038967c0-df0a-696b-d50d-792ffccba699', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'sequences', 'ALL', 'administrator', true),
+  ('2872adb1-257d-d81f-ba56-63d3195f784f', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'sequences', 'ALL', 'authenticated', true),
+  ('c4e2ab29-4a6a-3a30-fc6e-9f9399deb985', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'functions', 'ALL', 'administrator', true),
+  ('c6903608-8e8e-5aa4-d5d9-fde6b116b18e', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'functions', 'ALL', 'authenticated', true),
+  ('d1a4b009-8243-ed1e-2080-a3558c3cfb8d', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'tables', 'ALL', 'administrator', true),
+  ('fffb1677-d848-897d-fc8f-896d70260456', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'functions', 'ALL', 'anonymous', true);
 
 
 SET session_replication_role TO DEFAULT;

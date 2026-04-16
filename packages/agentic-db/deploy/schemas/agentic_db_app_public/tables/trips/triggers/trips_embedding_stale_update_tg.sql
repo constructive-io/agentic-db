@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/trips/table
 -- requires: schemas/agentic_db_private/trigger_fns/trips_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE TRIGGER trips_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.trips
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.destination IS DISTINCT FROM NEW.destination)
-EXECUTE PROCEDURE agentic_db_private.trips_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".trips_embedding_stale ( );
 

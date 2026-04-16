@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/habits/table
 -- requires: schemas/agentic_db_app_public/tables/habits/columns/frequency/column
--- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE INDEX habits_frequency_idx ON agentic_db_app_public.habits USING BTREE ( frequency );

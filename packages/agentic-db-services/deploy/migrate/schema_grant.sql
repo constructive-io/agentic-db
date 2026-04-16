@@ -26,15 +26,15 @@ INSERT INTO metaschema_public.schema_grant (
   schema_id,
   grantee_name
 ) VALUES
-  ('019d937b-b6a8-72bd-a01a-0056ffb8bb13', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'administrator'),
-  ('019d937b-b6ba-7c18-92ac-9b694278d0d8', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'authenticated'),
-  ('019d937b-b6cb-73f7-9214-f02adcbb6fa7', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b682-77d7-8778-efebf99aa040', 'anonymous'),
-  ('019d937b-b7a1-79f6-a6ae-9d1c14831caa', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'administrator'),
-  ('019d937b-b7bc-7e8c-bad9-3e59cff61d49', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'authenticated'),
-  ('019d937b-b7d9-75b1-b952-72561f461473', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-b684-7879-9eab-a1e9699dccc5', 'anonymous'),
-  ('019d937b-d628-7f65-8451-d0d2ebaa1c36', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'administrator'),
-  ('019d937b-d659-7004-a190-c50d34699b67', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'authenticated'),
-  ('019d937b-d688-7569-b2fc-765f16d97383', '019d937b-b671-77da-9a1e-5b9b26705894', '019d937b-d5e9-7399-ae6a-57e4f46df606', 'anonymous');
+  ('019d9485-aeb8-7078-8ab2-a7717cd13fbe', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'administrator'),
+  ('019d9485-aeca-79b3-adb0-6abe17acabd6', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'authenticated'),
+  ('019d9485-aeda-71a6-8446-5de224220309', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae98-7486-bdee-7e5665e75d4e', 'anonymous'),
+  ('019d9485-af3a-719f-934a-4a0532ad5e03', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'administrator'),
+  ('019d9485-af48-78e2-8fc1-6b55fd24d090', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'authenticated'),
+  ('019d9485-af57-7c29-aa6e-361e0d936bb6', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', '019d9485-ae99-7c98-95a8-72262cca2013', 'anonymous'),
+  ('1bcd88df-bd8d-4c08-68fd-d587f65cc99b', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'anonymous'),
+  ('8af61eb7-8f14-4fd9-621b-9d87dd7c0402', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'administrator'),
+  ('d1d33e74-9d7d-f13c-98bc-f2cb0da28c06', '019d9485-ae8c-71c9-a962-9a8ebcbe2199', 'aab79318-871f-4662-f1ad-a54577207291', 'authenticated');
 
 
 SET session_replication_role TO DEFAULT;

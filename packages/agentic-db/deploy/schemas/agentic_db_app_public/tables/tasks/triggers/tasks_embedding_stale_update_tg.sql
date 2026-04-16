@@ -12,5 +12,5 @@ CREATE TRIGGER tasks_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.tasks
 FOR EACH ROW
 WHEN (OLD.title IS DISTINCT FROM NEW.title OR OLD.description IS DISTINCT FROM NEW.description OR OLD.result IS DISTINCT FROM NEW.result)
-EXECUTE PROCEDURE agentic_db_private.tasks_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".tasks_embedding_stale ( );
 

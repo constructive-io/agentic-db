@@ -12,5 +12,5 @@ CREATE TRIGGER deals_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.deals
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.notes_text IS DISTINCT FROM NEW.notes_text)
-EXECUTE PROCEDURE agentic_db_private.deals_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".deals_embedding_stale ( );
 

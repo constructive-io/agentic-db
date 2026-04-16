@@ -5,11 +5,11 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goals/table
 -- requires: schemas/agentic_db_private/trigger_fns/goals_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE TRIGGER goals_embedding_stale_insert_tg
 BEFORE INSERT ON agentic_db_app_public.goals
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.goals_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".goals_embedding_stale ( );
 

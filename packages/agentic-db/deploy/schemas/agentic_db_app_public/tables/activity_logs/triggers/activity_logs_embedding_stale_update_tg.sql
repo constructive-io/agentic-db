@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/table
 -- requires: schemas/agentic_db_private/trigger_fns/activity_logs_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE TRIGGER activity_logs_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.activity_logs
 FOR EACH ROW
 WHEN (OLD.activity_type IS DISTINCT FROM NEW.activity_type OR OLD.notes IS DISTINCT FROM NEW.notes)
-EXECUTE PROCEDURE agentic_db_private.activity_logs_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".activity_logs_embedding_stale ( );
 
