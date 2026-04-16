@@ -1,7 +1,0 @@
-# agentic-db-embeddings extension
-comment = 'agentic-db-embeddings extension'
-default_version = '0.0.1'
-module_pathname = '$libdir/agentic-db-embeddings'
-requires = 'plpgsql,vector'
-relocatable = false
-superuser = false
