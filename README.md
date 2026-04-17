@@ -181,16 +181,37 @@ pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 
 See the [`agentic-db` package README](packages/agentic-db) for the full deployment guide, schema details, and search capabilities.
 
-## Using the CLI
+## Running the GraphQL server
 
-Once deployed, point the `agentic-db` CLI at your GraphQL endpoint and your agent has a typed CRUD + search surface over every table:
+The `agentic-db` CLI and `@agentic-db/sdk` ORM both talk to the database through a GraphQL endpoint, so you need a PostGraphile server pointed at the deployed DB. The simplest way is the Constructive CLI (`cnc`), which spins up PostGraphile with the same plugin bundle used in tests — vector search, BM25, trigram, PostGIS, meta-API — all preconfigured:
 
 ```bash
-# 1. Install and point it at your deployed DB
+# Install once
+npm install -g @constructive-io/cli
+
+# Point it at the database you deployed with pgpm (standard PG env vars)
+export PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=password
+export PGDATABASE=agentic-db
+
+# Start the GraphQL server (default port 5555)
+cnc server
+
+# In another shell: open GraphiQL to poke at the schema
+cnc explorer
+```
+
+That's it — `cnc server` reads your PG env vars and exposes the full agentic-db GraphQL schema at `http://localhost:5555/graphql`. See the [Constructive CLI docs](https://github.com/constructive-io/constructive/tree/main/packages/cli) for options (port, CORS origin, toggling PostGIS/meta-API, etc.).
+
+## Using the CLI
+
+Once the server is up, point the `agentic-db` CLI at it and your agent has a typed CRUD + search surface over every table:
+
+```bash
+# 1. Install and point it at your running GraphQL endpoint
 npm install -g @agentic-db/cli
-agentic-db context create local --endpoint http://localhost:5000/graphql
+agentic-db context create local --endpoint http://localhost:5555/graphql
 agentic-db context use local
-agentic-db auth set-token "$AGENTIC_DB_TOKEN"
+agentic-db auth set-token "$AGENTIC_DB_TOKEN"   # optional — anonymous also works
 
 # 2. Unified search (vector + BM25 + FTS + trigram) across one or more tables
 agentic-db search "postgres distributed systems" \
@@ -208,6 +229,8 @@ agentic-db memory create --title "Met Alice" --content "Discussed acquisition" -
 ```
 
 Every command supports `--tty false` for non-interactive / scripted use and `--json` for machine-readable output, which is what agents almost always want. See the [`cli-default` skill](skills/cli-default/SKILL.md) for the full command surface (one subcommand per table, ~91 total) and the [CLI E2E tests](packages/cli-e2e-tests/__tests__/cli-e2e.test.ts) for known-good examples.
+
+The [`@agentic-db/sdk`](sdk/sdk) ORM talks to the same endpoint — once `cnc server` is running, `import { createClient } from '@agentic-db/sdk'` and you're off.
 
 ## Packages
 
