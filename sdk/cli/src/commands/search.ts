@@ -16,7 +16,7 @@ type TableName =
   | 'events'
   | 'venues'
   | 'notes'
-  | 'agentTasks'
+  | 'tasks'
   | 'memories'
   | 'skills'
   | 'rules'
@@ -175,19 +175,19 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  agentTasks: async (client, query, qe, limit) => {
-    const res = await client.agentTask
+  tasks: async (client, query, qe, limit) => {
+    const res = await client.task
       .findMany({
         where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, title: true, description: true, searchScore: true },
       })
       .execute();
-    return ((res.data as Record<string, unknown>)?.agentTasks as Record<string, unknown>)
+    return ((res.data as Record<string, unknown>)?.tasks as Record<string, unknown>)
       ? (
-          ((res.data as Record<string, unknown>).agentTasks as Record<string, unknown>)
+          ((res.data as Record<string, unknown>).tasks as Record<string, unknown>)
             .nodes as Record<string, unknown>[]
-        ).map((n) => toResult('agentTasks', n, (x) => (x.title as string) || 'Untitled'))
+        ).map((n) => toResult('tasks', n, (x) => (x.title as string) || 'Untitled'))
       : [];
   },
 

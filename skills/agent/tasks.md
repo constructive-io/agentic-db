@@ -1,58 +1,104 @@
 ---
 name: agent-tasks
-description: CRUD operations for agent tasks
+description: CRUD and filter patterns for the agent `tasks` queue via the generated ORM.
 ---
 
 # Agent Tasks
 
-Manage tasks for the agent system.
+A prioritized task queue attached to an agent. Every row has a required
+`title`, optional `description`/`status`/`priority`/`result` and timestamps,
+and an optional `agentId` FK so you can scope tasks to a specific agent.
 
-## Table Schema
-
-| Field | Type | Notes |
-|-------|------|-------|
-| `id` | uuid | Primary key |
-| `entity_id` | uuid | Org scope |
-| `title` | text | Required |
-| `description` | text | |
-| `status` | text | ready, in_progress, done, blocked |
-| `priority` | int | 0 = normal, higher = more urgent |
-| `embedding` | vector(768) | For semantic search |
-| `created_at` | timestamptz | |
-| `updated_at` | timestamptz | |
-
-## Insert Task
+## Imports
 
 ```typescript
-async function insertTask(db, data: {
-  entityId: string;
-  title: string;
-  description?: string;
-  status?: string;
-  priority?: number;
-}) {
-  const embeddingText = `${data.title} ${data.description || ''}`;
-  const embedding = await generateEmbedding(embeddingText);
-  
-  return db.task.create({
+import { createClient } from '@agentic-db/sdk';
+
+const db = createClient({
+  endpoint: process.env.AGENTIC_DB_GRAPHQL_URL!,
+  headers: { Authorization: `Bearer ${process.env.AGENTIC_DB_TOKEN!}` },
+});
+```
+
+## Create a task
+
+```typescript
+const created = await db.task
+  .create({
     data: {
-      entityId: data.entityId,
-      title: data.title,
-      description: data.description,
-      status: data.status || 'ready',
-      priority: data.priority || 0,
-      embedding,
+      agentId,                   // optional — omit for an unassigned task
+      title: 'Summarize Q1 docs',
+      description: 'One-paragraph summary per document, filed under /q1',
+      status: 'pending',         // application-level enum (pending|in_progress|completed|blocked)
+      priority: 1,               // higher = more urgent
+      embeddingText: 'Summarize Q1 docs — one paragraph per document',
     },
-    select: { id: true, title: true },
-  }).execute();
-}
+    select: { id: true, title: true, status: true, priority: true },
+  })
+  .execute();
 ```
 
-## Search Tasks
+## List tasks for an agent, ordered by priority
 
 ```typescript
-async function searchTasks(db, query: string, limit = 10) {
-  const embedding = await generateEmbedding(query);
-  return db.vectorSearchTask({ query: embedding, limit }).execute();
-}
+const open = await db.task
+  .findMany({
+    where: {
+      agentId: { equalTo: agentId },
+      status: { notEqualTo: 'completed' },
+    },
+    orderBy: ['PRIORITY_DESC', 'CREATED_AT_ASC'],
+    first: 20,
+    select: { id: true, title: true, status: true, priority: true },
+  })
+  .execute();
 ```
+
+## Update a task's status / result
+
+```typescript
+await db.task
+  .update({
+    id: taskId,
+    data: { status: 'completed', result: 'Filed 12 summaries under /q1' },
+    select: { id: true, status: true, result: true },
+  })
+  .execute();
+```
+
+## Semantic search over tasks
+
+Tasks expose the same unified search filters as other embedding-backed tables.
+Use `where.vectorEmbedding` plus `where.fullTextSearch` to build a hybrid query.
+
+```typescript
+const hits = await db.task
+  .findMany({
+    where: {
+      or: [
+        {
+          vectorEmbedding: {
+            vector: await generateEmbedding('customer onboarding work'),
+            metric: 'COSINE',
+            distance: 2.0,
+          },
+        },
+        { fullTextSearch: 'customer onboarding' },
+      ],
+    },
+    first: 10,
+    select: { id: true, title: true, status: true, searchScore: true },
+  })
+  .execute();
+```
+
+The `agentic-db search` CLI wraps this same pattern — see
+`sdk/cli/src/commands/search.ts` for the reference implementation.
+
+## Tested contracts
+
+See `describe('Task CRUD + filters + update')` and
+`describe('Pagination and ordering')` in
+[`packages/integration-tests/__tests__/orm.test.ts`](../../packages/integration-tests/__tests__/orm.test.ts),
+and the CLI `--tables tasks` regression test in
+[`packages/cli-e2e-tests/__tests__/cli-e2e.test.ts`](../../packages/cli-e2e-tests/__tests__/cli-e2e.test.ts).

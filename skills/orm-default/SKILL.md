@@ -1,122 +1,149 @@
 ---
 name: orm-default
-description: ORM client for the default API — provides typed CRUD operations for 83 tables and 0 custom operations
+description: ORM client for the default API — typed CRUD, vector + hybrid search, and relation walking for the 91 generated tables.
 ---
 
 # orm-default
 
-<!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
+<!-- @constructive-io/graphql-codegen - keep the shape of this file in sync with generated models -->
 
-ORM client for the default API — provides typed CRUD operations for 83 tables and 0 custom operations
+`@agentic-db/sdk` exports a `createClient` factory that returns a Prisma-like
+ORM with one model per generated table. Every call returns a `QueryBuilder`
+— call `.execute()` to get a `{ ok, data, errors }` discriminated union or
+`.unwrap()` to throw on failure. A `select` object is always required.
+
+The authoritative model list lives in
+[`sdk/sdk/src/generated/orm/models/`](../../sdk/sdk/src/generated/orm/models/)
+and is re-exported from `createClient(...)`. Categories:
+
+- **CRM**: `contact`, `company`, `deal`, `event`, `venue`, `tag`, `trip`,
+  `place`, `note`, `touchpoint`, `interaction`, plus their junctions
+  (`contactCompany`, `contactEvent`, `contactNote`, `companyMemory`,
+  `dealContact`, `eventVenue`, `taskContact`, …)
+- **Agent runtime**: `agent`, `agentPrompt`, `agentLog`, `agentCollaborator`,
+  `skill`, `skillTool`, `toolDefinition`, `toolExecution`, `rule`,
+  `autonomyRecord`, `autonomyRecordLink`, `runtimeState`,
+  `runtimeStateDependency`, `runtimeSchedule`, `runtimeLog`, `runtimeMetric`,
+  `runtimeEvent`, `runtimeConfig`, `runtimeArtifact`
+- **Life-OS**: `memory`, `conversation`, `message`, `threadParticipant`,
+  `project`, `goal`, `habit`, `expense`, `task`, `calendar`, `calendarEvent`
+- **Email / sync**: `email`, `emailThread`, `emailAttachment`, `emailNote`,
+  `emailRecipient`, `rawContact`, `rawContactEmail`, `rawContactPhone`,
+  `rawContactUrl`, `providerSyncState`
+- **Chunking / media**: `contactsChunk`, `notesChunk`, `image`,
+  `contactImage`, `companyImage`, `eventImage`, `venueImage`
+- **Ops**: `activityLog`, `contactLink`, `companyLink`, `eventLink`,
+  `venueLink`
 
 ## Usage
 
 ```typescript
-// Import the ORM client
-import { db } from './orm';
+import { createClient } from '@agentic-db/sdk';
 
-// Available models: agentPrompt, session, executionLog, sessionArchive, process, scheduledJob, agentTool, agentSkill, ...
-db.<model>.findMany({ select: { id: true } }).execute()
-db.<model>.findOne({ id: '<value>', select: { id: true } }).execute()
-db.<model>.create({ data: { ... }, select: { id: true } }).execute()
-db.<model>.update({ where: { id: '<value>' }, data: { ... }, select: { id: true } }).execute()
-db.<model>.delete({ where: { id: '<value>' } }).execute()
+const db = createClient({
+  endpoint: process.env.AGENTIC_DB_GRAPHQL_URL!, // http://agentic.localhost:3000/graphql
+  headers: { Authorization: `Bearer ${process.env.AGENTIC_DB_TOKEN!}` },
+});
+
+// Read
+await db.contact
+  .findMany({
+    first: 10,
+    select: { id: true, firstName: true, lastName: true },
+  })
+  .execute();
+
+await db.contact
+  .findOne({ id: contactId, select: { id: true, firstName: true } })
+  .execute();
+
+await db.contact
+  .findFirst({
+    where: { email: { equalTo: 'alice@example.com' } },
+    select: { id: true, firstName: true },
+  })
+  .execute();
+
+// Create
+const { data } = await db.contact
+  .create({
+    data: { firstName: 'Alice', lastName: 'Smith', headline: 'Engineer' },
+    select: { id: true, firstName: true },
+  })
+  .execute();
+
+// Update (pass `id` at top level — ORM accepts `{ id, data, select }`)
+await db.contact
+  .update({
+    id: contactId,
+    data: { headline: 'Staff Engineer' },
+    select: { id: true, headline: true },
+  })
+  .execute();
+
+// Delete (takes `where: { id }`)
+await db.contact.delete({ where: { id: contactId } }).execute();
 ```
 
-## Examples
+## Vector + hybrid search
 
-### Query records
+Every embedding-backed table exposes `where.vectorEmbedding` and
+`where.fullTextSearch`. Combine them with `or` for a hybrid query:
 
 ```typescript
-const items = await db.agentPrompt.findMany({
-  select: { id: true }
-}).execute();
+const hits = await db.memory
+  .findMany({
+    where: {
+      or: [
+        {
+          vectorEmbedding: {
+            vector: queryEmbedding, // number[768]
+            metric: 'COSINE',       // 'COSINE' | 'L2' | 'INNER_PRODUCT'
+            distance: 2.0,
+          },
+        },
+        { fullTextSearch: 'postgres distributed systems' },
+      ],
+    },
+    first: 10,
+    select: { id: true, title: true, searchScore: true },
+  })
+  .execute();
 ```
 
-## References
+## M:N relations
 
-See the `references/` directory for detailed per-entity API documentation:
+Junction tables have composite PKs (e.g. `{ contactId, companyId }`). Use
+their model to link / unlink, and walk the relation through the parent:
 
-- [agent-prompt](references/agent-prompt.md)
-- [session](references/session.md)
-- [execution-log](references/execution-log.md)
-- [session-archive](references/session-archive.md)
-- [process](references/process.md)
-- [scheduled-job](references/scheduled-job.md)
-- [agent-tool](references/agent-tool.md)
-- [agent-skill](references/agent-skill.md)
-- [agent-rule](references/agent-rule.md)
-- [calendar-event-contact](references/calendar-event-contact.md)
-- [calendar-event](references/calendar-event.md)
-- [interaction](references/interaction.md)
-- [company-event](references/company-event.md)
-- [company-image](references/company-image.md)
-- [contact-company](references/contact-company.md)
-- [contact-event](references/contact-event.md)
-- [contact-image](references/contact-image.md)
-- [deal-contact](references/deal-contact.md)
-- [event-image](references/event-image.md)
-- [event-venue](references/event-venue.md)
-- [expense-contact](references/expense-contact.md)
-- [goal-habit](references/goal-habit.md)
-- [habit-log](references/habit-log.md)
-- [goal-project](references/goal-project.md)
-- [milestone](references/milestone.md)
-- [project-contact](references/project-contact.md)
-- [task-contact](references/task-contact.md)
-- [venue-image](references/venue-image.md)
-- [file](references/file.md)
-- [chunk](references/chunk.md)
-- [calendar-account](references/calendar-account.md)
-- [tag](references/tag.md)
-- [feedback](references/feedback.md)
-- [attachment](references/attachment.md)
-- [email-account](references/email-account.md)
-- [message](references/message.md)
-- [activity-log](references/activity-log.md)
-- [context-relation](references/context-relation.md)
-- [user-setting](references/user-setting.md)
-- [webhook](references/webhook.md)
-- [notification](references/notification.md)
-- [workflow-run](references/workflow-run.md)
-- [workflow-step](references/workflow-step.md)
-- [integration](references/integration.md)
-- [skill-execution](references/skill-execution.md)
-- [chat](references/chat.md)
-- [chat-message](references/chat-message.md)
-- [thread](references/thread.md)
-- [reminder](references/reminder.md)
-- [image](references/image.md)
-- [list-item](references/list-item.md)
-- [company-link](references/company-link.md)
-- [contact-link](references/contact-link.md)
-- [event-link](references/event-link.md)
-- [venue-link](references/venue-link.md)
-- [agent-spawn](references/agent-spawn.md)
-- [habit](references/habit.md)
-- [workflow](references/workflow.md)
-- [expense](references/expense.md)
-- [billing-subscription](references/billing-subscription.md)
-- [idea](references/idea.md)
-- [list](references/list.md)
-- [repository](references/repository.md)
-- [deal](references/deal.md)
-- [goal](references/goal.md)
-- [note](references/note.md)
-- [prompt](references/prompt.md)
-- [blueprint](references/blueprint.md)
-- [template](references/template.md)
-- [tool](references/tool.md)
-- [recipe](references/recipe.md)
-- [trip](references/trip.md)
-- [memory](references/memory.md)
-- [rule](references/rule.md)
-- [task](references/task.md)
-- [agent](references/agent.md)
-- [skill](references/skill.md)
-- [project](references/project.md)
-- [document](references/document.md)
-- [company](references/company.md)
-- [event](references/event.md)
-- [contact](references/contact.md)
-- [venue](references/venue.md)
+```typescript
+// Link
+await db.contactCompany
+  .create({
+    data: { contactId: contact.id, companyId: company.id },
+    select: { contactId: true, companyId: true },
+  })
+  .execute();
+
+// Walk
+const withCompanies = await db.contact
+  .findOne({
+    id: contact.id,
+    select: {
+      id: true,
+      firstName: true,
+      companies: { select: { id: true, name: true } },
+    },
+  })
+  .execute();
+```
+
+## Known-good contracts
+
+The integration test suite in
+[`packages/integration-tests/__tests__/orm.test.ts`](../../packages/integration-tests/__tests__/orm.test.ts)
+pins every pattern above against a real Postgres with `pgvector`, `pg_trgm`,
+and the metaschema loaded — plus CRUD coverage for `memory`, `conversation`,
+`message`, `skill`, `toolDefinition`, `rule`, `project`, `expense`, `goal`,
+`habit`, `autonomyRecord`, and `toolExecution`. Use it as the reference when
+the docs and the generated client disagree.

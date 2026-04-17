@@ -69,16 +69,18 @@ If you absolutely must write SQL (emergency hack), put it in `sql-hacks/` folder
 
 ```typescript
 // ❌ WRONG (Raw SQL)
-await pool.query('INSERT INTO contacts (first_name) VALUES ($1)', ['Dan']);
+await pool.query('INSERT INTO contacts (first_name) VALUES ($1)', ['Alice']);
 
 // ❌ WRONG (Raw GraphQL String)
-await client.execute(`mutation { createContact(input: { contact: { firstName: "Dan" } }) { contact { id } } }`);
+await client.execute(`mutation { createContact(input: { contact: { firstName: "Alice" } }) { contact { id } } }`);
 
 // ✅ CORRECT (Typed SDK)
-await client.contact.create({
-  data: { firstName: 'Dan', entityId: orgId },
-  select: { id: true },
-}).unwrap();
+await client.contact
+  .create({
+    data: { firstName: 'Alice', lastName: 'Smith' },
+    select: { id: true },
+  })
+  .execute();
 ```
 
 ---
@@ -228,12 +230,6 @@ Before committing, verify:
 - [ ] Using `makage` for builds
 - [ ] Codegen has `docs.skills: true`
 - [ ] All code is TypeScript
-
----
-
-## Reminders
-
-**TODO:** Discuss sub-agents with Dan later.
 
 ---
 

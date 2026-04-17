@@ -392,4 +392,513 @@ describe('ORM integration', () => {
       expect(agent.tasks.nodes.length).toBeGreaterThanOrEqual(1);
     });
   });
+
+  // =========================================================================
+  // Test: Task CRUD + filters + update
+  // =========================================================================
+  describe('Task CRUD + filters + update', () => {
+    let createdTaskId: string;
+
+    it('task.create with a status and priority', async () => {
+      const result = await orm.task
+        .create({
+          data: {
+            agentId: AGENT_RESEARCH,
+            title: 'Filter test task',
+            description: 'Used to exercise task filters',
+            status: 'in_progress',
+            priority: 2,
+          },
+          select: { id: true, title: true, status: true, priority: true },
+        })
+        .execute();
+      expectOk(result, 'task.create(filter seed)');
+      createdTaskId = unwrapData(result.data).task.id;
+    });
+
+    it('task.findMany with where filter by status', async () => {
+      const result = await orm.task
+        .findMany({
+          where: { status: { equalTo: 'in_progress' } },
+          select: { id: true, title: true, status: true },
+        })
+        .execute();
+      expectOk(result, 'task.findMany(status)');
+      const nodes = unwrapData(result.data).nodes;
+      expect(nodes.length).toBeGreaterThanOrEqual(1);
+      for (const n of nodes) {
+        expect(n.status).toBe('in_progress');
+      }
+    });
+
+    it('task.update patches status and result', async () => {
+      const result = await orm.task
+        .update({
+          id: createdTaskId,
+          data: { status: 'completed', result: 'done' },
+          select: { id: true, status: true, result: true },
+        })
+        .execute();
+      expectOk(result, 'task.update');
+      const task = unwrapData(result.data).task;
+      expect(task.status).toBe('completed');
+      expect(task.result).toBe('done');
+    });
+
+    it('task.delete removes the row', async () => {
+      const result = await orm.task
+        .delete({ id: createdTaskId, select: { id: true } })
+        .execute();
+      expectOk(result, 'task.delete');
+    });
+  });
+
+  // =========================================================================
+  // Test: Memory CRUD (long-term episodic memory)
+  // =========================================================================
+  describe('Memory CRUD via ORM', () => {
+    it('memory.create + memory.findMany + memory.update', async () => {
+      const create = await orm.memory
+        .create({
+          data: {
+            agentId: AGENT_RESEARCH,
+            title: 'First-run checklist',
+            content: 'Verified docker + ollama connectivity before running suite.',
+            location: 'ci',
+            mood: 'neutral',
+            tags: ['setup', 'smoke'],
+            embeddingText: 'Verified docker + ollama connectivity',
+          },
+          select: { id: true, title: true, tags: true },
+        })
+        .execute();
+      expectOk(create, 'memory.create');
+      const memory = unwrapData(create.data).memory;
+      expect(memory.title).toBe('First-run checklist');
+      expect(memory.tags).toEqual(['setup', 'smoke']);
+
+      const list = await orm.memory
+        .findMany({
+          where: { id: { equalTo: memory.id } },
+          select: { id: true, title: true, mood: true, agentId: true },
+        })
+        .execute();
+      expectOk(list, 'memory.findMany');
+      const nodes = unwrapData(list.data).nodes;
+      expect(nodes).toHaveLength(1);
+      expect(nodes[0].agentId).toBe(AGENT_RESEARCH);
+
+      const patched = await orm.memory
+        .update({
+          id: memory.id,
+          data: { mood: 'confident' },
+          select: { id: true, mood: true },
+        })
+        .execute();
+      expectOk(patched, 'memory.update');
+      expect(unwrapData(patched.data).memory.mood).toBe('confident');
+    });
+  });
+
+  // =========================================================================
+  // Test: Conversation + Message (1:N) with message ordering via orderBy
+  // =========================================================================
+  describe('Conversation + Message CRUD via ORM', () => {
+    let conversationId: string;
+
+    it('conversation.create returns a conversation with id', async () => {
+      const res = await orm.conversation
+        .create({
+          data: {
+            agentId: AGENT_RESEARCH,
+            title: 'Integration test conversation',
+            status: 'active',
+            meta: { source: 'jest', runId: 1 },
+          },
+          select: { id: true, title: true, status: true },
+        })
+        .execute();
+      expectOk(res, 'conversation.create');
+      const conv = unwrapData(res.data).conversation;
+      conversationId = conv.id;
+      expect(conv.title).toBe('Integration test conversation');
+    });
+
+    it('message.create (user + assistant) appends to the conversation', async () => {
+      const user = await orm.message
+        .create({
+          data: {
+            conversationId,
+            role: 'user',
+            content: 'What is vector search?',
+            tokenCount: 6,
+          },
+          select: { id: true, role: true, content: true },
+        })
+        .execute();
+      expectOk(user, 'message.create(user)');
+      expect(unwrapData(user.data).message.role).toBe('user');
+
+      const assistant = await orm.message
+        .create({
+          data: {
+            conversationId,
+            role: 'assistant',
+            content: 'It is similarity search in embedding space.',
+            tokenCount: 11,
+            toolCalls: { calls: [] },
+          },
+          select: { id: true, role: true, tokenCount: true },
+        })
+        .execute();
+      expectOk(assistant, 'message.create(assistant)');
+      expect(unwrapData(assistant.data).message.tokenCount).toBe(11);
+    });
+
+    it('conversation.findMany includes messages ordered by createdAt', async () => {
+      const res = await orm.conversation
+        .findMany({
+          where: { id: { equalTo: conversationId } },
+          select: {
+            id: true,
+            title: true,
+            messages: {
+              orderBy: ['CREATED_AT_ASC'],
+              select: { role: true, content: true },
+            },
+          },
+        })
+        .execute();
+      expectOk(res, 'conversation.findMany+messages');
+      const conv = unwrapData(res.data).nodes[0];
+      expect(conv.messages.nodes.length).toBeGreaterThanOrEqual(2);
+      expect(conv.messages.nodes[0].role).toBe('user');
+      expect(conv.messages.nodes[1].role).toBe('assistant');
+    });
+  });
+
+  // =========================================================================
+  // Test: Skill + ToolDefinition + SkillTool (M:N junction)
+  // =========================================================================
+  describe('Skill, ToolDefinition, SkillTool (M:N)', () => {
+    it('connects a skill to a toolDefinition via the skillTool junction', async () => {
+      const skillRes = await orm.skill
+        .create({
+          data: {
+            agentId: AGENT_RESEARCH,
+            name: 'Summarize document',
+            description: 'Produces a concise summary of a document',
+            category: 'writing',
+            intentTrigger: 'summarize this document',
+            isActive: true,
+          },
+          select: { id: true, name: true, isActive: true },
+        })
+        .execute();
+      expectOk(skillRes, 'skill.create');
+      const skillId = unwrapData(skillRes.data).skill.id;
+
+      const toolRes = await orm.toolDefinition
+        .create({
+          data: {
+            name: 'fetchUrl',
+            description: 'HTTP GET a URL and return text',
+            toolType: 'http',
+            schema: { type: 'object', properties: { url: { type: 'string' } } },
+            isActive: true,
+          },
+          select: { id: true, name: true, toolType: true },
+        })
+        .execute();
+      expectOk(toolRes, 'toolDefinition.create');
+      const toolDefinitionId = unwrapData(toolRes.data).toolDefinition.id;
+
+      const linkRes = await orm.skillTool
+        .create({
+          data: { skillId, toolDefinitionId },
+          select: { skillId: true, toolDefinitionId: true },
+        })
+        .execute();
+      expectOk(linkRes, 'skillTool.create');
+      const link = unwrapData(linkRes.data).skillTool;
+      expect(link.skillId).toBe(skillId);
+      expect(link.toolDefinitionId).toBe(toolDefinitionId);
+    });
+  });
+
+  // =========================================================================
+  // Test: Rule CRUD (requires agentId)
+  // =========================================================================
+  describe('Rule CRUD via ORM', () => {
+    it('rule.create + findMany by agentId', async () => {
+      const create = await orm.rule
+        .create({
+          data: {
+            agentId: AGENT_RESEARCH,
+            name: 'Auto-tag meeting notes',
+            description: 'When a note is created with "meeting" keyword, tag it.',
+            triggerType: 'note_created',
+            triggerConfig: { keyword: 'meeting' },
+            actionType: 'add_tag',
+            actionConfig: { tag: 'meeting' },
+            isActive: true,
+            priority: 10,
+          },
+          select: { id: true, name: true, agentId: true, priority: true },
+        })
+        .execute();
+      expectOk(create, 'rule.create');
+      expect(unwrapData(create.data).rule.priority).toBe(10);
+
+      const list = await orm.rule
+        .findMany({
+          where: { agentId: { equalTo: AGENT_RESEARCH } },
+          select: { id: true, name: true, triggerType: true },
+        })
+        .execute();
+      expectOk(list, 'rule.findMany(agent)');
+      expect(unwrapData(list.data).nodes.length).toBeGreaterThanOrEqual(1);
+    });
+  });
+
+  // =========================================================================
+  // Test: Project CRUD + Goal + Habit (Life-OS headline features)
+  // =========================================================================
+  describe('Project / Goal / Habit CRUD via ORM', () => {
+    it('project.create + update status', async () => {
+      const create = await orm.project
+        .create({
+          data: {
+            name: 'Release 1.2',
+            description: 'Shipping the vector-search docs rewrite',
+            status: 'active',
+            projectType: 'engineering',
+            priority: 1,
+            tags: ['docs', 'search'],
+          },
+          select: { id: true, name: true, status: true },
+        })
+        .execute();
+      expectOk(create, 'project.create');
+      const projectId = unwrapData(create.data).project.id;
+
+      const update = await orm.project
+        .update({
+          id: projectId,
+          data: { status: 'completed' },
+          select: { id: true, status: true },
+        })
+        .execute();
+      expectOk(update, 'project.update');
+      expect(unwrapData(update.data).project.status).toBe('completed');
+    });
+
+    it('goal.create + habit.create', async () => {
+      const goal = await orm.goal
+        .create({
+          data: {
+            title: 'Read 12 books this year',
+            description: 'One per month, non-fiction preferred',
+            status: 'active',
+            progress: '3/12',
+            tags: ['reading', 'learning'],
+          },
+          select: { id: true, title: true, progress: true },
+        })
+        .execute();
+      expectOk(goal, 'goal.create');
+      expect(unwrapData(goal.data).goal.progress).toBe('3/12');
+
+      const habit = await orm.habit
+        .create({
+          data: {
+            name: 'Morning walk',
+            frequency: 'daily',
+            streak: 5,
+            tags: ['health'],
+          },
+          select: { id: true, name: true, streak: true },
+        })
+        .execute();
+      expectOk(habit, 'habit.create');
+      expect(unwrapData(habit.data).habit.streak).toBe(5);
+    });
+  });
+
+  // =========================================================================
+  // Test: Expense CRUD (accounting)
+  // =========================================================================
+  describe('Expense CRUD via ORM', () => {
+    it('expense.create + findMany by category', async () => {
+      const create = await orm.expense
+        .create({
+          data: {
+            description: 'Cloud hosting — April',
+            amount: '42.50',
+            currency: 'USD',
+            category: 'infrastructure',
+            vendor: 'CloudProvider',
+            tags: ['recurring'],
+          },
+          select: { id: true, description: true, category: true, amount: true },
+        })
+        .execute();
+      expectOk(create, 'expense.create');
+      expect(unwrapData(create.data).expense.category).toBe('infrastructure');
+
+      const list = await orm.expense
+        .findMany({
+          where: { category: { equalTo: 'infrastructure' } },
+          select: { id: true, description: true, vendor: true },
+        })
+        .execute();
+      expectOk(list, 'expense.findMany(category)');
+      expect(unwrapData(list.data).nodes.length).toBeGreaterThanOrEqual(1);
+    });
+  });
+
+  // =========================================================================
+  // Test: ToolExecution linked to a Message
+  // =========================================================================
+  describe('ToolExecution linked to Message', () => {
+    it('records a tool execution against a message', async () => {
+      // Build: conversation -> message -> toolDefinition -> toolExecution
+      const conv = await orm.conversation
+        .create({
+          data: { title: 'Tool exec conversation' },
+          select: { id: true },
+        })
+        .execute();
+      expectOk(conv, 'conversation.create(toolExec)');
+      const conversationId = unwrapData(conv.data).conversation.id;
+
+      const msg = await orm.message
+        .create({
+          data: {
+            conversationId,
+            role: 'assistant',
+            content: 'Calling fetchUrl...',
+          },
+          select: { id: true },
+        })
+        .execute();
+      expectOk(msg, 'message.create(toolExec)');
+      const messageId = unwrapData(msg.data).message.id;
+
+      const tool = await orm.toolDefinition
+        .create({
+          data: { name: 'echoTool', toolType: 'noop' },
+          select: { id: true },
+        })
+        .execute();
+      expectOk(tool, 'toolDefinition.create(exec)');
+      const toolDefinitionId = unwrapData(tool.data).toolDefinition.id;
+
+      const exec = await orm.toolExecution
+        .create({
+          data: {
+            toolDefinitionId,
+            messageId,
+            input: { url: 'https://example.com' },
+            output: { status: 200, bytes: 1337 },
+            status: 'completed',
+            durationMs: 42,
+          },
+          select: {
+            id: true,
+            status: true,
+            durationMs: true,
+            messageId: true,
+            toolDefinitionId: true,
+          },
+        })
+        .execute();
+      expectOk(exec, 'toolExecution.create');
+      const row = unwrapData(exec.data).toolExecution;
+      expect(row.status).toBe('completed');
+      expect(row.durationMs).toBe(42);
+      expect(row.messageId).toBe(messageId);
+      expect(row.toolDefinitionId).toBe(toolDefinitionId);
+    });
+  });
+
+  // =========================================================================
+  // Test: AutonomyRecord + self-referential M:N link
+  // =========================================================================
+  describe('AutonomyRecord self-referential M:N link', () => {
+    it('creates two records and links them via autonomyRecordLink', async () => {
+      const a = await orm.autonomyRecord
+        .create({
+          data: {
+            title: 'Insight A',
+            recordType: 'insight',
+            content: 'Vector similarity benefits from FTS fallback',
+            status: 'active',
+            tags: ['retrieval'],
+          },
+          select: { id: true },
+        })
+        .execute();
+      expectOk(a, 'autonomyRecord.create(A)');
+      const sourceId = unwrapData(a.data).autonomyRecord.id;
+
+      const b = await orm.autonomyRecord
+        .create({
+          data: {
+            title: 'Insight B',
+            recordType: 'insight',
+            content: 'BM25 picks up exact tokens the embedding model smooths over',
+            status: 'active',
+            tags: ['retrieval'],
+          },
+          select: { id: true },
+        })
+        .execute();
+      expectOk(b, 'autonomyRecord.create(B)');
+      const targetId = unwrapData(b.data).autonomyRecord.id;
+
+      const link = await orm.autonomyRecordLink
+        .create({
+          data: { sourceRecordId: sourceId, targetRecordId: targetId },
+          select: { sourceRecordId: true, targetRecordId: true },
+        })
+        .execute();
+      expectOk(link, 'autonomyRecordLink.create');
+      const linkRow = unwrapData(link.data).autonomyRecordLink;
+      expect(linkRow.sourceRecordId).toBe(sourceId);
+      expect(linkRow.targetRecordId).toBe(targetId);
+    });
+  });
+
+  // =========================================================================
+  // Test: Pagination with first / offset
+  // =========================================================================
+  describe('Pagination and ordering', () => {
+    it('task.findMany respects first and offset', async () => {
+      // Seed a few tasks
+      for (let i = 0; i < 3; i++) {
+        const r = await orm.task
+          .create({
+            data: {
+              agentId: AGENT_RESEARCH,
+              title: `Pagination seed ${i}`,
+              status: 'pending',
+              priority: i,
+            },
+            select: { id: true },
+          })
+          .execute();
+        expectOk(r, `task.create(pg ${i})`);
+      }
+
+      const first = await orm.task
+        .findMany({
+          first: 2,
+          select: { id: true, title: true },
+        })
+        .execute();
+      expectOk(first, 'task.findMany(first=2)');
+      expect(unwrapData(first.data).nodes.length).toBeLessThanOrEqual(2);
+    });
+  });
 });

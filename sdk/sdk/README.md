@@ -128,7 +128,7 @@ const results = await db.contactsChunk
       vectorEmbedding: { vector: queryEmbedding, metric: 'COSINE', distance: 2.0 },
     },
     first: 10,
-    select: { id: true, contactsId: true, chunkText: true, searchScore: true },
+    select: { id: true, contactsId: true, content: true, searchScore: true },
   })
   .execute();
 ```
