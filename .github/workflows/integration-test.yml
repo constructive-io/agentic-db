@@ -284,6 +284,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Cache pgpm CLI
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: pgpm-${{ runner.os }}-${{ env.PGPM_VERSION }}
+
+      - name: Install pgpm CLI globally
+        run: npm install -g pgpm@${{ env.PGPM_VERSION }}
+
+      - name: Bootstrap pgpm admin users
+        run: |
+          eval "$(pgpm env)"
+          pgpm admin-users bootstrap --yes
+          pgpm admin-users add --test --yes
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
