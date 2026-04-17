@@ -72,10 +72,10 @@ const { data } = await db.contact
   })
   .execute();
 
-// Update (pass `id` at top level — ORM accepts `{ id, data, select }`)
+// Update (takes `where: { id }`)
 await db.contact
   .update({
-    id: contactId,
+    where: { id: contactId },
     data: { headline: 'Staff Engineer' },
     select: { id: true, headline: true },
   })

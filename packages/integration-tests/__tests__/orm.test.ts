@@ -434,7 +434,7 @@ describe('ORM integration', () => {
     it('task.update patches status and result', async () => {
       const result = await orm.task
         .update({
-          id: createdTaskId,
+          where: { id: createdTaskId },
           data: { status: 'completed', result: 'done' },
           select: { id: true, status: true, result: true },
         })
@@ -447,7 +447,7 @@ describe('ORM integration', () => {
 
     it('task.delete removes the row', async () => {
       const result = await orm.task
-        .delete({ id: createdTaskId, select: { id: true } })
+        .delete({ where: { id: createdTaskId }, select: { id: true } })
         .execute();
       expectOk(result, 'task.delete');
     });
@@ -490,7 +490,7 @@ describe('ORM integration', () => {
 
       const patched = await orm.memory
         .update({
-          id: memory.id,
+          where: { id: memory.id },
           data: { mood: 'confident' },
           select: { id: true, mood: true },
         })
@@ -684,7 +684,7 @@ describe('ORM integration', () => {
 
       const update = await orm.project
         .update({
-          id: projectId,
+          where: { id: projectId },
           data: { status: 'completed' },
           select: { id: true, status: true },
         })
