@@ -26,6 +26,10 @@ jest.setTimeout(300000);
 const seedRoot = path.join(__dirname, '..', '__fixtures__', 'seed');
 const sql = (file: string) => path.join(seedRoot, file);
 
+// Real pgpm package — pgsql-test's seed.pgpm() walks the `requires` chain in
+// agentic-db.control and deploys the real schema (no hand-rolled SQL).
+const AGENTIC_DB_PKG = path.resolve(__dirname, '..', '..', 'agentic-db');
+
 const SCHEMAS = ['agentic_db_app_public'];
 
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
@@ -58,10 +62,8 @@ beforeAll(async () => {
       authRole: 'postgres',
     },
     [
-      seed.sqlfile([
-        sql('schema.sql'),
-        sql('test-data.sql'),
-      ]),
+      seed.pgpm(AGENTIC_DB_PKG),
+      seed.sqlfile([sql('test-bootstrap.sql'), sql('test-data.sql')]),
     ],
   );
 
@@ -101,8 +103,8 @@ describe('Embed and Store Records', () => {
 
     // Store the actual vector in a contact_chunk row
     await db.client.query(
-      `INSERT INTO "agentic_db_app_public".contact_chunks
-         (contact_id, content, chunk_index, embedding)
+      `INSERT INTO "agentic_db_app_public".contacts_chunks
+         (contacts_id, content, chunk_index, embedding)
        VALUES ($1, $2, 0, $3::vector)`,
       [CONTACT_ALICE, text, vectorToSql(vec)],
     );
@@ -110,8 +112,8 @@ describe('Embed and Store Records', () => {
     // Verify it was stored
     const result = await db.client.query(
       `SELECT embedding IS NOT NULL AS has_embedding, content
-       FROM "agentic_db_app_public".contact_chunks
-       WHERE contact_id = $1`,
+       FROM "agentic_db_app_public".contacts_chunks
+       WHERE contacts_id = $1`,
       [CONTACT_ALICE],
     );
 
@@ -133,16 +135,16 @@ describe('Embed and Store Records', () => {
     );
 
     await db.client.query(
-      `INSERT INTO "agentic_db_app_public".note_chunks
-         (note_id, content, chunk_index, embedding)
+      `INSERT INTO "agentic_db_app_public".notes_chunks
+         (notes_id, content, chunk_index, embedding)
        VALUES ($1, $2, 0, $3::vector)`,
       [NOTE_KICKOFF, text, vectorToSql(vec)],
     );
 
     const result = await db.client.query(
       `SELECT embedding IS NOT NULL AS has_embedding, content
-       FROM "agentic_db_app_public".note_chunks
-       WHERE note_id = $1`,
+       FROM "agentic_db_app_public".notes_chunks
+       WHERE notes_id = $1`,
       [NOTE_KICKOFF],
     );
 
@@ -163,16 +165,16 @@ describe('Embed and Store Records', () => {
     );
 
     await db.client.query(
-      `INSERT INTO "agentic_db_app_public".contact_chunks
-         (contact_id, content, chunk_index, embedding)
+      `INSERT INTO "agentic_db_app_public".contacts_chunks
+         (contacts_id, content, chunk_index, embedding)
        VALUES ($1, $2, 0, $3::vector)`,
       [CONTACT_BOB, text, vectorToSql(vec)],
     );
 
     const result = await db.client.query(
       `SELECT embedding IS NOT NULL AS has_embedding
-       FROM "agentic_db_app_public".contact_chunks
-       WHERE contact_id = $1`,
+       FROM "agentic_db_app_public".contacts_chunks
+       WHERE contacts_id = $1`,
       [CONTACT_BOB],
     );
 
@@ -189,8 +191,8 @@ describe('Cosine Similarity Search with Real Embeddings', () => {
     const result = await db.client.query(
       `SELECT cc.id, c.first_name, cc.content,
               1 - (cc.embedding <=> $1::vector) AS similarity
-       FROM "agentic_db_app_public".contact_chunks cc
-       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contact_id
+       FROM "agentic_db_app_public".contacts_chunks cc
+       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contacts_id
        WHERE cc.embedding IS NOT NULL
        ORDER BY cc.embedding <=> $1::vector
        LIMIT 5`,
@@ -216,8 +218,8 @@ describe('Cosine Similarity Search with Real Embeddings', () => {
     const result = await db.client.query(
       `SELECT cc.id, c.first_name, cc.content,
               1 - (cc.embedding <=> $1::vector) AS similarity
-       FROM "agentic_db_app_public".contact_chunks cc
-       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contact_id
+       FROM "agentic_db_app_public".contacts_chunks cc
+       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contacts_id
        WHERE cc.embedding IS NOT NULL
        ORDER BY cc.embedding <=> $1::vector
        LIMIT 5`,
@@ -237,7 +239,7 @@ describe('Cosine Similarity Search with Real Embeddings', () => {
     const result = await db.client.query(
       `SELECT nc.id, nc.content,
               1 - (nc.embedding <=> $1::vector) AS similarity
-       FROM "agentic_db_app_public".note_chunks nc
+       FROM "agentic_db_app_public".notes_chunks nc
        WHERE nc.embedding IS NOT NULL
        ORDER BY nc.embedding <=> $1::vector
        LIMIT 3`,
@@ -258,8 +260,8 @@ describe('Cross-table Similarity Search', () => {
     const contacts = await db.client.query(
       `SELECT 'contact' AS source, c.first_name AS label,
               1 - (cc.embedding <=> $1::vector) AS similarity
-       FROM "agentic_db_app_public".contact_chunks cc
-       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contact_id
+       FROM "agentic_db_app_public".contacts_chunks cc
+       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contacts_id
        WHERE cc.embedding IS NOT NULL`,
       [vectorToSql(queryVec)],
     );
@@ -268,7 +270,7 @@ describe('Cross-table Similarity Search', () => {
     const notes = await db.client.query(
       `SELECT 'note' AS source, nc.content AS label,
               1 - (nc.embedding <=> $1::vector) AS similarity
-       FROM "agentic_db_app_public".note_chunks nc
+       FROM "agentic_db_app_public".notes_chunks nc
        WHERE nc.embedding IS NOT NULL`,
       [vectorToSql(queryVec)],
     );
