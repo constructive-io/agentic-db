@@ -38,7 +38,7 @@ export function setRagConfig(config: Partial<RagProviderConfig>): void {
 }
 
 export function setRagConfigValue(key: string, value: string): void {
-  const config = getRagConfig() as Record<string, unknown>;
+  const config = getRagConfig() as unknown as Record<string, unknown>;
   config[key] = value;
   setRagConfig(config as Partial<RagProviderConfig>);
 }

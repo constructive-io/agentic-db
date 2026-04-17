@@ -4,11 +4,11 @@
   "description": "CLI for agentic-db database operations",
   "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
-  "main": "index.js",
-  "module": "esm/index.js",
-  "types": "index.d.ts",
+  "main": "src/index.js",
+  "module": "esm/src/index.js",
+  "types": "src/index.d.ts",
   "bin": {
-    "agentic-db": "./generated/cli/index.js"
+    "agentic-db": "src/index.js"
   },
   "publishConfig": {
     "access": "public",
@@ -16,12 +16,20 @@
   },
   "scripts": {
     "clean": "makage clean",
+    "prepack": "npm run build",
     "build": "makage build",
     "generate": "tsx src/generate.ts",
-    "start": "tsx generated/cli/index.ts"
+    "start": "tsx src/index.ts"
   },
   "dependencies": {
-    "inquirerer": "^4.7.0"
+    "@0no-co/graphql.web": "^1.2.0",
+    "@agentic-kit/ollama": "^1.0.3",
+    "@constructive-io/graphql-types": "^3.4.3",
+    "appstash": "^0.7.0",
+    "gql-ast": "^3.4.2",
+    "graphql": "16.13.0",
+    "inquirerer": "^4.7.0",
+    "nested-obj": "^0.1.5"
   },
   "devDependencies": {
     "@agentic-db/schemas": "workspace:*",

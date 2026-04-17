@@ -38,13 +38,6 @@ async function main() {
       agents: true,
       skills: true,
     },
-    scalars: {
-      BigFloat: 'string',
-      Cursor: 'string',
-      Datetime: 'string',
-      JSON: 'Record<string, unknown>',
-      UUID: 'string',
-    },
     verbose: true,
   });
 
