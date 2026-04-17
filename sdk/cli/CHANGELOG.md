@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.1.0...@agentic-db/cli@1.2.0) (2026-04-17)
+
+### Features
+
+- expand tests and align docs with real ORM/CLI behavior ([1c01d06](https://github.com/constructive-io/agentic-db/commit/1c01d06822985773ed212141853d573b2cdb1fb3))
+
 # [1.1.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.0.0...@agentic-db/cli@1.1.0) (2026-04-16)
 
 **Note:** Version bump only for package @agentic-db/cli
