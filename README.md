@@ -157,70 +157,84 @@ It's all in one database, with vector + BM25 + full-text + trigram + PostGIS sea
 - **GraphQL API** auto-exposed via PostGraphile v5 with the Constructive search plugin (vector / BM25 / trigram / spatial unified).
 - **Docker-first** — `pgpm docker start --ollama` gets you Postgres + Ollama in one command (CPU or GPU).
 
-## Quick Start
+## Getting Started
+
+End-to-end: Docker → deploy schema → run GraphQL server → use CLI → use SDK.
+
+### Prerequisites
+
+- Node.js 20+, pnpm, Docker, `psql`
+- `pgpm` — `npm install -g pgpm`
+- `@constructive-io/cli` — `npm install -g @constructive-io/cli`
+- `@agentic-db/cli` — `npm install -g @agentic-db/cli`
+
+### 1. Start Postgres (Docker)
+
+`pgpm docker start` runs `constructiveio/postgres-plus:18` (Postgres with pgvector, pg_textsearch, PostGIS, and the other extensions agentic-db uses) with 2 GB shared memory:
 
 ```bash
-# Install pgpm
-npm install -g pgpm
+pgpm docker start              # Postgres
+pgpm docker start --ollama     # Postgres + Ollama (CPU) for auto-embedding
+pgpm docker start --ollama --gpu   # same, NVIDIA GPU
+pgpm docker stop               # stop everything
+```
 
-# Create a workspace and install agentic-db
-pgpm init workspace
-cd my-app
-pgpm init
-cd packages/my-module
-pgpm install agentic-db
+Already have an LLM running? Just use `pgpm docker start` and point `OLLAMA_URL` at your existing instance. A tuned [`docker-compose.yml`](docker-compose.yml) is also provided if you prefer `docker compose up -d`.
 
-# Start PostgreSQL
-pgpm docker start
+### 2. Deploy the schema (pgpm)
+
+```bash
+# First time: bootstrap admin roles in the cluster
 eval "$(pgpm env)"
 pgpm admin-users bootstrap --yes
 
-# Deploy
+# Create a workspace + install the agentic-db pgpm module
+pgpm init workspace
+cd my-app && pgpm init && cd packages/my-module
+pgpm install agentic-db
+
+# Create the database and deploy all 91 tables + indexes + triggers
 pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
-See the [`agentic-db` package README](packages/agentic-db) for the full deployment guide, schema details, and search capabilities.
+See the [`agentic-db` package README](packages/agentic-db) for the full deployment guide and schema details.
 
-## Running the GraphQL server
+### 3. Start the GraphQL server (cnc)
 
-The `agentic-db` CLI and `@agentic-db/sdk` ORM both talk to the database through a GraphQL endpoint, so you need a PostGraphile server pointed at the deployed DB. The simplest way is the Constructive CLI (`cnc`), which spins up PostGraphile with the same plugin bundle used in tests — vector search, BM25, trigram, PostGIS, meta-API — all preconfigured:
+The CLI and SDK both talk to the database through a GraphQL endpoint, so you need a PostGraphile server pointed at the deployed DB. The [Constructive CLI](https://github.com/constructive-io/constructive/tree/main/packages/cli) (`cnc`) spins up PostGraphile with the same plugin bundle used in tests — vector search, BM25, trigram, PostGIS, meta-API — all preconfigured:
 
 ```bash
-# Install once
-npm install -g @constructive-io/cli
-
-# Point it at the database you deployed with pgpm (standard PG env vars)
+# Point it at the database you just deployed (standard PG env vars)
 export PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=password
 export PGDATABASE=agentic-db
 
-# Start the GraphQL server (default port 5555)
+# GraphQL at http://localhost:5555/graphql
 cnc server
 
 # In another shell: open GraphiQL to poke at the schema
 cnc explorer
 ```
 
-That's it — `cnc server` reads your PG env vars and exposes the full agentic-db GraphQL schema at `http://localhost:5555/graphql`. See the [Constructive CLI docs](https://github.com/constructive-io/constructive/tree/main/packages/cli) for options (port, CORS origin, toggling PostGIS/meta-API, etc.).
+See the [Constructive CLI docs](https://github.com/constructive-io/constructive/tree/main/packages/cli) for options (port, CORS origin, toggling PostGIS/meta-API, etc.).
 
-## Using the CLI
+### 4. Use the CLI
 
-Once the server is up, point the `agentic-db` CLI at it and your agent has a typed CRUD + search surface over every table:
+With the server running, point the `agentic-db` CLI at it and your agent has a typed CRUD + search surface over every table:
 
 ```bash
-# 1. Install and point it at your running GraphQL endpoint
-npm install -g @agentic-db/cli
+# Create a context once
 agentic-db context create local --endpoint http://localhost:5555/graphql
 agentic-db context use local
 agentic-db auth set-token "$AGENTIC_DB_TOKEN"   # optional — anonymous also works
 
-# 2. Unified search (vector + BM25 + FTS + trigram) across one or more tables
+# Unified search (vector + BM25 + FTS + trigram) across one or more tables
 agentic-db search "postgres distributed systems" \
   --tables contacts,memories,notes --json --tty false
 
-# 3. RAG question-answering across embedded tables
+# RAG question-answering across embedded tables
 agentic-db ask "Who did I meet about the Q2 launch?" --tty false
 
-# 4. Typed CRUD — one subcommand per table (contact, note, task, memory, …)
+# Typed CRUD — one subcommand per table (contact, note, task, memory, …)
 agentic-db contact create --firstName Alice --lastName Smith --select id --tty false
 agentic-db contact list --select id,firstName,lastName --json --tty false
 agentic-db note create --title "Kickoff" --content "Discussed Q2 roadmap" --tty false
@@ -228,9 +242,43 @@ agentic-db task list --where.status.equalTo open --json --tty false
 agentic-db memory create --title "Met Alice" --content "Discussed acquisition" --tty false
 ```
 
-Every command supports `--tty false` for non-interactive / scripted use and `--json` for machine-readable output, which is what agents almost always want. See the [`cli-default` skill](skills/cli-default/SKILL.md) for the full command surface (one subcommand per table, ~91 total) and the [CLI E2E tests](packages/cli-e2e-tests/__tests__/cli-e2e.test.ts) for known-good examples.
+Every command supports `--tty false` (non-interactive / scripted) and `--json` (machine-readable) — which is what agents almost always want. Full command surface in the [`cli-default` skill](skills/cli-default/SKILL.md); known-good examples in the [CLI E2E tests](packages/cli-e2e-tests/__tests__/cli-e2e.test.ts).
 
-The [`@agentic-db/sdk`](sdk/sdk) ORM talks to the same endpoint — once `cnc server` is running, `import { createClient } from '@agentic-db/sdk'` and you're off.
+### 5. Use the SDK (ORM)
+
+The [`@agentic-db/sdk`](sdk/sdk) is a type-safe, Prisma-like ORM generated from the same GraphQL schema — it hits the same `cnc server` endpoint:
+
+```bash
+npm install @agentic-db/sdk
+```
+
+```typescript
+import { createClient } from '@agentic-db/sdk';
+
+const db = createClient({
+  endpoint: 'http://localhost:5555/graphql',
+  headers: { Authorization: `Bearer ${process.env.AGENTIC_DB_TOKEN ?? ''}` },
+});
+
+// Typed CRUD with `select` = which fields to return
+const alice = await db.contact
+  .create({
+    data: { firstName: 'Alice', lastName: 'Smith', headline: 'Engineer' },
+    select: { id: true, firstName: true },
+  })
+  .execute();
+
+// Unified search (vector + BM25 + FTS + trigram)
+const results = await db.contact
+  .findMany({
+    where: { unifiedSearch: 'postgres distributed systems' },
+    first: 10,
+    select: { id: true, firstName: true, searchScore: true },
+  })
+  .execute();
+```
+
+Full ORM reference in the [`orm-default` skill](skills/orm-default/SKILL.md); integration tests in [`packages/integration-tests/__tests__/orm.test.ts`](packages/integration-tests/__tests__/orm.test.ts).
 
 ## Packages
 
@@ -254,41 +302,6 @@ The [`@agentic-db/sdk`](sdk/sdk) ORM talks to the same endpoint — once `cnc se
 | [`@agentic-db/schemas`](sdk/schemas) | GraphQL schema files (`.graphql`) used by codegen |
 | [`@agentic-db/integration-tests`](packages/integration-tests) | Integration test suite (ORM, embeddings, RAG, unified search) |
 | [`@agentic-db/cli-e2e-tests`](packages/cli-e2e-tests) | End-to-end CLI test suite |
-
-## Prerequisites
-
-- Node.js 20+
-- pnpm
-- Docker
-- PostgreSQL client tools (`psql`)
-- pgpm (`npm install -g pgpm`)
-
-## Docker Setup
-
-`pgpm docker start` is the standard way to start PostgreSQL for development. It runs `constructiveio/postgres-plus:18` with 2 GB shared memory by default:
-
-```bash
-pgpm docker start              # Start PostgreSQL
-pgpm docker start --recreate   # Tear down and recreate
-pgpm docker stop               # Stop
-pgpm docker ls                 # List services and status
-```
-
-To include Ollama for embedding generation:
-
-```bash
-pgpm docker start --ollama             # PostgreSQL + Ollama (CPU)
-pgpm docker start --ollama --gpu       # PostgreSQL + Ollama (NVIDIA GPU)
-```
-
-Already have an LLM running? Just use `pgpm docker start` and point `OLLAMA_URL` at your existing instance.
-
-The repo also includes a `docker-compose.yml` with tuned Postgres settings and Ollama as an alternative:
-
-```bash
-docker compose up -d                    # Postgres + Ollama (CPU)
-docker compose --profile gpu up -d      # Postgres + Ollama (NVIDIA GPU)
-```
 
 ## Schema Development Workflow
 
