@@ -1,6 +1,6 @@
 {
   "name": "agentic-db",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Constructive <developers@constructive.io>",
   "description": "pgpm-installable agentic-db SQL module for the agentic-db personal database",
   "homepage": "https://github.com/constructive-io/agentic-db",

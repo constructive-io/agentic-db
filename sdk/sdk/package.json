@@ -1,6 +1,6 @@
 {
   "name": "@agentic-db/sdk",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Type-safe SDK for agentic-db database",
   "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
