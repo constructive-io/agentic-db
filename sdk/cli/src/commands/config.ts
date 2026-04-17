@@ -119,14 +119,14 @@ async function handleSet(argv: Partial<Record<string, unknown>>, prompter: Inqui
   if (val) {
     configValue = val;
   } else {
-    const answers = await prompter.prompt(newArgv, [
+    const answers = (await prompter.prompt(newArgv, [
       {
         type: 'text',
         name: 'value',
         message: `Value for ${configKey}:`,
         required: true,
       },
-    ]);
+    ])) as Record<string, unknown>;
     configValue = answers.value as string;
   }
 

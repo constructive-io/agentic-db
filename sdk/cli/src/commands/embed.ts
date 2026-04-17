@@ -14,7 +14,7 @@ type EmbeddableTable =
   | 'events'
   | 'venues'
   | 'notes'
-  | 'agentTasks'
+  | 'tasks'
   | 'memories'
   | 'skills'
   | 'rules'
@@ -64,7 +64,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
         .filter(Boolean)
         .join(' '),
     updateFn: async (client, id, embedding) =>
-      client.contact.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.contact.update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } }).execute(),
   },
 
   companies: {
@@ -79,7 +79,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     textFn: (r) => [r.name, r.description].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
       client.company
-        .update({ where: { id }, data: { embedding }, select: { id: true } })
+        .update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } })
         .execute(),
   },
 
@@ -94,7 +94,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     },
     textFn: (r) => [r.name, r.notesText].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
-      client.event.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.event.update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } }).execute(),
   },
 
   venues: {
@@ -108,7 +108,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     },
     textFn: (r) => [r.name].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
-      client.venue.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.venue.update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } }).execute(),
   },
 
   notes: {
@@ -122,21 +122,23 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     },
     textFn: (r) => (r.content as string) || '',
     updateFn: async (client, id, embedding) =>
-      client.note.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.note.update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } }).execute(),
   },
 
-  agentTasks: {
+  tasks: {
     listFn: async (client) => {
-      const res = await client.agentTask
+      const res = await client.task
         .findMany({
           select: { id: true, title: true, description: true },
         })
         .execute();
-      return extractNodes(res.data, 'agentTasks');
+      return extractNodes(res.data, 'tasks');
     },
     textFn: (r) => [r.title, r.description].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
-      client.agentTask.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.task
+        .update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } })
+        .execute(),
   },
 
   memories: {
@@ -151,7 +153,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     textFn: (r) => (r.content as string) || '',
     updateFn: async (client, id, embedding) =>
       client.memory
-        .update({ where: { id }, data: { embedding }, select: { id: true } })
+        .update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } })
         .execute(),
   },
 
@@ -166,7 +168,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     },
     textFn: (r) => [r.name, r.description].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
-      client.skill.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.skill.update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } }).execute(),
   },
 
   rules: {
@@ -180,7 +182,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     },
     textFn: (r) => [r.name, r.description].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
-      client.rule.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.rule.update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } }).execute(),
   },
 
   deals: {
@@ -194,7 +196,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     },
     textFn: (r) => (r.name as string) || '',
     updateFn: async (client, id, embedding) =>
-      client.deal.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.deal.update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } }).execute(),
   },
 
   projects: {
@@ -209,7 +211,7 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     textFn: (r) => [r.name, r.description].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
       client.project
-        .update({ where: { id }, data: { embedding }, select: { id: true } })
+        .update({ where: { id }, data: { embedding: embedding as unknown as number[] }, select: { id: true } })
         .execute(),
   },
 };

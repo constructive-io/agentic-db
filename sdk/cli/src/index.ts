@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * Extended CLI entry point for agentic-db
  *
