@@ -181,6 +181,34 @@ pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 
 See the [`agentic-db` package README](packages/agentic-db) for the full deployment guide, schema details, and search capabilities.
 
+## Using the CLI
+
+Once deployed, point the `agentic-db` CLI at your GraphQL endpoint and your agent has a typed CRUD + search surface over every table:
+
+```bash
+# 1. Install and point it at your deployed DB
+npm install -g @agentic-db/cli
+agentic-db context create local --endpoint http://localhost:5000/graphql
+agentic-db context use local
+agentic-db auth set-token "$AGENTIC_DB_TOKEN"
+
+# 2. Unified search (vector + BM25 + FTS + trigram) across one or more tables
+agentic-db search "postgres distributed systems" \
+  --tables contacts,memories,notes --json --tty false
+
+# 3. RAG question-answering across embedded tables
+agentic-db ask "Who did I meet about the Q2 launch?" --tty false
+
+# 4. Typed CRUD — one subcommand per table (contact, note, task, memory, …)
+agentic-db contact create --firstName Alice --lastName Smith --select id --tty false
+agentic-db contact list --select id,firstName,lastName --json --tty false
+agentic-db note create --title "Kickoff" --content "Discussed Q2 roadmap" --tty false
+agentic-db task list --where.status.equalTo open --json --tty false
+agentic-db memory create --title "Met Alice" --content "Discussed acquisition" --tty false
+```
+
+Every command supports `--tty false` for non-interactive / scripted use and `--json` for machine-readable output, which is what agents almost always want. See the [`cli-default` skill](skills/cli-default/SKILL.md) for the full command surface (one subcommand per table, ~91 total) and the [CLI E2E tests](packages/cli-e2e-tests/__tests__/cli-e2e.test.ts) for known-good examples.
+
 ## Packages
 
 ### Published
