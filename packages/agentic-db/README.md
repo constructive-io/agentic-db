@@ -13,8 +13,7 @@
 </p>
 
 > **Give your coding agent a brain.**
->
-> A pgpm-installable Postgres module that gives Claude, Claude Code, Cursor, and Devin persistent memory, chat history, a skill library, a tool registry, behavioral rules, a task queue, runtime observability, and a full CRM + life-OS knowledge graph — all in one database with vector + BM25 + full-text + trigram + PostGIS search baked in.
+> One `pgpm deploy` and Claude, Claude Code, Cursor, or Devin get persistent memory, chat history, a skill library, a tool registry, rules, tasks, runtime observability, and a full CRM/life-OS knowledge graph — all inside a Postgres database.
 
 ## Talk to your database
 
@@ -29,41 +28,77 @@ Once deployed, you can ask your agent questions in plain English and it translat
 - *"Who have I met with more than three times this quarter?"*
 - *"What's the latest status on deals tagged `enterprise`?"*
 
-The agent just reads and writes Postgres through the typed SDK, CLI, or GraphQL — no glue code, no separate vector DB, no RAG service to stand up.
+No glue code, no separate vector DB, no RAG service to stand up — the agent just reads and writes Postgres through the typed SDK, CLI, or GraphQL.
 
-## What's inside
+## What's in the box
 
-Conversations, messages, tool calls, long-term memories, rules, skills, prompts, tasks, runtime state, and a full personal CRM / life-OS live side-by-side. Every embeddable table is auto-indexed for **semantic + keyword + fuzzy + spatial** search. A background worker keeps embeddings fresh via Ollama (or your LLM of choice). Deploy it next to your agent, wire it up through the typed SDK/CLI or the included Agent Skills, and your agent has persistent memory, chat history, a skill library, and structured knowledge of the user's world.
+Conversations, messages, tool calls, long-term memories, rules, skills, prompts, tasks, runtime state, and a full personal CRM/life-OS live side-by-side. Every embeddable table is auto-indexed for **semantic + keyword + fuzzy + spatial** search, and a background worker keeps embeddings fresh via Ollama (or your LLM of choice). Deploy it next to your agent, wire it up through the typed SDK/CLI or the included Agent Skills, and your agent instantly has persistent memory, chat history, a skill library, and structured knowledge of the user's world.
 
-### 90+ tables, organized into domains
+## What an agent actually needs
 
-| Domain | Highlights |
-|--------|------------|
-| **🤖 Agent Core** | `agents` (multi-agent w/ `agent_collaborators`), `tasks` (priority queue), `rules` (semantic `trigger_concept`), `skills` (semantic `intent_trigger`), `tool_definitions` (JSON-schema tool specs), `prompts` (versioned), `agent_logs`, `expenses` |
-| **💬 Runtime / Chat** | `conversations`, `messages` (role, content, `token_count`, `tool_calls`, `tool_results`), `tool_executions` (input/output/status/timings linked to message), `runtime_states`, `runtime_logs`, `runtime_metrics`, `runtime_artifacts`, `runtime_schedules` (cron), `runtime_events` (event bus), `runtime_config` |
-| **🧠 Memory / Autonomy** | `memories` (episodic, spatial), `autonomy_records` (self-writing knowledge graph w/ `autonomy_record_links`), `notes` (chunked for long docs), `contact_memories` / `company_memories` cross-domain junctions |
-| **🧑‍🤝‍🧑 CRM** | `contacts`, `companies`, `deals`, `events`, `venues`, `notes`, `interactions`, `touchpoints`, `tags`, image galleries, `contact_emails` / `contact_phones` / `contact_addresses` normalized children |
-| **🌱 Life-OS** | `goals`, `habits`, `activity_logs`, `memories`, `trips`, `places` |
-| **📂 Projects** | `projects` with cross-relations to `tasks`, `contacts`, `goals` |
-| **✉️ Email & Calendar** | `email_threads`, `emails`, `email_attachments`, `calendars`, `calendar_events`, `calendar_attendees`, `provider_sync_states` (Gmail / Google Calendar-style sync) |
-| **🪣 Staging** | `raw_contacts`, `raw_contact_emails`, `raw_contact_phones`, `raw_contact_urls` for messy imports |
-| **🔗 Junctions** | ~25 cross-domain M:N junctions (`project_contacts`, `task_projects`, `calendar_event_contacts`, `email_notes`, `contact_memories`, `skill_tools`, …) |
+| Need for an agent | What agentic-db ships |
+|---|---|
+| Long-term memory | `memories` + agent-scoped `memories` with vector + BM25 + chunked embeddings |
+| Working memory / conversation state | `conversations` + `messages` + `tool_calls` + `tool_results` |
+| Skills / tools registry | `skills`, `tool_definitions`, `tool_executions`, `prompts` (versioned) |
+| Behavior rules | `rules` with semantic `trigger_concept` matching |
+| Task queue | `tasks` with priority, status, agent assignment |
+| Observability | `agent_logs`, `runtime_states`, `runtime_logs`, `runtime_metrics`, `runtime_artifacts` |
+| Scheduling | `runtime_schedules` (cron) + `runtime_events` (event bus) |
+| Config | `runtime_config` (with `is_secret` flag) |
+| World model (people, orgs, places) | Full CRM + Life-OS + Email/Calendar |
+| Retrieval | Unified search: vector (pgvector HNSW) + BM25 + tsvector + trigram + PostGIS |
+| Auto-embed | Postgres triggers enqueue embedding jobs; Ollama worker processes them |
+
+It's all in one database, with vector + BM25 + full-text + trigram + PostGIS search baked in.
+
+## Architecture in 30 seconds
+
+```
+┌─────────────────────────────────────────────────────────┐
+│            Your Agent (Claude / Claude Code /           │
+│                    Cursor / Devin / …)                  │
+└───────────────┬─────────────────────────┬───────────────┘
+                │                         │
+        writes / reads                  invokes
+                │                         │
+                ▼                         ▼
+┌─────────────────────────────────────────────────────────┐
+│            agentic-db (Postgres, one DB)                │
+│                                                         │
+│  conversations ──┬── messages ── tool_executions        │
+│                  │                                      │
+│  agents ─── tasks ─── rules ─── skills ─── prompts      │
+│                                                         │
+│  memories ── autonomy_records ── notes (chunked)        │
+│                                                         │
+│  contacts · companies · events · places · emails · …    │
+│                                                         │
+│  [ vector · BM25 · FTS · trigram · PostGIS, unified ]   │
+└───────────────▲─────────────────────────▲───────────────┘
+                │                         │
+          auto-embed                   GraphQL / SDK / CLI
+                │                         │
+       @agentic-db/worker          @agentic-db/sdk · cli
+                │
+              Ollama
+```
 
 ## Feature deep-dive
 
 ### 🧠 Memory
 
-- **`memories`** — long-term episodic memory with title, content, location, timestamp, mood, tags. Unified search (vector + BM25) + PostGIS spatial so the agent can ask *"what happened near here last spring?"*.
-- **`autonomy_records`** — self-managed knowledge units the agent writes for itself (goals, notes-to-self, learned facts), with self-referential many-to-many links so the agent builds its own knowledge graph.
+- **`memories`** (Life-OS) — long-term episodic memory with title, content, location, timestamp, mood, tags. Unified search (vector + BM25) + PostGIS spatial so the agent can ask *"what happened near here last spring?"*.
+- **`autonomy_records`** — self-managed knowledge units the agent writes for itself (goals, notes-to-self, learned facts), with self-referential many-to-many links (`autonomy_record_links`) so the agent builds its own knowledge graph.
 - **`notes`** — long-form knowledge with **chunked embeddings**: a single note gets split into multiple vector rows automatically so retrieval works on long documents.
 - **Cross-domain memory junctions** — `contact_memories`, `company_memories` tie memories to the people/orgs they're about, so the agent can pull "everything I remember about Alice" in one query.
 - **Agent-attributed memories** — every memory can carry an `agent_id` FK so multi-agent setups get isolated or shared memory.
 - **Chunk-aware search** — `contacts_chunks` and `notes_chunks` let the agent retrieve the *relevant paragraph* of a long record, not the whole record.
-- **Tags as first-class citizens** — `citext[]` tag columns on every memory-ish table, GIN-indexed, so filtering by `['conference','partner-summit']` is fast.
+- **Tags as first-class citizens** — `citext[]` tag columns on every memory-ish table, GIN-indexed, so filtering by `['hackathon','kris-floyd']` is fast.
 
 ### 💬 Chats / Conversations
 
-- **`conversations`** — titled, agent-scoped chat sessions with status + metadata. Indexed and semantically searchable (find that conversation from 3 weeks ago by vibe).
+- **`conversations`** — titled, agent-scoped chat sessions with status + metadata. Indexed and searchable (find that conversation from 3 weeks ago by vibe).
 - **`messages`** — role (`user` / `assistant` / `tool`), content, `token_count`, `tool_calls` jsonb, `tool_results` jsonb, full metadata. Unified search means you can semantically query across every message the agent has ever seen.
 - **`tool_executions`** — every tool invocation recorded: input, output, status, timings, errors, with FK back to the message that triggered it. Full audit trail of *what the agent actually did*.
 - **Thread-able** — FK relations let you reconstruct conversation trees; `conversations ↔ messages ↔ tool_executions` forms a replayable event log.
@@ -72,7 +107,7 @@ Conversations, messages, tool calls, long-term memories, rules, skills, prompts,
 ### 🛠️ Skills & Tools
 
 - **`skills`** — named capabilities with `intent_trigger` embedding so the agent can semantically pick the right skill for a user utterance (*"help me plan a trip"* → skill with closest `intent_trigger_embedding`).
-- **`tool_definitions`** — JSON-schema-validated tool specs (works great as an OpenAI / Anthropic tools payload source of truth).
+- **`tool_definitions`** — JSON-schema-validated tool specs (works great as an OpenAI/Anthropic tools payload source of truth).
 - **`skill_tools`** junction — skills compose from multiple tools.
 - **`prompts`** — versioned, tagged, semantically searchable prompt library. `agent_prompts` junction lets you bind prompts to agents.
 - **`rules`** — declarative trigger/action pairs (`trigger_type`, `trigger_config`, `action_type`, `action_config`) with priority + semantic `trigger_concept` matching. This is how you give the agent a behavioral policy layer.
@@ -91,243 +126,263 @@ Conversations, messages, tool calls, long-term memories, rules, skills, prompts,
 
 ### 🔎 Retrieval
 
-Every table with embeddings supports up to **five search strategies**, exposed through a single unified GraphQL API:
-
-| Strategy | Engine | Use Case |
-|----------|--------|----------|
-| **Vector** | pgvector (HNSW) | Semantic similarity search via embeddings |
-| **BM25** | pg_textsearch | Statistical relevance ranking |
-| **Full-text** | tsvector + GIN | Classic Postgres full-text search with weighted fields |
-| **Trigram** | pg_trgm | Fuzzy matching for typos and partial strings |
-| **Spatial** | PostGIS | Geographic proximity queries on contacts, events, venues, places |
-
 - **Unified Search API** per table: one query can combine vector similarity, BM25 ranking, weighted tsvector full-text, and trigram fuzzy — all exposed through the generated GraphQL SDK.
-- **Auto-embedding pipeline** — Postgres triggers enqueue jobs on insert/update; the [`@agentic-db/worker`](../worker) package processes them via Ollama (`nomic-embed-text`, 768-dim). Your agent never has to remember to embed anything.
-- **HNSW vector indexes** with cosine/L2/inner-product metrics.
+- **Auto-embedding pipeline** — Postgres triggers enqueue jobs on insert/update; the [`@agentic-db/worker`](packages/worker) package processes them via Ollama (`nomic-embed-text`, 768-dim). Your agent never has to remember to embed anything.
+- **HNSW vector indexes** (pgvector) with cosine/L2/inner-product metrics.
+- **BM25** via `pg_textsearch` — statistical relevance ranking, not just similarity.
 - **Weighted FTS** — `A` / `B` / `C` weights per field so `name > headline > bio` naturally.
-- **Chunked long-doc retrieval** — `contacts_chunks` and `notes_chunks` split long records into vector-searchable paragraphs.
+- **Trigram fuzzy matching** for typo-tolerant name search.
+- **PostGIS spatial** on contacts, events, venues, places, memories, trips — "find memories within 5km of here" works out of the box.
+- **Chunked long-doc retrieval** on contacts and notes.
 
-## Quick Start
+### 🌍 World model (context the agent needs to actually help you)
+
+- **CRM**: `contacts` (with denormalized primary email/phone/location + normalized `contact_emails` / `contact_phones` / `contact_addresses` children), `companies`, `deals`, `events`, `venues`, `notes`, `interactions`, `touchpoints`, `tags`, image galleries.
+- **Life-OS**: `goals`, `habits`, `activity_logs`, `memories`, `trips`, `places`.
+- **Projects & expenses**: `projects`, `expenses`, with cross-relations to contacts, trips, tasks.
+- **Email & Calendar**: `email_threads`, `emails`, `email_attachments`, `calendars`, `calendar_events`, `calendar_attendees`, `provider_sync_states` (for Gmail / Google Calendar-style provider sync).
+- **Staging tables** (`raw_contacts`, `raw_contact_emails`, etc.) for messy import pipelines before normalizing into `contacts`.
+- **~25 cross-domain M:N junctions** so your agent can answer "notes about Alice from the partner summit" without schema gymnastics.
+
+### ⚙️ Platform / DX
+
+- **One command to deploy**: `pgpm deploy --createdb --database agentic-db --yes --package agentic-db`.
+- **[`@agentic-db/sdk`](sdk/sdk)** — Prisma-like typed ORM generated from the GraphQL schema (covers all 91 tables).
+- **[`@agentic-db/cli`](sdk/cli)** — CRUD + search + admin commands for every table.
+- **[`@agentic-db/rag`](packages/rag)** — hybrid search, batch embedding, multi-pass Q&A CLI tools.
+- **[`@agentic-db/worker`](packages/worker)** — background embedding worker.
+- **Agent Skills included** — ships with skill files (`skills/agent/memories.md`, `skills/agent/tasks.md`, `skills/rag-query.md`, etc.) that install into Claude, Claude Code, Cursor, Copilot, Windsurf, Codex, or Devin via `npx skills add constructive-io/agentic-db`. The DB *teaches your agent how to use it*.
+- **Schema-as-code** — blueprints in [`packages/provision/src/schemas/*.ts`](packages/provision/src/schemas) define every table, so you fork, add a table, `pnpm run provision && pnpm run export`, and you have a new versioned pgpm module.
+- **Standalone or multi-tenant** — deploy clean into its own DB, or run inside the Constructive platform with RLS / Safegres policies.
+- **GraphQL API** auto-exposed via PostGraphile v5 with the Constructive search plugin (vector / BM25 / trigram / spatial unified).
+- **Docker-first** — `pgpm docker start --ollama` gets you Postgres + Ollama in one command (CPU or GPU).
+
+## Getting Started
+
+End-to-end: Docker → deploy schema → run GraphQL server → use CLI → use SDK.
 
 ### Prerequisites
 
-- PostgreSQL 18+ (via [constructiveio/postgres-plus](https://hub.docker.com/r/constructiveio/postgres-plus))
-- [pgpm](https://pgpm.io) (`npm install -g pgpm`)
-- Node.js 20+, pnpm
-
-### Install and Deploy
+See [Constructive Quickstart → Prerequisites](https://constructive.io/learn/quickstart/prerequisites) for Node.js, pnpm, Docker, and `psql` setup. Then install the three CLIs you'll use below:
 
 ```bash
-# 1. Create a workspace and install agentic-db
+npm install -g pgpm
+npm install -g @constructive-io/cli
+npm install -g @agentic-db/cli
+```
+
+### 1. Start Postgres (Docker)
+
+`pgpm docker start` runs `constructiveio/postgres-plus:18` (Postgres with pgvector, pg_textsearch, PostGIS, and the other extensions agentic-db uses) with 2 GB shared memory:
+
+```bash
+pgpm docker start              # Postgres
+pgpm docker start --ollama     # Postgres + Ollama (CPU) for auto-embedding
+pgpm docker start --ollama --gpu   # same, NVIDIA GPU
+pgpm docker stop               # stop everything
+```
+
+Already have an LLM running? Just use `pgpm docker start` and point `OLLAMA_URL` at your existing instance. A tuned [`docker-compose.yml`](docker-compose.yml) is also provided if you prefer `docker compose up -d`.
+
+### 2. Deploy the schema (pgpm)
+
+```bash
+# First time: bootstrap admin roles in the cluster
+eval "$(pgpm env)"
+pgpm admin-users bootstrap --yes
+
+# Create a workspace + install the agentic-db pgpm module
 pgpm init workspace
-cd my-app
-pgpm init
-cd packages/my-module
+cd my-app && pgpm init && cd packages/my-module
 pgpm install agentic-db
 
-# 2. Start PostgreSQL
-pgpm docker start
-eval "$(pgpm env)"
-pgpm admin-users bootstrap --yes
-
-# 3. Deploy agentic-db into a fresh database
+# Create the database and deploy all 91 tables + indexes + triggers
 pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
-That's it. You now have a fully provisioned brain with all tables, search indexes, and embedding triggers.
+See the [`agentic-db` package README](packages/agentic-db) for the full deployment guide and schema details.
 
-`pgpm docker start` runs `constructiveio/postgres-plus:18` with 2 GB shared memory by default. Use `--image`, `--port`, `--shm-size` to customize.
+### 3. Start the GraphQL server (cnc)
 
-### With Ollama (for embeddings)
-
-The embedding triggers require an LLM to generate vectors. If you don't already have one running:
+The CLI and SDK both talk to the database through a GraphQL endpoint, so you need a PostGraphile server pointed at the deployed DB. The [Constructive CLI](https://github.com/constructive-io/constructive/tree/main/packages/cli) (`cnc`) spins up PostGraphile with the same plugin bundle used in tests — vector search, BM25, trigram, PostGIS, meta-API — all preconfigured:
 
 ```bash
-# Start PostgreSQL + Ollama (CPU)
-pgpm docker start --ollama
+# Point it at the database you just deployed (standard PG env vars)
+export PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=password
+export PGDATABASE=agentic-db
 
-# Or with NVIDIA GPU acceleration
-pgpm docker start --ollama --gpu
+# GraphQL at http://localhost:5555/graphql
+cnc server
+
+# In another shell: open GraphiQL to poke at the schema
+cnc explorer
 ```
 
-Already have Ollama (or another LLM) running? Just use `pgpm docker start` and point `OLLAMA_URL` at your existing instance.
+See the [Constructive CLI docs](https://github.com/constructive-io/constructive/tree/main/packages/cli) for options (port, CORS origin, toggling PostGIS/meta-API, etc.).
 
-Alternatively, the repo includes a `docker-compose.yml` with tuned Postgres settings and Ollama:
+### 4. Use the CLI
+
+With the server running, point the `agentic-db` CLI at it and your agent has a typed CRUD + search surface over every table:
 
 ```bash
-docker compose up -d                    # CPU
-docker compose --profile gpu up -d      # NVIDIA GPU
+# Create a context once
+agentic-db context create local --endpoint http://localhost:5555/graphql
+agentic-db context use local
+agentic-db auth set-token "$AGENTIC_DB_TOKEN"   # optional — anonymous also works
+
+# Unified search (vector + BM25 + FTS + trigram) across one or more tables
+agentic-db search "postgres distributed systems" \
+  --tables contacts,memories,notes --json --tty false
+
+# RAG question-answering across embedded tables
+agentic-db ask "Who did I meet about the Q2 launch?" --tty false
+
+# Typed CRUD — one subcommand per table (contact, note, task, memory, …)
+agentic-db contact create --firstName Alice --lastName Smith --select id --tty false
+agentic-db contact list --select id,firstName,lastName --json --tty false
+agentic-db note create --title "Kickoff" --content "Discussed Q2 roadmap" --tty false
+agentic-db task list --where.status.equalTo open --json --tty false
+agentic-db memory create --title "Met Alice" --content "Discussed acquisition" --tty false
 ```
 
-### Clean Rebuild
+Every command supports `--tty false` (non-interactive / scripted) and `--json` (machine-readable) — which is what agents almost always want. Full command surface in the [`cli-default` skill](skills/cli-default/SKILL.md); known-good examples in the [CLI E2E tests](packages/cli-e2e-tests/__tests__/cli-e2e.test.ts).
+
+### 5. Use the SDK (ORM)
+
+The [`@agentic-db/sdk`](sdk/sdk) is a type-safe, Prisma-like ORM generated from the same GraphQL schema — it hits the same `cnc server` endpoint:
 
 ```bash
-pgpm docker start --recreate
-eval "$(pgpm env)"
-pgpm admin-users bootstrap --yes
-pgpm deploy --createdb --database agentic-db --yes --package agentic-db
+npm install @agentic-db/sdk
 ```
-
-## How pgpm Works
-
-[pgpm](https://pgpm.io) (PostgreSQL Package Manager) treats SQL schemas like versioned packages -- similar to how npm manages JavaScript modules. Each module has:
-
-- A `.control` file declaring metadata and dependencies
-- A `pgpm.plan` file listing migrations in order
-- `deploy/`, `revert/`, `verify/` directories with SQL files
-
-When you run `pgpm deploy`, it resolves the dependency tree (this module requires 20+ extensions including pgvector, PostGIS, pg_textsearch, and the Constructive metaschema), applies migrations in order, and tracks what's been deployed.
-
-### Module Dependencies
-
-```
-agentic-db
-  requires: plpgsql, uuid-ossp, citext, pgcrypto, btree_gin, btree_gist,
-            pg_textsearch, pg_trgm, postgis, hstore, vector,
-            metaschema-schema, pgpm-inflection, pgpm-uuid, pgpm-utils,
-            pgpm-database-jobs, pgpm-jwt-claims, pgpm-stamps,
-            pgpm-base32, pgpm-totp, pgpm-types
-
-agentic-db-services
-  requires: plpgsql, metaschema-schema, metaschema-modules, services
-```
-
-## Using the SDK
-
-Once deployed, query the database through the generated TypeScript SDK:
 
 ```typescript
 import { createClient } from '@agentic-db/sdk';
 
-const db = createClient({
-  endpoint: 'http://agentic.localhost:3000/graphql',
-  headers: { Authorization: `Bearer ${token}` },
-});
+const db = createClient({ endpoint: 'http://localhost:5555/graphql' });
 
-// List
-const contacts = await db.contact
-  .findMany({
-    first: 10,
-    select: { id: true, firstName: true, lastName: true },
-  })
-  .execute();
-
-// Create
-const created = await db.contact
+// Typed CRUD with `select` = which fields to return
+const alice = await db.contact
   .create({
     data: { firstName: 'Alice', lastName: 'Smith', headline: 'Engineer' },
     select: { id: true, firstName: true },
   })
   .execute();
 
-// Vector search — pass a 768-dim embedding under `where.vectorEmbedding`
+// Unified search (vector + BM25 + FTS + trigram)
 const results = await db.contact
   .findMany({
-    where: {
-      vectorEmbedding: {
-        vector: embedding,   // number[] from nomic-embed-text (768 dims)
-        metric: 'COSINE',
-        distance: 0.5,       // filter: return rows whose distance <= 0.5
-      },
-    },
-    select: { id: true, firstName: true, embeddingVectorDistance: true },
-  })
-  .execute();
-
-// Hybrid search — combine vector similarity and tsvector full-text via `or`
-const hybrid = await db.contact
-  .findMany({
-    where: {
-      or: [
-        { vectorEmbedding: { vector: embedding, metric: 'COSINE', distance: 2.0 } },
-        { fullTextSearch: 'postgres distributed systems' },
-      ],
-    },
+    where: { unifiedSearch: 'postgres distributed systems' },
+    first: 10,
     select: { id: true, firstName: true, searchScore: true },
   })
   .execute();
 ```
 
-### Giving an agent memory (end-to-end)
+Full ORM reference in the [`orm-default` skill](skills/orm-default/SKILL.md); integration tests in [`packages/integration-tests/__tests__/orm.test.ts`](packages/integration-tests/__tests__/orm.test.ts).
 
-```typescript
-// 1. Remember something — `memory` requires `title` and can optionally be
-//    scoped to an agent via agentId. Use agent-scoped memory for multi-agent
-//    setups, or omit agentId for a shared/user-level memory.
-await db.memory
-  .create({
-    data: {
-      agentId, // optional — omit for a shared memory
-      title: 'Q2 launch kickoff — Acme team',
-      content: 'Discussed rollout plan with Alice and the Acme delivery team',
-      tags: ['launch', 'q2', 'acme'],
-      embeddingText:
-        'Q2 launch kickoff with Alice from Acme about the rollout plan',
-      // embedding is auto-generated by the Postgres trigger → worker pipeline
-    },
-    select: { id: true, title: true },
-  })
-  .execute();
+## Packages
 
-// 2. Retrieve it later by meaning, not exact words — use the
-//    `vectorEmbedding` filter on `memory.findMany`.
-const hits = await db.memory
-  .findMany({
-    where: {
-      vectorEmbedding: {
-        vector: await generateEmbedding('product rollout kickoff with Acme'),
-        metric: 'COSINE',
-        distance: 2.0,
-      },
-    },
-    first: 5,
-    select: { id: true, title: true, content: true, embeddingVectorDistance: true },
-  })
-  .execute();
+### Published
+
+| Package | npm | Description |
+|---------|-----|-------------|
+| [`agentic-db`](packages/agentic-db) | `agentic-db` | pgpm SQL module -- the core database schema with 90+ tables and search indexes |
+| [`@agentic-db/services`](packages/agentic-db-services) | `@agentic-db/services` | pgpm SQL module -- API endpoint and domain routing metadata |
+| [`@agentic-db/sdk`](sdk/sdk) | `@agentic-db/sdk` | Type-safe Prisma-like ORM client generated from the GraphQL schema |
+| [`@agentic-db/cli`](sdk/cli) | `@agentic-db/cli` | CLI tool for CRUD, search, and admin operations |
+
+### Private (development only)
+
+| Package | Description |
+|---------|-------------|
+| [`@agentic-db/provision`](packages/provision) | SDK-based blueprint provisioning (tables, relations, search) |
+| [`@agentic-db/export`](packages/export) | pgpm export wrapper (extracts provisioned schema as SQL modules) |
+| [`@agentic-db/rag`](packages/rag) | RAG CLI tools (hybrid search, batch embedding, multi-pass Q&A) |
+| [`@agentic-db/worker`](packages/worker) | Background worker for auto-generating embeddings via Ollama |
+| [`@agentic-db/schemas`](sdk/schemas) | GraphQL schema files (`.graphql`) used by codegen |
+| [`@agentic-db/integration-tests`](packages/integration-tests) | Integration test suite (ORM, embeddings, RAG, unified search) |
+| [`@agentic-db/cli-e2e-tests`](packages/cli-e2e-tests) | End-to-end CLI test suite |
+
+## Schema Development Workflow
+
+The schema is developed using the Constructive SDK provisioning pipeline:
+
+1. **Edit blueprints** in [`packages/provision/src/schemas/`](packages/provision/src/schemas) -- define tables, fields, relations, search nodes
+2. **Provision** -- `cd packages/provision && pnpm run provision` applies blueprints against the platform DB
+3. **Export** -- `cd packages/export && pnpm run export` extracts the schema as pgpm SQL modules
+4. **Deploy** -- `pgpm deploy --package agentic-db` installs into any Postgres database
+5. **Regenerate codegen** -- `pnpm run generate:all` updates the SDK and CLI from the live schema
+
+## Auto-Embedding Pipeline
+
+Postgres triggers automatically enqueue embedding jobs when records are created or updated. The background worker processes them via Ollama:
+
+```bash
+# Start the embedding worker
+cd packages/worker
+pnpm run start
 ```
 
-### Logging a conversation turn
-
-```typescript
-const conv = await db.conversation
-  .create({
-    data: { title: 'Refactoring pgpm deploy', agentId, status: 'active' },
-    select: { id: true },
-  })
-  .execute();
-
-await db.message
-  .create({
-    data: {
-      conversationId: conv.data.createConversation.conversation.id,
-      role: 'assistant',
-      content: 'I\'d suggest splitting the deploy step into a pre-flight check…',
-      tokenCount: 142,
-      toolCalls: { calls: [{ tool: 'read_file', args: { path: 'pgpm.plan' } }] },
-    },
-    select: { id: true, role: true, tokenCount: true },
-  })
-  .execute();
-```
-
-All of these examples are exercised in the integration test suite — see
-[`packages/integration-tests/__tests__/orm.test.ts`](../integration-tests/__tests__/orm.test.ts)
-and [`packages/cli-e2e-tests/__tests__/cli-e2e.test.ts`](../cli-e2e-tests/__tests__/cli-e2e.test.ts)
-for the canonical working versions.
-
-See [`@agentic-db/sdk`](../../sdk/sdk) for the full API reference, and [`@agentic-db/cli`](../../sdk/cli) for the CLI tool.
+The worker generates embeddings for all tables with `SearchUnified` or `SearchVector` nodes. Contacts and notes also get chunked embeddings for long-document search.
 
 ## Testing
 
 ```bash
-# Run tests for this module
+# Run all tests (from repo root)
 pnpm test
 
-# Watch mode
-pnpm test:watch
+# Run a specific test suite
+cd packages/agentic-db && pnpm test        # pgpm deploy + schema tests
+cd packages/integration-tests && pnpm test  # ORM, embeddings, RAG, unified search
+cd packages/cli-e2e-tests && pnpm test      # CLI end-to-end
 ```
 
-Tests use `pgsql-test` and `graphile-test` to spin up ephemeral databases, deploy the schema, and run queries against it.
+## AI Skills
+
+This repo ships with [Agent Skills](https://github.com/agent-skills/agent-skills) that teach AI assistants (Claude, Claude Code, Cursor, Devin, Copilot, etc.) how to work with the SDK, CLI, and pgpm.
+
+### Available Skills
+
+| Skill | Description |
+|-------|-------------|
+| `pgpm` | Install and deploy agentic-db using pgpm |
+| `cli-default` | CLI command reference for all 91 tables |
+| `orm-default` | Type-safe ORM client reference for all 91 tables |
+| `agent/memories` | Storing and retrieving long-term agent memories |
+| `agent/tasks` | Managing agent task queues |
+| `rag-query` | Multi-collection RAG query patterns |
+| `embeddings` | Generating embeddings via Ollama |
+| `crm/*` | CRM primitives — contacts, companies, events, venues |
+| `accounting/*` | Expense tracking primitives |
+
+### Installing Skills
+
+Install skills into your project using [`npx skills`](https://github.com/vercel-labs/skills):
+
+```bash
+# Install all skills from this repo
+npx skills add constructive-io/agentic-db
+
+# Install a specific skill
+npx skills add constructive-io/agentic-db --skill pgpm
+
+# List available skills without installing
+npx skills add constructive-io/agentic-db --list
+```
+
+This works with Claude, Claude Code, Cursor, Copilot, Windsurf, Codex, and [40+ other AI agents](https://github.com/vercel-labs/skills#available-agents). Skills are installed into the appropriate directory for your tool (`.claude/skills/`, `.cursor/skills/`, etc.).
+
+**Devin** -- Connect the `constructive-io/agentic-db` repo to your Devin organization. Skills are indexed automatically and available in every session.
+
+### Using Skills
+
+Once installed, you can ask your AI assistant things like:
+
+- *"Deploy agentic-db to a new database"* -- triggers the `pgpm` skill
+- *"Remember that Alice is my co-founder at Acme"* -- triggers the `agent/memories` skill
+- *"What do I know about the partner summit?"* -- triggers the `rag-query` skill
+- *"Query contacts using the ORM"* -- triggers the `orm-default` skill
+- *"Search for deals using the CLI"* -- triggers the `cli-default` skill
 
 ## Credits
 
