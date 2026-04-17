@@ -26,6 +26,10 @@ jest.setTimeout(120000);
 const seedRoot = path.join(__dirname, '..', '__fixtures__', 'seed');
 const sql = (file: string) => path.join(seedRoot, file);
 
+// Real pgpm package — pgsql-test's seed.pgpm() walks the `requires` chain in
+// agentic-db.control and deploys the real schema (no hand-rolled SQL).
+const AGENTIC_DB_PKG = path.resolve(__dirname, '..', '..', 'agentic-db');
+
 const SCHEMAS = ['agentic_db_app_public'];
 
 // Fixed IDs from seed data
@@ -51,10 +55,8 @@ describe('ORM integration', () => {
         },
       },
       [
-        seed.sqlfile([
-          sql('schema.sql'),
-          sql('test-data.sql'),
-        ]),
+        seed.pgpm(AGENTIC_DB_PKG),
+        seed.sqlfile([sql('test-bootstrap.sql'), sql('test-data.sql')]),
       ],
     );
 
@@ -700,14 +702,15 @@ describe('ORM integration', () => {
             title: 'Read 12 books this year',
             description: 'One per month, non-fiction preferred',
             status: 'active',
-            progress: '3/12',
+            progress: '0.25',
             tags: ['reading', 'learning'],
           },
           select: { id: true, title: true, progress: true },
         })
         .execute();
       expectOk(goal, 'goal.create');
-      expect(unwrapData(goal.data).goal.progress).toBe('3/12');
+      // progress is numeric; postgraphile returns it as a string
+      expect(parseFloat(unwrapData(goal.data).goal.progress)).toBeCloseTo(0.25);
 
       const habit = await orm.habit
         .create({
@@ -802,12 +805,14 @@ describe('ORM integration', () => {
             input: { url: 'https://example.com' },
             output: { status: 200, bytes: 1337 },
             status: 'completed',
-            durationMs: 42,
+            startedAt: '2026-01-01T00:00:00.000Z',
+            completedAt: '2026-01-01T00:00:00.042Z',
           },
           select: {
             id: true,
             status: true,
-            durationMs: true,
+            startedAt: true,
+            completedAt: true,
             messageId: true,
             toolDefinitionId: true,
           },
@@ -816,7 +821,8 @@ describe('ORM integration', () => {
       expectOk(exec, 'toolExecution.create');
       const row = unwrapData(exec.data).toolExecution;
       expect(row.status).toBe('completed');
-      expect(row.durationMs).toBe(42);
+      expect(row.startedAt).toBeTruthy();
+      expect(row.completedAt).toBeTruthy();
       expect(row.messageId).toBe(messageId);
       expect(row.toolDefinitionId).toBe(toolDefinitionId);
     });

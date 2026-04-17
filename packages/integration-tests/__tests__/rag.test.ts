@@ -34,6 +34,10 @@ jest.setTimeout(300000);
 const seedRoot = path.join(__dirname, '..', '__fixtures__', 'seed');
 const sql = (file: string) => path.join(seedRoot, file);
 
+// Real pgpm package — pgsql-test's seed.pgpm() walks the `requires` chain in
+// agentic-db.control and deploys the real schema (no hand-rolled SQL).
+const AGENTIC_DB_PKG = path.resolve(__dirname, '..', '..', 'agentic-db');
+
 const SCHEMAS = ['agentic_db_app_public'];
 
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
@@ -65,10 +69,8 @@ describe('RAG integration (ORM + real Ollama)', () => {
         },
       },
       [
-        seed.sqlfile([
-          sql('schema.sql'),
-          sql('test-data.sql'),
-        ]),
+        seed.pgpm(AGENTIC_DB_PKG),
+        seed.sqlfile([sql('test-bootstrap.sql'), sql('test-data.sql')]),
       ],
     );
 

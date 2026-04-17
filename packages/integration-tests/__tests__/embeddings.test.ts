@@ -15,6 +15,10 @@ jest.setTimeout(120000);
 const seedRoot = path.join(__dirname, '..', '__fixtures__', 'seed');
 const sql = (file: string) => path.join(seedRoot, file);
 
+// Real pgpm package — pgsql-test's seed.pgpm() walks the `requires` chain in
+// agentic-db.control and deploys the real schema (no hand-rolled SQL).
+const AGENTIC_DB_PKG = path.resolve(__dirname, '..', '..', 'agentic-db');
+
 const SCHEMAS = ['agentic_db_app_public'];
 
 const CONTACT_ALICE = '11111111-1111-1111-1111-111111111111';
@@ -39,10 +43,8 @@ beforeAll(async () => {
       authRole: 'postgres',
     },
     [
-      seed.sqlfile([
-        sql('schema.sql'),
-        sql('test-data.sql'),
-      ]),
+      seed.pgpm(AGENTIC_DB_PKG),
+      seed.sqlfile([sql('test-bootstrap.sql'), sql('test-data.sql')]),
     ],
   );
 
@@ -111,8 +113,8 @@ describe('Contact Chunks', () => {
 
     // Insert chunks
     await db.client.query(
-      `INSERT INTO "agentic_db_app_public".contact_chunks
-         (contact_id, content, chunk_index)
+      `INSERT INTO "agentic_db_app_public".contacts_chunks
+         (contacts_id, content, chunk_index)
        VALUES
          ($1, 'Chunk 1: Background info', 0),
          ($1, 'Chunk 2: Recent work', 1),
@@ -121,8 +123,8 @@ describe('Contact Chunks', () => {
     );
 
     const chunks = await db.client.query(
-      `SELECT * FROM "agentic_db_app_public".contact_chunks
-       WHERE contact_id = $1
+      `SELECT * FROM "agentic_db_app_public".contacts_chunks
+       WHERE contacts_id = $1
        ORDER BY chunk_index`,
       [contactId],
     );
@@ -138,8 +140,8 @@ describe('Contact Chunks', () => {
     );
 
     const remainingChunks = await db.client.query(
-      `SELECT * FROM "agentic_db_app_public".contact_chunks
-       WHERE contact_id = $1`,
+      `SELECT * FROM "agentic_db_app_public".contacts_chunks
+       WHERE contacts_id = $1`,
       [contactId],
     );
 
@@ -159,8 +161,8 @@ describe('Note Chunks', () => {
 
     // Insert chunks
     await db.client.query(
-      `INSERT INTO "agentic_db_app_public".note_chunks
-         (note_id, content, chunk_index)
+      `INSERT INTO "agentic_db_app_public".notes_chunks
+         (notes_id, content, chunk_index)
        VALUES
          ($1, 'Note chunk 1', 0),
          ($1, 'Note chunk 2', 1)`,
@@ -168,8 +170,8 @@ describe('Note Chunks', () => {
     );
 
     const chunks = await db.client.query(
-      `SELECT * FROM "agentic_db_app_public".note_chunks
-       WHERE note_id = $1
+      `SELECT * FROM "agentic_db_app_public".notes_chunks
+       WHERE notes_id = $1
        ORDER BY chunk_index`,
       [noteId],
     );
@@ -183,8 +185,8 @@ describe('Note Chunks', () => {
     );
 
     const remainingChunks = await db.client.query(
-      `SELECT * FROM "agentic_db_app_public".note_chunks
-       WHERE note_id = $1`,
+      `SELECT * FROM "agentic_db_app_public".notes_chunks
+       WHERE notes_id = $1`,
       [noteId],
     );
 
@@ -212,15 +214,15 @@ describe('Cosine Similarity Search', () => {
     const vec2 = fakeVector(2);
 
     await db.client.query(
-      `INSERT INTO "agentic_db_app_public".contact_chunks
-         (contact_id, content, chunk_index, embedding)
+      `INSERT INTO "agentic_db_app_public".contacts_chunks
+         (contacts_id, content, chunk_index, embedding)
        VALUES ($1, 'Alice background', 0, $2::vector)`,
       [c1Id, vec1],
     );
 
     await db.client.query(
-      `INSERT INTO "agentic_db_app_public".contact_chunks
-         (contact_id, content, chunk_index, embedding)
+      `INSERT INTO "agentic_db_app_public".contacts_chunks
+         (contacts_id, content, chunk_index, embedding)
        VALUES ($1, 'Bob background', 0, $2::vector)`,
       [c2Id, vec2],
     );
@@ -229,8 +231,8 @@ describe('Cosine Similarity Search', () => {
     const queryVec = fakeVector(1); // same seed as Alice -> should be closest
     const result = await db.client.query(
       `SELECT cc.id, c.first_name, 1 - (cc.embedding <=> $1::vector) AS similarity
-       FROM "agentic_db_app_public".contact_chunks cc
-       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contact_id
+       FROM "agentic_db_app_public".contacts_chunks cc
+       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contacts_id
        WHERE cc.embedding IS NOT NULL
        ORDER BY cc.embedding <=> $1::vector
        LIMIT 5`,
