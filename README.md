@@ -258,10 +258,7 @@ npm install @agentic-db/sdk
 ```typescript
 import { createClient } from '@agentic-db/sdk';
 
-const db = createClient({
-  endpoint: 'http://localhost:5555/graphql',
-  headers: { Authorization: `Bearer ${process.env.AGENTIC_DB_TOKEN ?? ''}` },
-});
+const db = createClient({ endpoint: 'http://localhost:5555/graphql' });
 
 // Typed CRUD with `select` = which fields to return
 const alice = await db.contact
