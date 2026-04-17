@@ -163,10 +163,13 @@ End-to-end: Docker → deploy schema → run GraphQL server → use CLI → use 
 
 ### Prerequisites
 
-- Node.js 20+, pnpm, Docker, `psql`
-- `pgpm` — `npm install -g pgpm`
-- `@constructive-io/cli` — `npm install -g @constructive-io/cli`
-- `@agentic-db/cli` — `npm install -g @agentic-db/cli`
+See [Constructive Quickstart → Prerequisites](https://constructive.io/learn/quickstart/prerequisites) for Node.js, pnpm, Docker, and `psql` setup. Then install the three CLIs you'll use below:
+
+```bash
+npm install -g pgpm
+npm install -g @constructive-io/cli
+npm install -g @agentic-db/cli
+```
 
 ### 1. Start Postgres (Docker)
 
