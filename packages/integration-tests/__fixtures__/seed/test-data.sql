@@ -23,3 +23,32 @@ VALUES
 INSERT INTO "agentic_db_app_public".tasks (agent_id, title, description, status)
 VALUES
   ('cccccccc-cccc-cccc-cccc-cccccccccccc', 'Summarize docs', 'Summarize all project documents', 'pending');
+
+-- Memories with PostGIS Point locations for spatial-filter tests.
+-- SF and Oakland are in the Bay Area bbox; NYC is the negative control.
+INSERT INTO "agentic_db_app_public".memories (id, agent_id, title, content, location, location_geo)
+VALUES
+  (
+    'eeeeeeee-eeee-eeee-eeee-eeeeeeee0001',
+    'cccccccc-cccc-cccc-cccc-cccccccccccc',
+    'Coffee in SF',
+    'Met a collaborator near the Ferry Building.',
+    'San Francisco, CA',
+    ST_SetSRID(ST_MakePoint(-122.4194, 37.7749), 4326)::geography
+  ),
+  (
+    'eeeeeeee-eeee-eeee-eeee-eeeeeeee0002',
+    'cccccccc-cccc-cccc-cccc-cccccccccccc',
+    'Lunch in Oakland',
+    'Reviewed the retrieval benchmark over lunch.',
+    'Oakland, CA',
+    ST_SetSRID(ST_MakePoint(-122.2712, 37.8044), 4326)::geography
+  ),
+  (
+    'eeeeeeee-eeee-eeee-eeee-eeeeeeee0003',
+    'cccccccc-cccc-cccc-cccc-cccccccccccc',
+    'Meetup in NYC',
+    'Agent-infra meetup in Manhattan.',
+    'New York, NY',
+    ST_SetSRID(ST_MakePoint(-74.0060, 40.7128), 4326)::geography
+  );

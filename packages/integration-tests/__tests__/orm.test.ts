@@ -38,6 +38,25 @@ const CONTACT_BOB = '22222222-2222-2222-2222-222222222222';
 const NOTE_KICKOFF = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
 const AGENT_RESEARCH = 'cccccccc-cccc-cccc-cccc-cccccccccccc';
 
+// Memories with seeded PostGIS Point locations (see test-data.sql)
+const MEMORY_SF = 'eeeeeeee-eeee-eeee-eeee-eeeeeeee0001';
+const MEMORY_OAKLAND = 'eeeeeeee-eeee-eeee-eeee-eeeeeeee0002';
+const MEMORY_NYC = 'eeeeeeee-eeee-eeee-eeee-eeeeeeee0003';
+
+// Bounding-box polygon around the Bay Area: covers SF + Oakland, excludes NYC.
+const BAY_AREA_POLYGON = {
+  type: 'Polygon',
+  coordinates: [
+    [
+      [-122.55, 37.70],
+      [-122.20, 37.70],
+      [-122.20, 37.85],
+      [-122.55, 37.85],
+      [-122.55, 37.70],
+    ],
+  ],
+};
+
 describe('ORM integration', () => {
   let db: PgTestClient;
   let teardown: () => Promise<void>;
@@ -499,6 +518,80 @@ describe('ORM integration', () => {
         .execute();
       expectOk(patched, 'memory.update');
       expect(unwrapData(patched.data).memory.mood).toBe('confident');
+    });
+  });
+
+  // =========================================================================
+  // Test: PostGIS spatial filters on memories.location_geo
+  //
+  // The generated GeographyInterfaceFilter exposes: bboxIntersects2D,
+  // coveredBy, covers, exactlyEquals, intersects (plus null/equal checks).
+  //
+  // NOTE: there is NO `dwithin` / `distance` operator today — a "find
+  // memories within X km of a point" query is not expressible through the
+  // typed ORM filter and requires raw SQL (ST_DWithin) or a client-side
+  // bounding box. The README line about "find memories within 5km of here
+  // works out of the box" is aspirational in that sense; what IS supported
+  // today is polygon / bbox containment, covered below.
+  // =========================================================================
+  describe('PostGIS spatial filters on memory.location_geo', () => {
+    it('bboxIntersects2D returns only memories inside the Bay Area polygon', async () => {
+      const result = await orm.memory
+        .findMany({
+          where: { locationGeo: { bboxIntersects2D: BAY_AREA_POLYGON } },
+          select: { id: true, title: true },
+        })
+        .execute();
+      expectOk(result, 'memory.findMany(bboxIntersects2D)');
+      const nodes = unwrapData(result.data).nodes;
+      const ids = nodes.map((n: any) => n.id);
+      expect(ids).toEqual(expect.arrayContaining([MEMORY_SF, MEMORY_OAKLAND]));
+      expect(ids).not.toContain(MEMORY_NYC);
+    });
+
+    it('coveredBy (point-in-polygon) returns only memories inside the polygon', async () => {
+      const result = await orm.memory
+        .findMany({
+          where: { locationGeo: { coveredBy: BAY_AREA_POLYGON } },
+          select: { id: true, title: true },
+        })
+        .execute();
+      expectOk(result, 'memory.findMany(coveredBy)');
+      const ids = unwrapData(result.data).nodes.map((n: any) => n.id);
+      expect(ids).toEqual(expect.arrayContaining([MEMORY_SF, MEMORY_OAKLAND]));
+      expect(ids).not.toContain(MEMORY_NYC);
+    });
+
+    it('intersects returns only memories overlapping the polygon', async () => {
+      const result = await orm.memory
+        .findMany({
+          where: { locationGeo: { intersects: BAY_AREA_POLYGON } },
+          select: { id: true, title: true },
+        })
+        .execute();
+      expectOk(result, 'memory.findMany(intersects)');
+      const ids = unwrapData(result.data).nodes.map((n: any) => n.id);
+      expect(ids).toEqual(expect.arrayContaining([MEMORY_SF, MEMORY_OAKLAND]));
+      expect(ids).not.toContain(MEMORY_NYC);
+    });
+
+    it('isNull: false returns only geo-tagged memories', async () => {
+      const result = await orm.memory
+        .findMany({
+          where: { locationGeo: { isNull: false } },
+          select: { id: true, title: true, locationGeo: { geojson: true } },
+        })
+        .execute();
+      expectOk(result, 'memory.findMany(isNull:false)');
+      const nodes = unwrapData(result.data).nodes;
+      // Every returned row must actually have a Point geometry.
+      for (const n of nodes) {
+        expect(n.locationGeo).toBeTruthy();
+      }
+      const ids = nodes.map((n: any) => n.id);
+      expect(ids).toEqual(
+        expect.arrayContaining([MEMORY_SF, MEMORY_OAKLAND, MEMORY_NYC]),
+      );
     });
   });
 
