@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.2.0...@agentic-db/cli@1.2.1) (2026-04-17)
+
+### Bug Fixes
+
+- **cli:** make @agentic-db/cli publishable ([4e49b03](https://github.com/constructive-io/agentic-db/commit/4e49b033c754d78d6db5c4d83f3067847506f37e)), closes [#19](https://github.com/constructive-io/agentic-db/issues/19)
+
 # [1.2.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.1.0...@agentic-db/cli@1.2.0) (2026-04-17)
 
 ### Features
