@@ -1,138 +1,147 @@
 ---
 name: crm-contacts
-description: CRUD operations for CRM contacts with embedding support
+description: CRUD, vector + hybrid search, and M:N relationships on the CRM `contacts` table via the generated ORM.
 ---
 
 # CRM Contacts
 
-Manage contacts in the CRM with automatic embedding generation for semantic search.
+Represents a person in the agent's world. Embedding columns are maintained
+automatically by the Postgres trigger → `@agentic-db/worker` pipeline — you
+only need to provide `embeddingText` (or pass a raw `embedding` if you're
+computing it locally).
 
-## Table Schema
+## Imports
+
+```typescript
+import { createClient } from '@agentic-db/sdk';
+
+const db = createClient({
+  endpoint: process.env.AGENTIC_DB_GRAPHQL_URL!,
+  headers: { Authorization: `Bearer ${process.env.AGENTIC_DB_TOKEN!}` },
+});
+```
+
+## Available fields
+
+The canonical set of columns mirrors the fluent CLI schema and the GraphQL
+`Contact` type. Common ones:
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `id` | uuid | Primary key |
-| `entity_id` | uuid | Org scope (required) |
-| `first_name` | text | |
-| `last_name` | text | |
-| `email` | text | |
-| `phone` | text | |
-| `headline` | text | Job title / role |
-| `bio` | text | |
-| `avatar_url` | text | |
-| `location` | text | |
-| `embedding` | vector(768) | Nomic embedding |
-| `embedding_text` | text | Text used for embedding |
-| `created_at` | timestamptz | Auto |
-| `updated_at` | timestamptz | Auto |
+| `firstName` | string | required on create |
+| `lastName` | string | |
+| `email`, `phone` | string | |
+| `headline`, `bio` | string | feeds the embedder by default |
+| `location`, `locationGeo` | string, PostGIS Point | for spatial search |
+| `birthday`, `relationshipTypes`, `howWeMet`, `tags` | strings / string[] | |
+| `embeddingText`, `embedding` | string, number[768] | auto-populated by worker |
 
-## Insert Contact
+There is **no** `entityId` column on contacts — auth scoping is handled by
+the Constructive metaschema at the session level, not a per-row FK.
+
+## Create a contact
 
 ```typescript
-import { createClient } from '@agentic-db/codegen/generated/agentic-db-sdk/orm';
-import { generateEmbedding } from '@agentic-db/scripts/embeddings';
-
-async function insertContact(db, data: {
-  entityId: string;
-  firstName: string;
-  lastName: string;
-  email?: string;
-  headline?: string;
-  bio?: string;
-}) {
-  const embeddingText = [
-    data.firstName,
-    data.lastName,
-    data.email,
-    data.headline,
-    data.bio,
-  ].filter(Boolean).join(' ');
-  
-  const embedding = await generateEmbedding(embeddingText);
-  
-  return db.contact.create({
+const created = await db.contact
+  .create({
     data: {
-      entityId: data.entityId,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      headline: data.headline,
-      bio: data.bio,
-      embedding,
-      embeddingText,
+      firstName: 'Alice',
+      lastName: 'Smith',
+      email: 'alice@example.com',
+      headline: 'Staff Engineer',
+      bio: 'Distributed systems and pgvector enthusiast.',
+      tags: ['prospect', 'engineering'],
+      embeddingText:
+        'Alice Smith — Staff Engineer, distributed systems and pgvector',
     },
     select: { id: true, firstName: true, lastName: true },
-  }).execute();
-}
+  })
+  .execute();
 ```
 
-## Search Contacts
+## Read / list / filter
 
 ```typescript
-async function searchContacts(db, query: string, limit = 10) {
-  const embedding = await generateEmbedding(query);
-  
-  return db.vectorSearchContact({
-    query: embedding,
-    limit,
-    metric: 'COSINE',
-  }).execute();
-}
+// By id
+const one = await db.contact
+  .findFirst({
+    where: { id: { equalTo: contactId } },
+    select: { id: true, firstName: true, lastName: true, headline: true },
+  })
+  .execute();
 
-// Example
-const results = await searchContacts(db, 'venture capital partner');
+// Filter by email
+const list = await db.contact
+  .findMany({
+    where: { email: { likeInsensitive: '%@example.com' } },
+    orderBy: ['CREATED_AT_DESC'],
+    first: 20,
+    select: { id: true, firstName: true, email: true },
+  })
+  .execute();
 ```
 
-## Update Contact
+## Vector + hybrid search
 
 ```typescript
-async function updateContact(db, id: string, data: Partial<{
-  firstName: string;
-  lastName: string;
-  email: string;
-  headline: string;
-  bio: string;
-}>) {
-  // Re-generate embedding if text fields changed
-  const needsReembed = data.firstName || data.lastName || data.email || data.headline || data.bio;
-  
-  if (needsReembed) {
-    const current = await db.contact.findOne({
-      id,
-      select: { firstName: true, lastName: true, email: true, headline: true, bio: true },
-    }).execute();
-    
-    const merged = { ...current.data.contact, ...data };
-    const embeddingText = [
-      merged.firstName,
-      merged.lastName,
-      merged.email,
-      merged.headline,
-      merged.bio,
-    ].filter(Boolean).join(' ');
-    
-    const embedding = await generateEmbedding(embeddingText);
-    data = { ...data, embedding, embeddingText } as any;
-  }
-  
-  return db.contact.update({
-    where: { id },
-    data,
-    select: { id: true },
-  }).execute();
+async function searchContacts(query: string, limit = 10) {
+  const embedding = await generateEmbedding(query); // 768-dim
+  return db.contact
+    .findMany({
+      where: {
+        or: [
+          {
+            vectorEmbedding: {
+              vector: embedding,
+              metric: 'COSINE',
+              distance: 2.0,
+            },
+          },
+          { fullTextSearch: query },
+        ],
+      },
+      first: limit,
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        headline: true,
+        searchScore: true,
+      },
+    })
+    .execute();
 }
 ```
 
-## Related Tables
+## Update a contact
 
-- `contact_companies` — M2M junction to companies
-- `contact_events` — M2M junction to events
-- `contact_tags` — M2M junction to tags
-- `contact_socials` — Social profiles
-- `notes` — Notes linked to contact
+```typescript
+await db.contact
+  .update({
+    id: contactId,
+    data: {
+      headline: 'Principal Engineer',
+      embeddingText:
+        'Alice Smith — Principal Engineer, distributed systems and pgvector',
+      embeddingStale: true, // tells the worker to re-embed
+    },
+    select: { id: true, headline: true },
+  })
+  .execute();
+```
 
-## See Also
+## Related tables (what actually exists)
 
-- `skills/crm/companies.md`
-- `skills/embeddings.md`
-- `skills/rag-query.md`
+- `contactEmails`, `contactPhones`, `contactAddresses` — normalized children
+- `contactNotes` — M:N to `notes`
+- `contactCompanies` — M:N to `companies`
+- `contactEvents` — M:N to `events`
+- `contactMemories` — M:N to `memories`
+- `contactImages`, `contactsChunks`, `contactRelationships`, `contactLinks`
+
+## Tested contracts
+
+See `describe('Contact CRUD via ORM')` and `describe('M:N relations')` in
+[`packages/integration-tests/__tests__/orm.test.ts`](../../packages/integration-tests/__tests__/orm.test.ts),
+and the live RAG pipeline in
+[`packages/integration-tests/__tests__/rag.test.ts`](../../packages/integration-tests/__tests__/rag.test.ts).

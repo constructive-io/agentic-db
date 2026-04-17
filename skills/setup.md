@@ -15,7 +15,7 @@ Set up the full agentic-db development environment from scratch.
 - Three repos cloned:
   - `constructive-io/constructive-db` — database engine + pgpm modules
   - `constructive-io/constructive` — GraphQL server (cnc)
-  - `pyramation-studio/agentic-db` — this repo
+  - `constructive-io/agentic-db` — this repo
 
 ## Step 1: Install pgpm
 

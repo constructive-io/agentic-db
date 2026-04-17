@@ -21,9 +21,9 @@ Once deployed, you can ask your agent questions in plain English and it translat
 
 - *"What did Alice and I decide about the acquisition last month?"*
 - *"Pull up every conversation where we debugged the embedding worker."*
-- *"Which tasks are still open on the Mistral project?"*
-- *"Find memories from hackathons near San Francisco last spring."*
-- *"Remember who Kris Floyd and I met at Wefunder?"*
+- *"Which tasks are still open on the Q2 launch project?"*
+- *"Find memories from conferences near San Francisco last spring."*
+- *"Remember who I met with at the partner summit last month?"*
 - *"Show me notes where I wrote about RAG architecture."*
 - *"Who have I met with more than three times this quarter?"*
 - *"What's the latest status on deals tagged `enterprise`?"*
@@ -142,7 +142,7 @@ It's all in one database, with vector + BM25 + full-text + trigram + PostGIS sea
 - **Projects & expenses**: `projects`, `expenses`, with cross-relations to contacts, trips, tasks.
 - **Email & Calendar**: `email_threads`, `emails`, `email_attachments`, `calendars`, `calendar_events`, `calendar_attendees`, `provider_sync_states` (for Gmail / Google Calendar-style provider sync).
 - **Staging tables** (`raw_contacts`, `raw_contact_emails`, etc.) for messy import pipelines before normalizing into `contacts`.
-- **~25 cross-domain M:N junctions** so your agent can answer "notes about Alice from the Mistral hackathon" without schema gymnastics.
+- **~25 cross-domain M:N junctions** so your agent can answer "notes about Alice from the partner summit" without schema gymnastics.
 
 ### ⚙️ Platform / DX
 
@@ -316,7 +316,7 @@ Once installed, you can ask your AI assistant things like:
 
 - *"Deploy agentic-db to a new database"* -- triggers the `pgpm` skill
 - *"Remember that Alice is my co-founder at Acme"* -- triggers the `agent/memories` skill
-- *"What do I know about the Mistral hackathon?"* -- triggers the `rag-query` skill
+- *"What do I know about the partner summit?"* -- triggers the `rag-query` skill
 - *"Query contacts using the ORM"* -- triggers the `orm-default` skill
 - *"Search for deals using the CLI"* -- triggers the `cli-default` skill
 

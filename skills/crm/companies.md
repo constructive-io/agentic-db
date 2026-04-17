@@ -1,72 +1,104 @@
 ---
 name: crm-companies
-description: CRUD operations for CRM companies
+description: CRUD and M:N relationships on the CRM `companies` table via the generated ORM.
 ---
 
 # CRM Companies
 
-Manage companies/organizations in the CRM.
+Represents an organization / workplace. Like contacts, embedding columns are
+maintained by the Postgres trigger → `@agentic-db/worker` pipeline — you only
+need to provide `embeddingText` (or a raw `embedding`).
 
-## Table Schema
+## Imports
+
+```typescript
+import { createClient } from '@agentic-db/sdk';
+
+const db = createClient({
+  endpoint: process.env.AGENTIC_DB_GRAPHQL_URL!,
+  headers: { Authorization: `Bearer ${process.env.AGENTIC_DB_TOKEN!}` },
+});
+```
+
+## Available fields
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `id` | uuid | Primary key |
-| `entity_id` | uuid | Org scope |
-| `name` | text | Company name |
-| `domain` | text | Website domain |
-| `industry` | text | |
-| `size` | text | Employee count range |
-| `description` | text | |
-| `logo_url` | text | |
-| `created_at` | timestamptz | |
-| `updated_at` | timestamptz | |
+| `name` | string | required on create |
+| `domain` | string | canonical website domain |
+| `industry` | string | |
+| `description` | string | feeds the embedder by default |
+| `tags` | string[] | |
+| `mainImageId` | uuid | FK to `images` |
+| `embeddingText`, `embedding` | string, number[768] | auto-populated by worker |
 
-## Insert Company
+There is **no** `size` or `logoUrl` column. Use `description` for free-form
+details and `mainImageId` for a pre-uploaded logo.
 
-```typescript
-async function insertCompany(db, data: {
-  entityId: string;
-  name: string;
-  domain?: string;
-  industry?: string;
-}) {
-  return db.company.create({
-    data,
-    select: { id: true, name: true },
-  }).execute();
-}
-```
-
-## List Companies
+## Create a company
 
 ```typescript
-async function listCompanies(db, entityId: string, limit = 50) {
-  return db.company.findMany({
-    where: { entityId: { equalTo: entityId } },
-    first: limit,
-    orderBy: [{ name: 'ASC' }],
-    select: { id: true, name: true, domain: true, industry: true },
-  }).execute();
-}
-```
-
-## Link Contact to Company
-
-```typescript
-async function linkContactToCompany(db, data: {
-  entityId: string;
-  contactId: string;
-  companyId: string;
-  role?: string;
-}) {
-  return db.contactCompany.create({
+const created = await db.company
+  .create({
     data: {
-      entityId: data.entityId,
-      contactId: data.contactId,
-      companyId: data.companyId,
+      name: 'Acme Co',
+      domain: 'acme.com',
+      industry: 'Enterprise Software',
+      description: 'Industrial platform for high-throughput PostgreSQL.',
+      tags: ['enterprise', 'postgres'],
+      embeddingText: 'Acme Co — enterprise software, postgres platform',
     },
-    select: { contactId: true, companyId: true },
-  }).execute();
-}
+    select: { id: true, name: true, domain: true },
+  })
+  .execute();
 ```
+
+## List / filter companies
+
+```typescript
+const recent = await db.company
+  .findMany({
+    where: { industry: { equalTo: 'Enterprise Software' } },
+    orderBy: ['CREATED_AT_DESC'],
+    first: 50,
+    select: { id: true, name: true, domain: true, industry: true },
+  })
+  .execute();
+```
+
+## Link a contact to a company (M:N)
+
+The junction table `contactCompany` has `contactId` and `companyId` only — no
+`entityId` / `role`. Add richer relationship metadata through
+`contactRelationship` or a separate `notes` row if needed.
+
+```typescript
+await db.contactCompany
+  .create({
+    data: { contactId: contact.id, companyId: company.id },
+    select: { contactId: true, companyId: true },
+  })
+  .execute();
+```
+
+## Walk the relation from a company
+
+```typescript
+const withContacts = await db.company
+  .findOne({
+    id: companyId,
+    select: {
+      id: true,
+      name: true,
+      contacts: {
+        select: { id: true, firstName: true, lastName: true },
+      },
+    },
+  })
+  .execute();
+```
+
+## Tested contracts
+
+See `describe('Company CRUD')` and the contact ↔ company junction tests in
+[`packages/integration-tests/__tests__/orm.test.ts`](../../packages/integration-tests/__tests__/orm.test.ts).

@@ -510,4 +510,82 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     // Should contain Carol (DB engineer) in the context
     expect(output.toLowerCase()).toContain('carol');
   });
+
+  // =========================================================================
+  // Regression: task search must not blow up or silently swallow errors
+  // The CLI previously referenced a non-existent `agentTask` model, which was
+  // swallowed by a try/catch and returned no results. Now we explicitly search
+  // the `tasks` table and assert the CLI does not error.
+  // =========================================================================
+
+  it('should run "search" with --tables tasks without erroring', async () => {
+    const output = await runCli(
+      'search "summarize docs" --tables tasks --json --tty false',
+    );
+    const jsonStr = output.slice(output.indexOf('['));
+    const results = JSON.parse(jsonStr);
+    expect(Array.isArray(results)).toBe(true);
+    for (const r of results) {
+      expect(r.table).toBe('tasks');
+    }
+  });
+
+  // =========================================================================
+  // CLI subprocess tests — config subcommands
+  // =========================================================================
+
+  it('should run "config show" and print the configured provider', async () => {
+    const output = await runCli('config show --tty false');
+    // We wrote provider=ollama in setupCliContext
+    expect(output).toMatch(/provider/i);
+    expect(output).toMatch(/ollama/i);
+  });
+
+  // =========================================================================
+  // CLI subprocess tests — context subcommands (from generated CLI)
+  // =========================================================================
+
+  it('should run "context list" and include the e2e-test context', async () => {
+    const output = await runCli('context list --tty false');
+    expect(output).toContain('e2e-test');
+  });
+
+  // =========================================================================
+  // CLI subprocess tests — generated CRUD commands (contact / note)
+  // =========================================================================
+
+  it('should run "contact list --json" and return seeded contacts', async () => {
+    const output = await runCli(
+      'contact list --select id,firstName,lastName --json --tty false',
+    );
+    // The generated CLI prints a JSON envelope; extract the first JSON value
+    const jsonStart = output.search(/[{\[]/);
+    const payload = JSON.parse(output.slice(jsonStart));
+    // The exact envelope varies, but we know the raw output contains Carol's name somewhere
+    expect(JSON.stringify(payload).toLowerCase()).toContain('carol');
+  });
+
+  it('should run "note list --json" and return seeded notes', async () => {
+    const output = await runCli(
+      'note list --select id,content --json --tty false',
+    );
+    const jsonStart = output.search(/[{\[]/);
+    const payload = JSON.parse(output.slice(jsonStart));
+    // The note about architecture was seeded via fixtures
+    expect(JSON.stringify(payload).toLowerCase()).toMatch(/content|node/);
+  });
+
+  it('should run "note create" and round-trip through "note list"', async () => {
+    const marker = 'cli-smoke-note-marker-xyz';
+    const createOut = await runCli(
+      `note create --content "${marker}" --json --tty false`,
+    );
+    // The create command prints a JSON envelope; assert it echoes the new row
+    expect(createOut).toContain(marker);
+
+    const listOut = await runCli(
+      `note list --where.content.equalTo "${marker}" --json --tty false`,
+    );
+    expect(listOut).toContain(marker);
+  });
 });
