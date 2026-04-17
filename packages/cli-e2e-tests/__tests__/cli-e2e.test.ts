@@ -575,17 +575,17 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     expect(JSON.stringify(payload).toLowerCase()).toMatch(/content|node/);
   });
 
-  it('should run "contact create" and round-trip through "contact list"', async () => {
+  it('should run "note create" and round-trip through "note list"', async () => {
+    const marker = 'cli-smoke-note-marker-xyz';
     const createOut = await runCli(
-      'contact create --firstName Frida --lastName Finch --headline "CLI smoke test" --json --tty false',
+      `note create --content "${marker}" --json --tty false`,
     );
     // The create command prints a JSON envelope; assert it echoes the new row
-    expect(createOut.toLowerCase()).toContain('frida');
+    expect(createOut).toContain(marker);
 
     const listOut = await runCli(
-      'contact list --where.firstName.equalTo Frida --json --tty false',
+      `note list --where.content.equalTo "${marker}" --json --tty false`,
     );
-    expect(listOut.toLowerCase()).toContain('frida');
-    expect(listOut.toLowerCase()).toContain('finch');
+    expect(listOut).toContain(marker);
   });
 });
