@@ -27,70 +27,136 @@ const db = createClient({
 });
 ```
 
+Every call returns a `QueryBuilder`. Call `.execute()` to get a `{ ok, data, errors }` discriminated union, or `.unwrap()` to throw on failure. A `select` object is always required and specifies which fields to return.
+
 ### CRUD
 
 ```typescript
 // List contacts
-const contacts = await db.contact.findMany({ first: 10 });
+const result = await db.contact
+  .findMany({
+    first: 10,
+    select: { id: true, firstName: true, lastName: true },
+  })
+  .execute();
+
+// Get one by id
+const one = await db.contact
+  .findOne({ id: contactId, select: { id: true, firstName: true } })
+  .execute();
 
 // Create a contact
-const contact = await db.contact.create({
-  input: { firstName: 'Alice', lastName: 'Smith', headline: 'Engineer' },
-});
+const created = await db.contact
+  .create({
+    data: { firstName: 'Alice', lastName: 'Smith', headline: 'Engineer' },
+    select: { id: true, firstName: true },
+  })
+  .execute();
 
 // Update
-await db.contact.update({
-  id: contact.id,
-  patch: { headline: 'Senior Engineer' },
-});
+await db.contact
+  .update({
+    where: { id: contactId },
+    data: { headline: 'Senior Engineer' },
+    select: { id: true, headline: true },
+  })
+  .execute();
 
 // Delete
-await db.contact.delete({ id: contact.id });
+await db.contact
+  .delete({ where: { id: contactId } })
+  .execute();
 ```
 
 ### Vector Search
 
+Semantic similarity search using pgvector. Pass the query embedding via the `vectorEmbedding` filter on `where`; select `searchScore` to get the blended relevance score.
+
 ```typescript
-// Semantic similarity search using pgvector
-const results = await db.contact.findMany({
-  condition: {
-    vectorEmbedding: { distance_lt: 0.5, vector: queryEmbedding },
-  },
-});
+const results = await db.contact
+  .findMany({
+    where: {
+      vectorEmbedding: {
+        vector: queryEmbedding, // number[]
+        metric: 'COSINE',       // 'COSINE' | 'L2' | 'INNER_PRODUCT'
+        distance: 2.0,          // max distance threshold
+      },
+    },
+    first: 10,
+    select: { id: true, firstName: true, searchScore: true },
+  })
+  .execute();
 ```
 
 ### Unified Search
 
+Composite search that dispatches across tsvector, BM25, and pg_trgm simultaneously. Rows matching any algorithm are returned, and `searchScore` is a blended 0..1 ranking.
+
 ```typescript
-// Combined vector + BM25 + FTS + trigram scoring
-const results = await db.contact.findMany({
-  condition: { searchScore: { score_gt: 0 } },
-});
+const results = await db.contact
+  .findMany({
+    where: { unifiedSearch: 'postgres vector engineer' },
+    first: 10,
+    select: { id: true, firstName: true, searchScore: true },
+  })
+  .execute();
+```
+
+Vector and text filters can be combined in the same `where`:
+
+```typescript
+const results = await db.contact
+  .findMany({
+    where: {
+      vectorEmbedding: { vector: queryEmbedding, metric: 'COSINE', distance: 2.0 },
+      unifiedSearch: 'postgres vector engineer',
+    },
+    first: 10,
+    select: { id: true, firstName: true, searchScore: true },
+  })
+  .execute();
 ```
 
 ### Chunk Search
 
+Search across contact chunks (long-document embeddings).
+
 ```typescript
-// Search across contact chunks (long-document embeddings)
-const results = await db.contactsChunk.findMany({
-  condition: {
-    vectorEmbedding: { distance_lt: 0.3, vector: queryEmbedding },
-  },
-});
+const results = await db.contactsChunk
+  .findMany({
+    where: {
+      vectorEmbedding: { vector: queryEmbedding, metric: 'COSINE', distance: 2.0 },
+    },
+    first: 10,
+    select: { id: true, contactsId: true, chunkText: true, searchScore: true },
+  })
+  .execute();
 ```
 
 ### Relations
 
 ```typescript
 // M:N junction: link a contact to a note
-await db.contactNote.create({
-  input: { contactId: contact.id, noteId: note.id },
-});
+await db.contactNote
+  .create({
+    data: { contactId: contact.id, noteId: note.id },
+    select: { contactId: true, noteId: true },
+  })
+  .execute();
 
-// Query with nested relations
-const contactsWithNotes = await db.contact.findMany({
-  first: 10,
-});
+// Query with nested connection selections
+const contactsWithNotes = await db.contact
+  .findMany({
+    first: 10,
+    select: {
+      id: true,
+      firstName: true,
+      notes: {
+        select: { id: true, content: true },
+      },
+    },
+  })
+  .execute();
 ```
 
 ## Available Models
