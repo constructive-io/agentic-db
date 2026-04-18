@@ -1,6 +1,6 @@
 {
   "name": "@agentic-db/worker",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Background worker for auto-embeddings",
   "private": true,
   "main": "index.js",

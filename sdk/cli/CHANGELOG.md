@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.3.0...@agentic-db/cli@1.4.0) (2026-04-18)
+
+### Bug Fixes
+
+- **cli-codegen:** make autoEmbedWhere/autoEmbedInput generic so prepublish tsc passes ([2c465a1](https://github.com/constructive-io/agentic-db/commit/2c465a174518105af003d4108a5560bc03a5155b))
+
 # [1.3.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.2.2...@agentic-db/cli@1.3.0) (2026-04-18)
 
 ### Bug Fixes
