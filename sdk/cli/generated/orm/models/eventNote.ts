@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class EventNoteModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EventNoteSelect>(
-    args: FindManyArgs<S, EventNoteFilter, never, EventNoteOrderBy> & {
+    args: FindManyArgs<S, EventNoteFilter, EventNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, EventNoteSelect>
   ): QueryBuilder<{

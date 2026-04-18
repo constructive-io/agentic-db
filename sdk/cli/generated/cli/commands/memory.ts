@@ -109,7 +109,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       agentId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<MemorySelect, MemoryFilter, never, MemoryOrderBy> & {
+      FindManyArgs<MemorySelect, MemoryFilter, MemoryOrderBy> & {
         select: MemorySelect;
       }
     >(argv, defaultSelect);
@@ -153,7 +153,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       agentId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<MemorySelect, MemoryFilter, never> & {
+      FindFirstArgs<MemorySelect, MemoryFilter> & {
         select: MemorySelect;
       }
     >(argv, defaultSelect);
@@ -230,7 +230,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       agentId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<MemorySelect, MemoryFilter, never, MemoryOrderBy> & {
+      FindManyArgs<MemorySelect, MemoryFilter, MemoryOrderBy> & {
         select: MemorySelect;
       }
     >(argv, defaultSelect, searchWhere);

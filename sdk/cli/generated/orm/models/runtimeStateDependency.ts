@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RuntimeStateDependencyModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuntimeStateDependencySelect>(
-    args: FindManyArgs<S, RuntimeStateDependencyFilter, never, RuntimeStateDependencyOrderBy> & {
+    args: FindManyArgs<S, RuntimeStateDependencyFilter, RuntimeStateDependencyOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeStateDependencySelect>
   ): QueryBuilder<{

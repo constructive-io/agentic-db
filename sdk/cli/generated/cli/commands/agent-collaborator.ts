@@ -68,12 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       collaboratorId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<
-        AgentCollaboratorSelect,
-        AgentCollaboratorFilter,
-        never,
-        AgentCollaboratorOrderBy
-      > & {
+      FindManyArgs<AgentCollaboratorSelect, AgentCollaboratorFilter, AgentCollaboratorOrderBy> & {
         select: AgentCollaboratorSelect;
       }
     >(argv, defaultSelect);
@@ -95,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       collaboratorId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<AgentCollaboratorSelect, AgentCollaboratorFilter, never> & {
+      FindFirstArgs<AgentCollaboratorSelect, AgentCollaboratorFilter> & {
         select: AgentCollaboratorSelect;
       }
     >(argv, defaultSelect);

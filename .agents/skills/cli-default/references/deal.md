@@ -121,16 +121,16 @@ agentic-db deal list --where.trgmNotesText.value "approximate query" --where.trg
 agentic-db deal list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db deal list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,stageTrgmSimilarity,currencyTrgmSimilarity,notesTextTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db deal list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,stageTrgmSimilarity,currencyTrgmSimilarity,notesTextTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db deal list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db deal list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db deal search "query" --limit 10 --select id,title,searchScore
 ```
 

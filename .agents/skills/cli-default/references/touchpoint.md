@@ -133,16 +133,16 @@ agentic-db touchpoint list --where.trgmChannel.value "approximate query" --where
 agentic-db touchpoint list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db touchpoint list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,touchpointTypeTrgmSimilarity,subjectTrgmSimilarity,summaryTrgmSimilarity,sentimentTrgmSimilarity,directionTrgmSimilarity,channelTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db touchpoint list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,touchpointTypeTrgmSimilarity,subjectTrgmSimilarity,summaryTrgmSimilarity,sentimentTrgmSimilarity,directionTrgmSimilarity,channelTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db touchpoint list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db touchpoint list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db touchpoint search "query" --limit 10 --select id,title,searchScore
 ```
 

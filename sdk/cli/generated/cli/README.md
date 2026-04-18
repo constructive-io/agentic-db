@@ -273,14 +273,14 @@ agentic-db activity-log list --where.trgmNotes.value "approximate query" --where
 agentic-db activity-log list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db activity-log list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,activityTypeTrgmSimilarity,quantityUnitTrgmSimilarity,intensityTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db activity-log list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,activityTypeTrgmSimilarity,quantityUnitTrgmSimilarity,intensityTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db activity-log list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db activity-log list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db activity-log search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -392,14 +392,14 @@ agentic-db agent list --where.trgmStatus.value "approximate query" --where.trgmS
 agentic-db agent list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db agent list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,systemPromptTrgmSimilarity,modelTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db agent list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,systemPromptTrgmSimilarity,modelTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db agent list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db agent list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db agent search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -512,14 +512,14 @@ agentic-db agent-log list --where.trgmMessage.value "approximate query" --where.
 agentic-db agent-log list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db agent-log list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,levelTrgmSimilarity,messageTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db agent-log list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,levelTrgmSimilarity,messageTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db agent-log list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db agent-log list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db agent-log search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -639,14 +639,14 @@ agentic-db prompt list --where.trgmCategory.value "approximate query" --where.tr
 agentic-db prompt list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db prompt list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,contentTrgmSimilarity,categoryTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db prompt list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,contentTrgmSimilarity,categoryTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db prompt list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db prompt list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db prompt search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -758,14 +758,14 @@ agentic-db autonomy-record list --where.trgmSource.value "approximate query" --w
 agentic-db autonomy-record list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db autonomy-record list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,recordTypeTrgmSimilarity,contentTrgmSimilarity,statusTrgmSimilarity,sourceTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db autonomy-record list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,recordTypeTrgmSimilarity,contentTrgmSimilarity,statusTrgmSimilarity,sourceTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db autonomy-record list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db autonomy-record list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db autonomy-record search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -957,14 +957,14 @@ agentic-db calendar-event list --where.trgmMeetingUrl.value "approximate query" 
 agentic-db calendar-event list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db calendar-event list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,providerEventIdTrgmSimilarity,titleTrgmSimilarity,descriptionTrgmSimilarity,meetingUrlTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db calendar-event list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,providerEventIdTrgmSimilarity,titleTrgmSimilarity,descriptionTrgmSimilarity,meetingUrlTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db calendar-event list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db calendar-event list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db calendar-event search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -1128,14 +1128,14 @@ agentic-db contact list --where.trgmHowWeMet.value "approximate query" --where.t
 agentic-db contact list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db contact list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,firstNameTrgmSimilarity,lastNameTrgmSimilarity,emailTrgmSimilarity,phoneTrgmSimilarity,headlineTrgmSimilarity,bioTrgmSimilarity,locationTrgmSimilarity,howWeMetTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db contact list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,firstNameTrgmSimilarity,lastNameTrgmSimilarity,emailTrgmSimilarity,phoneTrgmSimilarity,headlineTrgmSimilarity,bioTrgmSimilarity,locationTrgmSimilarity,howWeMetTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db contact list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db contact list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db contact search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -1261,14 +1261,14 @@ agentic-db note list --where.trgmOverview.value "approximate query" --where.trgm
 agentic-db note list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db note list --where.fullTextSearch "search query" --select title,contentBm25Score,embeddingTextBm25Score,contentTrgmSimilarity,abstractTrgmSimilarity,overviewTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db note list --where.unifiedSearch "search query" --select title,contentBm25Score,embeddingTextBm25Score,contentTrgmSimilarity,abstractTrgmSimilarity,overviewTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db note list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db note list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db note search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -1397,14 +1397,14 @@ agentic-db task list --where.trgmResult.value "approximate query" --where.trgmRe
 agentic-db task list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db task list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,descriptionTrgmSimilarity,statusTrgmSimilarity,resultTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db task list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,descriptionTrgmSimilarity,statusTrgmSimilarity,resultTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db task list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db task list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db task search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -1515,14 +1515,14 @@ agentic-db company list --where.trgmDescription.value "approximate query" --wher
 agentic-db company list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db company list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,nameTrgmSimilarity,domainTrgmSimilarity,industryTrgmSimilarity,descriptionTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db company list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,nameTrgmSimilarity,domainTrgmSimilarity,industryTrgmSimilarity,descriptionTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db company list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db company list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db company search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -1627,14 +1627,14 @@ agentic-db deal list --where.trgmNotesText.value "approximate query" --where.trg
 agentic-db deal list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db deal list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,stageTrgmSimilarity,currencyTrgmSimilarity,notesTextTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db deal list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,stageTrgmSimilarity,currencyTrgmSimilarity,notesTextTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db deal list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db deal list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db deal search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -1777,14 +1777,14 @@ agentic-db event list --where.trgmNotesText.value "approximate query" --where.tr
 agentic-db event list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db event list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,nameTrgmSimilarity,eventTypeTrgmSimilarity,locationTrgmSimilarity,cityTrgmSimilarity,notesTextTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db event list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,nameTrgmSimilarity,eventTypeTrgmSimilarity,locationTrgmSimilarity,cityTrgmSimilarity,notesTextTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db event list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db event list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db event search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -1873,7 +1873,7 @@ EMBEDDER_PROVIDER=ollama agentic-db image update --embedding "new text to embed"
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db image list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db image list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db image search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -1939,7 +1939,7 @@ EMBEDDER_PROVIDER=ollama agentic-db company-link update --embedding "new text to
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db company-link list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db company-link list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db company-link search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -2045,14 +2045,14 @@ agentic-db memory list --where.trgmMood.value "approximate query" --where.trgmMo
 agentic-db memory list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db memory list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,contentTrgmSimilarity,locationTrgmSimilarity,moodTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db memory list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,contentTrgmSimilarity,locationTrgmSimilarity,moodTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db memory list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db memory list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db memory search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -2219,13 +2219,22 @@ CRUD operations for Email records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `emailThreadId` | UUID |
+| `searchTsvRank` | Float |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `providerMessageIdTrgmSimilarity` | Float |
+| `subjectTrgmSimilarity` | Float |
+| `bodyTextTrgmSimilarity` | Float |
+| `bodyHtmlTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
 **Required create fields:** `emailThreadId`
 **Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-> **Unified Search API fields:** `searchTsv`
+> **Unified Search API fields:** `searchTsv`, `embeddingTextBm25Score`, `providerMessageIdTrgmSimilarity`, `subjectTrgmSimilarity`, `bodyTextTrgmSimilarity`, `bodyHtmlTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 **Search Examples:**
@@ -2255,14 +2264,44 @@ EMBEDDER_PROVIDER=ollama agentic-db email update --embedding "new text to embed"
 agentic-db email list --where.searchTsv "search query" --select title,tsvRank
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*BM25 keyword search via `bm25EmbeddingText`:*
 ```bash
-agentic-db email list --where.fullTextSearch "search query" --select title,tsvRank
+agentic-db email list --where.bm25EmbeddingText.query "search query" --select title,embeddingTextBm25Score
+```
+
+*Fuzzy search via trigram similarity (`trgmProviderMessageId`):*
+```bash
+agentic-db email list --where.trgmProviderMessageId.value "approximate query" --where.trgmProviderMessageId.threshold 0.3 --select title,providerMessageIdTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmSubject`):*
+```bash
+agentic-db email list --where.trgmSubject.value "approximate query" --where.trgmSubject.threshold 0.3 --select title,subjectTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmBodyText`):*
+```bash
+agentic-db email list --where.trgmBodyText.value "approximate query" --where.trgmBodyText.threshold 0.3 --select title,bodyTextTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmBodyHtml`):*
+```bash
+agentic-db email list --where.trgmBodyHtml.value "approximate query" --where.trgmBodyHtml.threshold 0.3 --select title,bodyHtmlTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmEmbeddingText`):*
+```bash
+agentic-db email list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
+```
+
+*Composite search (unifiedSearch dispatches to all text adapters):*
+```bash
+agentic-db email list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,providerMessageIdTrgmSimilarity,subjectTrgmSimilarity,bodyTextTrgmSimilarity,bodyHtmlTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db email list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db email list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db email search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -2372,14 +2411,14 @@ agentic-db email-thread list --where.trgmStatus.value "approximate query" --wher
 agentic-db email-thread list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db email-thread list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,providerThreadIdTrgmSimilarity,subjectTrgmSimilarity,summaryTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db email-thread list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,providerThreadIdTrgmSimilarity,subjectTrgmSimilarity,summaryTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db email-thread list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db email-thread list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db email-thread search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -2513,14 +2552,14 @@ agentic-db expense list --where.trgmNotes.value "approximate query" --where.trgm
 agentic-db expense list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db expense list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,descriptionTrgmSimilarity,currencyTrgmSimilarity,categoryTrgmSimilarity,vendorTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db expense list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,descriptionTrgmSimilarity,currencyTrgmSimilarity,categoryTrgmSimilarity,vendorTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db expense list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db expense list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db expense search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -2608,7 +2647,7 @@ EMBEDDER_PROVIDER=ollama agentic-db contact-link update --embedding "new text to
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db contact-link list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db contact-link list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db contact-link search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -2788,14 +2827,14 @@ agentic-db project list --where.trgmProjectType.value "approximate query" --wher
 agentic-db project list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db project list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,statusTrgmSimilarity,projectTypeTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db project list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,statusTrgmSimilarity,projectTypeTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db project list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db project list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db project search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -2883,7 +2922,7 @@ EMBEDDER_PROVIDER=ollama agentic-db contacts-chunk update --embedding "new text 
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db contacts-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db contacts-chunk list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db contacts-chunk search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -2973,14 +3012,14 @@ agentic-db conversation list --where.trgmStatus.value "approximate query" --wher
 agentic-db conversation list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db conversation list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db conversation list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db conversation list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db conversation list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db conversation search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -3208,7 +3247,7 @@ EMBEDDER_PROVIDER=ollama agentic-db event-link update --embedding "new text to e
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db event-link list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db event-link list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db event-link search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -3401,14 +3440,14 @@ agentic-db venue list --where.trgmNotes.value "approximate query" --where.trgmNo
 agentic-db venue list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db venue list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,nameTrgmSimilarity,addressTrgmSimilarity,neighborhoodTrgmSimilarity,cityTrgmSimilarity,categoryTrgmSimilarity,statusTrgmSimilarity,googlePlaceIdTrgmSimilarity,priceLevelTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db venue list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,nameTrgmSimilarity,addressTrgmSimilarity,neighborhoodTrgmSimilarity,cityTrgmSimilarity,categoryTrgmSimilarity,statusTrgmSimilarity,googlePlaceIdTrgmSimilarity,priceLevelTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db venue list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db venue list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db venue search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -3528,14 +3567,14 @@ agentic-db goal list --where.trgmStatus.value "approximate query" --where.trgmSt
 agentic-db goal list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db goal list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,descriptionTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db goal list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,descriptionTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db goal list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db goal list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db goal search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -3706,14 +3745,14 @@ agentic-db interaction list --where.trgmSentiment.value "approximate query" --wh
 agentic-db interaction list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db interaction list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,typeTrgmSimilarity,summaryTrgmSimilarity,sentimentTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db interaction list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,typeTrgmSimilarity,summaryTrgmSimilarity,sentimentTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db interaction list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db interaction list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db interaction search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -3806,14 +3845,14 @@ agentic-db message list --where.trgmContent.value "approximate query" --where.tr
 agentic-db message list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db message list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,roleTrgmSimilarity,contentTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db message list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,roleTrgmSimilarity,contentTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db message list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db message list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db message search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -3879,7 +3918,7 @@ EMBEDDER_PROVIDER=ollama agentic-db notes-chunk update --embedding "new text to 
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db notes-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db notes-chunk list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db notes-chunk search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -3984,14 +4023,14 @@ agentic-db place list --where.trgmCategory.value "approximate query" --where.trg
 agentic-db place list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db place list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,addressTrgmSimilarity,descriptionTrgmSimilarity,categoryTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db place list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,addressTrgmSimilarity,descriptionTrgmSimilarity,categoryTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db place list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db place list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db place search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -4304,14 +4343,14 @@ agentic-db rule list --where.trgmTriggerConcept.value "approximate query" --wher
 agentic-db rule list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db rule list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,triggerTypeTrgmSimilarity,actionTypeTrgmSimilarity,triggerConceptTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db rule list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,triggerTypeTrgmSimilarity,actionTypeTrgmSimilarity,triggerConceptTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db rule list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db rule list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db rule search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -4489,14 +4528,14 @@ agentic-db runtime-log list --where.trgmMessage.value "approximate query" --wher
 agentic-db runtime-log list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db runtime-log list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,levelTrgmSimilarity,messageTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db runtime-log list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,levelTrgmSimilarity,messageTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db runtime-log list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db runtime-log list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db runtime-log search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -4655,14 +4694,14 @@ agentic-db runtime-state list --where.trgmStatus.value "approximate query" --whe
 agentic-db runtime-state list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db runtime-state list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,stateTypeTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db runtime-state list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,stateTypeTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db runtime-state list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db runtime-state list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db runtime-state search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -4818,14 +4857,14 @@ agentic-db skill list --where.trgmIntentTrigger.value "approximate query" --wher
 agentic-db skill list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db skill list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,categoryTrgmSimilarity,implementationTrgmSimilarity,intentTriggerTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db skill list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,categoryTrgmSimilarity,implementationTrgmSimilarity,intentTriggerTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db skill list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db skill list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db skill search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -4945,14 +4984,14 @@ agentic-db tool-definition list --where.trgmToolType.value "approximate query" -
 agentic-db tool-definition list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db tool-definition list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,toolTypeTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db tool-definition list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,toolTypeTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db tool-definition list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db tool-definition list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db tool-definition search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -5223,14 +5262,14 @@ agentic-db touchpoint list --where.trgmChannel.value "approximate query" --where
 agentic-db touchpoint list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db touchpoint list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,touchpointTypeTrgmSimilarity,subjectTrgmSimilarity,summaryTrgmSimilarity,sentimentTrgmSimilarity,directionTrgmSimilarity,channelTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db touchpoint list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,touchpointTypeTrgmSimilarity,subjectTrgmSimilarity,summaryTrgmSimilarity,sentimentTrgmSimilarity,directionTrgmSimilarity,channelTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db touchpoint list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db touchpoint list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db touchpoint search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -5329,14 +5368,14 @@ agentic-db trip list --where.trgmDescription.value "approximate query" --where.t
 agentic-db trip list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-*Composite search (fullTextSearch dispatches to all text adapters):*
+*Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db trip list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,destinationTrgmSimilarity,descriptionTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db trip list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,destinationTrgmSimilarity,descriptionTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db trip list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db trip list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db trip search "query" --limit 10 --select id,title,searchScore
 ```
 
@@ -5424,7 +5463,7 @@ EMBEDDER_PROVIDER=ollama agentic-db venue-link update --embedding "new text to e
 
 *Search with pagination and field projection:*
 ```bash
-agentic-db venue-link list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db venue-link list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db venue-link search "query" --limit 10 --select id,title,searchScore
 ```
 

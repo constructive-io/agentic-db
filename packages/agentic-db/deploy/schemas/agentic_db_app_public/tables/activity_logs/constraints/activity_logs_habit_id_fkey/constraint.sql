@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/habits/table
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/table
--- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_trip_id_idx
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 ALTER TABLE agentic_db_app_public.activity_logs 

@@ -121,16 +121,16 @@ agentic-db task list --where.trgmResult.value "approximate query" --where.trgmRe
 agentic-db task list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db task list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,descriptionTrgmSimilarity,statusTrgmSimilarity,resultTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db task list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,descriptionTrgmSimilarity,statusTrgmSimilarity,resultTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db task list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db task list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db task search "query" --limit 10 --select id,title,searchScore
 ```
 

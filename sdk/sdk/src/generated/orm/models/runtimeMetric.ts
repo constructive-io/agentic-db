@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RuntimeMetricModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuntimeMetricSelect>(
-    args: FindManyArgs<S, RuntimeMetricFilter, never, RuntimeMetricOrderBy> & {
+    args: FindManyArgs<S, RuntimeMetricFilter, RuntimeMetricOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeMetricSelect>
   ): QueryBuilder<{

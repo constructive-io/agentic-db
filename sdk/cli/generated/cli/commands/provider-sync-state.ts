@@ -88,12 +88,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       updatedAt: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<
-        ProviderSyncStateSelect,
-        ProviderSyncStateFilter,
-        never,
-        ProviderSyncStateOrderBy
-      > & {
+      FindManyArgs<ProviderSyncStateSelect, ProviderSyncStateFilter, ProviderSyncStateOrderBy> & {
         select: ProviderSyncStateSelect;
       }
     >(argv, defaultSelect);
@@ -122,7 +117,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       updatedAt: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<ProviderSyncStateSelect, ProviderSyncStateFilter, never> & {
+      FindFirstArgs<ProviderSyncStateSelect, ProviderSyncStateFilter> & {
         select: ProviderSyncStateSelect;
       }
     >(argv, defaultSelect);

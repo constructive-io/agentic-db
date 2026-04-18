@@ -12,5 +12,5 @@ CREATE TRIGGER trips_enqueue_embedding_insert_tg
 AFTER INSERT ON agentic_db_app_public.trips
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".trips_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.trips_enqueue_embedding ( );
 

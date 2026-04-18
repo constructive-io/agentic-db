@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RuntimeScheduleModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuntimeScheduleSelect>(
-    args: FindManyArgs<S, RuntimeScheduleFilter, never, RuntimeScheduleOrderBy> & {
+    args: FindManyArgs<S, RuntimeScheduleFilter, RuntimeScheduleOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeScheduleSelect>
   ): QueryBuilder<{

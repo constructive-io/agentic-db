@@ -68,7 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       toolDefinitionId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<SkillToolSelect, SkillToolFilter, never, SkillToolOrderBy> & {
+      FindManyArgs<SkillToolSelect, SkillToolFilter, SkillToolOrderBy> & {
         select: SkillToolSelect;
       }
     >(argv, defaultSelect);
@@ -90,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       toolDefinitionId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<SkillToolSelect, SkillToolFilter, never> & {
+      FindFirstArgs<SkillToolSelect, SkillToolFilter> & {
         select: SkillToolSelect;
       }
     >(argv, defaultSelect);

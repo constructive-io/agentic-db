@@ -12,5 +12,5 @@ CREATE TRIGGER emails_search_tsv_tsv_update_tg
 BEFORE UPDATE ON agentic_db_app_public.emails
 FOR EACH ROW
 WHEN (OLD.subject IS DISTINCT FROM NEW.subject OR OLD.body_text IS DISTINCT FROM NEW.body_text)
-EXECUTE PROCEDURE "agentic_db_private".emails_search_tsv_tsv ( );
+EXECUTE PROCEDURE agentic_db_private.emails_search_tsv_tsv ( );
 

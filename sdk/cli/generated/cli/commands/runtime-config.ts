@@ -84,7 +84,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       updatedAt: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<RuntimeConfigSelect, RuntimeConfigFilter, never, RuntimeConfigOrderBy> & {
+      FindManyArgs<RuntimeConfigSelect, RuntimeConfigFilter, RuntimeConfigOrderBy> & {
         select: RuntimeConfigSelect;
       }
     >(argv, defaultSelect);
@@ -111,7 +111,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       updatedAt: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<RuntimeConfigSelect, RuntimeConfigFilter, never> & {
+      FindFirstArgs<RuntimeConfigSelect, RuntimeConfigFilter> & {
         select: RuntimeConfigSelect;
       }
     >(argv, defaultSelect);

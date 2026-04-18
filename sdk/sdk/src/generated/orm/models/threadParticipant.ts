@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ThreadParticipantModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ThreadParticipantSelect>(
-    args: FindManyArgs<S, ThreadParticipantFilter, never, ThreadParticipantOrderBy> & {
+    args: FindManyArgs<S, ThreadParticipantFilter, ThreadParticipantOrderBy> & {
       select: S;
     } & StrictSelect<S, ThreadParticipantSelect>
   ): QueryBuilder<{

@@ -115,16 +115,16 @@ agentic-db prompt list --where.trgmCategory.value "approximate query" --where.tr
 agentic-db prompt list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db prompt list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,contentTrgmSimilarity,categoryTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db prompt list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,contentTrgmSimilarity,categoryTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db prompt list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db prompt list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db prompt search "query" --limit 10 --select id,title,searchScore
 ```
 

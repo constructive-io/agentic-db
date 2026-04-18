@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ProviderSyncStateModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ProviderSyncStateSelect>(
-    args: FindManyArgs<S, ProviderSyncStateFilter, never, ProviderSyncStateOrderBy> & {
+    args: FindManyArgs<S, ProviderSyncStateFilter, ProviderSyncStateOrderBy> & {
       select: S;
     } & StrictSelect<S, ProviderSyncStateSelect>
   ): QueryBuilder<{

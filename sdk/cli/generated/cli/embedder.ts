@@ -97,14 +97,13 @@ function buildEmbedder(config: EmbedderConfig): EmbedderFunction | null {
  * @param embedder - The resolved embedder function
  * @returns The modified where clause
  */
-export async function autoEmbedWhere<T extends object>(
-  where: T,
+export async function autoEmbedWhere(
+  where: Record<string, unknown>,
   vectorFieldNames: string[],
   embedder: EmbedderFunction
-): Promise<T> {
-  const bag = where as unknown as Record<string, unknown>;
+): Promise<Record<string, unknown>> {
   for (const fieldName of vectorFieldNames) {
-    const fieldValue = bag[fieldName];
+    const fieldValue = where[fieldName];
     if (fieldValue && typeof fieldValue === 'object') {
       const input = fieldValue as Record<string, unknown>;
       // If 'vector' is a string, embed it
@@ -117,7 +116,7 @@ export async function autoEmbedWhere<T extends object>(
       // Shorthand: --where.vectorEmbedding "text" with --auto-embed
       // becomes { vector: [embedded], metric: 'COSINE' }
       const embedding = await embedder(fieldValue);
-      bag[fieldName] = { vector: embedding };
+      where[fieldName] = { vector: embedding };
     }
   }
   return where;
@@ -142,18 +141,17 @@ export async function autoEmbedWhere<T extends object>(
  * @param embedder - The resolved embedder function
  * @returns The modified data object with text values replaced by vectors
  */
-export async function autoEmbedInput<T extends object>(
-  data: T,
+export async function autoEmbedInput(
+  data: Record<string, unknown>,
   vectorFieldNames: string[],
   embedder: EmbedderFunction
-): Promise<T> {
-  const bag = data as unknown as Record<string, unknown>;
+): Promise<Record<string, unknown>> {
   for (const fieldName of vectorFieldNames) {
-    const fieldValue = bag[fieldName];
+    const fieldValue = data[fieldName];
     if (typeof fieldValue === 'string') {
       // Text string → embed to vector array
       const embedding = await embedder(fieldValue);
-      bag[fieldName] = embedding;
+      data[fieldName] = embedding;
     }
     // If it's already an array (pre-computed vector), leave it as-is
   }

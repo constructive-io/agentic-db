@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class CompanyMemoryModel {
   constructor(private client: OrmClient) {}
   findMany<S extends CompanyMemorySelect>(
-    args: FindManyArgs<S, CompanyMemoryFilter, never, CompanyMemoryOrderBy> & {
+    args: FindManyArgs<S, CompanyMemoryFilter, CompanyMemoryOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanyMemorySelect>
   ): QueryBuilder<{

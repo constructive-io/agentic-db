@@ -68,7 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       habitId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<GoalHabitSelect, GoalHabitFilter, never, GoalHabitOrderBy> & {
+      FindManyArgs<GoalHabitSelect, GoalHabitFilter, GoalHabitOrderBy> & {
         select: GoalHabitSelect;
       }
     >(argv, defaultSelect);
@@ -90,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       habitId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<GoalHabitSelect, GoalHabitFilter, never> & {
+      FindFirstArgs<GoalHabitSelect, GoalHabitFilter> & {
         select: GoalHabitSelect;
       }
     >(argv, defaultSelect);

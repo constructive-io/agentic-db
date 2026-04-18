@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class CompanyImageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends CompanyImageSelect>(
-    args: FindManyArgs<S, CompanyImageFilter, never, CompanyImageOrderBy> & {
+    args: FindManyArgs<S, CompanyImageFilter, CompanyImageOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanyImageSelect>
   ): QueryBuilder<{

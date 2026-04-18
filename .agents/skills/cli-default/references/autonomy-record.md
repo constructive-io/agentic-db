@@ -127,16 +127,16 @@ agentic-db autonomy-record list --where.trgmSource.value "approximate query" --w
 agentic-db autonomy-record list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db autonomy-record list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,recordTypeTrgmSimilarity,contentTrgmSimilarity,statusTrgmSimilarity,sourceTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db autonomy-record list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,recordTypeTrgmSimilarity,contentTrgmSimilarity,statusTrgmSimilarity,sourceTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db autonomy-record list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db autonomy-record list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db autonomy-record search "query" --limit 10 --select id,title,searchScore
 ```
 

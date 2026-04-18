@@ -151,16 +151,16 @@ agentic-db contact list --where.trgmHowWeMet.value "approximate query" --where.t
 agentic-db contact list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db contact list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,firstNameTrgmSimilarity,lastNameTrgmSimilarity,emailTrgmSimilarity,phoneTrgmSimilarity,headlineTrgmSimilarity,bioTrgmSimilarity,locationTrgmSimilarity,howWeMetTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db contact list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,firstNameTrgmSimilarity,lastNameTrgmSimilarity,emailTrgmSimilarity,phoneTrgmSimilarity,headlineTrgmSimilarity,bioTrgmSimilarity,locationTrgmSimilarity,howWeMetTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db contact list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db contact list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db contact search "query" --limit 10 --select id,title,searchScore
 ```
 

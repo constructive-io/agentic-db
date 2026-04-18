@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class EmailAttachmentModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EmailAttachmentSelect>(
-    args: FindManyArgs<S, EmailAttachmentFilter, never, EmailAttachmentOrderBy> & {
+    args: FindManyArgs<S, EmailAttachmentFilter, EmailAttachmentOrderBy> & {
       select: S;
     } & StrictSelect<S, EmailAttachmentSelect>
   ): QueryBuilder<{

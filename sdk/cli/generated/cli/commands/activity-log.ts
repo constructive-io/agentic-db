@@ -113,7 +113,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       habitId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<ActivityLogSelect, ActivityLogFilter, never, ActivityLogOrderBy> & {
+      FindManyArgs<ActivityLogSelect, ActivityLogFilter, ActivityLogOrderBy> & {
         select: ActivityLogSelect;
       }
     >(argv, defaultSelect);
@@ -159,7 +159,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       habitId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<ActivityLogSelect, ActivityLogFilter, never> & {
+      FindFirstArgs<ActivityLogSelect, ActivityLogFilter> & {
         select: ActivityLogSelect;
       }
     >(argv, defaultSelect);
@@ -238,7 +238,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       habitId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<ActivityLogSelect, ActivityLogFilter, never, ActivityLogOrderBy> & {
+      FindManyArgs<ActivityLogSelect, ActivityLogFilter, ActivityLogOrderBy> & {
         select: ActivityLogSelect;
       }
     >(argv, defaultSelect, searchWhere);

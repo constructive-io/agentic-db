@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RuntimeStateModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuntimeStateSelect>(
-    args: FindManyArgs<S, RuntimeStateFilter, never, RuntimeStateOrderBy> & {
+    args: FindManyArgs<S, RuntimeStateFilter, RuntimeStateOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeStateSelect>
   ): QueryBuilder<{

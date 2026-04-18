@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class TaskNoteModel {
   constructor(private client: OrmClient) {}
   findMany<S extends TaskNoteSelect>(
-    args: FindManyArgs<S, TaskNoteFilter, never, TaskNoteOrderBy> & {
+    args: FindManyArgs<S, TaskNoteFilter, TaskNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, TaskNoteSelect>
   ): QueryBuilder<{

@@ -68,7 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       projectId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<GoalProjectSelect, GoalProjectFilter, never, GoalProjectOrderBy> & {
+      FindManyArgs<GoalProjectSelect, GoalProjectFilter, GoalProjectOrderBy> & {
         select: GoalProjectSelect;
       }
     >(argv, defaultSelect);
@@ -90,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       projectId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<GoalProjectSelect, GoalProjectFilter, never> & {
+      FindFirstArgs<GoalProjectSelect, GoalProjectFilter> & {
         select: GoalProjectSelect;
       }
     >(argv, defaultSelect);

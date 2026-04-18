@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/company_notes/table
 -- requires: schemas/agentic_db_app_public/tables/company_notes/columns/company_id/column
--- requires: schemas/agentic_db_app_public/tables/contact_notes/indexes/contact_notes_note_id_idx
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 CREATE INDEX company_notes_company_id_idx ON agentic_db_app_public.company_notes USING BTREE ( company_id );

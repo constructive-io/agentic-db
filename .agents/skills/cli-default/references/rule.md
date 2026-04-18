@@ -150,16 +150,16 @@ agentic-db rule list --where.trgmTriggerConcept.value "approximate query" --wher
 agentic-db rule list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db rule list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,triggerTypeTrgmSimilarity,actionTypeTrgmSimilarity,triggerConceptTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db rule list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,triggerTypeTrgmSimilarity,actionTypeTrgmSimilarity,triggerConceptTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db rule list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db rule list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db rule search "query" --limit 10 --select id,title,searchScore
 ```
 

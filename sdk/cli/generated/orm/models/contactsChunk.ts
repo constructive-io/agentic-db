@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ContactsChunkModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ContactsChunkSelect>(
-    args: FindManyArgs<S, ContactsChunkFilter, never, ContactsChunkOrderBy> & {
+    args: FindManyArgs<S, ContactsChunkFilter, ContactsChunkOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactsChunkSelect>
   ): QueryBuilder<{

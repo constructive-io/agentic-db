@@ -115,16 +115,16 @@ agentic-db runtime-state list --where.trgmStatus.value "approximate query" --whe
 agentic-db runtime-state list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db runtime-state list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,stateTypeTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db runtime-state list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,stateTypeTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db runtime-state list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db runtime-state list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db runtime-state search "query" --limit 10 --select id,title,searchScore
 ```
 

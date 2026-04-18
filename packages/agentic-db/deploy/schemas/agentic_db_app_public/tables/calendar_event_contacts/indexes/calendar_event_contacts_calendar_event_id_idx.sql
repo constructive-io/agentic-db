@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_contacts/table
--- requires: schemas/agentic_db_app_public/tables/goal_projects/indexes/goal_projects_project_id_idx
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_contacts/columns/calendar_event_id/column
 
 

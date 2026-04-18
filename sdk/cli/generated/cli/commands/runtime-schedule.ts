@@ -90,7 +90,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       updatedAt: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<RuntimeScheduleSelect, RuntimeScheduleFilter, never, RuntimeScheduleOrderBy> & {
+      FindManyArgs<RuntimeScheduleSelect, RuntimeScheduleFilter, RuntimeScheduleOrderBy> & {
         select: RuntimeScheduleSelect;
       }
     >(argv, defaultSelect);
@@ -120,7 +120,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       updatedAt: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<RuntimeScheduleSelect, RuntimeScheduleFilter, never> & {
+      FindFirstArgs<RuntimeScheduleSelect, RuntimeScheduleFilter> & {
         select: RuntimeScheduleSelect;
       }
     >(argv, defaultSelect);

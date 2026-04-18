@@ -68,12 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       noteId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<
-        CalendarEventNoteSelect,
-        CalendarEventNoteFilter,
-        never,
-        CalendarEventNoteOrderBy
-      > & {
+      FindManyArgs<CalendarEventNoteSelect, CalendarEventNoteFilter, CalendarEventNoteOrderBy> & {
         select: CalendarEventNoteSelect;
       }
     >(argv, defaultSelect);
@@ -95,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       noteId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<CalendarEventNoteSelect, CalendarEventNoteFilter, never> & {
+      FindFirstArgs<CalendarEventNoteSelect, CalendarEventNoteFilter> & {
         select: CalendarEventNoteSelect;
       }
     >(argv, defaultSelect);

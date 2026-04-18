@@ -12,5 +12,5 @@ CREATE TRIGGER contacts_search_tsv_tsv_update_tg
 BEFORE UPDATE ON agentic_db_app_public.contacts
 FOR EACH ROW
 WHEN (OLD.first_name IS DISTINCT FROM NEW.first_name OR OLD.last_name IS DISTINCT FROM NEW.last_name OR OLD.headline IS DISTINCT FROM NEW.headline OR OLD.bio IS DISTINCT FROM NEW.bio)
-EXECUTE PROCEDURE "agentic_db_private".contacts_search_tsv_tsv ( );
+EXECUTE PROCEDURE agentic_db_private.contacts_search_tsv_tsv ( );
 

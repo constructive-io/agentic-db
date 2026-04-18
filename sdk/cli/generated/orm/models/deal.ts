@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class DealModel {
   constructor(private client: OrmClient) {}
   findMany<S extends DealSelect>(
-    args: FindManyArgs<S, DealFilter, never, DealOrderBy> & {
+    args: FindManyArgs<S, DealFilter, DealOrderBy> & {
       select: S;
     } & StrictSelect<S, DealSelect>
   ): QueryBuilder<{

@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RuntimeArtifactModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuntimeArtifactSelect>(
-    args: FindManyArgs<S, RuntimeArtifactFilter, never, RuntimeArtifactOrderBy> & {
+    args: FindManyArgs<S, RuntimeArtifactFilter, RuntimeArtifactOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeArtifactSelect>
   ): QueryBuilder<{

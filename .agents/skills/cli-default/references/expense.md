@@ -127,16 +127,16 @@ agentic-db expense list --where.trgmNotes.value "approximate query" --where.trgm
 agentic-db expense list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db expense list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,descriptionTrgmSimilarity,currencyTrgmSimilarity,categoryTrgmSimilarity,vendorTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db expense list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,descriptionTrgmSimilarity,currencyTrgmSimilarity,categoryTrgmSimilarity,vendorTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db expense list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db expense list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db expense search "query" --limit 10 --select id,title,searchScore
 ```
 

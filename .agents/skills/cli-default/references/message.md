@@ -109,16 +109,16 @@ agentic-db message list --where.trgmContent.value "approximate query" --where.tr
 agentic-db message list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db message list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,roleTrgmSimilarity,contentTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db message list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,roleTrgmSimilarity,contentTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db message list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db message list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db message search "query" --limit 10 --select id,title,searchScore
 ```
 

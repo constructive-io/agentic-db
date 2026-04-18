@@ -112,7 +112,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       tripId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<ExpenseSelect, ExpenseFilter, never, ExpenseOrderBy> & {
+      FindManyArgs<ExpenseSelect, ExpenseFilter, ExpenseOrderBy> & {
         select: ExpenseSelect;
       }
     >(argv, defaultSelect);
@@ -157,7 +157,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       tripId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<ExpenseSelect, ExpenseFilter, never> & {
+      FindFirstArgs<ExpenseSelect, ExpenseFilter> & {
         select: ExpenseSelect;
       }
     >(argv, defaultSelect);
@@ -239,7 +239,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       tripId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<ExpenseSelect, ExpenseFilter, never, ExpenseOrderBy> & {
+      FindManyArgs<ExpenseSelect, ExpenseFilter, ExpenseOrderBy> & {
         select: ExpenseSelect;
       }
     >(argv, defaultSelect, searchWhere);

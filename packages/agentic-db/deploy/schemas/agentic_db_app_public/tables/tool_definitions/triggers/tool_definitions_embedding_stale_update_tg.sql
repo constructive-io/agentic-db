@@ -12,5 +12,5 @@ CREATE TRIGGER tool_definitions_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.tool_definitions
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description)
-EXECUTE PROCEDURE "agentic_db_private".tool_definitions_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.tool_definitions_embedding_stale ( );
 

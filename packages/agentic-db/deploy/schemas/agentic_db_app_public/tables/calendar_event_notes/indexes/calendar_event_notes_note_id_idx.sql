@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_notes/table
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_notes/columns/note_id/column
--- requires: schemas/agentic_db_app_public/tables/email_notes/indexes/email_notes_note_id_idx
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 CREATE INDEX calendar_event_notes_note_id_idx ON agentic_db_app_public.calendar_event_notes USING BTREE ( note_id );

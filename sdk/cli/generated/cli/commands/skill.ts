@@ -113,7 +113,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       agentId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<SkillSelect, SkillFilter, never, SkillOrderBy> & {
+      FindManyArgs<SkillSelect, SkillFilter, SkillOrderBy> & {
         select: SkillSelect;
       }
     >(argv, defaultSelect);
@@ -162,7 +162,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       agentId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<SkillSelect, SkillFilter, never> & {
+      FindFirstArgs<SkillSelect, SkillFilter> & {
         select: SkillSelect;
       }
     >(argv, defaultSelect);
@@ -247,7 +247,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       agentId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<SkillSelect, SkillFilter, never, SkillOrderBy> & {
+      FindManyArgs<SkillSelect, SkillFilter, SkillOrderBy> & {
         select: SkillSelect;
       }
     >(argv, defaultSelect, searchWhere);

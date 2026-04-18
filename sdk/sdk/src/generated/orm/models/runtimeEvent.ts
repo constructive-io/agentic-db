@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RuntimeEventModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuntimeEventSelect>(
-    args: FindManyArgs<S, RuntimeEventFilter, never, RuntimeEventOrderBy> & {
+    args: FindManyArgs<S, RuntimeEventFilter, RuntimeEventOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeEventSelect>
   ): QueryBuilder<{

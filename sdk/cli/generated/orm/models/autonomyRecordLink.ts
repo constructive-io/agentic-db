@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class AutonomyRecordLinkModel {
   constructor(private client: OrmClient) {}
   findMany<S extends AutonomyRecordLinkSelect>(
-    args: FindManyArgs<S, AutonomyRecordLinkFilter, never, AutonomyRecordLinkOrderBy> & {
+    args: FindManyArgs<S, AutonomyRecordLinkFilter, AutonomyRecordLinkOrderBy> & {
       select: S;
     } & StrictSelect<S, AutonomyRecordLinkSelect>
   ): QueryBuilder<{

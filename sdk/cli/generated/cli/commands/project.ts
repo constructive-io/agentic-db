@@ -113,7 +113,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       embeddingStale: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<ProjectSelect, ProjectFilter, never, ProjectOrderBy> & {
+      FindManyArgs<ProjectSelect, ProjectFilter, ProjectOrderBy> & {
         select: ProjectSelect;
       }
     >(argv, defaultSelect);
@@ -159,7 +159,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       embeddingStale: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<ProjectSelect, ProjectFilter, never> & {
+      FindFirstArgs<ProjectSelect, ProjectFilter> & {
         select: ProjectSelect;
       }
     >(argv, defaultSelect);
@@ -238,7 +238,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       embeddingStale: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<ProjectSelect, ProjectFilter, never, ProjectOrderBy> & {
+      FindManyArgs<ProjectSelect, ProjectFilter, ProjectOrderBy> & {
         select: ProjectSelect;
       }
     >(argv, defaultSelect, searchWhere);
