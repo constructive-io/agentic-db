@@ -37,37 +37,12 @@ import {
 const SCHEMA_NAME = 'app_public';
 
 /**
- * Build a RelationSpatial blueprint entry.
- *
- * BlueprintRelation's public type admits `$type: 'RelationSpatial'` plus
- * `source_table`/`target_table` names; the generated `RelationSpatialParams`
- * shape uses `*_table_id`/`*_field_id` (UUIDs) for the server-side dispatcher.
- * In blueprint JSON we supply `source_field`/`target_field` as column *names* —
- * construct_blueprint resolves them via resolve_blueprint_field server-side.
- * A local interface keeps the blueprint-shape fields typed without a cast.
+ * 5 RelationSpatial entries typed directly against the generated
+ * BlueprintRelation union (node-type-registry ≥ 0.16.0 exposes
+ * source_field/target_field on the RelationSpatial arm). Column names are
+ * resolved server-side by resolve_blueprint_field.
  */
-interface SpatialRelationEntry {
-  $type: 'RelationSpatial';
-  source_table: string;
-  source_schema_name: string;
-  target_table: string;
-  target_schema_name: string;
-  source_field: string;
-  target_field: string;
-  name: string;
-  operator:
-    | 'st_contains'
-    | 'st_within'
-    | 'st_intersects'
-    | 'st_covers'
-    | 'st_coveredby'
-    | 'st_overlaps'
-    | 'st_touches'
-    | 'st_dwithin';
-  param_name?: string;
-}
-
-const entries: SpatialRelationEntry[] = [
+const entries: BlueprintRelation[] = [
   {
     $type: 'RelationSpatial',
     source_table: 'memories',

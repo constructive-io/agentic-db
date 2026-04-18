@@ -223,14 +223,14 @@ importers:
   packages/provision:
     dependencies:
       '@constructive-io/node':
-        specifier: ^0.10.0
-        version: 0.10.0
+        specifier: ^0.10.1
+        version: 0.10.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.7
       node-type-registry:
-        specifier: ^0.14.0
-        version: 0.14.0
+        specifier: ^0.16.0
+        version: 0.16.0
       pg:
         specifier: ^8.20.0
         version: 8.20.0
@@ -296,8 +296,8 @@ importers:
         specifier: ^1.0.3
         version: 1.0.3(encoding@0.1.13)
       '@constructive-io/node':
-        specifier: ^0.10.0
-        version: 0.10.0
+        specifier: ^0.10.1
+        version: 0.10.1
       agentic-kit:
         specifier: ^1.0.3
         version: 1.0.3(encoding@0.1.13)
@@ -831,6 +831,9 @@ packages:
   '@constructive-io/node@0.10.0':
     resolution: {integrity: sha512-tP+oAuBdhvWPDE57nBc9xoOKSQl1+AhJyuLJ2mSNIFHYPBNSyCwevOT3fJiiOiUhYwzMaQo6A+sVnt8OJ6euOA==}
 
+  '@constructive-io/node@0.10.1':
+    resolution: {integrity: sha512-E6u0JEfa//dthgxVA0KYqS1s+qD9gB0NklFEXn+6yLL50tsPKaqY8iOJ6I3FG4IeRhZGotEIXwheZxFIc+DqEw==}
+
   '@constructive-io/s3-streamer@2.17.3':
     resolution: {integrity: sha512-2YRjHG8aXVQdhRF+kYj0n2DEaswBbp2tVXDMLN0mM55uWNx4tKpslT45r0ZZcvuc1pavbQhjwO9IQxpSEN1Pug==}
 
@@ -842,6 +845,9 @@ packages:
 
   '@constructive-io/sdk@0.14.0':
     resolution: {integrity: sha512-ux0higxS8QVnr8gH3dfL1JWw8UstbJC9ff5MYVub2AqkT9OKw1tlikuFgQq13e8Iajy3mvqWizv2ivVBdk273A==}
+
+  '@constructive-io/sdk@0.14.1':
+    resolution: {integrity: sha512-v9h9aXFGMJ6p2p0Mg90aoasDbANn3DNuNtrf/VyG5MDMT6lTJ/5zJjVHf8nuFbxJOOfragFaypNWMPD7ZMyBhA==}
 
   '@constructive-io/upload-names@2.10.2':
     resolution: {integrity: sha512-KPddPERXEL6ks7kBryejuP3Cj1QXpZUXw1PejHF8vTRzDk/nDOGAkSLRRnVbLCw9vFpIKreAm5iKgRXWqjFo1g==}
@@ -5080,8 +5086,8 @@ packages:
   node-releases@2.0.27:
     resolution: {integrity: sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA==}
 
-  node-type-registry@0.14.0:
-    resolution: {integrity: sha512-iG/Tjtr2bciHLXVEzIS0kZ+5bCU6N6AQJ+u3xEB5p2Hi6QguEW1raUMeaL4+gT9J4u+zyXC/HHUfOLH01TWZRw==}
+  node-type-registry@0.16.0:
+    resolution: {integrity: sha512-yiDi3n9TOBqnJHMu4OnsSCE3lywKPYR6ibj7NWTwZ7XxX4zPgJ4H4BTrN/yEpi+erLep1W3Nvfqpy2tvvR7VyA==}
 
   nopt@8.1.0:
     resolution: {integrity: sha512-ieGu42u/Qsa4TFktmaKEwM6MQH0pOWnaB3htzh0JRtx84+Mebc0cbZYN5bC+6WTZ4+77xrL9Pn5m7CV6VIkV7A==}
@@ -7784,6 +7790,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@constructive-io/node@0.10.1':
+    dependencies:
+      '@constructive-io/graphql-types': 3.5.0
+      '@constructive-io/sdk': 0.14.1
+    transitivePeerDependencies:
+      - supports-color
+
   '@constructive-io/s3-streamer@2.17.3':
     dependencies:
       '@aws-sdk/client-s3': 3.1020.0
@@ -7810,6 +7823,15 @@ snapshots:
       - aws-crt
 
   '@constructive-io/sdk@0.14.0':
+    dependencies:
+      '@0no-co/graphql.web': 1.2.0(graphql@16.13.0)
+      '@constructive-io/graphql-types': 3.5.0
+      gql-ast: 3.5.0
+      graphql: 16.13.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@constructive-io/sdk@0.14.1':
     dependencies:
       '@0no-co/graphql.web': 1.2.0(graphql@16.13.0)
       '@constructive-io/graphql-types': 3.5.0
@@ -13517,7 +13539,7 @@ snapshots:
 
   node-releases@2.0.27: {}
 
-  node-type-registry@0.14.0:
+  node-type-registry@0.16.0:
     dependencies:
       '@babel/generator': 7.29.1
       '@babel/types': 7.29.0

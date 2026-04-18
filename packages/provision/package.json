@@ -16,9 +16,9 @@
     "provision": "tsx src/provision.ts"
   },
   "dependencies": {
-    "@constructive-io/node": "^0.10.0",
+    "@constructive-io/node": "^0.10.1",
     "dotenv": "^16.4.5",
-    "node-type-registry": "^0.14.0",
+    "node-type-registry": "^0.16.0",
     "pg": "^8.20.0"
   },
   "devDependencies": {
