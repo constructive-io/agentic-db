@@ -27,7 +27,7 @@
     "@pgpm/services": "^0.20.2"
   },
   "devDependencies": {
-    "pgsql-test": "^4.7.6"
+    "pgsql-test": "^4.9.0"
   },
   "gitHead": "6ee5d4d10a79a33b26fb3091bc60c51bac0ee78d"
 }
