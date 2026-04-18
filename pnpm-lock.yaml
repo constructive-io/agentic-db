@@ -147,7 +147,7 @@ importers:
         version: 0.20.2
     devDependencies:
       pgsql-test:
-        specifier: ^4.7.6
+        specifier: ^4.9.0
         version: 4.9.0
 
   packages/cli-e2e-tests:
@@ -159,7 +159,7 @@ importers:
         specifier: ^2.10.6
         version: 2.12.1(@dataplan/json@1.0.0-rc.6(grafast@1.0.0-rc.9(graphql@16.13.0)))(@dataplan/pg@1.0.0-rc.8(@dataplan/json@1.0.0-rc.6(grafast@1.0.0-rc.9(graphql@16.13.0)))(grafast@1.0.0-rc.9(graphql@16.13.0))(graphile-config@1.0.1)(graphql@16.13.0)(pg-sql2@5.0.0-rc.5)(pg@8.20.0))(@types/node@25.6.0)(grafast@1.0.0-rc.9(graphql@16.13.0))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(tamedevil@0.1.0-rc.6)(use-sync-external-store@1.6.0(react@19.2.5))(ws@8.20.0)
       pgsql-test:
-        specifier: ^4.7.6
+        specifier: ^4.9.0
         version: 4.9.0
 
   packages/export:
