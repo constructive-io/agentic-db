@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.2.2...@agentic-db/cli@1.3.0) (2026-04-18)
+
+### Bug Fixes
+
+- **cli:** use unifiedSearch instead of fullTextSearch (matches current SDK schema) ([81466ea](https://github.com/constructive-io/agentic-db/commit/81466ea9821595fc43dd6ad543dd5a57e68987e1))
+
+### Features
+
+- **provision:** add 5 RelationSpatial blueprint entries + ORM tests ([38aec8f](https://github.com/constructive-io/agentic-db/commit/38aec8fd651bee6bd41ffe325326327a9535ecdd)), closes [constructive-db#844](https://github.com/constructive-db/issues/844) [constructive#992](https://github.com/constructive/issues/992)
+
 ## [1.2.2](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.2.1...@agentic-db/cli@1.2.2) (2026-04-17)
 
 **Note:** Version bump only for package @agentic-db/cli
