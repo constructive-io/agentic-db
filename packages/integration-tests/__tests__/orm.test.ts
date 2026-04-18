@@ -18,7 +18,6 @@ import { getConnectionsObject, seed } from 'graphile-test';
 import type { GraphQLQueryFnObj } from 'graphile-test';
 import type { PgTestClient } from 'pgsql-test';
 import { ConstructivePreset } from 'graphile-settings';
-import { PostgisSpatialRelationsPlugin } from 'graphile-postgis';
 import { runCodegenAndLoad } from './helpers/codegen-helper';
 import { GraphileTestAdapter } from './helpers/graphile-adapter';
 
@@ -75,13 +74,6 @@ describe('ORM integration', () => {
         authRole: 'postgres',
         preset: {
           extends: [ConstructivePreset],
-          // Register the PostgisSpatialRelationsPlugin so the
-          // @spatialRelation smart tags seeded by spatial-relations.sql
-          // are exposed as cross-table filters on the `where:` input.
-          // ConstructivePreset bundles the scalar PostGIS filter
-          // operators but does not auto-enable cross-table spatial
-          // relations (that plugin is opt-in).
-          plugins: [PostgisSpatialRelationsPlugin],
         },
       },
       [
