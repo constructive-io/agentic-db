@@ -13,12 +13,12 @@
  */
 
 import type {
-  BlueprintDefinition,
-  BlueprintTable,
+  BlueprintDefinition as BaseBlueprintDefinition,
+  BlueprintTable as BaseBlueprintTable,
   BlueprintNode,
-  BlueprintRelation,
+  BlueprintRelation as BaseBlueprintRelation,
   BlueprintField,
-  BlueprintIndex,
+  BlueprintIndex as BaseBlueprintIndex,
   BlueprintFullTextSearch,
 } from 'node-type-registry';
 
@@ -29,16 +29,57 @@ import {
   type PlatformClient,
 } from './helpers';
 
-// Re-export blueprint types for consumers
-export type {
-  BlueprintDefinition,
-  BlueprintTable,
-  BlueprintNode,
-  BlueprintRelation,
-  BlueprintField,
-  BlueprintIndex,
-  BlueprintFullTextSearch,
+// ---------------------------------------------------------------------------
+// Blueprint types with client-side cross-ref support
+// ---------------------------------------------------------------------------
+//
+// The canonical node-type-registry blueprint shapes require concrete
+// table_name / source_table / target_table strings. In provision schemas we
+// want to declare tables and cross-references by a local ref ID so schemas
+// can be written in any order — provisionBlueprint then resolves
+// ref → table_name before sending to construct_blueprint.
+//
+// These extended types add ref / table_ref / source_ref / target_ref as
+// optional siblings of the canonical fields.
+
+export type BlueprintTable = BaseBlueprintTable & {
+  /** Client-side cross-ref ID; resolved to `table_name` by provisionBlueprint. */
+  ref?: string;
 };
+
+export type BlueprintIndex = Omit<BaseBlueprintIndex, 'table_name'> & {
+  table_name?: string;
+  /** Client-side cross-ref to a table by its `ref`; resolved to `table_name`. */
+  table_ref?: string;
+};
+
+type AddRelationRefs<T> = T extends {
+  source_table: string;
+  target_table: string;
+}
+  ? Omit<T, 'source_table' | 'target_table'> & {
+      source_table?: string;
+      target_table?: string;
+      /** Client-side cross-ref; resolved to `source_table` by provisionBlueprint. */
+      source_ref?: string;
+      /** Client-side cross-ref; resolved to `target_table` by provisionBlueprint. */
+      target_ref?: string;
+    }
+  : T;
+
+export type BlueprintRelation = AddRelationRefs<BaseBlueprintRelation>;
+
+export type BlueprintDefinition = Omit<
+  BaseBlueprintDefinition,
+  'tables' | 'relations' | 'indexes'
+> & {
+  tables: BlueprintTable[];
+  relations?: BlueprintRelation[];
+  indexes?: BlueprintIndex[];
+};
+
+// Re-export passthrough blueprint types for consumers
+export type { BlueprintNode, BlueprintField, BlueprintFullTextSearch };
 
 // ---------------------------------------------------------------------------
 // Shared constants — standard org-scoped table defaults
@@ -129,7 +170,7 @@ export async function provisionBlueprint(
   });
 
   const serverDef: Record<string, unknown> = {
-    tables: definition.tables.map((t) => ({
+    tables: definition.tables.map((t): Record<string, unknown> => ({
       ref: t.ref,
       table_name: t.table_name,
       nodes: t.nodes,
@@ -137,16 +178,16 @@ export async function provisionBlueprint(
       // Explicitly disable security — prevents construct_blueprint from
       // defaulting grant_roles to ['authenticated'] which would generate
       // invalid GRANT SQL when the grants array is empty.
-      grant_roles: [],
-      grants: [],
-      policies: [],
+      grant_roles: [] as string[],
+      grants: [] as unknown[],
+      policies: [] as unknown[],
       use_rls: false,
     })),
-    relations: resolvedRelations.map((r) => ({
+    relations: resolvedRelations.map((r): Record<string, unknown> => ({
       ...r,
-      grant_roles: [],
-      grant_privileges: [],
-      policies: [],
+      grant_roles: [] as string[],
+      grant_privileges: [] as unknown[],
+      policies: [] as unknown[],
     })),
     indexes: resolvedIndexes,
     full_text_searches: definition.full_text_searches ?? [],
