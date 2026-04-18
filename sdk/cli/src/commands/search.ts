@@ -1,8 +1,8 @@
 /**
  * CLI command: agentic-db search "<query>" [--tables contacts,notes,...]
  *
- * Performs hybrid search (vector + fullTextSearch) across agentic-db tables.
- * fullTextSearch dispatches to tsvector, BM25, and pg_trgm simultaneously;
+ * Performs hybrid search (vector + unifiedSearch) across agentic-db tables.
+ * unifiedSearch dispatches to tsvector, BM25, and pg_trgm simultaneously;
  * combined with vector similarity, searchScore reflects a true blended rank.
  */
 import { CLIOptions, Inquirerer } from 'inquirerer';
@@ -38,7 +38,7 @@ type SDKClient = ReturnType<typeof getClient>;
  * Build a hybrid search condition for ORM findMany queries.
  *
  * Combines vector similarity (cosine distance on embeddings) with
- * fullTextSearch — a composite filter that dispatches the raw query
+ * unifiedSearch — a composite filter that dispatches the raw query
  * string to tsvector, BM25, and pg_trgm simultaneously.  Rows matching
  * ANY text algorithm are returned and searchScore reflects a true blended
  * rank across all active signals.
@@ -53,7 +53,7 @@ const HYBRID_CONDITION = (query: string, queryEmbedding: number[]) => ({
       },
     },
     {
-      fullTextSearch: query,
+      unifiedSearch: query,
     },
   ],
 });

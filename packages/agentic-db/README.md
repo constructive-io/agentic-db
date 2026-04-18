@@ -132,7 +132,15 @@ It's all in one database, with vector + BM25 + full-text + trigram + PostGIS sea
 - **BM25** via `pg_textsearch` — statistical relevance ranking, not just similarity.
 - **Weighted FTS** — `A` / `B` / `C` weights per field so `name > headline > bio` naturally.
 - **Trigram fuzzy matching** for typo-tolerant name search.
-- **PostGIS spatial** on contacts, events, venues, places, memories, trips — "find memories within 5km of here" works out of the box.
+- **PostGIS spatial** on contacts, events, venues, places, memories, trips — `Point` geography columns auto-backed by a `GIST` index. Scalar filters (`bboxIntersects2D`, `isNull`) ship on every geom column today; single-table radius queries are a schema decision away.
+- **Cross-table spatial relations (`@spatialRelation`)** — FK-less spatial joins exposed as named `where:` filters. The blueprint ships 5 out of the box (see [`packages/provision/src/schemas/spatial-relations.ts`](packages/provision/src/schemas/spatial-relations.ts)):
+  - `memory.nearbyPlaces` — memories within N metres of any `place` (5 km default)
+  - `memory.nearbyContacts` — memories within N metres of any `contact` (2 km default)
+  - `trip.nearbyVenues` — trips whose `destination_geo` is within N metres of a `venue` (1 km default)
+  - `event.nearbyVenues` — events within N metres of a `venue`, no FK needed (500 m default)
+  - `memory.nearbyMemories` — self-join, "what else happened near this memory?" (1 km default)
+
+  All 5 use `st_dwithin` with a per-query `distance` param, so radius is a query-time input not a schema constant. Each renders server-side as an `EXISTS (… ST_DWithin(geo_a, geo_b, $distance) …)` subquery — zero GeoJSON on the wire.
 - **Chunked long-doc retrieval** on contacts and notes.
 
 ### 🌍 World model (context the agent needs to actually help you)
@@ -276,9 +284,41 @@ const results = await db.contact
     select: { id: true, firstName: true, searchScore: true },
   })
   .execute();
+
+// Unified search + cross-table PostGIS spatial filter, composed in one where:
+// "Memories whose content semantically matches 'conference keynote' AND are
+//  within 5 km of a place tagged as a market — return each with its
+//  relevance score and stored GeoJSON point, all in one round-trip."
+const ranked = await db.memory
+  .findMany({
+    where: {
+      unifiedSearch: 'conference keynote retrieval',
+      nearbyPlaces: {
+        distance: 5000, // metres — columns are geography so distance is metric
+        some: { category: { equalTo: 'market' } },
+      },
+    },
+    first: 10,
+    select: {
+      id: true,
+      title: true,
+      searchScore: true,
+      locationGeo: { select: { geojson: true, srid: true } },
+    },
+  })
+  .execute();
 ```
 
-Full ORM reference in the [`orm-default` skill](skills/orm-default/SKILL.md); integration tests in [`packages/integration-tests/__tests__/orm.test.ts`](packages/integration-tests/__tests__/orm.test.ts).
+The server compiles that into a single SQL statement: a `unified_search(...)` ranked CTE joined against an `EXISTS (… ST_DWithin(memory.location_geo, place.location_geo, 5000) …)` subquery. No GeoJSON goes over the wire on the spatial side, and the text-search score comes back as `searchScore`.
+
+That exact combined shape is exercised end-to-end by an integration test: [`packages/agentic-db/__tests__/unified-spatial-combined.test.ts`](__tests__/unified-spatial-combined.test.ts). It boots a real deploy of the agentic-db pgpm package, seeds three memories and two market-category places at known coordinates, runs the same `memory.findMany({ where: { unifiedSearch, nearbyPlaces } })` call through the generated SDK, and asserts that only the positive-match memory comes back with a non-null `searchScore`.
+
+Supporting single-axis coverage lives alongside:
+
+- **Spatial-only** — `nearbyPlaces` / `nearbyContacts` / `nearbyVenues` / `nearbyMemories` are each exercised in [`packages/integration-tests/__tests__/orm.test.ts`](../integration-tests/__tests__/orm.test.ts) under the `RelationSpatial via ORM` describe block (all 5 relations declared in the blueprint).
+- **Unified-search only** — `unifiedSearch` + `searchScore` ranking behavior is covered by [`packages/agentic-db/__tests__/rag-unified-search.test.ts`](__tests__/rag-unified-search.test.ts) against pre-baked `nomic-embed-text` fixtures (no Ollama required).
+
+Full ORM reference in the [`orm-default` skill](../../skills/orm-default/SKILL.md).
 
 ## Packages
 
