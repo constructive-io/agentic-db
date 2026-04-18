@@ -311,7 +311,14 @@ const ranked = await db.memory
 
 The server compiles that into a single SQL statement: a `unified_search(...)` ranked CTE joined against an `EXISTS (… ST_DWithin(memory.location_geo, place.location_geo, 5000) …)` subquery. No GeoJSON goes over the wire on the spatial side, and the text-search score comes back as `searchScore`.
 
-Full ORM reference in the [`orm-default` skill](skills/orm-default/SKILL.md); integration tests — including the cross-table spatial relations — live in [`packages/integration-tests/__tests__/orm.test.ts`](packages/integration-tests/__tests__/orm.test.ts) (`RelationSpatial via ORM` and `Unified Search` describe blocks).
+Each half of that example is exercised by an integration test:
+
+- **Spatial half** — the `nearbyPlaces: { distance, some: { … } }` filter shape is proven in [`packages/integration-tests/__tests__/orm.test.ts`](packages/integration-tests/__tests__/orm.test.ts) under the `RelationSpatial via ORM` describe block (5 cases covering all 5 spatial relations declared in the blueprint).
+- **Unified-search half** — the `unifiedSearch` filter field and `searchScore` ranking are proven in [`packages/agentic-db/__tests__/rag-unified-search.test.ts`](packages/agentic-db/__tests__/rag-unified-search.test.ts), against pre-baked `nomic-embed-text` fixtures so no Ollama instance is needed.
+
+The combined `where` shape above is valid against the exported GraphQL schema (see `unifiedSearch: String` on `MemoryFilter` in [`sdk/schemas/agentic-db.graphql`](sdk/schemas/agentic-db.graphql)) and is served end-to-end by the Constructive server plugin stack.
+
+Full ORM reference in the [`orm-default` skill](skills/orm-default/SKILL.md).
 
 ## Packages
 
