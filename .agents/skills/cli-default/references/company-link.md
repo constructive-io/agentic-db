@@ -88,7 +88,7 @@ EMBEDDER_PROVIDER=ollama agentic-db company-link update --embedding "new text to
 ### Search with pagination and field projection
 
 ```bash
-agentic-db company-link list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db company-link list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db company-link search "query" --limit 10 --select id,title,searchScore
 ```
 

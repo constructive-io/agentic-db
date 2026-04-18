@@ -71,7 +71,6 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       FindManyArgs<
         RuntimeStateDependencySelect,
         RuntimeStateDependencyFilter,
-        never,
         RuntimeStateDependencyOrderBy
       > & {
         select: RuntimeStateDependencySelect;
@@ -95,7 +94,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       dependencyId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<RuntimeStateDependencySelect, RuntimeStateDependencyFilter, never> & {
+      FindFirstArgs<RuntimeStateDependencySelect, RuntimeStateDependencyFilter> & {
         select: RuntimeStateDependencySelect;
       }
     >(argv, defaultSelect);

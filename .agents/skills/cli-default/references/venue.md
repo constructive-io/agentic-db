@@ -157,16 +157,16 @@ agentic-db venue list --where.trgmNotes.value "approximate query" --where.trgmNo
 agentic-db venue list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db venue list --where.fullTextSearch "search query" --select title,tsvRank,embeddingTextBm25Score,nameTrgmSimilarity,addressTrgmSimilarity,neighborhoodTrgmSimilarity,cityTrgmSimilarity,categoryTrgmSimilarity,statusTrgmSimilarity,googlePlaceIdTrgmSimilarity,priceLevelTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db venue list --where.unifiedSearch "search query" --select title,tsvRank,embeddingTextBm25Score,nameTrgmSimilarity,addressTrgmSimilarity,neighborhoodTrgmSimilarity,cityTrgmSimilarity,categoryTrgmSimilarity,statusTrgmSimilarity,googlePlaceIdTrgmSimilarity,priceLevelTrgmSimilarity,notesTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db venue list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db venue list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db venue search "query" --limit 10 --select id,title,searchScore
 ```
 

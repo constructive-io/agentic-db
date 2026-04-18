@@ -121,16 +121,16 @@ agentic-db memory list --where.trgmMood.value "approximate query" --where.trgmMo
 agentic-db memory list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db memory list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,contentTrgmSimilarity,locationTrgmSimilarity,moodTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db memory list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,contentTrgmSimilarity,locationTrgmSimilarity,moodTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db memory list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db memory list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db memory search "query" --limit 10 --select id,title,searchScore
 ```
 

@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class EmailRecipientModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EmailRecipientSelect>(
-    args: FindManyArgs<S, EmailRecipientFilter, never, EmailRecipientOrderBy> & {
+    args: FindManyArgs<S, EmailRecipientFilter, EmailRecipientOrderBy> & {
       select: S;
     } & StrictSelect<S, EmailRecipientSelect>
   ): QueryBuilder<{

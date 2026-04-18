@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_threads/table
 -- requires: schemas/agentic_db_app_public/tables/thread_participants/table
--- requires: schemas/agentic_db_app_public/tables/skill_tools/indexes/skill_tools_tool_definition_id_idx
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 ALTER TABLE agentic_db_app_public.thread_participants 

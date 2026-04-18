@@ -68,7 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       imageId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<EventImageSelect, EventImageFilter, never, EventImageOrderBy> & {
+      FindManyArgs<EventImageSelect, EventImageFilter, EventImageOrderBy> & {
         select: EventImageSelect;
       }
     >(argv, defaultSelect);
@@ -90,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       imageId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<EventImageSelect, EventImageFilter, never> & {
+      FindFirstArgs<EventImageSelect, EventImageFilter> & {
         select: EventImageSelect;
       }
     >(argv, defaultSelect);

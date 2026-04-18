@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class EventModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EventSelect>(
-    args: FindManyArgs<S, EventFilter, never, EventOrderBy> & {
+    args: FindManyArgs<S, EventFilter, EventOrderBy> & {
       select: S;
     } & StrictSelect<S, EventSelect>
   ): QueryBuilder<{

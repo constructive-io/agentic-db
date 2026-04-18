@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class SkillToolModel {
   constructor(private client: OrmClient) {}
   findMany<S extends SkillToolSelect>(
-    args: FindManyArgs<S, SkillToolFilter, never, SkillToolOrderBy> & {
+    args: FindManyArgs<S, SkillToolFilter, SkillToolOrderBy> & {
       select: S;
     } & StrictSelect<S, SkillToolSelect>
   ): QueryBuilder<{

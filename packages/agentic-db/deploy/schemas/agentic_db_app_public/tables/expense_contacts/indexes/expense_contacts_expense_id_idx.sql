@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/expense_contacts/table
 -- requires: schemas/agentic_db_app_public/tables/expense_contacts/columns/expense_id/column
--- requires: schemas/agentic_db_app_public/tables/calendar_event_contacts/indexes/calendar_event_contacts_contact_id_idx
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 CREATE INDEX expense_contacts_expense_id_idx ON agentic_db_app_public.expense_contacts USING BTREE ( expense_id );

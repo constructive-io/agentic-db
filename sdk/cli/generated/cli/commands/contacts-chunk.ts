@@ -91,7 +91,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       updatedAt: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<ContactsChunkSelect, ContactsChunkFilter, never, ContactsChunkOrderBy> & {
+      FindManyArgs<ContactsChunkSelect, ContactsChunkFilter, ContactsChunkOrderBy> & {
         select: ContactsChunkSelect;
       }
     >(argv, defaultSelect);
@@ -129,7 +129,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       updatedAt: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<ContactsChunkSelect, ContactsChunkFilter, never> & {
+      FindFirstArgs<ContactsChunkSelect, ContactsChunkFilter> & {
         select: ContactsChunkSelect;
       }
     >(argv, defaultSelect);
@@ -177,7 +177,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       updatedAt: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<ContactsChunkSelect, ContactsChunkFilter, never, ContactsChunkOrderBy> & {
+      FindManyArgs<ContactsChunkSelect, ContactsChunkFilter, ContactsChunkOrderBy> & {
         select: ContactsChunkSelect;
       }
     >(argv, defaultSelect, searchWhere);

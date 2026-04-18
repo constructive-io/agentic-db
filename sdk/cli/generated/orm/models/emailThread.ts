@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class EmailThreadModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EmailThreadSelect>(
-    args: FindManyArgs<S, EmailThreadFilter, never, EmailThreadOrderBy> & {
+    args: FindManyArgs<S, EmailThreadFilter, EmailThreadOrderBy> & {
       select: S;
     } & StrictSelect<S, EmailThreadSelect>
   ): QueryBuilder<{

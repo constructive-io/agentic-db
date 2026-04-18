@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ContactAddressModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ContactAddressSelect>(
-    args: FindManyArgs<S, ContactAddressFilter, never, ContactAddressOrderBy> & {
+    args: FindManyArgs<S, ContactAddressFilter, ContactAddressOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactAddressSelect>
   ): QueryBuilder<{

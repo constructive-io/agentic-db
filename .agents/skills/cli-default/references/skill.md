@@ -150,16 +150,16 @@ agentic-db skill list --where.trgmIntentTrigger.value "approximate query" --wher
 agentic-db skill list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db skill list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,categoryTrgmSimilarity,implementationTrgmSimilarity,intentTriggerTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db skill list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,nameTrgmSimilarity,descriptionTrgmSimilarity,categoryTrgmSimilarity,implementationTrgmSimilarity,intentTriggerTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db skill list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db skill list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db skill search "query" --limit 10 --select id,title,searchScore
 ```
 

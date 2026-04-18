@@ -68,7 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       noteId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<DealNoteSelect, DealNoteFilter, never, DealNoteOrderBy> & {
+      FindManyArgs<DealNoteSelect, DealNoteFilter, DealNoteOrderBy> & {
         select: DealNoteSelect;
       }
     >(argv, defaultSelect);
@@ -90,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       noteId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<DealNoteSelect, DealNoteFilter, never> & {
+      FindFirstArgs<DealNoteSelect, DealNoteFilter> & {
         select: DealNoteSelect;
       }
     >(argv, defaultSelect);

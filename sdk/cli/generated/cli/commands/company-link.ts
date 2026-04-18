@@ -91,7 +91,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       companyId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<CompanyLinkSelect, CompanyLinkFilter, never, CompanyLinkOrderBy> & {
+      FindManyArgs<CompanyLinkSelect, CompanyLinkFilter, CompanyLinkOrderBy> & {
         select: CompanyLinkSelect;
       }
     >(argv, defaultSelect);
@@ -129,7 +129,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       companyId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<CompanyLinkSelect, CompanyLinkFilter, never> & {
+      FindFirstArgs<CompanyLinkSelect, CompanyLinkFilter> & {
         select: CompanyLinkSelect;
       }
     >(argv, defaultSelect);
@@ -177,7 +177,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       companyId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<CompanyLinkSelect, CompanyLinkFilter, never, CompanyLinkOrderBy> & {
+      FindManyArgs<CompanyLinkSelect, CompanyLinkFilter, CompanyLinkOrderBy> & {
         select: CompanyLinkSelect;
       }
     >(argv, defaultSelect, searchWhere);

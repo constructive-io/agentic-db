@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/table
--- requires: schemas/agentic_db_app_public/tables/task_notes/indexes/task_notes_note_id_idx
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/columns/contact_id/column
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 CREATE INDEX contact_memories_contact_id_idx ON agentic_db_app_public.contact_memories USING BTREE ( contact_id );

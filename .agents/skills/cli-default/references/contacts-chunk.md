@@ -88,7 +88,7 @@ EMBEDDER_PROVIDER=ollama agentic-db contacts-chunk update --embedding "new text 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db contacts-chunk list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db contacts-chunk list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db contacts-chunk search "query" --limit 10 --select id,title,searchScore
 ```
 

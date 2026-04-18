@@ -86,7 +86,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       updatedAt: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<HabitSelect, HabitFilter, never, HabitOrderBy> & {
+      FindManyArgs<HabitSelect, HabitFilter, HabitOrderBy> & {
         select: HabitSelect;
       }
     >(argv, defaultSelect);
@@ -114,7 +114,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       updatedAt: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<HabitSelect, HabitFilter, never> & {
+      FindFirstArgs<HabitSelect, HabitFilter> & {
         select: HabitSelect;
       }
     >(argv, defaultSelect);

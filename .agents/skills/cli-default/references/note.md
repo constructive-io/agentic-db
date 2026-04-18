@@ -121,16 +121,16 @@ agentic-db note list --where.trgmOverview.value "approximate query" --where.trgm
 agentic-db note list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db note list --where.fullTextSearch "search query" --select title,contentBm25Score,embeddingTextBm25Score,contentTrgmSimilarity,abstractTrgmSimilarity,overviewTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db note list --where.unifiedSearch "search query" --select title,contentBm25Score,embeddingTextBm25Score,contentTrgmSimilarity,abstractTrgmSimilarity,overviewTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db note list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db note list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db note search "query" --limit 10 --select id,title,searchScore
 ```
 

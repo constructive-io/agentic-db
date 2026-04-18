@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class AgentCollaboratorModel {
   constructor(private client: OrmClient) {}
   findMany<S extends AgentCollaboratorSelect>(
-    args: FindManyArgs<S, AgentCollaboratorFilter, never, AgentCollaboratorOrderBy> & {
+    args: FindManyArgs<S, AgentCollaboratorFilter, AgentCollaboratorOrderBy> & {
       select: S;
     } & StrictSelect<S, AgentCollaboratorSelect>
   ): QueryBuilder<{

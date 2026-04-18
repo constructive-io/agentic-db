@@ -107,7 +107,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       embeddingStale: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<EmailThreadSelect, EmailThreadFilter, never, EmailThreadOrderBy> & {
+      FindManyArgs<EmailThreadSelect, EmailThreadFilter, EmailThreadOrderBy> & {
         select: EmailThreadSelect;
       }
     >(argv, defaultSelect);
@@ -149,7 +149,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       embeddingStale: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<EmailThreadSelect, EmailThreadFilter, never> & {
+      FindFirstArgs<EmailThreadSelect, EmailThreadFilter> & {
         select: EmailThreadSelect;
       }
     >(argv, defaultSelect);
@@ -227,7 +227,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       embeddingStale: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<EmailThreadSelect, EmailThreadFilter, never, EmailThreadOrderBy> & {
+      FindManyArgs<EmailThreadSelect, EmailThreadFilter, EmailThreadOrderBy> & {
         select: EmailThreadSelect;
       }
     >(argv, defaultSelect, searchWhere);

@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
-CREATE FUNCTION "agentic_db_private".contacts_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_private.contacts_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
   new.embedding_stale := true;
   new.embedding := NULL;

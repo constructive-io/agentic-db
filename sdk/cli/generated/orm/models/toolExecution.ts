@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ToolExecutionModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ToolExecutionSelect>(
-    args: FindManyArgs<S, ToolExecutionFilter, never, ToolExecutionOrderBy> & {
+    args: FindManyArgs<S, ToolExecutionFilter, ToolExecutionOrderBy> & {
       select: S;
     } & StrictSelect<S, ToolExecutionSelect>
   ): QueryBuilder<{

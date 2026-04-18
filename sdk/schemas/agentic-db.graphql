@@ -942,6 +942,24 @@ enum EmailOrderBy {
   EMBEDDING_STALE_DESC
   EMAIL_THREAD_ID_ASC
   EMAIL_THREAD_ID_DESC
+  SEARCH_TSV_RANK_ASC
+  SEARCH_TSV_RANK_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_ASC
+  PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_DESC
+  SUBJECT_TRGM_SIMILARITY_ASC
+  SUBJECT_TRGM_SIMILARITY_DESC
+  BODY_TEXT_TRGM_SIMILARITY_ASC
+  BODY_TEXT_TRGM_SIMILARITY_DESC
+  BODY_HTML_TRGM_SIMILARITY_ASC
+  BODY_HTML_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
 }
 
 "Methods to use when ordering `EmailRecipient`."
@@ -9450,6 +9468,24 @@ type Email {
     "The method to use when ordering `EmailNote`."
     orderBy: [EmailNoteOrderBy!] = [NATURAL]
   ): EmailNoteConnection!
+  "TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active."
+  searchTsvRank: Float
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `providerMessageId`. Returns null when no trgm search filter is active."
+  providerMessageIdTrgmSimilarity: Float
+  "TRGM similarity when searching `subject`. Returns null when no trgm search filter is active."
+  subjectTrgmSimilarity: Float
+  "TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active."
+  bodyTextTrgmSimilarity: Float
+  "TRGM similarity when searching `bodyHtml`. Returns null when no trgm search filter is active."
+  bodyHtmlTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
 }
 
 type EmailAttachment {
@@ -23819,7 +23855,7 @@ input EmailAttachmentPatch {
 "A filter to be used against `Email` object types. All fields are combined with a logical ‘and.’"
 input EmailFilter {
   "Filter by the object’s `providerMessageId` field."
-  providerMessageId: StringFilter
+  providerMessageId: StringTrgmFilter
   "Filter by the object’s `fromContactId` field."
   fromContactId: UUIDFilter
   "Filter by the object’s `to` field."
@@ -23829,11 +23865,11 @@ input EmailFilter {
   "Filter by the object’s `bcc` field."
   bcc: JSONFilter
   "Filter by the object’s `subject` field."
-  subject: StringFilter
+  subject: StringTrgmFilter
   "Filter by the object’s `bodyText` field."
-  bodyText: StringFilter
+  bodyText: StringTrgmFilter
   "Filter by the object’s `bodyHtml` field."
-  bodyHtml: StringFilter
+  bodyHtml: StringTrgmFilter
   "Filter by the object’s `sentAt` field."
   sentAt: DatetimeFilter
   "Filter by the object’s `tags` field."
@@ -23845,7 +23881,7 @@ input EmailFilter {
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
   "Filter by the object’s `embeddingText` field."
-  embeddingText: StringFilter
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -23878,6 +23914,29 @@ input EmailFilter {
   emailNotes: EmailToManyEmailNoteFilter
   "`emailNotes` exist."
   emailNotesExist: Boolean
+  "TSV search on the `search_tsv` column."
+  tsvSearchTsv: String
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `provider_message_id` column."
+  trgmProviderMessageId: TrgmSearchInput
+  "TRGM search on the `subject` column."
+  trgmSubject: TrgmSearchInput
+  "TRGM search on the `body_text` column."
+  trgmBodyText: TrgmSearchInput
+  "TRGM search on the `body_html` column."
+  trgmBodyHtml: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite unified search. Provide a search string and it will be dispatched to
+  all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  unifiedSearch: String
 }
 
 "An input for mutations affecting `Email`"
@@ -24193,6 +24252,8 @@ input EventFilter {
   eventNotes: EventToManyEventNoteFilter
   "`eventNotes` exist."
   eventNotesExist: Boolean
+  "Filter by rows from `Venue` related to this row via `st_dwithin`."
+  nearbyVenues: EventSpatialNearbyVenuesFilter
   "TSV search on the `search_tsv` column."
   tsvSearchTsv: String
   "BM25 search on the `embedding_text` column."
@@ -24360,6 +24421,18 @@ input EventPatch {
   embedding: Vector
   embeddingStale: Boolean
   locationGeo: GeoJSON
+}
+
+"A filter on `Venue` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’."
+input EventSpatialNearbyVenuesFilter {
+  "Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry)."
+  distance: Float!
+  "Filters to entities where at least one spatially-related entity matches."
+  some: VenueFilter
+  "Filters to entities where every spatially-related entity matches."
+  every: VenueFilter
+  "Filters to entities where no spatially-related entity matches."
+  none: VenueFilter
 }
 
 "A filter to be used against many `CompanyEvent` object types. All fields are combined with a logical ‘and.’"
@@ -25251,6 +25324,12 @@ input MemoryFilter {
   companyMemories: MemoryToManyCompanyMemoryFilter
   "`companyMemories` exist."
   companyMemoriesExist: Boolean
+  "Filter by rows from `Contact` related to this row via `st_dwithin`."
+  nearbyContacts: MemorySpatialNearbyContactsFilter
+  "Filter by rows from `Memory` related to this row via `st_dwithin`."
+  nearbyMemories: MemorySpatialNearbyMemoriesFilter
+  "Filter by rows from `Place` related to this row via `st_dwithin`."
+  nearbyPlaces: MemorySpatialNearbyPlacesFilter
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -25308,6 +25387,42 @@ input MemoryPatch {
   embeddingStale: Boolean
   locationGeo: GeoJSON
   agentId: UUID
+}
+
+"A filter on `Contact` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’."
+input MemorySpatialNearbyContactsFilter {
+  "Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry)."
+  distance: Float!
+  "Filters to entities where at least one spatially-related entity matches."
+  some: ContactFilter
+  "Filters to entities where every spatially-related entity matches."
+  every: ContactFilter
+  "Filters to entities where no spatially-related entity matches."
+  none: ContactFilter
+}
+
+"A filter on `Memory` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’."
+input MemorySpatialNearbyMemoriesFilter {
+  "Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry)."
+  distance: Float!
+  "Filters to entities where at least one spatially-related entity matches."
+  some: MemoryFilter
+  "Filters to entities where every spatially-related entity matches."
+  every: MemoryFilter
+  "Filters to entities where no spatially-related entity matches."
+  none: MemoryFilter
+}
+
+"A filter on `Place` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’."
+input MemorySpatialNearbyPlacesFilter {
+  "Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry)."
+  distance: Float!
+  "Filters to entities where at least one spatially-related entity matches."
+  some: PlaceFilter
+  "Filters to entities where every spatially-related entity matches."
+  every: PlaceFilter
+  "Filters to entities where no spatially-related entity matches."
+  none: PlaceFilter
 }
 
 "A filter to be used against many `CompanyMemory` object types. All fields are combined with a logical ‘and.’"
@@ -28020,6 +28135,8 @@ input TripFilter {
   expenses: TripToManyExpenseFilter
   "`expenses` exist."
   expensesExist: Boolean
+  "Filter by rows from `Venue` related to this row via `st_dwithin`."
+  nearbyVenues: TripSpatialNearbyVenuesFilter
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -28073,6 +28190,18 @@ input TripPatch {
   embedding: Vector
   embeddingStale: Boolean
   destinationGeo: GeoJSON
+}
+
+"A filter on `Venue` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’."
+input TripSpatialNearbyVenuesFilter {
+  "Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry)."
+  distance: Float!
+  "Filters to entities where at least one spatially-related entity matches."
+  some: VenueFilter
+  "Filters to entities where every spatially-related entity matches."
+  every: VenueFilter
+  "Filters to entities where no spatially-related entity matches."
+  none: VenueFilter
 }
 
 "A filter to be used against many `Expense` object types. All fields are combined with a logical ‘and.’"

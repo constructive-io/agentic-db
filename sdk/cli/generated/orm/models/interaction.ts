@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class InteractionModel {
   constructor(private client: OrmClient) {}
   findMany<S extends InteractionSelect>(
-    args: FindManyArgs<S, InteractionFilter, never, InteractionOrderBy> & {
+    args: FindManyArgs<S, InteractionFilter, InteractionOrderBy> & {
       select: S;
     } & StrictSelect<S, InteractionSelect>
   ): QueryBuilder<{

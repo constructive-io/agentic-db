@@ -117,7 +117,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       agentId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<RuleSelect, RuleFilter, never, RuleOrderBy> & {
+      FindManyArgs<RuleSelect, RuleFilter, RuleOrderBy> & {
         select: RuleSelect;
       }
     >(argv, defaultSelect);
@@ -168,7 +168,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       agentId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<RuleSelect, RuleFilter, never> & {
+      FindFirstArgs<RuleSelect, RuleFilter> & {
         select: RuleSelect;
       }
     >(argv, defaultSelect);
@@ -255,7 +255,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       agentId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<RuleSelect, RuleFilter, never, RuleOrderBy> & {
+      FindManyArgs<RuleSelect, RuleFilter, RuleOrderBy> & {
         select: RuleSelect;
       }
     >(argv, defaultSelect, searchWhere);

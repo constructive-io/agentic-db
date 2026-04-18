@@ -88,7 +88,7 @@ EMBEDDER_PROVIDER=ollama agentic-db image update --embedding "new text to embed"
 ### Search with pagination and field projection
 
 ```bash
-agentic-db image list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db image list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db image search "query" --limit 10 --select id,title,searchScore
 ```
 

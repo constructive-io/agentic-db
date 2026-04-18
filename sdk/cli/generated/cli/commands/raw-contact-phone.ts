@@ -88,7 +88,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       rawContactId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<RawContactPhoneSelect, RawContactPhoneFilter, never, RawContactPhoneOrderBy> & {
+      FindManyArgs<RawContactPhoneSelect, RawContactPhoneFilter, RawContactPhoneOrderBy> & {
         select: RawContactPhoneSelect;
       }
     >(argv, defaultSelect);
@@ -117,7 +117,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       rawContactId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<RawContactPhoneSelect, RawContactPhoneFilter, never> & {
+      FindFirstArgs<RawContactPhoneSelect, RawContactPhoneFilter> & {
         select: RawContactPhoneSelect;
       }
     >(argv, defaultSelect);

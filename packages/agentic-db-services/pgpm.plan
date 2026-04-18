@@ -14,3 +14,6 @@ migrate/primary_key_constraint [migrate/foreign_key_constraint] 2017-08-11T08:11
 migrate/full_text_search [migrate/primary_key_constraint] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
 migrate/schema_grant [migrate/full_text_search] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
 migrate/default_privilege [migrate/schema_grant] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/domains [migrate/default_privilege] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/apis [migrate/domains] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/api_schemas [migrate/apis] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined

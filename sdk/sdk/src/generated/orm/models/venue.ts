@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class VenueModel {
   constructor(private client: OrmClient) {}
   findMany<S extends VenueSelect>(
-    args: FindManyArgs<S, VenueFilter, never, VenueOrderBy> & {
+    args: FindManyArgs<S, VenueFilter, VenueOrderBy> & {
       select: S;
     } & StrictSelect<S, VenueSelect>
   ): QueryBuilder<{

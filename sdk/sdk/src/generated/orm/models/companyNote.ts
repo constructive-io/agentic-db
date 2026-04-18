@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class CompanyNoteModel {
   constructor(private client: OrmClient) {}
   findMany<S extends CompanyNoteSelect>(
-    args: FindManyArgs<S, CompanyNoteFilter, never, CompanyNoteOrderBy> & {
+    args: FindManyArgs<S, CompanyNoteFilter, CompanyNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanyNoteSelect>
   ): QueryBuilder<{

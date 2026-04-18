@@ -71,7 +71,6 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       FindManyArgs<
         AutonomyRecordLinkSelect,
         AutonomyRecordLinkFilter,
-        never,
         AutonomyRecordLinkOrderBy
       > & {
         select: AutonomyRecordLinkSelect;
@@ -95,7 +94,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       targetRecordId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<AutonomyRecordLinkSelect, AutonomyRecordLinkFilter, never> & {
+      FindFirstArgs<AutonomyRecordLinkSelect, AutonomyRecordLinkFilter> & {
         select: AutonomyRecordLinkSelect;
       }
     >(argv, defaultSelect);

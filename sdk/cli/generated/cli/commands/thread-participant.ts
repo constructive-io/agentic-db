@@ -68,12 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       contactId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<
-        ThreadParticipantSelect,
-        ThreadParticipantFilter,
-        never,
-        ThreadParticipantOrderBy
-      > & {
+      FindManyArgs<ThreadParticipantSelect, ThreadParticipantFilter, ThreadParticipantOrderBy> & {
         select: ThreadParticipantSelect;
       }
     >(argv, defaultSelect);
@@ -95,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       contactId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<ThreadParticipantSelect, ThreadParticipantFilter, never> & {
+      FindFirstArgs<ThreadParticipantSelect, ThreadParticipantFilter> & {
         select: ThreadParticipantSelect;
       }
     >(argv, defaultSelect);

@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RuntimeLogModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuntimeLogSelect>(
-    args: FindManyArgs<S, RuntimeLogFilter, never, RuntimeLogOrderBy> & {
+    args: FindManyArgs<S, RuntimeLogFilter, RuntimeLogOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeLogSelect>
   ): QueryBuilder<{

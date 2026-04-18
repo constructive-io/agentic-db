@@ -115,16 +115,16 @@ agentic-db interaction list --where.trgmSentiment.value "approximate query" --wh
 agentic-db interaction list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db interaction list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,typeTrgmSimilarity,summaryTrgmSimilarity,sentimentTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db interaction list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,typeTrgmSimilarity,summaryTrgmSimilarity,sentimentTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db interaction list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db interaction list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db interaction search "query" --limit 10 --select id,title,searchScore
 ```
 

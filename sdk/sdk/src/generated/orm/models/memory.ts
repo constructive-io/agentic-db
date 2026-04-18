@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class MemoryModel {
   constructor(private client: OrmClient) {}
   findMany<S extends MemorySelect>(
-    args: FindManyArgs<S, MemoryFilter, never, MemoryOrderBy> & {
+    args: FindManyArgs<S, MemoryFilter, MemoryOrderBy> & {
       select: S;
     } & StrictSelect<S, MemorySelect>
   ): QueryBuilder<{

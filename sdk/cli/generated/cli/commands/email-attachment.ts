@@ -88,7 +88,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       emailId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<EmailAttachmentSelect, EmailAttachmentFilter, never, EmailAttachmentOrderBy> & {
+      FindManyArgs<EmailAttachmentSelect, EmailAttachmentFilter, EmailAttachmentOrderBy> & {
         select: EmailAttachmentSelect;
       }
     >(argv, defaultSelect);
@@ -117,7 +117,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       emailId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<EmailAttachmentSelect, EmailAttachmentFilter, never> & {
+      FindFirstArgs<EmailAttachmentSelect, EmailAttachmentFilter> & {
         select: EmailAttachmentSelect;
       }
     >(argv, defaultSelect);

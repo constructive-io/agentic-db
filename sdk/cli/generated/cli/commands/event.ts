@@ -116,7 +116,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       locationGeo: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<EventSelect, EventFilter, never, EventOrderBy> & {
+      FindManyArgs<EventSelect, EventFilter, EventOrderBy> & {
         select: EventSelect;
       }
     >(argv, defaultSelect);
@@ -162,7 +162,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       locationGeo: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<EventSelect, EventFilter, never> & {
+      FindFirstArgs<EventSelect, EventFilter> & {
         select: EventSelect;
       }
     >(argv, defaultSelect);
@@ -248,7 +248,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       locationGeo: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<EventSelect, EventFilter, never, EventOrderBy> & {
+      FindManyArgs<EventSelect, EventFilter, EventOrderBy> & {
         select: EventSelect;
       }
     >(argv, defaultSelect, searchWhere);

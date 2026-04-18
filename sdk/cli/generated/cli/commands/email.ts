@@ -34,6 +34,15 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   embeddingStale: 'boolean',
   emailThreadId: 'uuid',
+  searchTsvRank: 'float',
+  embeddingTextBm25Score: 'float',
+  embeddingVectorDistance: 'float',
+  providerMessageIdTrgmSimilarity: 'float',
+  subjectTrgmSimilarity: 'float',
+  bodyTextTrgmSimilarity: 'float',
+  bodyHtmlTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 import { resolveEmbedder, autoEmbedWhere, autoEmbedInput } from '../embedder';
 const usage =
@@ -108,7 +117,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       emailThreadId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<EmailSelect, EmailFilter, never, EmailOrderBy> & {
+      FindManyArgs<EmailSelect, EmailFilter, EmailOrderBy> & {
         select: EmailSelect;
       }
     >(argv, defaultSelect);
@@ -155,7 +164,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       emailThreadId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<EmailSelect, EmailFilter, never> & {
+      FindFirstArgs<EmailSelect, EmailFilter> & {
         select: EmailSelect;
       }
     >(argv, defaultSelect);
@@ -183,6 +192,29 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       },
       searchTsv: {
         query,
+      },
+      bm25EmbeddingText: {
+        query,
+      },
+      trgmProviderMessageId: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmSubject: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmBodyText: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmBodyHtml: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmEmbeddingText: {
+        value: query,
+        threshold: 0.3,
       },
     };
     if (argv['auto-embed']) {
@@ -215,7 +247,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       emailThreadId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<EmailSelect, EmailFilter, never, EmailOrderBy> & {
+      FindManyArgs<EmailSelect, EmailFilter, EmailOrderBy> & {
         select: EmailSelect;
       }
     >(argv, defaultSelect, searchWhere);

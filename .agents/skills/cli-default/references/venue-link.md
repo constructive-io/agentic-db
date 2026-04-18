@@ -88,7 +88,7 @@ EMBEDDER_PROVIDER=ollama agentic-db venue-link update --embedding "new text to e
 ### Search with pagination and field projection
 
 ```bash
-agentic-db venue-link list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db venue-link list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db venue-link search "query" --limit 10 --select id,title,searchScore
 ```
 

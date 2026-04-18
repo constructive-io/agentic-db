@@ -88,7 +88,7 @@ EMBEDDER_PROVIDER=ollama agentic-db event-link update --embedding "new text to e
 ### Search with pagination and field projection
 
 ```bash
-agentic-db event-link list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db event-link list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db event-link search "query" --limit 10 --select id,title,searchScore
 ```
 

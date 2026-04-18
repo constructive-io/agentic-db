@@ -109,16 +109,16 @@ agentic-db conversation list --where.trgmStatus.value "approximate query" --wher
 agentic-db conversation list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
 ```
 
-### Composite search (fullTextSearch dispatches to all text adapters)
+### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db conversation list --where.fullTextSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db conversation list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,statusTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection
 
 ```bash
-agentic-db conversation list --where.fullTextSearch "query" --limit 10 --select id,title,searchScore
+agentic-db conversation list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
 agentic-db conversation search "query" --limit 10 --select id,title,searchScore
 ```
 

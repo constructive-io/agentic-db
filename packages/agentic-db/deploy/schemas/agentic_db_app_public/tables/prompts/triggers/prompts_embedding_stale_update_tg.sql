@@ -12,5 +12,5 @@ CREATE TRIGGER prompts_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.prompts
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.content IS DISTINCT FROM NEW.content)
-EXECUTE PROCEDURE "agentic_db_private".prompts_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.prompts_embedding_stale ( );
 

@@ -68,7 +68,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       noteId: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<TaskNoteSelect, TaskNoteFilter, never, TaskNoteOrderBy> & {
+      FindManyArgs<TaskNoteSelect, TaskNoteFilter, TaskNoteOrderBy> & {
         select: TaskNoteSelect;
       }
     >(argv, defaultSelect);
@@ -90,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       noteId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<TaskNoteSelect, TaskNoteFilter, never> & {
+      FindFirstArgs<TaskNoteSelect, TaskNoteFilter> & {
         select: TaskNoteSelect;
       }
     >(argv, defaultSelect);

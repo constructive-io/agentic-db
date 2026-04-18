@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/emails/table
 -- requires: schemas/agentic_db_app_public/tables/emails/columns/from_contact_id/column
--- requires: schemas/agentic_db_app_public/tables/activity_logs/indexes/activity_logs_habit_id_idx
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 CREATE INDEX emails_from_contact_id_idx ON agentic_db_app_public.emails USING BTREE ( from_contact_id );

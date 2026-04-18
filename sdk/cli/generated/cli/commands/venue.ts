@@ -128,7 +128,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       location: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<VenueSelect, VenueFilter, never, VenueOrderBy> & {
+      FindManyArgs<VenueSelect, VenueFilter, VenueOrderBy> & {
         select: VenueSelect;
       }
     >(argv, defaultSelect);
@@ -178,7 +178,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       location: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<VenueSelect, VenueFilter, never> & {
+      FindFirstArgs<VenueSelect, VenueFilter> & {
         select: VenueSelect;
       }
     >(argv, defaultSelect);
@@ -284,7 +284,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       location: true,
     };
     const findManyArgs = parseFindManyArgs<
-      FindManyArgs<VenueSelect, VenueFilter, never, VenueOrderBy> & {
+      FindManyArgs<VenueSelect, VenueFilter, VenueOrderBy> & {
         select: VenueSelect;
       }
     >(argv, defaultSelect, searchWhere);

@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class TouchpointModel {
   constructor(private client: OrmClient) {}
   findMany<S extends TouchpointSelect>(
-    args: FindManyArgs<S, TouchpointFilter, never, TouchpointOrderBy> & {
+    args: FindManyArgs<S, TouchpointFilter, TouchpointOrderBy> & {
       select: S;
     } & StrictSelect<S, TouchpointSelect>
   ): QueryBuilder<{

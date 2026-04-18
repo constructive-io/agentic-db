@@ -802,6 +802,24 @@ export interface Email {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   emailThreadId?: string | null;
+  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
+  searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `providerMessageId`. Returns null when no trgm search filter is active. */
+  providerMessageIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
+  subjectTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active. */
+  bodyTextTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `bodyHtml`. Returns null when no trgm search filter is active. */
+  bodyHtmlTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface EmailThread {
   providerThreadId?: string | null;
@@ -3598,6 +3616,15 @@ export type EmailSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   emailThreadId?: boolean;
+  searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  providerMessageIdTrgmSimilarity?: boolean;
+  subjectTrgmSimilarity?: boolean;
+  bodyTextTrgmSimilarity?: boolean;
+  bodyHtmlTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
   emailThread?: {
     select: EmailThreadSelect;
   };
@@ -5961,6 +5988,8 @@ export interface EventFilter {
   eventNotes?: EventToManyEventNoteFilter;
   /** `eventNotes` exist. */
   eventNotesExist?: boolean;
+  /** Filter by rows from `Venue` related to this row via `st_dwithin`. */
+  nearbyVenues?: EventSpatialNearbyVenuesFilter;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -6138,6 +6167,12 @@ export interface MemoryFilter {
   companyMemories?: MemoryToManyCompanyMemoryFilter;
   /** `companyMemories` exist. */
   companyMemoriesExist?: boolean;
+  /** Filter by rows from `Contact` related to this row via `st_dwithin`. */
+  nearbyContacts?: MemorySpatialNearbyContactsFilter;
+  /** Filter by rows from `Memory` related to this row via `st_dwithin`. */
+  nearbyMemories?: MemorySpatialNearbyMemoriesFilter;
+  /** Filter by rows from `Place` related to this row via `st_dwithin`. */
+  nearbyPlaces?: MemorySpatialNearbyPlacesFilter;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -6266,7 +6301,7 @@ export interface ContactEmailFilter {
 }
 export interface EmailFilter {
   /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringFilter;
+  providerMessageId?: StringTrgmFilter;
   /** Filter by the object’s `fromContactId` field. */
   fromContactId?: UUIDFilter;
   /** Filter by the object’s `to` field. */
@@ -6276,11 +6311,11 @@ export interface EmailFilter {
   /** Filter by the object’s `bcc` field. */
   bcc?: JSONFilter;
   /** Filter by the object’s `subject` field. */
-  subject?: StringFilter;
+  subject?: StringTrgmFilter;
   /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringFilter;
+  bodyText?: StringTrgmFilter;
   /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringFilter;
+  bodyHtml?: StringTrgmFilter;
   /** Filter by the object’s `sentAt` field. */
   sentAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
@@ -6292,7 +6327,7 @@ export interface EmailFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringFilter;
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -6325,6 +6360,29 @@ export interface EmailFilter {
   emailNotes?: EmailToManyEmailNoteFilter;
   /** `emailNotes` exist. */
   emailNotesExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_message_id` column. */
+  trgmProviderMessageId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `body_text` column. */
+  trgmBodyText?: TrgmSearchInput;
+  /** TRGM search on the `body_html` column. */
+  trgmBodyHtml?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 export interface EmailThreadFilter {
   /** Filter by the object’s `providerThreadId` field. */
@@ -8248,6 +8306,8 @@ export interface TripFilter {
   expenses?: TripToManyExpenseFilter;
   /** `expenses` exist. */
   expensesExist?: boolean;
+  /** Filter by rows from `Venue` related to this row via `st_dwithin`. */
+  nearbyVenues?: TripSpatialNearbyVenuesFilter;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -9198,7 +9258,25 @@ export type EmailOrderBy =
   | 'EMBEDDING_STALE_ASC'
   | 'EMBEDDING_STALE_DESC'
   | 'EMAIL_THREAD_ID_ASC'
-  | 'EMAIL_THREAD_ID_DESC';
+  | 'EMAIL_THREAD_ID_DESC'
+  | 'SEARCH_TSV_RANK_ASC'
+  | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_ASC'
+  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_DESC'
+  | 'SUBJECT_TRGM_SIMILARITY_ASC'
+  | 'SUBJECT_TRGM_SIMILARITY_DESC'
+  | 'BODY_TEXT_TRGM_SIMILARITY_ASC'
+  | 'BODY_TEXT_TRGM_SIMILARITY_DESC'
+  | 'BODY_HTML_TRGM_SIMILARITY_ASC'
+  | 'BODY_HTML_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type EmailThreadOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -14125,6 +14203,17 @@ export interface EventToManyEventNoteFilter {
   /** Filters to entities where no related entity matches. */
   none?: EventNoteFilter;
 }
+/** A filter on `Venue` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’. */
+export interface EventSpatialNearbyVenuesFilter {
+  /** Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry). */
+  distance: number;
+  /** Filters to entities where at least one spatially-related entity matches. */
+  some?: VenueFilter;
+  /** Filters to entities where every spatially-related entity matches. */
+  every?: VenueFilter;
+  /** Filters to entities where no spatially-related entity matches. */
+  none?: VenueFilter;
+}
 /** A filter to be used against many `Contact` object types. All fields are combined with a logical ‘and.’ */
 export interface ImageToManyContactFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14214,6 +14303,39 @@ export interface MemoryToManyCompanyMemoryFilter {
   every?: CompanyMemoryFilter;
   /** Filters to entities where no related entity matches. */
   none?: CompanyMemoryFilter;
+}
+/** A filter on `Contact` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’. */
+export interface MemorySpatialNearbyContactsFilter {
+  /** Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry). */
+  distance: number;
+  /** Filters to entities where at least one spatially-related entity matches. */
+  some?: ContactFilter;
+  /** Filters to entities where every spatially-related entity matches. */
+  every?: ContactFilter;
+  /** Filters to entities where no spatially-related entity matches. */
+  none?: ContactFilter;
+}
+/** A filter on `Memory` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’. */
+export interface MemorySpatialNearbyMemoriesFilter {
+  /** Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry). */
+  distance: number;
+  /** Filters to entities where at least one spatially-related entity matches. */
+  some?: MemoryFilter;
+  /** Filters to entities where every spatially-related entity matches. */
+  every?: MemoryFilter;
+  /** Filters to entities where no spatially-related entity matches. */
+  none?: MemoryFilter;
+}
+/** A filter on `Place` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’. */
+export interface MemorySpatialNearbyPlacesFilter {
+  /** Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry). */
+  distance: number;
+  /** Filters to entities where at least one spatially-related entity matches. */
+  some?: PlaceFilter;
+  /** Filters to entities where every spatially-related entity matches. */
+  every?: PlaceFilter;
+  /** Filters to entities where no spatially-related entity matches. */
+  none?: PlaceFilter;
 }
 /** A filter to be used against many `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailToManyEmailAttachmentFilter {
@@ -14466,6 +14588,17 @@ export interface TripToManyExpenseFilter {
   every?: ExpenseFilter;
   /** Filters to entities where no related entity matches. */
   none?: ExpenseFilter;
+}
+/** A filter on `Venue` rows spatially related to the current row via `st_dwithin`. All fields are combined with a logical ‘and’. */
+export interface TripSpatialNearbyVenuesFilter {
+  /** Parametric argument for st_dwithin (units: meters for geography, SRID units for geometry). */
+  distance: number;
+  /** Filters to entities where at least one spatially-related entity matches. */
+  some?: VenueFilter;
+  /** Filters to entities where every spatially-related entity matches. */
+  every?: VenueFilter;
+  /** Filters to entities where no spatially-related entity matches. */
+  none?: VenueFilter;
 }
 /** Similarity metric for vector search */
 export type VectorMetric = 'COSINE' | 'L2' | 'IP';
@@ -14806,6 +14939,12 @@ export interface MemoryFilter {
   companyMemories?: MemoryToManyCompanyMemoryFilter;
   /** `companyMemories` exist. */
   companyMemoriesExist?: boolean;
+  /** Filter by rows from `Contact` related to this row via `st_dwithin`. */
+  nearbyContacts?: MemorySpatialNearbyContactsFilter;
+  /** Filter by rows from `Memory` related to this row via `st_dwithin`. */
+  nearbyMemories?: MemorySpatialNearbyMemoriesFilter;
+  /** Filter by rows from `Place` related to this row via `st_dwithin`. */
+  nearbyPlaces?: MemorySpatialNearbyPlacesFilter;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -15397,7 +15536,7 @@ export interface ContactRelationshipFilter {
 /** A filter to be used against `Email` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailFilter {
   /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringFilter;
+  providerMessageId?: StringTrgmFilter;
   /** Filter by the object’s `fromContactId` field. */
   fromContactId?: UUIDFilter;
   /** Filter by the object’s `to` field. */
@@ -15407,11 +15546,11 @@ export interface EmailFilter {
   /** Filter by the object’s `bcc` field. */
   bcc?: JSONFilter;
   /** Filter by the object’s `subject` field. */
-  subject?: StringFilter;
+  subject?: StringTrgmFilter;
   /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringFilter;
+  bodyText?: StringTrgmFilter;
   /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringFilter;
+  bodyHtml?: StringTrgmFilter;
   /** Filter by the object’s `sentAt` field. */
   sentAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
@@ -15423,7 +15562,7 @@ export interface EmailFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringFilter;
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -15456,6 +15595,29 @@ export interface EmailFilter {
   emailNotes?: EmailToManyEmailNoteFilter;
   /** `emailNotes` exist. */
   emailNotesExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_message_id` column. */
+  trgmProviderMessageId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `body_text` column. */
+  trgmBodyText?: TrgmSearchInput;
+  /** TRGM search on the `body_html` column. */
+  trgmBodyHtml?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 /** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectContactFilter {
@@ -15867,6 +16029,106 @@ export interface EventVenueFilter {
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
 }
+/** A filter to be used against `Venue` object types. All fields are combined with a logical ‘and.’ */
+export interface VenueFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `address` field. */
+  address?: StringTrgmFilter;
+  /** Filter by the object’s `neighborhood` field. */
+  neighborhood?: StringTrgmFilter;
+  /** Filter by the object’s `city` field. */
+  city?: StringTrgmFilter;
+  /** Filter by the object’s `category` field. */
+  category?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `googlePlaceId` field. */
+  googlePlaceId?: StringTrgmFilter;
+  /** Filter by the object’s `rating` field. */
+  rating?: BigFloatFilter;
+  /** Filter by the object’s `priceLevel` field. */
+  priceLevel?: StringTrgmFilter;
+  /** Filter by the object’s `isFavorite` field. */
+  isFavorite?: BooleanFilter;
+  /** Filter by the object’s `notes` field. */
+  notes?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `mainImageId` field. */
+  mainImageId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `location` field. */
+  location?: GeographyInterfaceFilter;
+  /** Checks for all expressions in this list. */
+  and?: VenueFilter[];
+  /** Checks for any expressions in this list. */
+  or?: VenueFilter[];
+  /** Negates the expression. */
+  not?: VenueFilter;
+  /** Filter by the object’s `mainImage` relation. */
+  mainImage?: ImageFilter;
+  /** A related `mainImage` exists. */
+  mainImageExists?: boolean;
+  /** Filter by the object’s `venueLinks` relation. */
+  venueLinks?: VenueToManyVenueLinkFilter;
+  /** `venueLinks` exist. */
+  venueLinksExist?: boolean;
+  /** Filter by the object’s `venueImages` relation. */
+  venueImages?: VenueToManyVenueImageFilter;
+  /** `venueImages` exist. */
+  venueImagesExist?: boolean;
+  /** Filter by the object’s `eventVenues` relation. */
+  eventVenues?: VenueToManyEventVenueFilter;
+  /** `eventVenues` exist. */
+  eventVenuesExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `address` column. */
+  trgmAddress?: TrgmSearchInput;
+  /** TRGM search on the `neighborhood` column. */
+  trgmNeighborhood?: TrgmSearchInput;
+  /** TRGM search on the `city` column. */
+  trgmCity?: TrgmSearchInput;
+  /** TRGM search on the `category` column. */
+  trgmCategory?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `google_place_id` column. */
+  trgmGooglePlaceId?: TrgmSearchInput;
+  /** TRGM search on the `price_level` column. */
+  trgmPriceLevel?: TrgmSearchInput;
+  /** TRGM search on the `notes` column. */
+  trgmNotes?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
 /** A filter to be used against `Contact` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactFilter {
   /** Filter by the object’s `firstName` field. */
@@ -16215,6 +16477,8 @@ export interface EventFilter {
   eventNotes?: EventToManyEventNoteFilter;
   /** `eventNotes` exist. */
   eventNotesExist?: boolean;
+  /** Filter by rows from `Venue` related to this row via `st_dwithin`. */
+  nearbyVenues?: EventSpatialNearbyVenuesFilter;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -16241,106 +16505,6 @@ export interface EventFilter {
    */
   unifiedSearch?: string;
 }
-/** A filter to be used against `Venue` object types. All fields are combined with a logical ‘and.’ */
-export interface VenueFilter {
-  /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `address` field. */
-  address?: StringTrgmFilter;
-  /** Filter by the object’s `neighborhood` field. */
-  neighborhood?: StringTrgmFilter;
-  /** Filter by the object’s `city` field. */
-  city?: StringTrgmFilter;
-  /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `googlePlaceId` field. */
-  googlePlaceId?: StringTrgmFilter;
-  /** Filter by the object’s `rating` field. */
-  rating?: BigFloatFilter;
-  /** Filter by the object’s `priceLevel` field. */
-  priceLevel?: StringTrgmFilter;
-  /** Filter by the object’s `isFavorite` field. */
-  isFavorite?: BooleanFilter;
-  /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `mainImageId` field. */
-  mainImageId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `location` field. */
-  location?: GeographyInterfaceFilter;
-  /** Checks for all expressions in this list. */
-  and?: VenueFilter[];
-  /** Checks for any expressions in this list. */
-  or?: VenueFilter[];
-  /** Negates the expression. */
-  not?: VenueFilter;
-  /** Filter by the object’s `mainImage` relation. */
-  mainImage?: ImageFilter;
-  /** A related `mainImage` exists. */
-  mainImageExists?: boolean;
-  /** Filter by the object’s `venueLinks` relation. */
-  venueLinks?: VenueToManyVenueLinkFilter;
-  /** `venueLinks` exist. */
-  venueLinksExist?: boolean;
-  /** Filter by the object’s `venueImages` relation. */
-  venueImages?: VenueToManyVenueImageFilter;
-  /** `venueImages` exist. */
-  venueImagesExist?: boolean;
-  /** Filter by the object’s `eventVenues` relation. */
-  eventVenues?: VenueToManyEventVenueFilter;
-  /** `eventVenues` exist. */
-  eventVenuesExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `address` column. */
-  trgmAddress?: TrgmSearchInput;
-  /** TRGM search on the `neighborhood` column. */
-  trgmNeighborhood?: TrgmSearchInput;
-  /** TRGM search on the `city` column. */
-  trgmCity?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `google_place_id` column. */
-  trgmGooglePlaceId?: TrgmSearchInput;
-  /** TRGM search on the `price_level` column. */
-  trgmPriceLevel?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite unified search. Provide a search string and it will be dispatched to
-   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  unifiedSearch?: string;
-}
 /** A filter to be used against `VenueImage` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueImageFilter {
   /** Filter by the object’s `venueId` field. */
@@ -16357,6 +16521,62 @@ export interface VenueImageFilter {
   image?: ImageFilter;
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
+}
+/** A filter to be used against `Place` object types. All fields are combined with a logical ‘and.’ */
+export interface PlaceFilter {
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `address` field. */
+  address?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `category` field. */
+  category?: StringTrgmFilter;
+  /** Filter by the object’s `rating` field. */
+  rating?: BigFloatFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
+  /** Checks for all expressions in this list. */
+  and?: PlaceFilter[];
+  /** Checks for any expressions in this list. */
+  or?: PlaceFilter[];
+  /** Negates the expression. */
+  not?: PlaceFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `address` column. */
+  trgmAddress?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `category` column. */
+  trgmCategory?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 /** A filter to be used against `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailAttachmentFilter {
@@ -17787,8 +18007,8 @@ export interface ProjectFilter {
    */
   unifiedSearch?: string;
 }
-/** A filter to be used against Date fields. All fields are combined with a logical ‘and.’ */
-export interface DateFilter {
+/** A filter to be used against BigFloat fields. All fields are combined with a logical ‘and.’ */
+export interface BigFloatFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
   isNull?: boolean;
   /** Equal to the specified value. */
@@ -17812,8 +18032,8 @@ export interface DateFilter {
   /** Greater than or equal to the specified value. */
   greaterThanOrEqualTo?: string;
 }
-/** A filter to be used against BigFloat fields. All fields are combined with a logical ‘and.’ */
-export interface BigFloatFilter {
+/** A filter to be used against Date fields. All fields are combined with a logical ‘and.’ */
+export interface DateFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
   isNull?: boolean;
   /** Equal to the specified value. */
@@ -18205,6 +18425,8 @@ export interface TripFilter {
   expenses?: TripToManyExpenseFilter;
   /** `expenses` exist. */
   expensesExist?: boolean;
+  /** Filter by rows from `Venue` related to this row via `st_dwithin`. */
+  nearbyVenues?: TripSpatialNearbyVenuesFilter;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
