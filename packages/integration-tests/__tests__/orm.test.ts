@@ -42,6 +42,9 @@ const AGENT_RESEARCH = 'cccccccc-cccc-cccc-cccc-cccccccccccc';
 const MEMORY_SF = 'eeeeeeee-eeee-eeee-eeee-eeeeeeee0001';
 const MEMORY_OAKLAND = 'eeeeeeee-eeee-eeee-eeee-eeeeeeee0002';
 const MEMORY_NYC = 'eeeeeeee-eeee-eeee-eeee-eeeeeeee0003';
+// ~200 m from MEMORY_SF so the self-relation nearbyMemories has a
+// matching "other" row (the plugin excludes owner-row from self-joins).
+const MEMORY_FERRY = 'eeeeeeee-eeee-eeee-eeee-eeeeeeee0004';
 
 // Bounding-box polygon around the Bay Area: covers SF + Oakland, excludes NYC.
 const BAY_AREA_POLYGON = {
@@ -75,7 +78,11 @@ describe('ORM integration', () => {
       },
       [
         seed.pgpm(AGENTIC_DB_PKG),
-        seed.sqlfile([sql('test-bootstrap.sql'), sql('test-data.sql')]),
+        seed.sqlfile([
+          sql('test-bootstrap.sql'),
+          sql('test-data.sql'),
+          sql('spatial-relations.sql'),
+        ]),
       ],
     );
 
@@ -594,19 +601,149 @@ describe('ORM integration', () => {
       );
     });
 
-    // Regression-guard: make the upstream bug explicit so that if a future
-    // graphile-postgis release fixes it, this test will start failing and
-    // we'll know we can promote these operators to "supported".
-    it('bboxIntersects2D is currently broken upstream (graphile-postgis@2.9.7)', async () => {
+    // Scalar bbox overlap filter: `&&` (graphile-postgis's
+    // PostgisOperatorFactory). Bay-Area polygon covers SF + Oakland
+    // but excludes NYC, so we expect the two Bay-Area memories
+    // (plus the close-by MEMORY_FERRY fixture) and NOT the NYC memory.
+    it('bboxIntersects2D(Polygon) returns memories whose points fall inside the box', async () => {
       const result = await orm.memory
         .findMany({
           where: { locationGeo: { bboxIntersects2D: BAY_AREA_POLYGON } },
           select: { id: true, title: true },
         })
         .execute();
-      expect(result.ok).toBe(false);
-      const err = JSON.stringify(result.errors ?? result);
-      expect(err).toMatch(/parse error - invalid geometry/i);
+      expectOk(result, 'memory.findMany(bboxIntersects2D)');
+      const ids = unwrapData(result.data).nodes.map((n: any) => n.id);
+      expect(ids).toEqual(
+        expect.arrayContaining([MEMORY_SF, MEMORY_OAKLAND, MEMORY_FERRY]),
+      );
+      expect(ids).not.toContain(MEMORY_NYC);
+    });
+  });
+
+  // =========================================================================
+  // Test: RelationSpatial — @spatialRelation smart tags on the owner columns
+  // expose cross-table spatial filters via graphile-postgis's
+  // PostgisSpatialRelationsPlugin. The blueprint defines 5 relations
+  // (see packages/provision/src/schemas/spatial-relations.ts); the fixture
+  // `spatial-relations.sql` bakes matching smart tags into the column
+  // comments so the plugin picks them up during introspection.
+  //
+  // Each test exercises the generated filter shape:
+  //   where: { <relationName>: { distance: <meters>, some: { ... } } }
+  //
+  // Seed coordinates (see test-data.sql) are chosen so each test has a
+  // positive match (SF or NYC) plus a negative control (Tokyo / Paris /
+  // London / Berlin).
+  // =========================================================================
+  describe('RelationSpatial via ORM', () => {
+    it('memory.nearbyPlaces: memories within 5 km of any place near SF', async () => {
+      const result = await orm.memory
+        .findMany({
+          where: {
+            nearbyPlaces: {
+              distance: 5000,
+              some: { category: { equalTo: 'market' } },
+            },
+          },
+          select: { id: true, title: true },
+        })
+        .execute();
+      expectOk(result, 'memory.findMany(nearbyPlaces)');
+      const ids = unwrapData(result.data).nodes.map((n: any) => n.id);
+      // Ferry Building is ~200 m from the SF memory and ~13 km from
+      // Oakland, so only SF matches.
+      expect(ids).toContain(MEMORY_SF);
+      expect(ids).not.toContain(MEMORY_OAKLAND);
+      expect(ids).not.toContain(MEMORY_NYC);
+    });
+
+    it('memory.nearbyContacts: memories within 2 km of any contact in SF', async () => {
+      const result = await orm.memory
+        .findMany({
+          where: {
+            nearbyContacts: {
+              distance: 2000,
+              some: { firstName: { equalTo: 'Alice' } },
+            },
+          },
+          select: { id: true, title: true },
+        })
+        .execute();
+      expectOk(result, 'memory.findMany(nearbyContacts)');
+      const ids = unwrapData(result.data).nodes.map((n: any) => n.id);
+      // Alice is ~250 m from the SF memory, ~13 km from Oakland,
+      // and ~4100 km from NYC.
+      expect(ids).toContain(MEMORY_SF);
+      expect(ids).not.toContain(MEMORY_OAKLAND);
+      expect(ids).not.toContain(MEMORY_NYC);
+    });
+
+    it('trip.nearbyVenues: trips within 1 km of any SoMa venue', async () => {
+      const result = await orm.trip
+        .findMany({
+          where: {
+            nearbyVenues: {
+              distance: 1000,
+              some: { neighborhood: { equalTo: 'SoMa' } },
+            },
+          },
+          select: { id: true, name: true },
+        })
+        .execute();
+      expectOk(result, 'trip.findMany(nearbyVenues)');
+      const names = unwrapData(result.data).nodes.map((n: any) => n.name);
+      expect(names).toContain('SF Retrieval Summit');
+      expect(names).not.toContain('NYC AI Conf');
+      expect(names).not.toContain('Paris Offsite');
+    });
+
+    it('event.nearbyVenues: events within 500 m of any Midtown venue', async () => {
+      const result = await orm.event
+        .findMany({
+          where: {
+            nearbyVenues: {
+              distance: 500,
+              some: { neighborhood: { equalTo: 'Midtown' } },
+            },
+          },
+          select: { id: true, name: true },
+        })
+        .execute();
+      expectOk(result, 'event.findMany(nearbyVenues)');
+      const names = unwrapData(result.data).nodes.map((n: any) => n.name);
+      // AI Conf Welcome Reception is ~50 m from Times Square Diner
+      // (Midtown). The SF event is far from any Midtown venue.
+      expect(names).toContain('AI Conf Welcome Reception');
+      expect(names).not.toContain('SF Ferry Building Mixer');
+      expect(names).not.toContain('Berlin Hackathon');
+    });
+
+    it('memory.nearbyMemories: self-relation returns memories within 1 km of another Bay-Area memory', async () => {
+      const result = await orm.memory
+        .findMany({
+          where: {
+            nearbyMemories: {
+              distance: 1000,
+              // Target is MEMORY_FERRY (~260 m from SF). The plugin
+              // excludes the owner row from self-relations, so we
+              // filter the target on a DIFFERENT row than we expect
+              // back in the result set.
+              some: { id: { equalTo: MEMORY_FERRY } },
+            },
+          },
+          select: { id: true, title: true },
+        })
+        .execute();
+      expectOk(result, 'memory.findMany(nearbyMemories)');
+      const ids = unwrapData(result.data).nodes.map((n: any) => n.id);
+      // MEMORY_SF is ~200 m from MEMORY_FERRY, so SF matches.
+      // Oakland is ~13 km from Ferry Building; NYC is ~4100 km.
+      // The FERRY row itself is excluded by the self-relation.
+      expect(ids).toContain(MEMORY_SF);
+      expect(ids).not.toContain(MEMORY_FERRY);
+      expect(ids).not.toContain(MEMORY_OAKLAND);
+      expect(ids).not.toContain(MEMORY_NYC);
     });
   });
 

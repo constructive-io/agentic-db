@@ -15,7 +15,7 @@
   "devDependencies": {
     "@0no-co/graphql.web": "^1.2.0",
     "@agentic-kit/ollama": "^1.0.3",
-    "@constructive-io/graphql-codegen": "4.28.0",
+    "@constructive-io/graphql-codegen": "4.30.0",
     "@constructive-io/graphql-query": "3.12.11",
     "@constructive-io/graphql-types": "3.4.3",
     "@types/pg": "^8.16.0",

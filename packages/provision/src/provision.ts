@@ -103,6 +103,7 @@ async function main() {
     ['Staging',          './schemas/staging'],
     ['Autonomy',         './schemas/autonomy'],
     ['Cross-Relations',  './schemas/cross-relations'],
+    ['Spatial Relations', './schemas/spatial-relations'],
   ];
 
   for (const [label, mod] of schemas) {

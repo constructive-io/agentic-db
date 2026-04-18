@@ -22,8 +22,8 @@
   },
   "keywords": [],
   "dependencies": {
-    "@pgpm/metaschema-modules": "^0.20.2",
-    "@pgpm/metaschema-schema": "^0.20.2",
+    "@pgpm/metaschema-modules": "^0.21.0",
+    "@pgpm/metaschema-schema": "^0.21.0",
     "@pgpm/services": "^0.20.2"
   },
   "devDependencies": {
