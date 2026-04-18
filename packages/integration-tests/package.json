@@ -25,8 +25,5 @@
     "graphql": "16.13.0",
     "pgsql-test": "^4.7.6",
     "typescript": "^5.9.3"
-  },
-  "dependencies": {
-    "graphile-postgis": "2.11.0"
   }
 }
