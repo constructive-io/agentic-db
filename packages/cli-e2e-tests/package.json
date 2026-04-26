@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@agentic-db/sdk": "workspace:*",
+    "@inquirerer/test": "^1.4.0",
     "graphql-server-test": "^2.12.2",
     "pgsql-test": "^4.9.0"
   }

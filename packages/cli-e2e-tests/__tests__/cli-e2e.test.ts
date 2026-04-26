@@ -23,7 +23,7 @@
  */
 jest.setTimeout(600000);
 
-import { spawn } from 'child_process';
+import { runCli as runCliSubprocess, parseArgString } from '@inquirerer/test';
 import { createServer, IncomingMessage, ServerResponse, Server } from 'http';
 import { mkdirSync, writeFileSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
@@ -143,82 +143,31 @@ function setupCliContext(graphqlUrl: string, ollamaUrl: string): void {
 }
 
 /**
- * Parse a shell-like arg string into an array, respecting quoted strings.
- * e.g. 'search "hello world" --json' → ['search', 'hello world', '--json']
- */
-function parseArgs(args: string): string[] {
-  const result: string[] = [];
-  let current = '';
-  let inQuote = false;
-  let quoteChar = '';
-  for (const ch of args) {
-    if (inQuote) {
-      if (ch === quoteChar) { inQuote = false; } else { current += ch; }
-    } else if (ch === '"' || ch === "'") {
-      inQuote = true;
-      quoteChar = ch;
-    } else if (/\s/.test(ch)) {
-      if (current) { result.push(current); current = ''; }
-    } else {
-      current += ch;
-    }
-  }
-  if (current) result.push(current);
-  return result;
-}
-
-/**
- * Run a CLI command as a subprocess, returning stdout.
- * Uses spawn (async) instead of execSync so the Node.js event loop
- * stays free — the PostGraphile server and Ollama proxy both run in
- * this Jest process and must be able to handle requests while the
- * subprocess is running.
+ * Run the agentic-db CLI as a subprocess and return stdout.
+ *
+ * Thin wrapper around `runCli` from `@inquirerer/test`, which spawns the
+ * process, captures stdout/stderr, enforces a timeout, and rejects on
+ * non-zero exit codes (with the captured streams attached to the error).
+ * See https://www.npmjs.com/package/@inquirerer/test for the full helper API.
+ *
+ * Async (not execSync) is important here: the PostGraphile server and
+ * Ollama proxy both run in this Jest process and must be able to handle
+ * requests while the subprocess is running.
  */
 function runCli(args: string, options: { timeout?: number } = {}): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const timeout = options.timeout || CLI_TIMEOUT;
-    const child = spawn(TSX_BIN, [CLI_ENTRY, ...parseArgs(args)], {
-      cwd: REPO_ROOT,
-      env: {
-        ...process.env,
-        HOME: testHome,
-        OLLAMA_URL: ollamaProxyUrl,
-        PATH: process.env.PATH,
-        NODE_PATH: join(REPO_ROOT, 'node_modules'),
-        // Clear Jest-inherited NODE_OPTIONS that may conflict with tsx
-        NODE_OPTIONS: '',
-      },
-      stdio: ['pipe', 'pipe', 'pipe'],
-    });
-
-    let stdout = '';
-    let stderr = '';
-    child.stdout.on('data', (data: Buffer) => { stdout += data.toString(); });
-    child.stderr.on('data', (data: Buffer) => { stderr += data.toString(); });
-
-    const timer = setTimeout(() => {
-      child.kill('SIGKILL');
-      reject(new Error(
-        `CLI timed out after ${timeout}ms\nstdout: ${stdout}\nstderr: ${stderr}`
-      ));
-    }, timeout);
-
-    child.on('close', (code) => {
-      clearTimeout(timer);
-      if (code === 0) {
-        resolve(stdout);
-      } else {
-        reject(new Error(
-          `CLI exited with code ${code}\nstdout: ${stdout}\nstderr: ${stderr}`
-        ));
-      }
-    });
-
-    child.on('error', (err) => {
-      clearTimeout(timer);
-      reject(err);
-    });
-  });
+  return runCliSubprocess(TSX_BIN, [CLI_ENTRY, ...parseArgString(args)], {
+    cwd: REPO_ROOT,
+    env: {
+      ...process.env,
+      HOME: testHome,
+      OLLAMA_URL: ollamaProxyUrl,
+      PATH: process.env.PATH,
+      NODE_PATH: join(REPO_ROOT, 'node_modules'),
+      // Clear Jest-inherited NODE_OPTIONS that may conflict with tsx
+      NODE_OPTIONS: '',
+    },
+    timeout: options.timeout || CLI_TIMEOUT,
+  }).then((result) => result.stdout);
 }
 
 describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
