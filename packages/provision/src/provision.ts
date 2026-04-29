@@ -102,6 +102,7 @@ async function main() {
     ['Email & Calendar', './schemas/email_calendar'],
     ['Staging',          './schemas/staging'],
     ['Autonomy',         './schemas/autonomy'],
+    ['Documents',        './schemas/documents'],
     ['Cross-Relations',  './schemas/cross-relations'],
     ['Spatial Relations', './schemas/spatial-relations'],
   ];
