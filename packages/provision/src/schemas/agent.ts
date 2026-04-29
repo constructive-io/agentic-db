@@ -7,7 +7,6 @@
 
 import {
   type BlueprintDefinition,
-  ORG_NODES,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -19,7 +18,7 @@ const definition: BlueprintDefinition = {
       ref: 'agents',
       table_name: 'agents',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'system_prompt'] },
           bm25: { field_name: 'embedding_text' },
@@ -42,7 +41,7 @@ const definition: BlueprintDefinition = {
       ref: 'tasks',
       table_name: 'tasks',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'description', 'result'] },
           bm25: { field_name: 'embedding_text' },
@@ -66,7 +65,7 @@ const definition: BlueprintDefinition = {
       ref: 'agent_logs',
       table_name: 'agent_logs',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['message'] },
           bm25: { field_name: 'embedding_text' },
@@ -86,7 +85,7 @@ const definition: BlueprintDefinition = {
       ref: 'rules',
       table_name: 'rules',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'trigger_concept'] },
           bm25: { field_name: 'embedding_text' },
@@ -111,7 +110,7 @@ const definition: BlueprintDefinition = {
       ref: 'skills',
       table_name: 'skills',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'intent_trigger'] },
           bm25: { field_name: 'embedding_text' },
@@ -134,7 +133,7 @@ const definition: BlueprintDefinition = {
       ref: 'tool_definitions',
       table_name: 'tool_definitions',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },
@@ -155,7 +154,7 @@ const definition: BlueprintDefinition = {
       ref: 'prompts',
       table_name: 'prompts',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'content'] },
           bm25: { field_name: 'embedding_text' },
@@ -176,7 +175,7 @@ const definition: BlueprintDefinition = {
       ref: 'expenses',
       table_name: 'expenses',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['description', 'notes'] },
           bm25: { field_name: 'embedding_text' },

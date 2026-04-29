@@ -8,7 +8,6 @@
 
 import {
   type BlueprintDefinition,
-  ORG_NODES,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -19,7 +18,7 @@ const definition: BlueprintDefinition = {
       ref: 'email_threads',
       table_name: 'email_threads',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['subject', 'summary'] },
           bm25: { field_name: 'embedding_text' },
@@ -48,7 +47,7 @@ const definition: BlueprintDefinition = {
       ref: 'emails',
       table_name: 'emails',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['subject', 'body_text'] },
           bm25: { field_name: 'embedding_text' },
@@ -80,7 +79,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'email_attachments',
       table_name: 'email_attachments',
-      nodes: [...ORG_NODES],
+      nodes: ['DataTimestamps'],
       fields: [
         { name: 'filename', type: 'text', is_required: true },
         { name: 'content_type', type: 'text' },
@@ -94,7 +93,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'calendars',
       table_name: 'calendars',
-      nodes: [...ORG_NODES],
+      nodes: ['DataTimestamps'],
       fields: [
         { name: 'provider_account_id', type: 'text' },
         { name: 'provider_calendar_id', type: 'text' },
@@ -108,7 +107,7 @@ const definition: BlueprintDefinition = {
       ref: 'calendar_events',
       table_name: 'calendar_events',
       nodes: [
-        ...ORG_NODES,
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'description'] },
           bm25: { field_name: 'embedding_text' },
@@ -138,7 +137,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'calendar_attendees',
       table_name: 'calendar_attendees',
-      nodes: [...ORG_NODES],
+      nodes: ['DataTimestamps'],
       fields: [
         { name: 'contact_id', type: 'uuid' },
         { name: 'response_status', type: 'text', default_value: "'needs_action'" },
@@ -150,7 +149,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'provider_sync_states',
       table_name: 'provider_sync_states',
-      nodes: [...ORG_NODES],
+      nodes: ['DataTimestamps'],
       fields: [
         { name: 'provider', type: 'text', is_required: true },
         { name: 'resource_type', type: 'text', is_required: true },
