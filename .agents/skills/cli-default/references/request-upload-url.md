@@ -10,7 +10,7 @@ existing file ID and deduplicated=true with no uploadUrl.
 ## Usage
 
 ```bash
-agentic-db request-upload-url --input.bucketKey <String> --input.contentHash <String> --input.contentType <String> --input.size <Int> --input.filename <String>
+agentic-db request-upload-url --input.bucketKey <String> --input.ownerId <UUID> --input.contentHash <String> --input.contentType <String> --input.size <Int> --input.filename <String>
 ```
 
 ## Examples
@@ -18,5 +18,5 @@ agentic-db request-upload-url --input.bucketKey <String> --input.contentHash <St
 ### Run requestUploadUrl
 
 ```bash
-agentic-db request-upload-url --input.bucketKey <String> --input.contentHash <String> --input.contentType <String> --input.size <Int> --input.filename <String>
+agentic-db request-upload-url --input.bucketKey <String> --input.ownerId <UUID> --input.contentHash <String> --input.contentType <String> --input.size <Int> --input.filename <String>
 ```

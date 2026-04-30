@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deal_notes/table
 -- requires: schemas/agentic_db_app_public/tables/deal_notes/columns/deal_id/column
--- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
+-- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 CREATE INDEX deal_notes_deal_id_idx ON agentic_db_app_public.deal_notes USING BTREE ( deal_id );

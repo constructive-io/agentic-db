@@ -15,6 +15,7 @@ const definition: BlueprintDefinition = {
       ref: 'projects',
       table_name: 'projects',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description'] },

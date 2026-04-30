@@ -45,6 +45,8 @@ agentic-db auth set-token <your-token>
 | `task` | task CRUD operations |
 | `company` | company CRUD operations |
 | `deal` | deal CRUD operations |
+| `company-document` | companyDocument CRUD operations |
+| `document` | document CRUD operations |
 | `company-event` | companyEvent CRUD operations |
 | `event` | event CRUD operations |
 | `company-image` | companyImage CRUD operations |
@@ -72,6 +74,7 @@ agentic-db auth set-token <your-token>
 | `deal-company` | dealCompany CRUD operations |
 | `deal-contact` | dealContact CRUD operations |
 | `deal-note` | dealNote CRUD operations |
+| `documents-chunk` | documentsChunk CRUD operations |
 | `email-attachment` | emailAttachment CRUD operations |
 | `email-note` | emailNote CRUD operations |
 | `email-recipient` | emailRecipient CRUD operations |
@@ -90,6 +93,7 @@ agentic-db auth set-token <your-token>
 | `notes-chunk` | notesChunk CRUD operations |
 | `place` | place CRUD operations |
 | `project-contact` | projectContact CRUD operations |
+| `project-document` | projectDocument CRUD operations |
 | `provider-sync-state` | providerSyncState CRUD operations |
 | `raw-contact` | rawContact CRUD operations |
 | `raw-contact-email` | rawContactEmail CRUD operations |
@@ -1639,6 +1643,152 @@ agentic-db deal search "query" --limit 10 --select id,title,searchScore
 ```
 
 
+### `company-document`
+
+CRUD operations for CompanyDocument records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all companyDocument records |
+| `find-first` | Find first matching companyDocument record |
+| `get` | Get a companyDocument by id |
+| `create` | Create a new companyDocument |
+| `update` | Update an existing companyDocument |
+| `delete` | Delete a companyDocument |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `companyId` | UUID |
+| `documentId` | UUID |
+
+**Required create fields:** `companyId`, `documentId`
+
+### `document`
+
+CRUD operations for Document records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all document records |
+| `find-first` | Find first matching document record |
+| `search <query>` | Search document records |
+| `get` | Get a document by id |
+| `create` | Create a new document |
+| `update` | Update an existing document |
+| `delete` | Delete a document |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `title` | String |
+| `content` | String |
+| `metadata` | JSON |
+| `repoName` | String |
+| `filePath` | String |
+| `commitHash` | String |
+| `tags` | String |
+| `id` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `contentBm25Score` | Float |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `repoNameTrgmSimilarity` | Float |
+| `filePathTrgmSimilarity` | Float |
+| `commitHashTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `content`
+**Optional create fields (backend defaults):** `title`, `metadata`, `repoName`, `filePath`, `commitHash`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
+
+> **Unified Search API fields:** `contentBm25Score`, `embeddingTextBm25Score`, `titleTrgmSimilarity`, `contentTrgmSimilarity`, `repoNameTrgmSimilarity`, `filePathTrgmSimilarity`, `commitHashTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+**Search Examples:**
+
+*Vector similarity search via `embedding` (manual vector):*
+```bash
+# Pass a pre-computed vector array via dot-notation
+agentic-db document list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
+```
+
+*Vector semantic search via `embedding` with --auto-embed:*
+```bash
+# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
+EMBEDDER_PROVIDER=ollama agentic-db document search "semantic query" --auto-embed --select title,embeddingVectorDistance
+EMBEDDER_PROVIDER=ollama agentic-db document list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
+```
+
+*Create/update with auto-embedded `embedding` via --auto-embed:*
+```bash
+# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
+EMBEDDER_PROVIDER=ollama agentic-db document create --embedding "text to embed" --auto-embed
+EMBEDDER_PROVIDER=ollama agentic-db document update --embedding "new text to embed" --auto-embed
+```
+
+*BM25 keyword search via `bm25Content`:*
+```bash
+agentic-db document list --where.bm25Content.query "search query" --select title,contentBm25Score
+```
+
+*BM25 keyword search via `bm25EmbeddingText`:*
+```bash
+agentic-db document list --where.bm25EmbeddingText.query "search query" --select title,embeddingTextBm25Score
+```
+
+*Fuzzy search via trigram similarity (`trgmTitle`):*
+```bash
+agentic-db document list --where.trgmTitle.value "approximate query" --where.trgmTitle.threshold 0.3 --select title,titleTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmContent`):*
+```bash
+agentic-db document list --where.trgmContent.value "approximate query" --where.trgmContent.threshold 0.3 --select title,contentTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmRepoName`):*
+```bash
+agentic-db document list --where.trgmRepoName.value "approximate query" --where.trgmRepoName.threshold 0.3 --select title,repoNameTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmFilePath`):*
+```bash
+agentic-db document list --where.trgmFilePath.value "approximate query" --where.trgmFilePath.threshold 0.3 --select title,filePathTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmCommitHash`):*
+```bash
+agentic-db document list --where.trgmCommitHash.value "approximate query" --where.trgmCommitHash.threshold 0.3 --select title,commitHashTrgmSimilarity
+```
+
+*Fuzzy search via trigram similarity (`trgmEmbeddingText`):*
+```bash
+agentic-db document list --where.trgmEmbeddingText.value "approximate query" --where.trgmEmbeddingText.threshold 0.3 --select title,embeddingTextTrgmSimilarity
+```
+
+*Composite search (unifiedSearch dispatches to all text adapters):*
+```bash
+agentic-db document list --where.unifiedSearch "search query" --select title,contentBm25Score,embeddingTextBm25Score,titleTrgmSimilarity,contentTrgmSimilarity,repoNameTrgmSimilarity,filePathTrgmSimilarity,commitHashTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+```
+
+*Search with pagination and field projection:*
+```bash
+agentic-db document list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
+agentic-db document search "query" --limit 10 --select id,title,searchScore
+```
+
+
 ### `company-event`
 
 CRUD operations for CompanyEvent records.
@@ -3090,6 +3240,72 @@ CRUD operations for DealNote records.
 
 **Required create fields:** `dealId`, `noteId`
 
+### `documents-chunk`
+
+CRUD operations for DocumentsChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all documentsChunk records |
+| `find-first` | Find first matching documentsChunk record |
+| `search <query>` | Search documentsChunk records |
+| `get` | Get a documentsChunk by id |
+| `create` | Create a new documentsChunk |
+| `update` | Update an existing documentsChunk |
+| `delete` | Delete a documentsChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `documentsId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `documentsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
+
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+**Search Examples:**
+
+*Vector similarity search via `embedding` (manual vector):*
+```bash
+# Pass a pre-computed vector array via dot-notation
+agentic-db documents-chunk list --where.embedding.vector '[0.1,0.2,0.3]' --where.embedding.distance 1.0 --select title,embeddingVectorDistance
+```
+
+*Vector semantic search via `embedding` with --auto-embed:*
+```bash
+# --auto-embed converts text to vectors using the configured embedder (e.g. Ollama nomic-embed-text)
+EMBEDDER_PROVIDER=ollama agentic-db documents-chunk search "semantic query" --auto-embed --select title,embeddingVectorDistance
+EMBEDDER_PROVIDER=ollama agentic-db documents-chunk list --where.embedding.vector "semantic query" --auto-embed --select title,embeddingVectorDistance
+```
+
+*Create/update with auto-embedded `embedding` via --auto-embed:*
+```bash
+# --auto-embed on create/update converts text strings in vector fields to embeddings before saving
+EMBEDDER_PROVIDER=ollama agentic-db documents-chunk create --embedding "text to embed" --auto-embed
+EMBEDDER_PROVIDER=ollama agentic-db documents-chunk update --embedding "new text to embed" --auto-embed
+```
+
+*Search with pagination and field projection:*
+```bash
+agentic-db documents-chunk list --where.unifiedSearch "query" --limit 10 --select id,title,searchScore
+agentic-db documents-chunk search "query" --limit 10 --select id,title,searchScore
+```
+
+
 ### `email-attachment`
 
 CRUD operations for EmailAttachment records.
@@ -4056,6 +4272,28 @@ CRUD operations for ProjectContact records.
 | `contactId` | UUID |
 
 **Required create fields:** `projectId`, `contactId`
+
+### `project-document`
+
+CRUD operations for ProjectDocument records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all projectDocument records |
+| `find-first` | Find first matching projectDocument record |
+| `get` | Get a projectDocument by id |
+| `create` | Create a new projectDocument |
+| `update` | Update an existing projectDocument |
+| `delete` | Delete a projectDocument |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `projectId` | UUID |
+| `documentId` | UUID |
+
+**Required create fields:** `projectId`, `documentId`
 
 ### `provider-sync-state`
 
@@ -5483,6 +5721,7 @@ existing file ID and deduplicated=true with no uploadUrl.
   | Argument | Type |
   |----------|------|
   | `--input.bucketKey` | String (required) |
+  | `--input.ownerId` | UUID |
   | `--input.contentHash` | String (required) |
   | `--input.contentType` | String (required) |
   | `--input.size` | Int (required) |
@@ -5514,6 +5753,7 @@ and lifecycle settings.
   | Argument | Type |
   |----------|------|
   | `--input.bucketKey` | String (required) |
+  | `--input.ownerId` | UUID |
 
 ## Output
 

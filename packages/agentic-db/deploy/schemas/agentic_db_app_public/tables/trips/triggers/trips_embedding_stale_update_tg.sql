@@ -12,5 +12,5 @@ CREATE TRIGGER trips_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.trips
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.destination IS DISTINCT FROM NEW.destination)
-EXECUTE PROCEDURE agentic_db_private.trips_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".trips_embedding_stale ( );
 

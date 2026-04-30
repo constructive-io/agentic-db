@@ -17,6 +17,7 @@ const definition: BlueprintDefinition = {
       ref: 'runtime_states',
       table_name: 'runtime_states',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'state_type'] },
@@ -39,6 +40,7 @@ const definition: BlueprintDefinition = {
       ref: 'runtime_logs',
       table_name: 'runtime_logs',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['message'] },
@@ -58,7 +60,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_artifacts',
       table_name: 'runtime_artifacts',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'runtime_state_id', type: 'uuid', is_required: true },
         { name: 'name', type: 'text', is_required: true },
@@ -73,7 +75,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_metrics',
       table_name: 'runtime_metrics',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'runtime_state_id', type: 'uuid', is_required: true },
         { name: 'metric_name', type: 'text', is_required: true },
@@ -87,7 +89,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_schedules',
       table_name: 'runtime_schedules',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'name', type: 'text', is_required: true },
         { name: 'cron_expression', type: 'text' },
@@ -103,7 +105,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_events',
       table_name: 'runtime_events',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'event_type', type: 'text', is_required: true },
         { name: 'payload', type: 'jsonb', is_required: true },
@@ -117,7 +119,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_config',
       table_name: 'runtime_config',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'key', type: 'text', is_required: true },
         { name: 'value', type: 'jsonb' },
@@ -131,6 +133,7 @@ const definition: BlueprintDefinition = {
       ref: 'conversations',
       table_name: 'conversations',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title'] },
@@ -149,6 +152,7 @@ const definition: BlueprintDefinition = {
       ref: 'messages',
       table_name: 'messages',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['content'] },
@@ -170,7 +174,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'tool_executions',
       table_name: 'tool_executions',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'tool_definition_id', type: 'uuid', is_required: true },
         { name: 'message_id', type: 'uuid' },

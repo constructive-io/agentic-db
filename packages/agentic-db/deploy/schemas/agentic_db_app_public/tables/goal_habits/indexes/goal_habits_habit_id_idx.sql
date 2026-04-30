@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goal_habits/table
 -- requires: schemas/agentic_db_app_public/tables/goal_habits/columns/habit_id/column
--- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
+-- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 CREATE INDEX goal_habits_habit_id_idx ON agentic_db_app_public.goal_habits USING BTREE ( habit_id );

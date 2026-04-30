@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/contacts/alterations/alt0000000013
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/contacts/table
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
+
+
+ALTER TABLE agentic_db_app_public.contacts 
+  DISABLE ROW LEVEL SECURITY;
+

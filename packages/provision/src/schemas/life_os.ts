@@ -18,6 +18,7 @@ const definition: BlueprintDefinition = {
       ref: 'goals',
       table_name: 'goals',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'description'] },
@@ -38,7 +39,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'habits',
       table_name: 'habits',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'name', type: 'text', is_required: true },
         { name: 'frequency', type: 'text', default_value: "'daily'" },
@@ -53,6 +54,7 @@ const definition: BlueprintDefinition = {
       ref: 'activity_logs',
       table_name: 'activity_logs',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['activity_type', 'notes'] },
@@ -77,6 +79,7 @@ const definition: BlueprintDefinition = {
       ref: 'memories',
       table_name: 'memories',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'content', 'location'] },
@@ -99,6 +102,7 @@ const definition: BlueprintDefinition = {
       ref: 'trips',
       table_name: 'trips',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'destination'] },
@@ -121,6 +125,7 @@ const definition: BlueprintDefinition = {
       ref: 'places',
       table_name: 'places',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'address'] },

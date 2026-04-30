@@ -22,6 +22,7 @@ const definition: BlueprintDefinition = {
       ref: 'documents',
       table_name: 'documents',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'content'], chunks: {} },

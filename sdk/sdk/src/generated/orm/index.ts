@@ -24,6 +24,8 @@ import { CalendarEventTaskModel } from './models/calendarEventTask';
 import { TaskModel } from './models/task';
 import { CompanyModel } from './models/company';
 import { DealModel } from './models/deal';
+import { CompanyDocumentModel } from './models/companyDocument';
+import { DocumentModel } from './models/document';
 import { CompanyEventModel } from './models/companyEvent';
 import { EventModel } from './models/event';
 import { CompanyImageModel } from './models/companyImage';
@@ -51,6 +53,7 @@ import { ConversationModel } from './models/conversation';
 import { DealCompanyModel } from './models/dealCompany';
 import { DealContactModel } from './models/dealContact';
 import { DealNoteModel } from './models/dealNote';
+import { DocumentsChunkModel } from './models/documentsChunk';
 import { EmailAttachmentModel } from './models/emailAttachment';
 import { EmailNoteModel } from './models/emailNote';
 import { EmailRecipientModel } from './models/emailRecipient';
@@ -69,6 +72,7 @@ import { MessageModel } from './models/message';
 import { NotesChunkModel } from './models/notesChunk';
 import { PlaceModel } from './models/place';
 import { ProjectContactModel } from './models/projectContact';
+import { ProjectDocumentModel } from './models/projectDocument';
 import { ProviderSyncStateModel } from './models/providerSyncState';
 import { RawContactModel } from './models/rawContact';
 import { RawContactEmailModel } from './models/rawContactEmail';
@@ -149,6 +153,8 @@ export function createClient(config: OrmClientConfig) {
     task: new TaskModel(client),
     company: new CompanyModel(client),
     deal: new DealModel(client),
+    companyDocument: new CompanyDocumentModel(client),
+    document: new DocumentModel(client),
     companyEvent: new CompanyEventModel(client),
     event: new EventModel(client),
     companyImage: new CompanyImageModel(client),
@@ -176,6 +182,7 @@ export function createClient(config: OrmClientConfig) {
     dealCompany: new DealCompanyModel(client),
     dealContact: new DealContactModel(client),
     dealNote: new DealNoteModel(client),
+    documentsChunk: new DocumentsChunkModel(client),
     emailAttachment: new EmailAttachmentModel(client),
     emailNote: new EmailNoteModel(client),
     emailRecipient: new EmailRecipientModel(client),
@@ -194,6 +201,7 @@ export function createClient(config: OrmClientConfig) {
     notesChunk: new NotesChunkModel(client),
     place: new PlaceModel(client),
     projectContact: new ProjectContactModel(client),
+    projectDocument: new ProjectDocumentModel(client),
     providerSyncState: new ProviderSyncStateModel(client),
     rawContact: new RawContactModel(client),
     rawContactEmail: new RawContactEmailModel(client),

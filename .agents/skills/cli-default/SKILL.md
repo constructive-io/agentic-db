@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 91 tables and 3 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 3 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 91 tables and 3 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 3 custom operations
 
 ## Usage
 
@@ -76,6 +76,8 @@ See the `references/` directory for detailed per-entity API documentation:
 - [task](references/task.md)
 - [company](references/company.md)
 - [deal](references/deal.md)
+- [company-document](references/company-document.md)
+- [document](references/document.md)
 - [company-event](references/company-event.md)
 - [event](references/event.md)
 - [company-image](references/company-image.md)
@@ -103,6 +105,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [deal-company](references/deal-company.md)
 - [deal-contact](references/deal-contact.md)
 - [deal-note](references/deal-note.md)
+- [documents-chunk](references/documents-chunk.md)
 - [email-attachment](references/email-attachment.md)
 - [email-note](references/email-note.md)
 - [email-recipient](references/email-recipient.md)
@@ -121,6 +124,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [notes-chunk](references/notes-chunk.md)
 - [place](references/place.md)
 - [project-contact](references/project-contact.md)
+- [project-document](references/project-document.md)
 - [provider-sync-state](references/provider-sync-state.md)
 - [raw-contact](references/raw-contact.md)
 - [raw-contact-email](references/raw-contact-email.md)

@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
-CREATE FUNCTION agentic_db_private.venues_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agentic_db_private".venues_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
   PERFORM app_jobs.add_job(jwt_private.current_database_id(), 'generate_embedding', json_build_object('table', 'venues', 'schema', 'agentic_db_app_public', 'id', NEW.id::text, 'field', 'embedding'));
   RETURN NEW;

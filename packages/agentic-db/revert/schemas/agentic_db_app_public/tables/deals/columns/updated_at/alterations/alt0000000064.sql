@@ -1,0 +1,6 @@
+-- Revert: schemas/agentic_db_app_public/tables/deals/columns/updated_at/alterations/alt0000000064
+
+
+COMMENT ON COLUMN agentic_db_app_public.deals.updated_at IS NULL;
+
+

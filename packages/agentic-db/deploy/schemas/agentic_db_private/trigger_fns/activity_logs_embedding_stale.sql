@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
-CREATE FUNCTION agentic_db_private.activity_logs_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agentic_db_private".activity_logs_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
   new.embedding_stale := true;
   new.embedding := NULL;
