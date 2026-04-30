@@ -8,16 +8,16 @@
  * This file does NOT modify generated code — it imports the generated
  * command handler and intercepts RAG commands before delegating.
  */
-import { CLI, CLIOptions, Inquirerer, extractFirst, getPackageJson } from 'inquirerer';
+import { CLI, CLIOptions, extractFirst, getPackageJson,Inquirerer } from 'inquirerer';
 
 // The generated commands handler (handles all CRUD commands)
 import { commands as generatedHandler } from '../generated/cli/commands';
-
+import askCmd from './commands/ask';
+import configCmd from './commands/config';
+import docsCmd from './commands/docs';
+import embedCmd from './commands/embed';
 // RAG command imports (hand-written, not generated)
 import searchCmd from './commands/search';
-import askCmd from './commands/ask';
-import embedCmd from './commands/embed';
-import configCmd from './commands/config';
 
 type CommandFn = (
   argv: Partial<Record<string, unknown>>,
@@ -25,20 +25,26 @@ type CommandFn = (
   options: CLIOptions
 ) => Promise<void | Partial<Record<string, unknown>>>;
 
-/** Custom RAG commands — checked before generated commands */
-const ragCommands: Record<string, CommandFn> = {
+/** Custom commands — checked before generated commands */
+const customCommands: Record<string, CommandFn> = {
   search: searchCmd,
   ask: askCmd,
   embed: embedCmd,
   config: configCmd,
+  docs: docsCmd,
 };
 
-const RAG_HELP = `
+const EXTENDED_HELP = `
 RAG Commands:
   search               Semantic search across all tables
   ask                  Ask a question (RAG: search + LLM)
   embed                Generate vector embeddings for records
   config               Manage RAG configuration
+
+Document Commands:
+  docs import <dir>    Import text files into the documents table
+  docs export <dir>    Export documents to a directory
+  docs list            List documents for a repository
 `;
 
 const commands = async (
@@ -46,9 +52,9 @@ const commands = async (
   prompter: Inquirerer,
   options: CLIOptions
 ) => {
-  // Show extended help that includes RAG commands
+  // Show extended help that includes custom commands
   if (argv.help || argv.h) {
-    console.log(RAG_HELP);
+    console.log(EXTENDED_HELP);
     // Fall through to generated handler which prints CRUD commands
     return generatedHandler(argv, prompter, options);
   }
@@ -56,8 +62,8 @@ const commands = async (
   // Peek at the first positional arg to check for RAG commands
   const { first: command, newArgv } = extractFirst(argv);
 
-  if (command && ragCommands[command]) {
-    await ragCommands[command](newArgv, prompter, options);
+  if (command && customCommands[command]) {
+    await customCommands[command](newArgv, prompter, options);
     prompter.close();
     return argv;
   }

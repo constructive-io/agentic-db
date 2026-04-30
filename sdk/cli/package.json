@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@0no-co/graphql.web": "^1.2.0",
+    "@agentic-db/documents-loader": "workspace:*",
     "@agentic-kit/ollama": "^1.0.3",
     "@constructive-io/graphql-types": "^3.5.0",
     "appstash": "^0.7.0",

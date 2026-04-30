@@ -1,0 +1,37 @@
+{
+  "name": "@agentic-db/documents-loader",
+  "version": "1.5.0",
+  "description": "Load, import, and export markdown/text files into the agentic-db documents table",
+  "author": "Constructive <developers@constructive.io>",
+  "license": "MIT",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/constructive-io/agentic-db"
+  },
+  "scripts": {
+    "clean": "makage clean",
+    "build": "makage build",
+    "lint": "eslint . --fix",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "dependencies": {
+    "@agentic-db/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.0.0",
+    "jest": "^30.2.0",
+    "makage": "0.3.0",
+    "ts-jest": "^29.4.6",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

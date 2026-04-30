@@ -421,6 +421,33 @@ jobs:
           cd packages/agentic-db
           pnpm test -- --forceExit --detectOpenHandles __tests__/rag.test.ts __tests__/rag-unified-search.test.ts __tests__/cli-search-integration.test.ts
 
+  documents-loader-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.22.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run documents-loader tests
+        run: |
+          cd packages/documents-loader
+          pnpm test
+
   cli-e2e-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -486,6 +513,9 @@ jobs:
 
       - name: Build SDK
         run: pnpm --filter @agentic-db/sdk run build
+
+      - name: Build documents-loader
+        run: pnpm --filter @agentic-db/documents-loader run build
 
       - name: Wait for Ollama and pull model
         run: |
