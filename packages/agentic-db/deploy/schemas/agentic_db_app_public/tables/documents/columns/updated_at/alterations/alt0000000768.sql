@@ -1,0 +1,12 @@
+-- Deploy: schemas/agentic_db_app_public/tables/documents/columns/updated_at/alterations/alt0000000768
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/documents/table
+-- requires: schemas/agentic_db_app_public/tables/documents/columns/updated_at/column
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
+
+
+ALTER TABLE agentic_db_app_public.documents 
+  ALTER COLUMN updated_at SET NOT NULL;
+

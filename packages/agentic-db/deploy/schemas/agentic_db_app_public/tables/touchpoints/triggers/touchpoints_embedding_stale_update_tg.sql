@@ -12,5 +12,5 @@ CREATE TRIGGER touchpoints_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.touchpoints
 FOR EACH ROW
 WHEN (OLD.subject IS DISTINCT FROM NEW.subject OR OLD.summary IS DISTINCT FROM NEW.summary)
-EXECUTE PROCEDURE agentic_db_private.touchpoints_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".touchpoints_embedding_stale ( );
 

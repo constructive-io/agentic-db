@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/tables/raw_contact_urls/indexes/raw_contact_urls_url_idx
 
 
-CREATE FUNCTION agentic_db_private.autonomy_records_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agentic_db_private".autonomy_records_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
   new.embedding_stale := true;
   new.embedding := NULL;

@@ -6,7 +6,6 @@
 
 import {
   type BlueprintDefinition,
-  ORG_NODES,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -17,7 +16,8 @@ const definition: BlueprintDefinition = {
       ref: 'autonomy_records',
       table_name: 'autonomy_records',
       nodes: [
-        ...ORG_NODES,
+        'DataId',
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'content'] },
           bm25: { field_name: 'embedding_text' },

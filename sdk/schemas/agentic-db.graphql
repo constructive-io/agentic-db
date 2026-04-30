@@ -386,6 +386,15 @@ enum CalendarOrderBy {
   UPDATED_AT_DESC
 }
 
+"Methods to use when ordering `CompanyDocument`."
+enum CompanyDocumentOrderBy {
+  NATURAL
+  COMPANY_ID_ASC
+  COMPANY_ID_DESC
+  DOCUMENT_ID_ASC
+  DOCUMENT_ID_DESC
+}
+
 "Methods to use when ordering `CompanyEvent`."
 enum CompanyEventOrderBy {
   NATURAL
@@ -863,6 +872,84 @@ enum DealOrderBy {
   NOTES_TEXT_TRGM_SIMILARITY_DESC
   EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
   EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
+"Methods to use when ordering `Document`."
+enum DocumentOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  TITLE_ASC
+  TITLE_DESC
+  CONTENT_ASC
+  CONTENT_DESC
+  METADATA_ASC
+  METADATA_DESC
+  REPO_NAME_ASC
+  REPO_NAME_DESC
+  FILE_PATH_ASC
+  FILE_PATH_DESC
+  COMMIT_HASH_ASC
+  COMMIT_HASH_DESC
+  TAGS_ASC
+  TAGS_DESC
+  ID_ASC
+  ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  EMBEDDING_STALE_ASC
+  EMBEDDING_STALE_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  TITLE_TRGM_SIMILARITY_ASC
+  TITLE_TRGM_SIMILARITY_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
+  REPO_NAME_TRGM_SIMILARITY_ASC
+  REPO_NAME_TRGM_SIMILARITY_DESC
+  FILE_PATH_TRGM_SIMILARITY_ASC
+  FILE_PATH_TRGM_SIMILARITY_DESC
+  COMMIT_HASH_TRGM_SIMILARITY_ASC
+  COMMIT_HASH_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
+"Methods to use when ordering `DocumentsChunk`."
+enum DocumentsChunkOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  DOCUMENTS_ID_ASC
+  DOCUMENTS_ID_DESC
+  CONTENT_ASC
+  CONTENT_DESC
+  CHUNK_INDEX_ASC
+  CHUNK_INDEX_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  METADATA_ASC
+  METADATA_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
 }
@@ -1486,8 +1573,6 @@ enum NoteOrderBy {
   EMBEDDING_DESC
   EMBEDDING_STALE_ASC
   EMBEDDING_STALE_DESC
-  CONTENT_BM25_SCORE_ASC
-  CONTENT_BM25_SCORE_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1587,6 +1672,15 @@ enum ProjectContactOrderBy {
   PROJECT_ID_DESC
   CONTACT_ID_ASC
   CONTACT_ID_DESC
+}
+
+"Methods to use when ordering `ProjectDocument`."
+enum ProjectDocumentOrderBy {
+  NATURAL
+  PROJECT_ID_ASC
+  PROJECT_ID_DESC
+  DOCUMENT_ID_ASC
+  DOCUMENT_ID_DESC
 }
 
 "Methods to use when ordering `Project`."
@@ -2640,7 +2734,9 @@ type ActivityLog {
   meta: JSON
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -2697,7 +2793,9 @@ type Agent {
   config: JSON
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -3079,7 +3177,9 @@ type AgentLog {
   context: JSON
   taskId: UUID
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -3200,7 +3300,9 @@ type AutonomyRecord {
   context: JSON
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -3440,7 +3542,9 @@ type Calendar {
   name: String!
   color: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   "Reads and enables pagination through a set of `CalendarEvent`."
   calendarEvents(
@@ -3469,7 +3573,9 @@ type CalendarAttendee {
   responseStatus: String
   role: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   calendarEventId: UUID!
   "Reads a single `CalendarEvent` that is related to this `CalendarAttendee`."
@@ -3518,7 +3624,10 @@ type CalendarEdge {
   node: Calendar
 }
 
-"@@trgmSearch title\n@@searchConfig {\"weights\": {\"tsv\": 1.0, \"bm25\": 1.0}, \"fts_field\": \"search_tsv\", \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\", \"fts_source_fields\": [{\"field\": \"title\", \"weight\": \"A\"}, {\"field\": \"description\", \"weight\": \"B\"}]}"
+"""
+@@trgmSearch title
+@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "title", "weight": "A"}, {"field": "description", "weight": "B"}]}
+"""
 type CalendarEvent {
   providerEventId: String
   title: String!
@@ -3529,7 +3638,9 @@ type CalendarEvent {
   organizerContactId: UUID
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   searchTsv: FullText
@@ -3927,7 +4038,10 @@ type CalendarEventTasksManyToManyEdge {
   ): CalendarEventTaskConnection!
 }
 
-"@@trgmSearch name\n@@searchConfig {\"weights\": {\"tsv\": 1.0, \"bm25\": 1.0}, \"fts_field\": \"search_tsv\", \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\", \"fts_source_fields\": [{\"field\": \"name\", \"weight\": \"A\"}, {\"field\": \"description\", \"weight\": \"B\"}, {\"field\": \"industry\", \"weight\": \"C\"}]}"
+"""
+@@trgmSearch name
+@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "description", "weight": "B"}, {"field": "industry", "weight": "C"}]}
+"""
 type Company {
   name: String!
   domain: String
@@ -3936,7 +4050,9 @@ type Company {
   tags: [String]
   mainImageId: UUID
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   searchTsv: FullText
@@ -4062,6 +4178,26 @@ type Company {
     "The method to use when ordering `Memory`."
     orderBy: [MemoryOrderBy!] = [PRIMARY_KEY_ASC]
   ): CompanyMemoriesManyToManyConnection!
+  "Reads and enables pagination through a set of `Document`."
+  documents(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DocumentFilter
+    "The method to use when ordering `Document`."
+    orderBy: [DocumentOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CompanyDocumentsManyToManyConnection!
   "Reads a single `Image` that is related to this `Company`."
   mainImage: Image
   "Reads and enables pagination through a set of `Touchpoint`."
@@ -4224,6 +4360,26 @@ type Company {
     "The method to use when ordering `CompanyMemory`."
     orderBy: [CompanyMemoryOrderBy!] = [NATURAL]
   ): CompanyMemoryConnection!
+  "Reads and enables pagination through a set of `CompanyDocument`."
+  companyDocuments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyDocumentFilter
+    "The method to use when ordering `CompanyDocument`."
+    orderBy: [CompanyDocumentOrderBy!] = [NATURAL]
+  ): CompanyDocumentConnection!
   "TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active."
   searchTsvRank: Float
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
@@ -4334,6 +4490,75 @@ type CompanyDealsByDealCompanyCompanyIdAndDealIdManyToManyEdge {
     "The method to use when ordering `DealCompany`."
     orderBy: [DealCompanyOrderBy!] = [NATURAL]
   ): DealCompanyConnection!
+}
+
+type CompanyDocument {
+  companyId: UUID!
+  documentId: UUID!
+  "Reads a single `Company` that is related to this `CompanyDocument`."
+  company: Company
+  "Reads a single `Document` that is related to this `CompanyDocument`."
+  document: Document
+}
+
+"A connection to a list of `CompanyDocument` values."
+type CompanyDocumentConnection {
+  "A list of `CompanyDocument` objects."
+  nodes: [CompanyDocument]!
+  "A list of edges which contains the `CompanyDocument` and cursor to aid in pagination."
+  edges: [CompanyDocumentEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `CompanyDocument` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `CompanyDocument` edge in the connection."
+type CompanyDocumentEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `CompanyDocument` at the end of the edge."
+  node: CompanyDocument
+}
+
+"A connection to a list of `Document` values, with data from `CompanyDocument`."
+type CompanyDocumentsManyToManyConnection {
+  "A list of `Document` objects."
+  nodes: [Document]!
+  "A list of edges which contains the `Document`, info from the `CompanyDocument`, and the cursor to aid in pagination."
+  edges: [CompanyDocumentsManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Document` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Document` edge in the connection, with data from `CompanyDocument`."
+type CompanyDocumentsManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Document` at the end of the edge."
+  node: Document
+  "Reads and enables pagination through a set of `CompanyDocument`."
+  companyDocumentsByDocumentId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyDocumentFilter
+    "The method to use when ordering `CompanyDocument`."
+    orderBy: [CompanyDocumentOrderBy!] = [NATURAL]
+  ): CompanyDocumentConnection!
 }
 
 "A `Company` edge in the connection."
@@ -4486,7 +4711,9 @@ type CompanyLink {
   title: String
   url: String!
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
@@ -4666,7 +4893,12 @@ type ConfirmUploadPayload {
   success: Boolean!
 }
 
-"@@hasChunks {\"chunks_table\": \"contacts_chunks\", \"embedding_field\": \"embedding\"}\n@@trgmSearch first_name\n@@trgmSearch last_name\n@@searchConfig {\"weights\": {\"tsv\": 1.0, \"bm25\": 1.0}, \"fts_field\": \"search_tsv\", \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\", \"fts_source_fields\": [{\"field\": \"first_name\", \"weight\": \"A\"}, {\"field\": \"last_name\", \"weight\": \"A\"}, {\"field\": \"headline\", \"weight\": \"B\"}, {\"field\": \"bio\", \"weight\": \"C\"}]}"
+"""
+@@hasChunks {"chunks_table": "contacts_chunks", "embedding_field": "embedding"}
+@@trgmSearch first_name
+@@trgmSearch last_name
+@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "first_name", "weight": "A"}, {"field": "last_name", "weight": "A"}, {"field": "headline", "weight": "B"}, {"field": "bio", "weight": "C"}]}
+"""
 type Contact {
   firstName: String!
   lastName: String
@@ -4681,7 +4913,9 @@ type Contact {
   tags: [String]
   mainImageId: UUID
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   searchTsv: FullText
@@ -5487,7 +5721,9 @@ type ContactAddress {
   addressType: String
   isPrimary: Boolean
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   contactId: UUID!
   "Reads a single `Contact` that is related to this `ContactAddress`."
@@ -5768,7 +6004,9 @@ type ContactEmail {
   emailType: String
   isPrimary: Boolean
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   contactId: UUID!
   "Reads a single `Contact` that is related to this `ContactEmail`."
@@ -6057,7 +6295,9 @@ type ContactLink {
   title: String
   url: String!
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
@@ -6233,7 +6473,9 @@ type ContactPhone {
   phoneType: String
   isPrimary: Boolean
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   contactId: UUID!
   "Reads a single `Contact` that is related to this `ContactPhone`."
@@ -6414,7 +6656,9 @@ type Conversation {
   status: String
   meta: JSON
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -6675,6 +6919,19 @@ type CreateCalendarPayload {
     "The method to use when ordering `Calendar`."
     orderBy: [CalendarOrderBy!]! = [PRIMARY_KEY_ASC]
   ): CalendarEdge
+}
+
+"The output of our create `CompanyDocument` mutation."
+type CreateCompanyDocumentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `CompanyDocument` that was created by this mutation."
+  companyDocument: CompanyDocument
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
 }
 
 "The output of our create `CompanyEvent` mutation."
@@ -7024,6 +7281,42 @@ type CreateDealPayload {
     "The method to use when ordering `Deal`."
     orderBy: [DealOrderBy!]! = [PRIMARY_KEY_ASC]
   ): DealEdge
+}
+
+"The output of our create `Document` mutation."
+type CreateDocumentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Document` that was created by this mutation."
+  document: Document
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Document`. May be used by Relay 1."
+  documentEdge(
+    "The method to use when ordering `Document`."
+    orderBy: [DocumentOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DocumentEdge
+}
+
+"The output of our create `DocumentsChunk` mutation."
+type CreateDocumentsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `DocumentsChunk` that was created by this mutation."
+  documentsChunk: DocumentsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `DocumentsChunk`. May be used by Relay 1."
+  documentsChunkEdge(
+    "The method to use when ordering `DocumentsChunk`."
+    orderBy: [DocumentsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DocumentsChunkEdge
 }
 
 "The output of our create `EmailAttachment` mutation."
@@ -7409,6 +7702,19 @@ type CreateProjectContactPayload {
   clientMutationId: String
   "The `ProjectContact` that was created by this mutation."
   projectContact: ProjectContact
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+}
+
+"The output of our create `ProjectDocument` mutation."
+type CreateProjectDocumentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ProjectDocument` that was created by this mutation."
+  projectDocument: ProjectDocument
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
 }
@@ -7946,7 +8252,9 @@ type Deal {
   notesText: String
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -8640,6 +8948,42 @@ type DeleteDealPayload {
     "The method to use when ordering `Deal`."
     orderBy: [DealOrderBy!]! = [PRIMARY_KEY_ASC]
   ): DealEdge
+}
+
+"The output of our delete `Document` mutation."
+type DeleteDocumentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Document` that was deleted by this mutation."
+  document: Document
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Document`. May be used by Relay 1."
+  documentEdge(
+    "The method to use when ordering `Document`."
+    orderBy: [DocumentOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DocumentEdge
+}
+
+"The output of our delete `DocumentsChunk` mutation."
+type DeleteDocumentsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `DocumentsChunk` that was deleted by this mutation."
+  documentsChunk: DocumentsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `DocumentsChunk`. May be used by Relay 1."
+  documentsChunkEdge(
+    "The method to use when ordering `DocumentsChunk`."
+    orderBy: [DocumentsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DocumentsChunkEdge
 }
 
 "The output of our delete `EmailAttachment` mutation."
@@ -9344,7 +9688,288 @@ type DeleteVenuePayload {
   ): VenueEdge
 }
 
-"@@trgmSearch subject\n@@searchConfig {\"weights\": {\"tsv\": 1.0, \"bm25\": 1.0}, \"fts_field\": \"search_tsv\", \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\", \"fts_source_fields\": [{\"field\": \"subject\", \"weight\": \"A\"}, {\"field\": \"body_text\", \"weight\": \"B\"}]}"
+"""
+@@hasChunks {"chunks_table": "documents_chunks", "embedding_field": "embedding"}
+@@searchConfig {"weights": {"bm25": 1.0}, "bm25_field": "embedding_text", "bm25_text_config": "english"}
+"""
+type Document {
+  title: String
+  content: String!
+  metadata: JSON
+  repoName: String
+  filePath: String
+  commitHash: String
+  tags: [String]
+  id: UUID!
+  "Timestamp when this record was created"
+  createdAt: Datetime!
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
+  "Reads and enables pagination through a set of `Company`."
+  companies(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyFilter
+    "The method to use when ordering `Company`."
+    orderBy: [CompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DocumentCompaniesManyToManyConnection!
+  "Reads and enables pagination through a set of `Project`."
+  projects(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProjectFilter
+    "The method to use when ordering `Project`."
+    orderBy: [ProjectOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DocumentProjectsManyToManyConnection!
+  "Reads and enables pagination through a set of `DocumentsChunk`."
+  documentsChunksByDocumentsId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DocumentsChunkFilter
+    "The method to use when ordering `DocumentsChunk`."
+    orderBy: [DocumentsChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DocumentsChunkConnection!
+  "Reads and enables pagination through a set of `CompanyDocument`."
+  companyDocuments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyDocumentFilter
+    "The method to use when ordering `CompanyDocument`."
+    orderBy: [CompanyDocumentOrderBy!] = [NATURAL]
+  ): CompanyDocumentConnection!
+  "Reads and enables pagination through a set of `ProjectDocument`."
+  projectDocuments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProjectDocumentFilter
+    "The method to use when ordering `ProjectDocument`."
+    orderBy: [ProjectDocumentOrderBy!] = [NATURAL]
+  ): ProjectDocumentConnection!
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `title`. Returns null when no trgm search filter is active."
+  titleTrgmSimilarity: Float
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "TRGM similarity when searching `repoName`. Returns null when no trgm search filter is active."
+  repoNameTrgmSimilarity: Float
+  "TRGM similarity when searching `filePath`. Returns null when no trgm search filter is active."
+  filePathTrgmSimilarity: Float
+  "TRGM similarity when searching `commitHash`. Returns null when no trgm search filter is active."
+  commitHashTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `Company` values, with data from `CompanyDocument`."
+type DocumentCompaniesManyToManyConnection {
+  "A list of `Company` objects."
+  nodes: [Company]!
+  "A list of edges which contains the `Company`, info from the `CompanyDocument`, and the cursor to aid in pagination."
+  edges: [DocumentCompaniesManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Company` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Company` edge in the connection, with data from `CompanyDocument`."
+type DocumentCompaniesManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Company` at the end of the edge."
+  node: Company
+  "Reads and enables pagination through a set of `CompanyDocument`."
+  companyDocumentsByCompanyId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyDocumentFilter
+    "The method to use when ordering `CompanyDocument`."
+    orderBy: [CompanyDocumentOrderBy!] = [NATURAL]
+  ): CompanyDocumentConnection!
+}
+
+"A connection to a list of `Document` values."
+type DocumentConnection {
+  "A list of `Document` objects."
+  nodes: [Document]!
+  "A list of edges which contains the `Document` and cursor to aid in pagination."
+  edges: [DocumentEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Document` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Document` edge in the connection."
+type DocumentEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Document` at the end of the edge."
+  node: Document
+}
+
+"A connection to a list of `Project` values, with data from `ProjectDocument`."
+type DocumentProjectsManyToManyConnection {
+  "A list of `Project` objects."
+  nodes: [Project]!
+  "A list of edges which contains the `Project`, info from the `ProjectDocument`, and the cursor to aid in pagination."
+  edges: [DocumentProjectsManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Project` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Project` edge in the connection, with data from `ProjectDocument`."
+type DocumentProjectsManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Project` at the end of the edge."
+  node: Project
+  "Reads and enables pagination through a set of `ProjectDocument`."
+  projectDocumentsByProjectId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProjectDocumentFilter
+    "The method to use when ordering `ProjectDocument`."
+    orderBy: [ProjectDocumentOrderBy!] = [NATURAL]
+  ): ProjectDocumentConnection!
+}
+
+"@@chunksOf {\"parent_fk\": \"documents_id\", \"parent_table\": \"documents\"}"
+type DocumentsChunk {
+  id: UUID!
+  documentsId: UUID!
+  content: String!
+  chunkIndex: Int!
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+  "Reads a single `Document` that is related to this `DocumentsChunk`."
+  documents: Document
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `DocumentsChunk` values."
+type DocumentsChunkConnection {
+  "A list of `DocumentsChunk` objects."
+  nodes: [DocumentsChunk]!
+  "A list of edges which contains the `DocumentsChunk` and cursor to aid in pagination."
+  edges: [DocumentsChunkEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `DocumentsChunk` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `DocumentsChunk` edge in the connection."
+type DocumentsChunkEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `DocumentsChunk` at the end of the edge."
+  node: DocumentsChunk
+}
+
+"""
+@@trgmSearch subject
+@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "subject", "weight": "A"}, {"field": "body_text", "weight": "B"}]}
+"""
 type Email {
   providerMessageId: String
   fromContactId: UUID
@@ -9357,7 +9982,9 @@ type Email {
   sentAt: Datetime
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   searchTsv: FullText
@@ -9495,7 +10122,9 @@ type EmailAttachment {
   storageUrl: String
   providerAttachmentId: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   emailId: UUID!
   "Reads a single `Email` that is related to this `EmailAttachment`."
@@ -9680,7 +10309,10 @@ type EmailRecipientEdge {
   node: EmailRecipient
 }
 
-"@@trgmSearch subject\n@@searchConfig {\"weights\": {\"tsv\": 1.0, \"bm25\": 1.0}, \"fts_field\": \"search_tsv\", \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\", \"fts_source_fields\": [{\"field\": \"subject\", \"weight\": \"A\"}, {\"field\": \"summary\", \"weight\": \"B\"}]}"
+"""
+@@trgmSearch subject
+@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "subject", "weight": "A"}, {"field": "summary", "weight": "B"}]}
+"""
 type EmailThread {
   providerThreadId: String
   subject: String
@@ -9689,7 +10321,9 @@ type EmailThread {
   status: String
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   searchTsv: FullText
@@ -9835,7 +10469,10 @@ type EmailThreadEdge {
   node: EmailThread
 }
 
-"@@trgmSearch name\n@@searchConfig {\"weights\": {\"tsv\": 1.0, \"bm25\": 1.0}, \"fts_field\": \"search_tsv\", \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\", \"fts_source_fields\": [{\"field\": \"name\", \"weight\": \"A\"}, {\"field\": \"notes_text\", \"weight\": \"B\"}, {\"field\": \"location\", \"weight\": \"C\"}]}"
+"""
+@@trgmSearch name
+@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "notes_text", "weight": "B"}, {"field": "location", "weight": "C"}]}
+"""
 type Event {
   name: String!
   eventType: String
@@ -9847,7 +10484,9 @@ type Event {
   tags: [String]
   mainImageId: UUID
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   searchTsv: FullText
@@ -10291,7 +10930,9 @@ type EventLink {
   title: String
   url: String!
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
@@ -10473,7 +11114,9 @@ type Expense {
   notes: String
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -11117,7 +11760,9 @@ type Goal {
   progress: BigFloat
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -11383,7 +12028,9 @@ type Habit {
   lastCompletedAt: Datetime
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   "Reads and enables pagination through a set of `Goal`."
   goals(
@@ -11513,7 +12160,9 @@ type Image {
   altText: String
   caption: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
@@ -11952,7 +12601,9 @@ type Interaction {
   sentiment: String
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -12004,7 +12655,9 @@ type Memory {
   mood: String
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -12221,7 +12874,9 @@ type Message {
   toolCalls: JSON
   toolResults: JSON
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -12444,6 +13099,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCalendarEventTaskInput!
   ): CreateCalendarEventTaskPayload
+  "Creates a single `CompanyDocument`."
+  createCompanyDocument(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateCompanyDocumentInput!
+  ): CreateCompanyDocumentPayload
   "Creates a single `CompanyEvent`."
   createCompanyEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12554,6 +13214,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateProjectContactInput!
   ): CreateProjectContactPayload
+  "Creates a single `ProjectDocument`."
+  createProjectDocument(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateProjectDocumentInput!
+  ): CreateProjectDocumentPayload
   "Creates a single `RuntimeStateDependency`."
   createRuntimeStateDependency(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12724,6 +13389,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateContactsChunkInput!
   ): CreateContactsChunkPayload
+  "Creates a single `DocumentsChunk`."
+  createDocumentsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateDocumentsChunkInput!
+  ): CreateDocumentsChunkPayload
   "Creates a single `NotesChunk`."
   createNotesChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12799,6 +13469,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateDealInput!
   ): CreateDealPayload
+  "Creates a single `Document`."
+  createDocument(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateDocumentInput!
+  ): CreateDocumentPayload
   "Creates a single `Project`."
   createProject(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13004,6 +13679,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateContactsChunkInput!
   ): UpdateContactsChunkPayload
+  "Updates a single `DocumentsChunk` using a unique key and a patch."
+  updateDocumentsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateDocumentsChunkInput!
+  ): UpdateDocumentsChunkPayload
   "Updates a single `NotesChunk` using a unique key and a patch."
   updateNotesChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13079,6 +13759,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateDealInput!
   ): UpdateDealPayload
+  "Updates a single `Document` using a unique key and a patch."
+  updateDocument(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateDocumentInput!
+  ): UpdateDocumentPayload
   "Updates a single `Project` using a unique key and a patch."
   updateProject(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13284,6 +13969,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteContactsChunkInput!
   ): DeleteContactsChunkPayload
+  "Deletes a single `DocumentsChunk` using a unique key."
+  deleteDocumentsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteDocumentsChunkInput!
+  ): DeleteDocumentsChunkPayload
   "Deletes a single `NotesChunk` using a unique key."
   deleteNotesChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13359,6 +14049,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteDealInput!
   ): DeleteDealPayload
+  "Deletes a single `Document` using a unique key."
+  deleteDocument(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteDocumentInput!
+  ): DeleteDocumentPayload
   "Deletes a single `Project` using a unique key."
   deleteProject(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13460,7 +14155,10 @@ type Mutation {
   ): ProvisionBucketPayload
 }
 
-"@@hasChunks {\"chunks_table\": \"notes_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"""
+@@hasChunks {"chunks_table": "notes_chunks", "embedding_field": "embedding"}
+@@searchConfig {"weights": {"bm25": 1.0}, "bm25_field": "embedding_text", "bm25_text_config": "english"}
+"""
 type Note {
   content: String!
   abstract: String
@@ -13469,7 +14167,9 @@ type Note {
   lastAccessedAt: Datetime
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -13774,8 +14474,6 @@ type Note {
     "The method to use when ordering `CalendarEventNote`."
     orderBy: [CalendarEventNoteOrderBy!] = [NATURAL]
   ): CalendarEventNoteConnection!
-  "BM25 score when searching `content`. Returns null when no bm25 search filter is active."
-  contentBm25Score: Float
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
@@ -14151,7 +14849,9 @@ type Place {
   rating: BigFloat
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -14208,7 +14908,9 @@ type Project {
   config: JSON
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -14273,6 +14975,26 @@ type Project {
     "The method to use when ordering `Goal`."
     orderBy: [GoalOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectGoalsManyToManyConnection!
+  "Reads and enables pagination through a set of `Document`."
+  documents(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DocumentFilter
+    "The method to use when ordering `Document`."
+    orderBy: [DocumentOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ProjectDocumentsManyToManyConnection!
   "Reads and enables pagination through a set of `ProjectContact`."
   projectContacts(
     "Only read the first `n` values of the set."
@@ -14333,6 +15055,26 @@ type Project {
     "The method to use when ordering `GoalProject`."
     orderBy: [GoalProjectOrderBy!] = [NATURAL]
   ): GoalProjectConnection!
+  "Reads and enables pagination through a set of `ProjectDocument`."
+  projectDocuments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProjectDocumentFilter
+    "The method to use when ordering `ProjectDocument`."
+    orderBy: [ProjectDocumentOrderBy!] = [NATURAL]
+  ): ProjectDocumentConnection!
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
@@ -14432,6 +15174,75 @@ type ProjectContactsManyToManyEdge {
   ): ProjectContactConnection!
 }
 
+type ProjectDocument {
+  projectId: UUID!
+  documentId: UUID!
+  "Reads a single `Document` that is related to this `ProjectDocument`."
+  document: Document
+  "Reads a single `Project` that is related to this `ProjectDocument`."
+  project: Project
+}
+
+"A connection to a list of `ProjectDocument` values."
+type ProjectDocumentConnection {
+  "A list of `ProjectDocument` objects."
+  nodes: [ProjectDocument]!
+  "A list of edges which contains the `ProjectDocument` and cursor to aid in pagination."
+  edges: [ProjectDocumentEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ProjectDocument` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ProjectDocument` edge in the connection."
+type ProjectDocumentEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ProjectDocument` at the end of the edge."
+  node: ProjectDocument
+}
+
+"A connection to a list of `Document` values, with data from `ProjectDocument`."
+type ProjectDocumentsManyToManyConnection {
+  "A list of `Document` objects."
+  nodes: [Document]!
+  "A list of edges which contains the `Document`, info from the `ProjectDocument`, and the cursor to aid in pagination."
+  edges: [ProjectDocumentsManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Document` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Document` edge in the connection, with data from `ProjectDocument`."
+type ProjectDocumentsManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Document` at the end of the edge."
+  node: Document
+  "Reads and enables pagination through a set of `ProjectDocument`."
+  projectDocumentsByDocumentId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProjectDocumentFilter
+    "The method to use when ordering `ProjectDocument`."
+    orderBy: [ProjectDocumentOrderBy!] = [NATURAL]
+  ): ProjectDocumentConnection!
+}
+
 "A `Project` edge in the connection."
 type ProjectEdge {
   "A cursor for use in pagination."
@@ -14529,7 +15340,9 @@ type Prompt {
   isActive: Boolean
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -14658,7 +15471,9 @@ type ProviderSyncState {
   lastSyncAt: Datetime
   status: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
 }
 
@@ -14819,6 +15634,26 @@ type Query {
     "The method to use when ordering `CalendarEventTask`."
     orderBy: [CalendarEventTaskOrderBy!] = [NATURAL]
   ): CalendarEventTaskConnection
+  "Reads and enables pagination through a set of `CompanyDocument`."
+  companyDocuments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyDocumentFilter
+    "The method to use when ordering `CompanyDocument`."
+    orderBy: [CompanyDocumentOrderBy!] = [NATURAL]
+  ): CompanyDocumentConnection
   "Reads and enables pagination through a set of `CompanyEvent`."
   companyEvents(
     "Only read the first `n` values of the set."
@@ -15259,6 +16094,26 @@ type Query {
     "The method to use when ordering `ProjectContact`."
     orderBy: [ProjectContactOrderBy!] = [NATURAL]
   ): ProjectContactConnection
+  "Reads and enables pagination through a set of `ProjectDocument`."
+  projectDocuments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProjectDocumentFilter
+    "The method to use when ordering `ProjectDocument`."
+    orderBy: [ProjectDocumentOrderBy!] = [NATURAL]
+  ): ProjectDocumentConnection
   "Reads and enables pagination through a set of `RuntimeStateDependency`."
   runtimeStateDependencies(
     "Only read the first `n` values of the set."
@@ -15939,6 +16794,26 @@ type Query {
     "The method to use when ordering `ContactsChunk`."
     orderBy: [ContactsChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactsChunkConnection
+  "Reads and enables pagination through a set of `DocumentsChunk`."
+  documentsChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DocumentsChunkFilter
+    "The method to use when ordering `DocumentsChunk`."
+    orderBy: [DocumentsChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DocumentsChunkConnection
   "Reads and enables pagination through a set of `NotesChunk`."
   notesChunks(
     "Only read the first `n` values of the set."
@@ -16239,6 +17114,26 @@ type Query {
     "The method to use when ordering `Deal`."
     orderBy: [DealOrderBy!] = [PRIMARY_KEY_ASC]
   ): DealConnection
+  "Reads and enables pagination through a set of `Document`."
+  documents(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DocumentFilter
+    "The method to use when ordering `Document`."
+    orderBy: [DocumentOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DocumentConnection
   "Reads and enables pagination through a set of `Project`."
   projects(
     "Only read the first `n` values of the set."
@@ -16538,7 +17433,9 @@ type RawContact {
   confidence: BigFloat
   ingestedAt: Datetime
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   "Reads and enables pagination through a set of `RawContactEmail`."
   rawContactEmails(
@@ -16629,7 +17526,9 @@ type RawContactEmail {
   source: String
   confidence: BigFloat
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   rawContactId: UUID!
   "Reads a single `RawContact` that is related to this `RawContactEmail`."
@@ -16663,7 +17562,9 @@ type RawContactPhone {
   source: String
   confidence: BigFloat
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   rawContactId: UUID!
   "Reads a single `RawContact` that is related to this `RawContactPhone`."
@@ -16696,7 +17597,9 @@ type RawContactUrl {
   source: String
   confidence: BigFloat
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   rawContactId: UUID!
   "Reads a single `RawContact` that is related to this `RawContactUrl`."
@@ -16734,6 +17637,8 @@ type RequestUploadUrlPayload {
   deduplicated: Boolean!
   "Presigned URL expiry time (null if deduplicated)"
   expiresAt: Datetime
+  "File status — 'pending' for fresh uploads, 'ready' or 'processed' for deduplicated files. Clients can use this to know immediately whether the file is usable."
+  status: String!
 }
 
 "@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
@@ -16748,7 +17653,9 @@ type Rule {
   priority: Int
   triggerConcept: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -16807,7 +17714,9 @@ type RuntimeArtifact {
   meta: JSON
   sizeBytes: Int
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   "Reads a single `RuntimeState` that is related to this `RuntimeArtifact`."
   runtimeState: RuntimeState
@@ -16839,7 +17748,9 @@ type RuntimeConfig {
   description: String
   isSecret: Boolean
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
 }
 
@@ -16870,7 +17781,9 @@ type RuntimeEvent {
   processedAt: Datetime
   status: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
 }
 
@@ -16902,7 +17815,9 @@ type RuntimeLog {
   context: JSON
   stepIndex: Int
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -16950,7 +17865,9 @@ type RuntimeMetric {
   unit: String
   meta: JSON
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   "Reads a single `RuntimeState` that is related to this `RuntimeMetric`."
   runtimeState: RuntimeState
@@ -16985,7 +17902,9 @@ type RuntimeSchedule {
   config: JSON
   timezone: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
 }
 
@@ -17019,7 +17938,9 @@ type RuntimeState {
   startedAt: Datetime
   endedAt: Datetime
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -17319,7 +18240,9 @@ type Skill {
   isActive: Boolean
   intentTrigger: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -17485,7 +18408,9 @@ type Tag {
   category: String
   usageCount: Int
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
 }
 
@@ -17521,7 +18446,9 @@ type Task {
   completedAt: Datetime
   meta: JSON
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -18011,7 +18938,9 @@ type ToolDefinition {
   config: JSON
   isActive: Boolean
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -18162,7 +19091,9 @@ type ToolExecution {
   completedAt: Datetime
   error: String
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   "Reads a single `ToolDefinition` that is related to this `ToolExecution`."
   toolDefinition: ToolDefinition
@@ -18204,7 +19135,9 @@ type Touchpoint {
   meta: JSON
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -18268,7 +19201,9 @@ type Trip {
   endDate: Datetime
   tags: [String]
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
@@ -18634,6 +19569,42 @@ type UpdateDealPayload {
     "The method to use when ordering `Deal`."
     orderBy: [DealOrderBy!]! = [PRIMARY_KEY_ASC]
   ): DealEdge
+}
+
+"The output of our update `Document` mutation."
+type UpdateDocumentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Document` that was updated by this mutation."
+  document: Document
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Document`. May be used by Relay 1."
+  documentEdge(
+    "The method to use when ordering `Document`."
+    orderBy: [DocumentOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DocumentEdge
+}
+
+"The output of our update `DocumentsChunk` mutation."
+type UpdateDocumentsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `DocumentsChunk` that was updated by this mutation."
+  documentsChunk: DocumentsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `DocumentsChunk`. May be used by Relay 1."
+  documentsChunkEdge(
+    "The method to use when ordering `DocumentsChunk`."
+    orderBy: [DocumentsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DocumentsChunkEdge
 }
 
 "The output of our update `EmailAttachment` mutation."
@@ -19338,7 +20309,10 @@ type UpdateVenuePayload {
   ): VenueEdge
 }
 
-"@@trgmSearch name\n@@searchConfig {\"weights\": {\"tsv\": 1.0, \"bm25\": 1.0}, \"fts_field\": \"search_tsv\", \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\", \"fts_source_fields\": [{\"field\": \"name\", \"weight\": \"A\"}, {\"field\": \"notes\", \"weight\": \"B\"}, {\"field\": \"neighborhood\", \"weight\": \"C\"}]}"
+"""
+@@trgmSearch name
+@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "notes", "weight": "B"}, {"field": "neighborhood", "weight": "C"}]}
+"""
 type Venue {
   name: String!
   address: String
@@ -19354,7 +20328,9 @@ type Venue {
   tags: [String]
   mainImageId: UUID
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embeddingText: String
   searchTsv: FullText
@@ -19626,7 +20602,9 @@ type VenueLink {
   title: String
   url: String!
   id: UUID!
+  "Timestamp when this record was created"
   createdAt: Datetime!
+  "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
@@ -19738,7 +20716,9 @@ input ActivityLogInput {
   meta: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -19758,7 +20738,9 @@ input ActivityLogPatch {
   meta: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -19894,7 +20876,9 @@ input AgentInput {
   config: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -19962,7 +20946,9 @@ input AgentLogInput {
   context: JSON
   taskId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -19977,7 +20963,9 @@ input AgentLogPatch {
   context: JSON
   taskId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -19995,7 +20983,9 @@ input AgentPatch {
   config: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -20176,7 +21166,9 @@ input AutonomyRecordInput {
   context: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -20218,7 +21210,9 @@ input AutonomyRecordPatch {
   context: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -20331,7 +21325,9 @@ input CalendarAttendeeInput {
   responseStatus: String
   role: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   calendarEventId: UUID!
 }
@@ -20342,7 +21338,9 @@ input CalendarAttendeePatch {
   responseStatus: String
   role: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   calendarEventId: UUID
 }
@@ -20469,7 +21467,9 @@ input CalendarEventInput {
   organizerContactId: UUID
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -20512,7 +21512,9 @@ input CalendarEventPatch {
   organizerContactId: UUID
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -20619,7 +21621,9 @@ input CalendarInput {
   name: String!
   color: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -20630,7 +21634,9 @@ input CalendarPatch {
   name: String
   color: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -20642,6 +21648,30 @@ input CalendarToManyCalendarEventFilter {
   every: CalendarEventFilter
   "Filters to entities where no related entity matches."
   none: CalendarEventFilter
+}
+
+"A filter to be used against `CompanyDocument` object types. All fields are combined with a logical ‘and.’"
+input CompanyDocumentFilter {
+  "Filter by the object’s `companyId` field."
+  companyId: UUIDFilter
+  "Filter by the object’s `documentId` field."
+  documentId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [CompanyDocumentFilter!]
+  "Checks for any expressions in this list."
+  or: [CompanyDocumentFilter!]
+  "Negates the expression."
+  not: CompanyDocumentFilter
+  "Filter by the object’s `company` relation."
+  company: CompanyFilter
+  "Filter by the object’s `document` relation."
+  document: DocumentFilter
+}
+
+"An input for mutations affecting `CompanyDocument`"
+input CompanyDocumentInput {
+  companyId: UUID!
+  documentId: UUID!
 }
 
 "A filter to be used against `CompanyEvent` object types. All fields are combined with a logical ‘and.’"
@@ -20738,6 +21768,10 @@ input CompanyFilter {
   companyMemories: CompanyToManyCompanyMemoryFilter
   "`companyMemories` exist."
   companyMemoriesExist: Boolean
+  "Filter by the object’s `companyDocuments` relation."
+  companyDocuments: CompanyToManyCompanyDocumentFilter
+  "`companyDocuments` exist."
+  companyDocumentsExist: Boolean
   "TSV search on the `search_tsv` column."
   tsvSearchTsv: String
   "BM25 search on the `embedding_text` column."
@@ -20796,7 +21830,9 @@ input CompanyInput {
   tags: [String]
   mainImageId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -20838,7 +21874,9 @@ input CompanyLinkInput {
   title: String
   url: String!
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -20850,7 +21888,9 @@ input CompanyLinkPatch {
   title: String
   url: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -20914,11 +21954,23 @@ input CompanyPatch {
   tags: [String]
   mainImageId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+}
+
+"A filter to be used against many `CompanyDocument` object types. All fields are combined with a logical ‘and.’"
+input CompanyToManyCompanyDocumentFilter {
+  "Filters to entities where at least one related entity matches."
+  some: CompanyDocumentFilter
+  "Filters to entities where every related entity matches."
+  every: CompanyDocumentFilter
+  "Filters to entities where no related entity matches."
+  none: CompanyDocumentFilter
 }
 
 "A filter to be used against many `CompanyEvent` object types. All fields are combined with a logical ‘and.’"
@@ -21050,7 +22102,9 @@ input ContactAddressInput {
   addressType: String
   isPrimary: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   contactId: UUID!
 }
@@ -21065,7 +22119,9 @@ input ContactAddressPatch {
   addressType: String
   isPrimary: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   contactId: UUID
 }
@@ -21126,7 +22182,9 @@ input ContactEmailInput {
   emailType: String
   isPrimary: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   contactId: UUID!
 }
@@ -21137,7 +22195,9 @@ input ContactEmailPatch {
   emailType: String
   isPrimary: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   contactId: UUID
 }
@@ -21386,7 +22446,9 @@ input ContactInput {
   tags: [String]
   mainImageId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -21429,7 +22491,9 @@ input ContactLinkInput {
   title: String
   url: String!
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -21441,7 +22505,9 @@ input ContactLinkPatch {
   title: String
   url: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -21511,7 +22577,9 @@ input ContactPatch {
   tags: [String]
   mainImageId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -21551,7 +22619,9 @@ input ContactPhoneInput {
   phoneType: String
   isPrimary: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   contactId: UUID!
 }
@@ -21562,7 +22632,9 @@ input ContactPhonePatch {
   phoneType: String
   isPrimary: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   contactId: UUID
 }
@@ -21933,7 +23005,9 @@ input ConversationInput {
   status: String
   meta: JSON
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -21947,7 +23021,9 @@ input ConversationPatch {
   status: String
   meta: JSON
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -22105,6 +23181,17 @@ input CreateCalendarInput {
   clientMutationId: String
   "The `Calendar` to be created by this mutation."
   calendar: CalendarInput!
+}
+
+"All input for the create `CompanyDocument` mutation."
+input CreateCompanyDocumentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `CompanyDocument` to be created by this mutation."
+  companyDocument: CompanyDocumentInput!
 }
 
 "All input for the create `CompanyEvent` mutation."
@@ -22358,6 +23445,28 @@ input CreateDealNoteInput {
   clientMutationId: String
   "The `DealNote` to be created by this mutation."
   dealNote: DealNoteInput!
+}
+
+"All input for the create `Document` mutation."
+input CreateDocumentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `Document` to be created by this mutation."
+  document: DocumentInput!
+}
+
+"All input for the create `DocumentsChunk` mutation."
+input CreateDocumentsChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `DocumentsChunk` to be created by this mutation."
+  documentsChunk: DocumentsChunkInput!
 }
 
 "All input for the create `EmailAttachment` mutation."
@@ -22622,6 +23731,17 @@ input CreateProjectContactInput {
   clientMutationId: String
   "The `ProjectContact` to be created by this mutation."
   projectContact: ProjectContactInput!
+}
+
+"All input for the create `ProjectDocument` mutation."
+input CreateProjectDocumentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `ProjectDocument` to be created by this mutation."
+  projectDocument: ProjectDocumentInput!
 }
 
 "All input for the create `Project` mutation."
@@ -23073,7 +24193,7 @@ input DealFilter {
   stage: StringTrgmFilter
   "Filter by the object’s `value` field."
   value: BigFloatFilter
-  "Filter by the object���s `currency` field."
+  "Filter by the object’s `currency` field."
   currency: StringTrgmFilter
   "Filter by the object’s `expectedCloseDate` field."
   expectedCloseDate: DatetimeFilter
@@ -23148,7 +24268,9 @@ input DealInput {
   notesText: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -23189,7 +24311,9 @@ input DealPatch {
   notesText: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -23398,6 +24522,26 @@ input DeleteConversationInput {
 
 "All input for the `deleteDeal` mutation."
 input DeleteDealInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteDocument` mutation."
+input DeleteDocumentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteDocumentsChunk` mutation."
+input DeleteDocumentsChunkInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -23796,6 +24940,199 @@ input DeleteVenueLinkInput {
   id: UUID!
 }
 
+"A filter to be used against `Document` object types. All fields are combined with a logical ‘and.’"
+input DocumentFilter {
+  "Filter by the object’s `title` field."
+  title: StringTrgmFilter
+  "Filter by the object’s `content` field."
+  content: StringTrgmFilter
+  "Filter by the object’s `metadata` field."
+  metadata: JSONFilter
+  "Filter by the object’s `repoName` field."
+  repoName: StringTrgmFilter
+  "Filter by the object’s `filePath` field."
+  filePath: StringTrgmFilter
+  "Filter by the object’s `commitHash` field."
+  commitHash: StringTrgmFilter
+  "Filter by the object’s `tags` field."
+  tags: StringListFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
+  "Checks for all expressions in this list."
+  and: [DocumentFilter!]
+  "Checks for any expressions in this list."
+  or: [DocumentFilter!]
+  "Negates the expression."
+  not: DocumentFilter
+  "Filter by the object’s `documentsChunksByDocumentsId` relation."
+  documentsChunksByDocumentsId: DocumentToManyDocumentsChunkFilter
+  "`documentsChunksByDocumentsId` exist."
+  documentsChunksByDocumentsIdExist: Boolean
+  "Filter by the object’s `companyDocuments` relation."
+  companyDocuments: DocumentToManyCompanyDocumentFilter
+  "`companyDocuments` exist."
+  companyDocumentsExist: Boolean
+  "Filter by the object’s `projectDocuments` relation."
+  projectDocuments: DocumentToManyProjectDocumentFilter
+  "`projectDocuments` exist."
+  projectDocumentsExist: Boolean
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `title` column."
+  trgmTitle: TrgmSearchInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  "TRGM search on the `repo_name` column."
+  trgmRepoName: TrgmSearchInput
+  "TRGM search on the `file_path` column."
+  trgmFilePath: TrgmSearchInput
+  "TRGM search on the `commit_hash` column."
+  trgmCommitHash: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite unified search. Provide a search string and it will be dispatched to
+  all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  unifiedSearch: String
+}
+
+"An input for mutations affecting `Document`"
+input DocumentInput {
+  title: String
+  content: String!
+  metadata: JSON
+  repoName: String
+  filePath: String
+  commitHash: String
+  tags: [String]
+  id: UUID
+  "Timestamp when this record was created"
+  createdAt: Datetime
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+}
+
+"Represents an update to a `Document`. Fields that are set will be updated."
+input DocumentPatch {
+  title: String
+  content: String
+  metadata: JSON
+  repoName: String
+  filePath: String
+  commitHash: String
+  tags: [String]
+  id: UUID
+  "Timestamp when this record was created"
+  createdAt: Datetime
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+}
+
+"A filter to be used against `DocumentsChunk` object types. All fields are combined with a logical ‘and.’"
+input DocumentsChunkFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `documentsId` field."
+  documentsId: UUIDFilter
+  "Filter by the object’s `content` field."
+  content: StringFilter
+  "Filter by the object’s `chunkIndex` field."
+  chunkIndex: IntFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `metadata` field."
+  metadata: JSONFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Checks for all expressions in this list."
+  and: [DocumentsChunkFilter!]
+  "Checks for any expressions in this list."
+  or: [DocumentsChunkFilter!]
+  "Negates the expression."
+  not: DocumentsChunkFilter
+  "Filter by the object’s `documents` relation."
+  documents: DocumentFilter
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+}
+
+"An input for mutations affecting `DocumentsChunk`"
+input DocumentsChunkInput {
+  id: UUID
+  documentsId: UUID!
+  content: String!
+  chunkIndex: Int
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"Represents an update to a `DocumentsChunk`. Fields that are set will be updated."
+input DocumentsChunkPatch {
+  id: UUID
+  documentsId: UUID
+  content: String
+  chunkIndex: Int
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"A filter to be used against many `CompanyDocument` object types. All fields are combined with a logical ‘and.’"
+input DocumentToManyCompanyDocumentFilter {
+  "Filters to entities where at least one related entity matches."
+  some: CompanyDocumentFilter
+  "Filters to entities where every related entity matches."
+  every: CompanyDocumentFilter
+  "Filters to entities where no related entity matches."
+  none: CompanyDocumentFilter
+}
+
+"A filter to be used against many `DocumentsChunk` object types. All fields are combined with a logical ‘and.’"
+input DocumentToManyDocumentsChunkFilter {
+  "Filters to entities where at least one related entity matches."
+  some: DocumentsChunkFilter
+  "Filters to entities where every related entity matches."
+  every: DocumentsChunkFilter
+  "Filters to entities where no related entity matches."
+  none: DocumentsChunkFilter
+}
+
+"A filter to be used against many `ProjectDocument` object types. All fields are combined with a logical ‘and.’"
+input DocumentToManyProjectDocumentFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ProjectDocumentFilter
+  "Filters to entities where every related entity matches."
+  every: ProjectDocumentFilter
+  "Filters to entities where no related entity matches."
+  none: ProjectDocumentFilter
+}
+
 "A filter to be used against `EmailAttachment` object types. All fields are combined with a logical ‘and.’"
 input EmailAttachmentFilter {
   "Filter by the object’s `filename` field."
@@ -23834,7 +25171,9 @@ input EmailAttachmentInput {
   storageUrl: String
   providerAttachmentId: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   emailId: UUID!
 }
@@ -23847,7 +25186,9 @@ input EmailAttachmentPatch {
   storageUrl: String
   providerAttachmentId: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   emailId: UUID
 }
@@ -23952,7 +25293,9 @@ input EmailInput {
   sentAt: Datetime
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -23997,7 +25340,9 @@ input EmailPatch {
   sentAt: Datetime
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24105,7 +25450,9 @@ input EmailThreadInput {
   status: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24121,7 +25468,9 @@ input EmailThreadPatch {
   status: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24317,7 +25666,9 @@ input EventInput {
   tags: [String]
   mainImageId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24360,7 +25711,9 @@ input EventLinkInput {
   title: String
   url: String!
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -24372,7 +25725,9 @@ input EventLinkPatch {
   title: String
   url: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -24415,7 +25770,9 @@ input EventPatch {
   tags: [String]
   mainImageId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24635,7 +25992,9 @@ input ExpenseInput {
   notes: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24654,7 +26013,9 @@ input ExpensePatch {
   notes: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24814,7 +26175,9 @@ input GoalInput {
   progress: BigFloat
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24830,7 +26193,9 @@ input GoalPatch {
   progress: BigFloat
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -24923,7 +26288,9 @@ input HabitInput {
   lastCompletedAt: Datetime
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -24935,7 +26302,9 @@ input HabitPatch {
   lastCompletedAt: Datetime
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -25028,7 +26397,9 @@ input ImageInput {
   altText: String
   caption: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -25041,7 +26412,9 @@ input ImagePatch {
   altText: String
   caption: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -25191,7 +26564,9 @@ input InteractionInput {
   sentiment: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25207,7 +26582,9 @@ input InteractionPatch {
   sentiment: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25362,7 +26739,9 @@ input MemoryInput {
   mood: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25380,7 +26759,9 @@ input MemoryPatch {
   mood: String
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25510,7 +26891,9 @@ input MessageInput {
   toolCalls: JSON
   toolResults: JSON
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25527,7 +26910,9 @@ input MessagePatch {
   toolCalls: JSON
   toolResults: JSON
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25598,8 +26983,6 @@ input NoteFilter {
   calendarEventNotes: NoteToManyCalendarEventNoteFilter
   "`calendarEventNotes` exist."
   calendarEventNotesExist: Boolean
-  "BM25 search on the `content` column."
-  bm25Content: Bm25SearchInput
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -25630,7 +27013,9 @@ input NoteInput {
   lastAccessedAt: Datetime
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25646,7 +27031,9 @@ input NotePatch {
   lastAccessedAt: Datetime
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25853,7 +27240,9 @@ input PlaceInput {
   rating: BigFloat
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25870,7 +27259,9 @@ input PlacePatch {
   rating: BigFloat
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -25900,6 +27291,30 @@ input ProjectContactFilter {
 input ProjectContactInput {
   projectId: UUID!
   contactId: UUID!
+}
+
+"A filter to be used against `ProjectDocument` object types. All fields are combined with a logical ‘and.’"
+input ProjectDocumentFilter {
+  "Filter by the object’s `projectId` field."
+  projectId: UUIDFilter
+  "Filter by the object’s `documentId` field."
+  documentId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [ProjectDocumentFilter!]
+  "Checks for any expressions in this list."
+  or: [ProjectDocumentFilter!]
+  "Negates the expression."
+  not: ProjectDocumentFilter
+  "Filter by the object’s `document` relation."
+  document: DocumentFilter
+  "Filter by the object’s `project` relation."
+  project: ProjectFilter
+}
+
+"An input for mutations affecting `ProjectDocument`"
+input ProjectDocumentInput {
+  projectId: UUID!
+  documentId: UUID!
 }
 
 "A filter to be used against `Project` object types. All fields are combined with a logical ‘and.’"
@@ -25954,6 +27369,10 @@ input ProjectFilter {
   goalProjects: ProjectToManyGoalProjectFilter
   "`goalProjects` exist."
   goalProjectsExist: Boolean
+  "Filter by the object’s `projectDocuments` relation."
+  projectDocuments: ProjectToManyProjectDocumentFilter
+  "`projectDocuments` exist."
+  projectDocumentsExist: Boolean
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -25990,7 +27409,9 @@ input ProjectInput {
   config: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -26010,7 +27431,9 @@ input ProjectPatch {
   config: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -26035,6 +27458,16 @@ input ProjectToManyProjectContactFilter {
   every: ProjectContactFilter
   "Filters to entities where no related entity matches."
   none: ProjectContactFilter
+}
+
+"A filter to be used against many `ProjectDocument` object types. All fields are combined with a logical ‘and.’"
+input ProjectToManyProjectDocumentFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ProjectDocumentFilter
+  "Filters to entities where every related entity matches."
+  every: ProjectDocumentFilter
+  "Filters to entities where no related entity matches."
+  none: ProjectDocumentFilter
 }
 
 "A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’"
@@ -26113,7 +27546,9 @@ input PromptInput {
   isActive: Boolean
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -26129,7 +27564,9 @@ input PromptPatch {
   isActive: Boolean
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -26183,7 +27620,9 @@ input ProviderSyncStateInput {
   lastSyncAt: Datetime
   status: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26196,13 +27635,20 @@ input ProviderSyncStatePatch {
   lastSyncAt: Datetime
   status: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
 input ProvisionBucketInput {
   "The logical bucket key (e.g., \"public\", \"private\")"
   bucketKey: String!
+  """
+  Owner entity ID for entity-scoped bucket provisioning.
+  Omit for app-level (database-wide) storage.
+  """
+  ownerId: UUID
 }
 
 "A filter to be used against `RawContactEmail` object types. All fields are combined with a logical ‘and.’"
@@ -26243,7 +27689,9 @@ input RawContactEmailInput {
   source: String
   confidence: BigFloat
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   rawContactId: UUID!
 }
@@ -26256,7 +27704,9 @@ input RawContactEmailPatch {
   source: String
   confidence: BigFloat
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   rawContactId: UUID
 }
@@ -26331,7 +27781,9 @@ input RawContactInput {
   confidence: BigFloat
   ingestedAt: Datetime
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26351,7 +27803,9 @@ input RawContactPatch {
   confidence: BigFloat
   ingestedAt: Datetime
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26393,7 +27847,9 @@ input RawContactPhoneInput {
   source: String
   confidence: BigFloat
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   rawContactId: UUID!
 }
@@ -26406,7 +27862,9 @@ input RawContactPhonePatch {
   source: String
   confidence: BigFloat
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   rawContactId: UUID
 }
@@ -26476,7 +27934,9 @@ input RawContactUrlInput {
   source: String
   confidence: BigFloat
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   rawContactId: UUID!
 }
@@ -26488,7 +27948,9 @@ input RawContactUrlPatch {
   source: String
   confidence: BigFloat
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   rawContactId: UUID
 }
@@ -26496,6 +27958,13 @@ input RawContactUrlPatch {
 input RequestUploadUrlInput {
   "Bucket key (e.g., \"public\", \"private\")"
   bucketKey: String!
+  """
+  Owner entity ID for entity-scoped uploads.
+  Omit for app-level (database-wide) storage.
+  When provided, resolves the storage module for the entity type
+  that owns this entity instance (e.g., a data room ID, team ID).
+  """
+  ownerId: UUID
   "SHA-256 content hash computed by the client (hex-encoded, 64 chars)"
   contentHash: String!
   "MIME type of the file (e.g., \"image/png\")"
@@ -26589,7 +28058,9 @@ input RuleInput {
   priority: Int
   triggerConcept: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -26610,7 +28081,9 @@ input RulePatch {
   priority: Int
   triggerConcept: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -26658,7 +28131,9 @@ input RuntimeArtifactInput {
   meta: JSON
   sizeBytes: Int
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26671,7 +28146,9 @@ input RuntimeArtifactPatch {
   meta: JSON
   sizeBytes: Int
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26706,7 +28183,9 @@ input RuntimeConfigInput {
   description: String
   isSecret: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26717,7 +28196,9 @@ input RuntimeConfigPatch {
   description: String
   isSecret: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26755,7 +28236,9 @@ input RuntimeEventInput {
   processedAt: Datetime
   status: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26767,7 +28250,9 @@ input RuntimeEventPatch {
   processedAt: Datetime
   status: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26830,7 +28315,9 @@ input RuntimeLogInput {
   context: JSON
   stepIndex: Int
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -26845,7 +28332,9 @@ input RuntimeLogPatch {
   context: JSON
   stepIndex: Int
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -26888,7 +28377,9 @@ input RuntimeMetricInput {
   unit: String
   meta: JSON
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26900,7 +28391,9 @@ input RuntimeMetricPatch {
   unit: String
   meta: JSON
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26944,7 +28437,9 @@ input RuntimeScheduleInput {
   config: JSON
   timezone: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -26958,7 +28453,9 @@ input RuntimeSchedulePatch {
   config: JSON
   timezone: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -27071,7 +28568,9 @@ input RuntimeStateInput {
   startedAt: Datetime
   endedAt: Datetime
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -27088,7 +28587,9 @@ input RuntimeStatePatch {
   startedAt: Datetime
   endedAt: Datetime
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -27216,7 +28717,9 @@ input SkillInput {
   isActive: Boolean
   intentTrigger: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -27235,7 +28738,9 @@ input SkillPatch {
   isActive: Boolean
   intentTrigger: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -27509,7 +29014,9 @@ input TagInput {
   category: String
   usageCount: Int
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -27520,7 +29027,9 @@ input TagPatch {
   category: String
   usageCount: Int
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -27641,7 +29150,9 @@ input TaskInput {
   completedAt: Datetime
   meta: JSON
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -27684,7 +29195,9 @@ input TaskPatch {
   completedAt: Datetime
   meta: JSON
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -27849,7 +29362,9 @@ input ToolDefinitionInput {
   config: JSON
   isActive: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -27865,7 +29380,9 @@ input ToolDefinitionPatch {
   config: JSON
   isActive: Boolean
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -27937,7 +29454,9 @@ input ToolExecutionInput {
   completedAt: Datetime
   error: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -27952,7 +29471,9 @@ input ToolExecutionPatch {
   completedAt: Datetime
   error: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
 }
 
@@ -28059,7 +29580,9 @@ input TouchpointInput {
   meta: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -28082,7 +29605,9 @@ input TouchpointPatch {
   meta: JSON
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -28167,7 +29692,9 @@ input TripInput {
   endDate: Datetime
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -28184,7 +29711,9 @@ input TripPatch {
   endDate: Datetime
   tags: [String]
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -28416,6 +29945,30 @@ input UpdateDealInput {
   id: UUID!
   "An object where the defined keys will be set on the `Deal` being updated."
   dealPatch: DealPatch!
+}
+
+"All input for the `updateDocument` mutation."
+input UpdateDocumentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `Document` being updated."
+  documentPatch: DocumentPatch!
+}
+
+"All input for the `updateDocumentsChunk` mutation."
+input UpdateDocumentsChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `DocumentsChunk` being updated."
+  documentsChunkPatch: DocumentsChunkPatch!
 }
 
 "All input for the `updateEmailAttachment` mutation."
@@ -29083,7 +30636,9 @@ input VenueInput {
   tags: [String]
   mainImageId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
@@ -29126,7 +30681,9 @@ input VenueLinkInput {
   title: String
   url: String!
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -29138,7 +30695,9 @@ input VenueLinkPatch {
   title: String
   url: String
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
@@ -29161,7 +30720,9 @@ input VenuePatch {
   tags: [String]
   mainImageId: UUID
   id: UUID
+  "Timestamp when this record was created"
   createdAt: Datetime
+  "Timestamp when this record was last updated"
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector

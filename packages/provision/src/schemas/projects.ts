@@ -6,7 +6,6 @@
 
 import {
   type BlueprintDefinition,
-  ORG_NODES,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -16,7 +15,8 @@ const definition: BlueprintDefinition = {
       ref: 'projects',
       table_name: 'projects',
       nodes: [
-        ...ORG_NODES,
+        'DataId',
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },

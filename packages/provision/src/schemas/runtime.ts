@@ -6,7 +6,6 @@
 
 import {
   type BlueprintDefinition,
-  ORG_NODES,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -18,7 +17,8 @@ const definition: BlueprintDefinition = {
       ref: 'runtime_states',
       table_name: 'runtime_states',
       nodes: [
-        ...ORG_NODES,
+        'DataId',
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'state_type'] },
           bm25: { field_name: 'embedding_text' },
@@ -40,7 +40,8 @@ const definition: BlueprintDefinition = {
       ref: 'runtime_logs',
       table_name: 'runtime_logs',
       nodes: [
-        ...ORG_NODES,
+        'DataId',
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['message'] },
           bm25: { field_name: 'embedding_text' },
@@ -59,7 +60,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_artifacts',
       table_name: 'runtime_artifacts',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'runtime_state_id', type: 'uuid', is_required: true },
         { name: 'name', type: 'text', is_required: true },
@@ -74,7 +75,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_metrics',
       table_name: 'runtime_metrics',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'runtime_state_id', type: 'uuid', is_required: true },
         { name: 'metric_name', type: 'text', is_required: true },
@@ -88,7 +89,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_schedules',
       table_name: 'runtime_schedules',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'name', type: 'text', is_required: true },
         { name: 'cron_expression', type: 'text' },
@@ -104,7 +105,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_events',
       table_name: 'runtime_events',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'event_type', type: 'text', is_required: true },
         { name: 'payload', type: 'jsonb', is_required: true },
@@ -118,7 +119,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'runtime_config',
       table_name: 'runtime_config',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'key', type: 'text', is_required: true },
         { name: 'value', type: 'jsonb' },
@@ -132,7 +133,8 @@ const definition: BlueprintDefinition = {
       ref: 'conversations',
       table_name: 'conversations',
       nodes: [
-        ...ORG_NODES,
+        'DataId',
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title'] },
           bm25: { field_name: 'embedding_text' },
@@ -150,7 +152,8 @@ const definition: BlueprintDefinition = {
       ref: 'messages',
       table_name: 'messages',
       nodes: [
-        ...ORG_NODES,
+        'DataId',
+        'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['content'] },
           bm25: { field_name: 'embedding_text' },
@@ -171,7 +174,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'tool_executions',
       table_name: 'tool_executions',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'tool_definition_id', type: 'uuid', is_required: true },
         { name: 'message_id', type: 'uuid' },

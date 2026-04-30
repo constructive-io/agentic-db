@@ -28,9 +28,9 @@ INSERT INTO metaschema_public.schema (
   description,
   is_public
 ) VALUES
-  ('100c2ddc-49fa-f18f-8c3d-fb711fa32682', 'b46c93b1-cb18-9e9f-3288-850e3049f021', 'private', 'agentic_db_private', NULL, false),
-  ('87a21bb8-3407-6a13-ce48-d1b40b14c387', 'b46c93b1-cb18-9e9f-3288-850e3049f021', 'public', 'agentic_db_public', NULL, true),
-  ('bbc7ac5a-db12-efa7-4854-69b4dec0b769', 'b46c93b1-cb18-9e9f-3288-850e3049f021', 'app_public', 'agentic_db_app_public', NULL, true);
+  ('019ddc1e-68ec-7c89-801c-b87425e84bf0', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'public', 'agentic_db_public', NULL, true),
+  ('019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'private', 'agentic_db_private', NULL, false),
+  ('b9366791-5079-4ba2-60c6-59e7b1ca4313', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'app_public', 'agentic_db_app_public', NULL, true);
 
 
 SET session_replication_role TO DEFAULT;

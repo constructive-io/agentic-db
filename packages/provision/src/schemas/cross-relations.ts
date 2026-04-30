@@ -18,7 +18,8 @@
  *   companies <-> memories,
  *   email_threads <-> contacts, emails <-> contacts, emails <-> notes,
  *   calendar_events <-> notes, calendar_events <-> tasks,
- *   skills <-> tool_definitions
+ *   skills <-> tool_definitions,
+ *   companies <-> documents, projects <-> documents
  *
  * BelongsTo (cross-schema FKs):
  *   memories -> agents (agent_id), tool_executions -> tool_definitions,
@@ -72,6 +73,8 @@ const M2N: M2NSpec[] = [
   { source_table: 'emails',          target_table: 'notes',            junction_table_name: 'email_notes',             source_field_name: 'email_id',          target_field_name: 'note_id' },
   { source_table: 'calendar_events', target_table: 'notes',            junction_table_name: 'calendar_event_notes',    source_field_name: 'calendar_event_id', target_field_name: 'note_id' },
   { source_table: 'calendar_events', target_table: 'tasks',            junction_table_name: 'calendar_event_tasks',    source_field_name: 'calendar_event_id', target_field_name: 'task_id' },
+  { source_table: 'companies',       target_table: 'documents',        junction_table_name: 'company_documents',       source_field_name: 'company_id',        target_field_name: 'document_id' },
+  { source_table: 'projects',        target_table: 'documents',        junction_table_name: 'project_documents',       source_field_name: 'project_id',        target_field_name: 'document_id' },
 ];
 
 // ---------------------------------------------------------------------------

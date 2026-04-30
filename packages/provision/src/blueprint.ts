@@ -81,16 +81,6 @@ export type BlueprintDefinition = Omit<
 // Re-export passthrough blueprint types for consumers
 export type { BlueprintNode, BlueprintField, BlueprintFullTextSearch };
 
-// ---------------------------------------------------------------------------
-// Shared constants — standard org-scoped table defaults
-// ---------------------------------------------------------------------------
-
-/** Standard table nodes (DataId + DataTimestamps — no entity membership) */
-export const ORG_NODES: BlueprintTable['nodes'] = [
-  { $type: 'DataId', data: {} },
-  { $type: 'DataTimestamps', data: { include_id: false } },
-];
-
 /** Standard M:N junction table options (timestamps only, no grants/roles) */
 export const M2M_JUNCTION_OPTS = {};
 

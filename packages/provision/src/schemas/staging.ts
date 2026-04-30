@@ -7,7 +7,6 @@
 
 import {
   type BlueprintDefinition,
-  ORG_NODES,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -17,7 +16,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'raw_contacts',
       table_name: 'raw_contacts',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'external_id', type: 'text' },
         { name: 'source', type: 'text' },
@@ -39,7 +38,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'raw_contact_emails',
       table_name: 'raw_contact_emails',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'email', type: 'text', is_required: true },
         { name: 'email_type', type: 'text' },
@@ -53,7 +52,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'raw_contact_phones',
       table_name: 'raw_contact_phones',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'phone', type: 'text', is_required: true },
         { name: 'phone_type', type: 'text' },
@@ -67,7 +66,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'raw_contact_urls',
       table_name: 'raw_contact_urls',
-      nodes: [...ORG_NODES],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'url', type: 'text', is_required: true },
         { name: 'url_type', type: 'text' },
