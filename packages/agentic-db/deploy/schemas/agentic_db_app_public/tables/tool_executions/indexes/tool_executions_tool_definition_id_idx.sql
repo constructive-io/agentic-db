@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/table
+-- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/columns/tool_definition_id/column
--- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 CREATE INDEX tool_executions_tool_definition_id_idx ON agentic_db_app_public.tool_executions USING BTREE ( tool_definition_id );

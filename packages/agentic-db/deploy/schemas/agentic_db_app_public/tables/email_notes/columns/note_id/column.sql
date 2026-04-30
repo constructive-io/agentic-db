@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_notes/table
--- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
+-- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 ALTER TABLE agentic_db_app_public.email_notes 

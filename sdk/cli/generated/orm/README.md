@@ -40,6 +40,8 @@ const db = createClient({
 | `task` | findMany, findOne, create, update, delete |
 | `company` | findMany, findOne, create, update, delete |
 | `deal` | findMany, findOne, create, update, delete |
+| `companyDocument` | findMany, findOne, create, update, delete |
+| `document` | findMany, findOne, create, update, delete |
 | `companyEvent` | findMany, findOne, create, update, delete |
 | `event` | findMany, findOne, create, update, delete |
 | `companyImage` | findMany, findOne, create, update, delete |
@@ -67,6 +69,7 @@ const db = createClient({
 | `dealCompany` | findMany, findOne, create, update, delete |
 | `dealContact` | findMany, findOne, create, update, delete |
 | `dealNote` | findMany, findOne, create, update, delete |
+| `documentsChunk` | findMany, findOne, create, update, delete |
 | `emailAttachment` | findMany, findOne, create, update, delete |
 | `emailNote` | findMany, findOne, create, update, delete |
 | `emailRecipient` | findMany, findOne, create, update, delete |
@@ -85,6 +88,7 @@ const db = createClient({
 | `notesChunk` | findMany, findOne, create, update, delete |
 | `place` | findMany, findOne, create, update, delete |
 | `projectContact` | findMany, findOne, create, update, delete |
+| `projectDocument` | findMany, findOne, create, update, delete |
 | `providerSyncState` | findMany, findOne, create, update, delete |
 | `rawContact` | findMany, findOne, create, update, delete |
 | `rawContactEmail` | findMany, findOne, create, update, delete |
@@ -742,7 +746,6 @@ CRUD operations for Note records.
 | `embeddingText` | String | Yes |
 | `embedding` | Vector | Yes |
 | `embeddingStale` | Boolean | Yes |
-| `contentBm25Score` | Float | Yes |
 | `embeddingTextBm25Score` | Float | Yes |
 | `embeddingVectorDistance` | Float | Yes |
 | `contentTrgmSimilarity` | Float | Yes |
@@ -755,13 +758,13 @@ CRUD operations for Note records.
 
 ```typescript
 // List all note records
-const items = await db.note.findMany({ select: { content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const items = await db.note.findMany({ select: { content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.note.findOne({ id: '<UUID>', select: { content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const item = await db.note.findOne({ id: '<UUID>', select: { content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.note.create({ data: { content: '<String>', abstract: '<String>', overview: '<String>', activeCount: '<Int>', lastAccessedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', contentBm25Score: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', abstractTrgmSimilarity: '<Float>', overviewTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+const created = await db.note.create({ data: { content: '<String>', abstract: '<String>', overview: '<String>', activeCount: '<Int>', lastAccessedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', abstractTrgmSimilarity: '<Float>', overviewTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.note.update({ where: { id: '<UUID>' }, data: { content: '<String>' }, select: { id: true } }).execute();
@@ -960,6 +963,89 @@ const updated = await db.deal.update({ where: { id: '<UUID>' }, data: { name: '<
 
 // Delete
 const deleted = await db.deal.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+### `db.companyDocument`
+
+CRUD operations for CompanyDocument records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `companyId` | UUID | Yes |
+| `documentId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all companyDocument records
+const items = await db.companyDocument.findMany({ select: { companyId: true, documentId: true } }).execute();
+
+// Get one by id
+const item = await db.companyDocument.findOne({ id: '<UUID>', select: { companyId: true, documentId: true } }).execute();
+
+// Create
+const created = await db.companyDocument.create({ data: { companyId: '<UUID>', documentId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.companyDocument.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.companyDocument.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.document`
+
+CRUD operations for Document records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `title` | String | Yes |
+| `content` | String | Yes |
+| `metadata` | JSON | Yes |
+| `repoName` | String | Yes |
+| `filePath` | String | Yes |
+| `commitHash` | String | Yes |
+| `tags` | String | Yes |
+| `id` | UUID | No |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `titleTrgmSimilarity` | Float | Yes |
+| `contentTrgmSimilarity` | Float | Yes |
+| `repoNameTrgmSimilarity` | Float | Yes |
+| `filePathTrgmSimilarity` | Float | Yes |
+| `commitHashTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all document records
+const items = await db.document.findMany({ select: { title: true, content: true, metadata: true, repoName: true, filePath: true, commitHash: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, contentTrgmSimilarity: true, repoNameTrgmSimilarity: true, filePathTrgmSimilarity: true, commitHashTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.document.findOne({ id: '<UUID>', select: { title: true, content: true, metadata: true, repoName: true, filePath: true, commitHash: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, contentTrgmSimilarity: true, repoNameTrgmSimilarity: true, filePathTrgmSimilarity: true, commitHashTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.document.create({ data: { title: '<String>', content: '<String>', metadata: '<JSON>', repoName: '<String>', filePath: '<String>', commitHash: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', repoNameTrgmSimilarity: '<Float>', filePathTrgmSimilarity: '<Float>', commitHashTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.document.update({ where: { id: '<UUID>' }, data: { title: '<String>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.document.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 > **pgvector embedding fields:** `embedding`
@@ -2017,6 +2103,47 @@ const updated = await db.dealNote.update({ where: { id: '<UUID>' }, data: { deal
 const deleted = await db.dealNote.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+### `db.documentsChunk`
+
+CRUD operations for DocumentsChunk records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `documentsId` | UUID | Yes |
+| `content` | String | Yes |
+| `chunkIndex` | Int | Yes |
+| `embedding` | Vector | Yes |
+| `metadata` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingVectorDistance` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all documentsChunk records
+const items = await db.documentsChunk.findMany({ select: { id: true, documentsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.documentsChunk.findOne({ id: '<UUID>', select: { id: true, documentsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.documentsChunk.create({ data: { documentsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.documentsChunk.update({ where: { id: '<UUID>' }, data: { documentsId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.documentsChunk.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.emailAttachment`
 
 CRUD operations for EmailAttachment records.
@@ -2711,6 +2838,36 @@ const updated = await db.projectContact.update({ where: { id: '<UUID>' }, data: 
 
 // Delete
 const deleted = await db.projectContact.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.projectDocument`
+
+CRUD operations for ProjectDocument records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `projectId` | UUID | Yes |
+| `documentId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all projectDocument records
+const items = await db.projectDocument.findMany({ select: { projectId: true, documentId: true } }).execute();
+
+// Get one by id
+const item = await db.projectDocument.findOne({ id: '<UUID>', select: { projectId: true, documentId: true } }).execute();
+
+// Create
+const created = await db.projectDocument.create({ data: { projectId: '<UUID>', documentId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.projectDocument.update({ where: { id: '<UUID>' }, data: { projectId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.projectDocument.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.providerSyncState`
@@ -3802,7 +3959,7 @@ existing file ID and deduplicated=true with no uploadUrl.
   | `input` | RequestUploadUrlInput (required) |
 
 ```typescript
-const result = await db.mutation.requestUploadUrl({ input: { bucketKey: '<String>', contentHash: '<String>', contentType: '<String>', size: '<Int>', filename: '<String>' } }).execute();
+const result = await db.mutation.requestUploadUrl({ input: '<RequestUploadUrlInput>' }).execute();
 ```
 
 ### `db.mutation.confirmUpload`
@@ -3837,7 +3994,7 @@ and lifecycle settings.
   | `input` | ProvisionBucketInput (required) |
 
 ```typescript
-const result = await db.mutation.provisionBucket({ input: { bucketKey: '<String>' } }).execute();
+const result = await db.mutation.provisionBucket({ input: { bucketKey: '<String>', ownerId: '<UUID>' } }).execute();
 ```
 
 ---

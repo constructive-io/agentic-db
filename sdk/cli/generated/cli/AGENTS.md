@@ -5,7 +5,7 @@
 ## Stack
 
 - Generated CLI for a GraphQL API (TypeScript)
-- 91 tables, 3 custom operations
+- 95 tables, 3 custom operations
 - Config stored at `~/.agentic-db/config/` via appstash
 
 ## Quick Start
@@ -18,7 +18,7 @@ agentic-db auth set-token <token>
 
 ## Resources
 
-- **Full API reference:** [README.md](./README.md) — CRUD docs for all 91 tables
+- **Full API reference:** [README.md](./README.md) — CRUD docs for all 95 tables
 - **Schema types:** [types.ts](./types.ts)
 
 ## Conventions

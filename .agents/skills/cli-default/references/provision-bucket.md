@@ -10,7 +10,7 @@ and lifecycle settings.
 ## Usage
 
 ```bash
-agentic-db provision-bucket --input.bucketKey <String>
+agentic-db provision-bucket --input.bucketKey <String> --input.ownerId <UUID>
 ```
 
 ## Examples
@@ -18,5 +18,5 @@ agentic-db provision-bucket --input.bucketKey <String>
 ### Run provisionBucket
 
 ```bash
-agentic-db provision-bucket --input.bucketKey <String>
+agentic-db provision-bucket --input.bucketKey <String> --input.ownerId <UUID>
 ```

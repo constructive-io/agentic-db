@@ -244,7 +244,9 @@ export interface ActivityLog {
   meta?: Record<string, unknown> | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -277,7 +279,9 @@ export interface Agent {
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -312,7 +316,9 @@ export interface AgentLog {
   context?: Record<string, unknown> | null;
   taskId?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -342,7 +348,9 @@ export interface Prompt {
   isActive?: boolean | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -372,7 +380,9 @@ export interface AutonomyRecord {
   context?: Record<string, unknown> | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -405,7 +415,9 @@ export interface CalendarAttendee {
   responseStatus?: string | null;
   role?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   calendarEventId?: string | null;
 }
@@ -415,7 +427,9 @@ export interface Calendar {
   name?: string | null;
   color?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface CalendarEvent {
@@ -428,7 +442,9 @@ export interface CalendarEvent {
   organizerContactId?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   searchTsv?: string | null;
@@ -472,7 +488,9 @@ export interface Contact {
   tags?: string[] | null;
   mainImageId?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   searchTsv?: string | null;
@@ -518,13 +536,13 @@ export interface Note {
   lastAccessedAt?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
-  contentBm25Score?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -555,7 +573,9 @@ export interface Task {
   completedAt?: string | null;
   meta?: Record<string, unknown> | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -585,7 +605,9 @@ export interface Company {
   tags?: string[] | null;
   mainImageId?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   searchTsv?: string | null;
@@ -619,7 +641,9 @@ export interface Deal {
   notesText?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -641,6 +665,45 @@ export interface Deal {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface CompanyDocument {
+  companyId?: string | null;
+  documentId?: string | null;
+}
+export interface Document {
+  title?: string | null;
+  content?: string | null;
+  metadata?: Record<string, unknown> | null;
+  repoName?: string | null;
+  filePath?: string | null;
+  commitHash?: string | null;
+  tags?: string[] | null;
+  id: string;
+  /** Timestamp when this record was created */
+  createdAt?: string | null;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `repoName`. Returns null when no trgm search filter is active. */
+  repoNameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `filePath`. Returns null when no trgm search filter is active. */
+  filePathTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `commitHash`. Returns null when no trgm search filter is active. */
+  commitHashTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface CompanyEvent {
   companyId?: string | null;
   eventId?: string | null;
@@ -656,7 +719,9 @@ export interface Event {
   tags?: string[] | null;
   mainImageId?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   searchTsv?: string | null;
@@ -694,7 +759,9 @@ export interface Image {
   altText?: string | null;
   caption?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -707,7 +774,9 @@ export interface CompanyLink {
   title?: string | null;
   url?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -725,7 +794,9 @@ export interface Memory {
   mood?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -766,7 +837,9 @@ export interface ContactAddress {
   addressType?: string | null;
   isPrimary?: boolean | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   contactId?: string | null;
 }
@@ -779,7 +852,9 @@ export interface ContactEmail {
   emailType?: string | null;
   isPrimary?: boolean | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   contactId?: string | null;
 }
@@ -795,7 +870,9 @@ export interface Email {
   sentAt?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   searchTsv?: string | null;
@@ -829,7 +906,9 @@ export interface EmailThread {
   status?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   searchTsv?: string | null;
@@ -868,7 +947,9 @@ export interface Expense {
   notes?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -901,7 +982,9 @@ export interface ContactLink {
   title?: string | null;
   url?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -924,7 +1007,9 @@ export interface ContactPhone {
   phoneType?: string | null;
   isPrimary?: boolean | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   contactId?: string | null;
 }
@@ -940,7 +1025,9 @@ export interface Project {
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -986,7 +1073,9 @@ export interface Conversation {
   status?: string | null;
   meta?: Record<string, unknown> | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1016,6 +1105,20 @@ export interface DealNote {
   dealId?: string | null;
   noteId?: string | null;
 }
+export interface DocumentsChunk {
+  id: string;
+  documentsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface EmailAttachment {
   filename?: string | null;
   contentType?: string | null;
@@ -1023,7 +1126,9 @@ export interface EmailAttachment {
   storageUrl?: string | null;
   providerAttachmentId?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   emailId?: string | null;
 }
@@ -1043,7 +1148,9 @@ export interface EventLink {
   title?: string | null;
   url?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -1076,7 +1183,9 @@ export interface Venue {
   tags?: string[] | null;
   mainImageId?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   searchTsv?: string | null;
@@ -1124,7 +1233,9 @@ export interface Goal {
   progress?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1155,7 +1266,9 @@ export interface Habit {
   lastCompletedAt?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface GoalProject {
@@ -1170,7 +1283,9 @@ export interface Interaction {
   sentiment?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1199,7 +1314,9 @@ export interface Message {
   toolCalls?: Record<string, unknown> | null;
   toolResults?: Record<string, unknown> | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1239,7 +1356,9 @@ export interface Place {
   rating?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1266,6 +1385,10 @@ export interface ProjectContact {
   projectId?: string | null;
   contactId?: string | null;
 }
+export interface ProjectDocument {
+  projectId?: string | null;
+  documentId?: string | null;
+}
 export interface ProviderSyncState {
   provider?: string | null;
   resourceType?: string | null;
@@ -1274,7 +1397,9 @@ export interface ProviderSyncState {
   lastSyncAt?: string | null;
   status?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface RawContact {
@@ -1292,7 +1417,9 @@ export interface RawContact {
   confidence?: string | null;
   ingestedAt?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface RawContactEmail {
@@ -1302,7 +1429,9 @@ export interface RawContactEmail {
   source?: string | null;
   confidence?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   rawContactId?: string | null;
 }
@@ -1313,7 +1442,9 @@ export interface RawContactPhone {
   source?: string | null;
   confidence?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   rawContactId?: string | null;
 }
@@ -1323,7 +1454,9 @@ export interface RawContactUrl {
   source?: string | null;
   confidence?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   rawContactId?: string | null;
 }
@@ -1338,7 +1471,9 @@ export interface Rule {
   priority?: number | null;
   triggerConcept?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1374,7 +1509,9 @@ export interface RuntimeArtifact {
   meta?: Record<string, unknown> | null;
   sizeBytes?: number | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface RuntimeConfig {
@@ -1383,7 +1520,9 @@ export interface RuntimeConfig {
   description?: string | null;
   isSecret?: boolean | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface RuntimeEvent {
@@ -1393,7 +1532,9 @@ export interface RuntimeEvent {
   processedAt?: string | null;
   status?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface RuntimeLog {
@@ -1403,7 +1544,9 @@ export interface RuntimeLog {
   context?: Record<string, unknown> | null;
   stepIndex?: number | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1428,7 +1571,9 @@ export interface RuntimeMetric {
   unit?: string | null;
   meta?: Record<string, unknown> | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface RuntimeSchedule {
@@ -1440,7 +1585,9 @@ export interface RuntimeSchedule {
   config?: Record<string, unknown> | null;
   timezone?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface RuntimeState {
@@ -1452,7 +1599,9 @@ export interface RuntimeState {
   startedAt?: string | null;
   endedAt?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1485,7 +1634,9 @@ export interface Skill {
   isActive?: boolean | null;
   intentTrigger?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1525,7 +1676,9 @@ export interface ToolDefinition {
   config?: Record<string, unknown> | null;
   isActive?: boolean | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1551,7 +1704,9 @@ export interface Tag {
   category?: string | null;
   usageCount?: number | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface TaskContact {
@@ -1580,7 +1735,9 @@ export interface ToolExecution {
   completedAt?: string | null;
   error?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
 }
 export interface Touchpoint {
@@ -1598,7 +1755,9 @@ export interface Touchpoint {
   meta?: Record<string, unknown> | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1632,7 +1791,9 @@ export interface Trip {
   endDate?: string | null;
   tags?: string[] | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
@@ -1661,7 +1822,9 @@ export interface VenueLink {
   title?: string | null;
   url?: string | null;
   id: string;
+  /** Timestamp when this record was created */
   createdAt?: string | null;
+  /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -1828,6 +1991,7 @@ export interface CompanyRelations {
   mainImage?: Image | null;
   notes?: ConnectionResult<Note>;
   memories?: ConnectionResult<Memory>;
+  documents?: ConnectionResult<Document>;
   touchpoints?: ConnectionResult<Touchpoint>;
   companyLinks?: ConnectionResult<CompanyLink>;
   companyImages?: ConnectionResult<CompanyImage>;
@@ -1836,6 +2000,7 @@ export interface CompanyRelations {
   dealCompanies?: ConnectionResult<DealCompany>;
   companyNotes?: ConnectionResult<CompanyNote>;
   companyMemories?: ConnectionResult<CompanyMemory>;
+  companyDocuments?: ConnectionResult<CompanyDocument>;
   imagesByCompanyImageCompanyIdAndImageId?: ConnectionResult<Image>;
   contactsByContactCompanyCompanyIdAndContactId?: ConnectionResult<Contact>;
   eventsByCompanyEventCompanyIdAndEventId?: ConnectionResult<Event>;
@@ -1849,6 +2014,17 @@ export interface DealRelations {
   dealNotes?: ConnectionResult<DealNote>;
   contactsByDealContactDealIdAndContactId?: ConnectionResult<Contact>;
   companiesByDealCompanyDealIdAndCompanyId?: ConnectionResult<Company>;
+}
+export interface CompanyDocumentRelations {
+  company?: Company | null;
+  document?: Document | null;
+}
+export interface DocumentRelations {
+  companies?: ConnectionResult<Company>;
+  projects?: ConnectionResult<Project>;
+  documentsChunksByDocumentsId?: ConnectionResult<DocumentsChunk>;
+  companyDocuments?: ConnectionResult<CompanyDocument>;
+  projectDocuments?: ConnectionResult<ProjectDocument>;
 }
 export interface CompanyEventRelations {
   company?: Company | null;
@@ -1960,9 +2136,11 @@ export interface ProjectRelations {
   contacts?: ConnectionResult<Contact>;
   tasks?: ConnectionResult<Task>;
   goals?: ConnectionResult<Goal>;
+  documents?: ConnectionResult<Document>;
   projectContacts?: ConnectionResult<ProjectContact>;
   taskProjects?: ConnectionResult<TaskProject>;
   goalProjects?: ConnectionResult<GoalProject>;
+  projectDocuments?: ConnectionResult<ProjectDocument>;
 }
 export interface ContactRelationshipRelations {
   contact?: Contact | null;
@@ -1985,6 +2163,9 @@ export interface DealContactRelations {
 export interface DealNoteRelations {
   deal?: Deal | null;
   note?: Note | null;
+}
+export interface DocumentsChunkRelations {
+  documents?: Document | null;
 }
 export interface EmailAttachmentRelations {
   email?: Email | null;
@@ -2055,6 +2236,10 @@ export interface NotesChunkRelations {
 export interface PlaceRelations {}
 export interface ProjectContactRelations {
   contact?: Contact | null;
+  project?: Project | null;
+}
+export interface ProjectDocumentRelations {
+  document?: Document | null;
   project?: Project | null;
 }
 export interface ProviderSyncStateRelations {}
@@ -2171,6 +2356,8 @@ export type CalendarEventTaskWithRelations = CalendarEventTask & CalendarEventTa
 export type TaskWithRelations = Task & TaskRelations;
 export type CompanyWithRelations = Company & CompanyRelations;
 export type DealWithRelations = Deal & DealRelations;
+export type CompanyDocumentWithRelations = CompanyDocument & CompanyDocumentRelations;
+export type DocumentWithRelations = Document & DocumentRelations;
 export type CompanyEventWithRelations = CompanyEvent & CompanyEventRelations;
 export type EventWithRelations = Event & EventRelations;
 export type CompanyImageWithRelations = CompanyImage & CompanyImageRelations;
@@ -2198,6 +2385,7 @@ export type ConversationWithRelations = Conversation & ConversationRelations;
 export type DealCompanyWithRelations = DealCompany & DealCompanyRelations;
 export type DealContactWithRelations = DealContact & DealContactRelations;
 export type DealNoteWithRelations = DealNote & DealNoteRelations;
+export type DocumentsChunkWithRelations = DocumentsChunk & DocumentsChunkRelations;
 export type EmailAttachmentWithRelations = EmailAttachment & EmailAttachmentRelations;
 export type EmailNoteWithRelations = EmailNote & EmailNoteRelations;
 export type EmailRecipientWithRelations = EmailRecipient & EmailRecipientRelations;
@@ -2216,6 +2404,7 @@ export type MessageWithRelations = Message & MessageRelations;
 export type NotesChunkWithRelations = NotesChunk & NotesChunkRelations;
 export type PlaceWithRelations = Place & PlaceRelations;
 export type ProjectContactWithRelations = ProjectContact & ProjectContactRelations;
+export type ProjectDocumentWithRelations = ProjectDocument & ProjectDocumentRelations;
 export type ProviderSyncStateWithRelations = ProviderSyncState & ProviderSyncStateRelations;
 export type RawContactWithRelations = RawContact & RawContactRelations;
 export type RawContactEmailWithRelations = RawContactEmail & RawContactEmailRelations;
@@ -2903,7 +3092,6 @@ export type NoteSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  contentBm25Score?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   contentTrgmSimilarity?: boolean;
@@ -3126,6 +3314,12 @@ export type CompanySelect = {
     filter?: MemoryFilter;
     orderBy?: MemoryOrderBy[];
   };
+  documents?: {
+    select: DocumentSelect;
+    first?: number;
+    filter?: DocumentFilter;
+    orderBy?: DocumentOrderBy[];
+  };
   touchpoints?: {
     select: TouchpointSelect;
     first?: number;
@@ -3173,6 +3367,12 @@ export type CompanySelect = {
     first?: number;
     filter?: CompanyMemoryFilter;
     orderBy?: CompanyMemoryOrderBy[];
+  };
+  companyDocuments?: {
+    select: CompanyDocumentSelect;
+    first?: number;
+    filter?: CompanyDocumentFilter;
+    orderBy?: CompanyDocumentOrderBy[];
   };
   imagesByCompanyImageCompanyIdAndImageId?: {
     select: ImageSelect;
@@ -3262,6 +3462,70 @@ export type DealSelect = {
     first?: number;
     filter?: CompanyFilter;
     orderBy?: CompanyOrderBy[];
+  };
+};
+export type CompanyDocumentSelect = {
+  companyId?: boolean;
+  documentId?: boolean;
+  company?: {
+    select: CompanySelect;
+  };
+  document?: {
+    select: DocumentSelect;
+  };
+};
+export type DocumentSelect = {
+  title?: boolean;
+  content?: boolean;
+  metadata?: boolean;
+  repoName?: boolean;
+  filePath?: boolean;
+  commitHash?: boolean;
+  tags?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  titleTrgmSimilarity?: boolean;
+  contentTrgmSimilarity?: boolean;
+  repoNameTrgmSimilarity?: boolean;
+  filePathTrgmSimilarity?: boolean;
+  commitHashTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  companies?: {
+    select: CompanySelect;
+    first?: number;
+    filter?: CompanyFilter;
+    orderBy?: CompanyOrderBy[];
+  };
+  projects?: {
+    select: ProjectSelect;
+    first?: number;
+    filter?: ProjectFilter;
+    orderBy?: ProjectOrderBy[];
+  };
+  documentsChunksByDocumentsId?: {
+    select: DocumentsChunkSelect;
+    first?: number;
+    filter?: DocumentsChunkFilter;
+    orderBy?: DocumentsChunkOrderBy[];
+  };
+  companyDocuments?: {
+    select: CompanyDocumentSelect;
+    first?: number;
+    filter?: CompanyDocumentFilter;
+    orderBy?: CompanyDocumentOrderBy[];
+  };
+  projectDocuments?: {
+    select: ProjectDocumentSelect;
+    first?: number;
+    filter?: ProjectDocumentFilter;
+    orderBy?: ProjectDocumentOrderBy[];
   };
 };
 export type CompanyEventSelect = {
@@ -3855,6 +4119,12 @@ export type ProjectSelect = {
     filter?: GoalFilter;
     orderBy?: GoalOrderBy[];
   };
+  documents?: {
+    select: DocumentSelect;
+    first?: number;
+    filter?: DocumentFilter;
+    orderBy?: DocumentOrderBy[];
+  };
   projectContacts?: {
     select: ProjectContactSelect;
     first?: number;
@@ -3872,6 +4142,12 @@ export type ProjectSelect = {
     first?: number;
     filter?: GoalProjectFilter;
     orderBy?: GoalProjectOrderBy[];
+  };
+  projectDocuments?: {
+    select: ProjectDocumentSelect;
+    first?: number;
+    filter?: ProjectDocumentFilter;
+    orderBy?: ProjectDocumentOrderBy[];
   };
 };
 export type ContactRelationshipSelect = {
@@ -3951,6 +4227,21 @@ export type DealNoteSelect = {
   };
   note?: {
     select: NoteSelect;
+  };
+};
+export type DocumentsChunkSelect = {
+  id?: boolean;
+  documentsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  documents?: {
+    select: DocumentSelect;
   };
 };
 export type EmailAttachmentSelect = {
@@ -4296,6 +4587,16 @@ export type ProjectContactSelect = {
   contactId?: boolean;
   contact?: {
     select: ContactSelect;
+  };
+  project?: {
+    select: ProjectSelect;
+  };
+};
+export type ProjectDocumentSelect = {
+  projectId?: boolean;
+  documentId?: boolean;
+  document?: {
+    select: DocumentSelect;
   };
   project?: {
     select: ProjectSelect;
@@ -5618,8 +5919,6 @@ export interface NoteFilter {
   calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
   /** `calendarEventNotes` exist. */
   calendarEventNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -5804,6 +6103,10 @@ export interface CompanyFilter {
   companyMemories?: CompanyToManyCompanyMemoryFilter;
   /** `companyMemories` exist. */
   companyMemoriesExist?: boolean;
+  /** Filter by the object’s `companyDocuments` relation. */
+  companyDocuments?: CompanyToManyCompanyDocumentFilter;
+  /** `companyDocuments` exist. */
+  companyDocumentsExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -5835,7 +6138,7 @@ export interface DealFilter {
   stage?: StringTrgmFilter;
   /** Filter by the object’s `value` field. */
   value?: BigFloatFilter;
-  /** Filter by the object���s `currency` field. */
+  /** Filter by the object’s `currency` field. */
   currency?: StringTrgmFilter;
   /** Filter by the object’s `expectedCloseDate` field. */
   expectedCloseDate?: DatetimeFilter;
@@ -5889,6 +6192,91 @@ export interface DealFilter {
   trgmCurrency?: TrgmSearchInput;
   /** TRGM search on the `notes_text` column. */
   trgmNotesText?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+export interface CompanyDocumentFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `documentId` field. */
+  documentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyDocumentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyDocumentFilter[];
+  /** Negates the expression. */
+  not?: CompanyDocumentFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `document` relation. */
+  document?: DocumentFilter;
+}
+export interface DocumentFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `repoName` field. */
+  repoName?: StringTrgmFilter;
+  /** Filter by the object’s `filePath` field. */
+  filePath?: StringTrgmFilter;
+  /** Filter by the object’s `commitHash` field. */
+  commitHash?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: DocumentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DocumentFilter[];
+  /** Negates the expression. */
+  not?: DocumentFilter;
+  /** Filter by the object’s `documentsChunksByDocumentsId` relation. */
+  documentsChunksByDocumentsId?: DocumentToManyDocumentsChunkFilter;
+  /** `documentsChunksByDocumentsId` exist. */
+  documentsChunksByDocumentsIdExist?: boolean;
+  /** Filter by the object’s `companyDocuments` relation. */
+  companyDocuments?: DocumentToManyCompanyDocumentFilter;
+  /** `companyDocuments` exist. */
+  companyDocumentsExist?: boolean;
+  /** Filter by the object’s `projectDocuments` relation. */
+  projectDocuments?: DocumentToManyProjectDocumentFilter;
+  /** `projectDocuments` exist. */
+  projectDocumentsExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `repo_name` column. */
+  trgmRepoName?: TrgmSearchInput;
+  /** TRGM search on the `file_path` column. */
+  trgmFilePath?: TrgmSearchInput;
+  /** TRGM search on the `commit_hash` column. */
+  trgmCommitHash?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -6685,6 +7073,10 @@ export interface ProjectFilter {
   goalProjects?: ProjectToManyGoalProjectFilter;
   /** `goalProjects` exist. */
   goalProjectsExist?: boolean;
+  /** Filter by the object’s `projectDocuments` relation. */
+  projectDocuments?: ProjectToManyProjectDocumentFilter;
+  /** `projectDocuments` exist. */
+  projectDocumentsExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -6847,6 +7239,34 @@ export interface DealNoteFilter {
   deal?: DealFilter;
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
+}
+export interface DocumentsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `documentsId` field. */
+  documentsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: DocumentsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DocumentsChunkFilter[];
+  /** Negates the expression. */
+  not?: DocumentsChunkFilter;
+  /** Filter by the object’s `documents` relation. */
+  documents?: DocumentFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface EmailAttachmentFilter {
   /** Filter by the object’s `filename` field. */
@@ -7424,6 +7844,22 @@ export interface ProjectContactFilter {
   not?: ProjectContactFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+}
+export interface ProjectDocumentFilter {
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Filter by the object’s `documentId` field. */
+  documentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ProjectDocumentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ProjectDocumentFilter[];
+  /** Negates the expression. */
+  not?: ProjectDocumentFilter;
+  /** Filter by the object’s `document` relation. */
+  document?: DocumentFilter;
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
 }
@@ -8823,8 +9259,6 @@ export type NoteOrderBy =
   | 'EMBEDDING_DESC'
   | 'EMBEDDING_STALE_ASC'
   | 'EMBEDDING_STALE_DESC'
-  | 'CONTENT_BM25_SCORE_ASC'
-  | 'CONTENT_BM25_SCORE_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -8985,6 +9419,60 @@ export type DealOrderBy =
   | 'CURRENCY_TRGM_SIMILARITY_DESC'
   | 'NOTES_TEXT_TRGM_SIMILARITY_ASC'
   | 'NOTES_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CompanyDocumentOrderBy =
+  | 'NATURAL'
+  | 'COMPANY_ID_ASC'
+  | 'COMPANY_ID_DESC'
+  | 'DOCUMENT_ID_ASC'
+  | 'DOCUMENT_ID_DESC';
+export type DocumentOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'METADATA_ASC'
+  | 'METADATA_DESC'
+  | 'REPO_NAME_ASC'
+  | 'REPO_NAME_DESC'
+  | 'FILE_PATH_ASC'
+  | 'FILE_PATH_DESC'
+  | 'COMMIT_HASH_ASC'
+  | 'COMMIT_HASH_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_STALE_ASC'
+  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'REPO_NAME_TRGM_SIMILARITY_ASC'
+  | 'REPO_NAME_TRGM_SIMILARITY_DESC'
+  | 'FILE_PATH_TRGM_SIMILARITY_ASC'
+  | 'FILE_PATH_TRGM_SIMILARITY_DESC'
+  | 'COMMIT_HASH_TRGM_SIMILARITY_ASC'
+  | 'COMMIT_HASH_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
@@ -9579,6 +10067,30 @@ export type DealNoteOrderBy =
   | 'DEAL_ID_DESC'
   | 'NOTE_ID_ASC'
   | 'NOTE_ID_DESC';
+export type DocumentsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'DOCUMENTS_ID_ASC'
+  | 'DOCUMENTS_ID_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'METADATA_ASC'
+  | 'METADATA_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type EmailAttachmentOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9969,6 +10481,12 @@ export type ProjectContactOrderBy =
   | 'PROJECT_ID_DESC'
   | 'CONTACT_ID_ASC'
   | 'CONTACT_ID_DESC';
+export type ProjectDocumentOrderBy =
+  | 'NATURAL'
+  | 'PROJECT_ID_ASC'
+  | 'PROJECT_ID_DESC'
+  | 'DOCUMENT_ID_ASC'
+  | 'DOCUMENT_ID_DESC';
 export type ProviderSyncStateOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -11232,6 +11750,62 @@ export interface DeleteDealInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateCompanyDocumentInput {
+  clientMutationId?: string;
+  companyDocument: {
+    companyId: string;
+    documentId: string;
+  };
+}
+export interface CompanyDocumentPatch {
+  companyId?: string | null;
+  documentId?: string | null;
+}
+export interface UpdateCompanyDocumentInput {
+  clientMutationId?: string;
+  id: string;
+  companyDocumentPatch: CompanyDocumentPatch;
+}
+export interface DeleteCompanyDocumentInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateDocumentInput {
+  clientMutationId?: string;
+  document: {
+    title?: string;
+    content: string;
+    metadata?: Record<string, unknown>;
+    repoName?: string;
+    filePath?: string;
+    commitHash?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface DocumentPatch {
+  title?: string | null;
+  content?: string | null;
+  metadata?: Record<string, unknown> | null;
+  repoName?: string | null;
+  filePath?: string | null;
+  commitHash?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateDocumentInput {
+  clientMutationId?: string;
+  id: string;
+  documentPatch: DocumentPatch;
+}
+export interface DeleteDocumentInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateCompanyEventInput {
   clientMutationId?: string;
   companyEvent: {
@@ -11948,6 +12522,32 @@ export interface DeleteDealNoteInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateDocumentsChunkInput {
+  clientMutationId?: string;
+  documentsChunk: {
+    documentsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+  };
+}
+export interface DocumentsChunkPatch {
+  documentsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+}
+export interface UpdateDocumentsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  documentsChunkPatch: DocumentsChunkPatch;
+}
+export interface DeleteDocumentsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateEmailAttachmentInput {
   clientMutationId?: string;
   emailAttachment: {
@@ -12421,6 +13021,26 @@ export interface UpdateProjectContactInput {
   projectContactPatch: ProjectContactPatch;
 }
 export interface DeleteProjectContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateProjectDocumentInput {
+  clientMutationId?: string;
+  projectDocument: {
+    projectId: string;
+    documentId: string;
+  };
+}
+export interface ProjectDocumentPatch {
+  projectId?: string | null;
+  documentId?: string | null;
+}
+export interface UpdateProjectDocumentInput {
+  clientMutationId?: string;
+  id: string;
+  projectDocumentPatch: ProjectDocumentPatch;
+}
+export interface DeleteProjectDocumentInput {
   clientMutationId?: string;
   id: string;
 }
@@ -13309,6 +13929,7 @@ export const connectionFieldsMap = {
   Company: {
     notes: 'Note',
     memories: 'Memory',
+    documents: 'Document',
     touchpoints: 'Touchpoint',
     companyLinks: 'CompanyLink',
     companyImages: 'CompanyImage',
@@ -13317,6 +13938,7 @@ export const connectionFieldsMap = {
     dealCompanies: 'DealCompany',
     companyNotes: 'CompanyNote',
     companyMemories: 'CompanyMemory',
+    companyDocuments: 'CompanyDocument',
     imagesByCompanyImageCompanyIdAndImageId: 'Image',
     contactsByContactCompanyCompanyIdAndContactId: 'Contact',
     eventsByCompanyEventCompanyIdAndEventId: 'Event',
@@ -13330,6 +13952,13 @@ export const connectionFieldsMap = {
     dealNotes: 'DealNote',
     contactsByDealContactDealIdAndContactId: 'Contact',
     companiesByDealCompanyDealIdAndCompanyId: 'Company',
+  },
+  Document: {
+    companies: 'Company',
+    projects: 'Project',
+    documentsChunksByDocumentsId: 'DocumentsChunk',
+    companyDocuments: 'CompanyDocument',
+    projectDocuments: 'ProjectDocument',
   },
   Event: {
     venues: 'Venue',
@@ -13385,9 +14014,11 @@ export const connectionFieldsMap = {
     contacts: 'Contact',
     tasks: 'Task',
     goals: 'Goal',
+    documents: 'Document',
     projectContacts: 'ProjectContact',
     taskProjects: 'TaskProject',
     goalProjects: 'GoalProject',
+    projectDocuments: 'ProjectDocument',
   },
   Conversation: {
     messages: 'Message',
@@ -13441,6 +14072,13 @@ export const connectionFieldsMap = {
 export interface RequestUploadUrlInput {
   /** Bucket key (e.g., "public", "private") */
   bucketKey: string;
+  /**
+   * Owner entity ID for entity-scoped uploads.
+   * Omit for app-level (database-wide) storage.
+   * When provided, resolves the storage module for the entity type
+   * that owns this entity instance (e.g., a data room ID, team ID).
+   */
+  ownerId?: string;
   /** SHA-256 content hash computed by the client (hex-encoded, 64 chars) */
   contentHash: string;
   /** MIME type of the file (e.g., "image/png") */
@@ -13457,6 +14095,11 @@ export interface ConfirmUploadInput {
 export interface ProvisionBucketInput {
   /** The logical bucket key (e.g., "public", "private") */
   bucketKey: string;
+  /**
+   * Owner entity ID for entity-scoped bucket provisioning.
+   * Omit for app-level (database-wide) storage.
+   */
+  ownerId?: string;
 }
 /** A filter to be used against String fields with pg_trgm support. All fields are combined with a logical ‘and.’ */
 export interface StringTrgmFilter {
@@ -14104,6 +14747,15 @@ export interface CompanyToManyCompanyMemoryFilter {
   /** Filters to entities where no related entity matches. */
   none?: CompanyMemoryFilter;
 }
+/** A filter to be used against many `CompanyDocument` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyToManyCompanyDocumentFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CompanyDocumentFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CompanyDocumentFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CompanyDocumentFilter;
+}
 /** A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
 export interface DealToManyTouchpointFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14139,6 +14791,33 @@ export interface DealToManyDealNoteFilter {
   every?: DealNoteFilter;
   /** Filters to entities where no related entity matches. */
   none?: DealNoteFilter;
+}
+/** A filter to be used against many `DocumentsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface DocumentToManyDocumentsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: DocumentsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: DocumentsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: DocumentsChunkFilter;
+}
+/** A filter to be used against many `CompanyDocument` object types. All fields are combined with a logical ‘and.’ */
+export interface DocumentToManyCompanyDocumentFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CompanyDocumentFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CompanyDocumentFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CompanyDocumentFilter;
+}
+/** A filter to be used against many `ProjectDocument` object types. All fields are combined with a logical ‘and.’ */
+export interface DocumentToManyProjectDocumentFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ProjectDocumentFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ProjectDocumentFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ProjectDocumentFilter;
 }
 /** A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
 export interface EventToManyTouchpointFilter {
@@ -14417,6 +15096,15 @@ export interface ProjectToManyGoalProjectFilter {
   every?: GoalProjectFilter;
   /** Filters to entities where no related entity matches. */
   none?: GoalProjectFilter;
+}
+/** A filter to be used against many `ProjectDocument` object types. All fields are combined with a logical ‘and.’ */
+export interface ProjectToManyProjectDocumentFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ProjectDocumentFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ProjectDocumentFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ProjectDocumentFilter;
 }
 /** A filter to be used against many `Message` object types. All fields are combined with a logical ‘and.’ */
 export interface ConversationToManyMessageFilter {
@@ -15966,6 +16654,69 @@ export interface CompanyMemoryFilter {
   /** Filter by the object’s `memory` relation. */
   memory?: MemoryFilter;
 }
+/** A filter to be used against `CompanyDocument` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyDocumentFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `documentId` field. */
+  documentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyDocumentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyDocumentFilter[];
+  /** Negates the expression. */
+  not?: CompanyDocumentFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `document` relation. */
+  document?: DocumentFilter;
+}
+/** A filter to be used against `DocumentsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface DocumentsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `documentsId` field. */
+  documentsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: DocumentsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DocumentsChunkFilter[];
+  /** Negates the expression. */
+  not?: DocumentsChunkFilter;
+  /** Filter by the object’s `documents` relation. */
+  documents?: DocumentFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `ProjectDocument` object types. All fields are combined with a logical ‘and.’ */
+export interface ProjectDocumentFilter {
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Filter by the object’s `documentId` field. */
+  documentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ProjectDocumentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ProjectDocumentFilter[];
+  /** Negates the expression. */
+  not?: ProjectDocumentFilter;
+  /** Filter by the object’s `document` relation. */
+  document?: DocumentFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+}
 /** A filter to be used against `EventLink` object types. All fields are combined with a logical ‘and.’ */
 export interface EventLinkFilter {
   /** Filter by the object’s `title` field. */
@@ -16379,6 +17130,10 @@ export interface CompanyFilter {
   companyMemories?: CompanyToManyCompanyMemoryFilter;
   /** `companyMemories` exist. */
   companyMemoriesExist?: boolean;
+  /** Filter by the object’s `companyDocuments` relation. */
+  companyDocuments?: CompanyToManyCompanyDocumentFilter;
+  /** `companyDocuments` exist. */
+  companyDocumentsExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -17712,8 +18467,6 @@ export interface NoteFilter {
   calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
   /** `calendarEventNotes` exist. */
   calendarEventNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -17742,7 +18495,7 @@ export interface DealFilter {
   stage?: StringTrgmFilter;
   /** Filter by the object’s `value` field. */
   value?: BigFloatFilter;
-  /** Filter by the object���s `currency` field. */
+  /** Filter by the object’s `currency` field. */
   currency?: StringTrgmFilter;
   /** Filter by the object’s `expectedCloseDate` field. */
   expectedCloseDate?: DatetimeFilter;
@@ -17985,6 +18738,10 @@ export interface ProjectFilter {
   goalProjects?: ProjectToManyGoalProjectFilter;
   /** `goalProjects` exist. */
   goalProjectsExist?: boolean;
+  /** Filter by the object’s `projectDocuments` relation. */
+  projectDocuments?: ProjectToManyProjectDocumentFilter;
+  /** `projectDocuments` exist. */
+  projectDocumentsExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -17997,6 +18754,76 @@ export interface ProjectFilter {
   trgmStatus?: TrgmSearchInput;
   /** TRGM search on the `project_type` column. */
   trgmProjectType?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
+/** A filter to be used against `Document` object types. All fields are combined with a logical ‘and.’ */
+export interface DocumentFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `repoName` field. */
+  repoName?: StringTrgmFilter;
+  /** Filter by the object’s `filePath` field. */
+  filePath?: StringTrgmFilter;
+  /** Filter by the object’s `commitHash` field. */
+  commitHash?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: DocumentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DocumentFilter[];
+  /** Negates the expression. */
+  not?: DocumentFilter;
+  /** Filter by the object’s `documentsChunksByDocumentsId` relation. */
+  documentsChunksByDocumentsId?: DocumentToManyDocumentsChunkFilter;
+  /** `documentsChunksByDocumentsId` exist. */
+  documentsChunksByDocumentsIdExist?: boolean;
+  /** Filter by the object’s `companyDocuments` relation. */
+  companyDocuments?: DocumentToManyCompanyDocumentFilter;
+  /** `companyDocuments` exist. */
+  companyDocumentsExist?: boolean;
+  /** Filter by the object’s `projectDocuments` relation. */
+  projectDocuments?: DocumentToManyProjectDocumentFilter;
+  /** `projectDocuments` exist. */
+  projectDocumentsExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `repo_name` column. */
+  trgmRepoName?: TrgmSearchInput;
+  /** TRGM search on the `file_path` column. */
+  trgmFilePath?: TrgmSearchInput;
+  /** TRGM search on the `commit_hash` column. */
+  trgmCommitHash?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -18459,6 +19286,8 @@ export interface RequestUploadUrlPayload {
   deduplicated: boolean;
   /** Presigned URL expiry time (null if deduplicated) */
   expiresAt?: string | null;
+  /** File status — 'pending' for fresh uploads, 'ready' or 'processed' for deduplicated files. Clients can use this to know immediately whether the file is usable. */
+  status: string;
 }
 export type RequestUploadUrlPayloadSelect = {
   uploadUrl?: boolean;
@@ -18466,6 +19295,7 @@ export type RequestUploadUrlPayloadSelect = {
   key?: boolean;
   deduplicated?: boolean;
   expiresAt?: boolean;
+  status?: boolean;
 };
 export interface ConfirmUploadPayload {
   /** The confirmed file ID */
@@ -19151,6 +19981,62 @@ export type DeleteDealPayloadSelect = {
   };
   dealEdge?: {
     select: DealEdgeSelect;
+  };
+};
+export interface CreateCompanyDocumentPayload {
+  clientMutationId?: string | null;
+  /** The `CompanyDocument` that was created by this mutation. */
+  companyDocument?: CompanyDocument | null;
+}
+export type CreateCompanyDocumentPayloadSelect = {
+  clientMutationId?: boolean;
+  companyDocument?: {
+    select: CompanyDocumentSelect;
+  };
+};
+export interface CreateDocumentPayload {
+  clientMutationId?: string | null;
+  /** The `Document` that was created by this mutation. */
+  document?: Document | null;
+  documentEdge?: DocumentEdge | null;
+}
+export type CreateDocumentPayloadSelect = {
+  clientMutationId?: boolean;
+  document?: {
+    select: DocumentSelect;
+  };
+  documentEdge?: {
+    select: DocumentEdgeSelect;
+  };
+};
+export interface UpdateDocumentPayload {
+  clientMutationId?: string | null;
+  /** The `Document` that was updated by this mutation. */
+  document?: Document | null;
+  documentEdge?: DocumentEdge | null;
+}
+export type UpdateDocumentPayloadSelect = {
+  clientMutationId?: boolean;
+  document?: {
+    select: DocumentSelect;
+  };
+  documentEdge?: {
+    select: DocumentEdgeSelect;
+  };
+};
+export interface DeleteDocumentPayload {
+  clientMutationId?: string | null;
+  /** The `Document` that was deleted by this mutation. */
+  document?: Document | null;
+  documentEdge?: DocumentEdge | null;
+}
+export type DeleteDocumentPayloadSelect = {
+  clientMutationId?: boolean;
+  document?: {
+    select: DocumentSelect;
+  };
+  documentEdge?: {
+    select: DocumentEdgeSelect;
   };
 };
 export interface CreateCompanyEventPayload {
@@ -19926,6 +20812,51 @@ export type CreateDealNotePayloadSelect = {
     select: DealNoteSelect;
   };
 };
+export interface CreateDocumentsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `DocumentsChunk` that was created by this mutation. */
+  documentsChunk?: DocumentsChunk | null;
+  documentsChunkEdge?: DocumentsChunkEdge | null;
+}
+export type CreateDocumentsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  documentsChunk?: {
+    select: DocumentsChunkSelect;
+  };
+  documentsChunkEdge?: {
+    select: DocumentsChunkEdgeSelect;
+  };
+};
+export interface UpdateDocumentsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `DocumentsChunk` that was updated by this mutation. */
+  documentsChunk?: DocumentsChunk | null;
+  documentsChunkEdge?: DocumentsChunkEdge | null;
+}
+export type UpdateDocumentsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  documentsChunk?: {
+    select: DocumentsChunkSelect;
+  };
+  documentsChunkEdge?: {
+    select: DocumentsChunkEdgeSelect;
+  };
+};
+export interface DeleteDocumentsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `DocumentsChunk` that was deleted by this mutation. */
+  documentsChunk?: DocumentsChunk | null;
+  documentsChunkEdge?: DocumentsChunkEdge | null;
+}
+export type DeleteDocumentsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  documentsChunk?: {
+    select: DocumentsChunkSelect;
+  };
+  documentsChunkEdge?: {
+    select: DocumentsChunkEdgeSelect;
+  };
+};
 export interface CreateEmailAttachmentPayload {
   clientMutationId?: string | null;
   /** The `EmailAttachment` that was created by this mutation. */
@@ -20428,6 +21359,17 @@ export type CreateProjectContactPayloadSelect = {
   clientMutationId?: boolean;
   projectContact?: {
     select: ProjectContactSelect;
+  };
+};
+export interface CreateProjectDocumentPayload {
+  clientMutationId?: string | null;
+  /** The `ProjectDocument` that was created by this mutation. */
+  projectDocument?: ProjectDocument | null;
+}
+export type CreateProjectDocumentPayloadSelect = {
+  clientMutationId?: boolean;
+  projectDocument?: {
+    select: ProjectDocumentSelect;
   };
 };
 export interface CreateProviderSyncStatePayload {
@@ -21563,6 +22505,18 @@ export type DealEdgeSelect = {
     select: DealSelect;
   };
 };
+/** A `Document` edge in the connection. */
+export interface DocumentEdge {
+  cursor?: string | null;
+  /** The `Document` at the end of the edge. */
+  node?: Document | null;
+}
+export type DocumentEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: DocumentSelect;
+  };
+};
 /** A `Event` edge in the connection. */
 export interface EventEdge {
   cursor?: string | null;
@@ -21729,6 +22683,18 @@ export type ConversationEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ConversationSelect;
+  };
+};
+/** A `DocumentsChunk` edge in the connection. */
+export interface DocumentsChunkEdge {
+  cursor?: string | null;
+  /** The `DocumentsChunk` at the end of the edge. */
+  node?: DocumentsChunk | null;
+}
+export type DocumentsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: DocumentsChunkSelect;
   };
 };
 /** A `EmailAttachment` edge in the connection. */

@@ -16,6 +16,7 @@ const definition: BlueprintDefinition = {
       ref: 'autonomy_records',
       table_name: 'autonomy_records',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'content'] },

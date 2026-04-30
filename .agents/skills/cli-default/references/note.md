@@ -7,7 +7,7 @@ CRUD operations for Note records via agentic-db CLI
 **pgvector embedding fields:** `embedding`
 High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-**Unified Search API fields:** `contentBm25Score`, `embeddingTextBm25Score`, `contentTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 ## Usage
@@ -85,12 +85,6 @@ EMBEDDER_PROVIDER=ollama agentic-db note create --embedding "text to embed" --au
 EMBEDDER_PROVIDER=ollama agentic-db note update --embedding "new text to embed" --auto-embed
 ```
 
-### BM25 keyword search via `bm25Content`
-
-```bash
-agentic-db note list --where.bm25Content.query "search query" --select title,contentBm25Score
-```
-
 ### BM25 keyword search via `bm25EmbeddingText`
 
 ```bash
@@ -124,7 +118,7 @@ agentic-db note list --where.trgmEmbeddingText.value "approximate query" --where
 ### Composite search (unifiedSearch dispatches to all text adapters)
 
 ```bash
-agentic-db note list --where.unifiedSearch "search query" --select title,contentBm25Score,embeddingTextBm25Score,contentTrgmSimilarity,abstractTrgmSimilarity,overviewTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db note list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,contentTrgmSimilarity,abstractTrgmSimilarity,overviewTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection

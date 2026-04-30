@@ -18,6 +18,7 @@ const definition: BlueprintDefinition = {
       ref: 'agents',
       table_name: 'agents',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'system_prompt'] },
@@ -41,6 +42,7 @@ const definition: BlueprintDefinition = {
       ref: 'tasks',
       table_name: 'tasks',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'description', 'result'] },
@@ -65,6 +67,7 @@ const definition: BlueprintDefinition = {
       ref: 'agent_logs',
       table_name: 'agent_logs',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['message'] },
@@ -85,6 +88,7 @@ const definition: BlueprintDefinition = {
       ref: 'rules',
       table_name: 'rules',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'trigger_concept'] },
@@ -110,6 +114,7 @@ const definition: BlueprintDefinition = {
       ref: 'skills',
       table_name: 'skills',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'intent_trigger'] },
@@ -133,6 +138,7 @@ const definition: BlueprintDefinition = {
       ref: 'tool_definitions',
       table_name: 'tool_definitions',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description'] },
@@ -154,6 +160,7 @@ const definition: BlueprintDefinition = {
       ref: 'prompts',
       table_name: 'prompts',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'content'] },
@@ -175,6 +182,7 @@ const definition: BlueprintDefinition = {
       ref: 'expenses',
       table_name: 'expenses',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['description', 'notes'] },

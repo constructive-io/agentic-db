@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/table
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/columns/memory_id/column
--- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
+-- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 CREATE INDEX contact_memories_memory_id_idx ON agentic_db_app_public.contact_memories USING BTREE ( memory_id );

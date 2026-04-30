@@ -22,6 +22,7 @@ const definition: BlueprintDefinition = {
       ref: 'documents',
       table_name: 'documents',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['title', 'content'], chunks: {} },
@@ -43,7 +44,6 @@ const definition: BlueprintDefinition = {
   relations: [],
 
   indexes: [
-    { table_ref: 'documents', column: 'content', access_method: 'bm25', options: { text_config: 'english' } },
     { table_ref: 'documents', column: 'tags', access_method: 'gin' },
     { table_ref: 'documents', column: 'repo_name', access_method: 'btree' },
     { table_ref: 'documents', column: 'file_path', access_method: 'btree' },

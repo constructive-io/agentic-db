@@ -1,0 +1,15 @@
+-- Deploy: schemas/agentic_db_private/trigger_fns/documents_embedding_stale
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_private/schema
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
+
+
+CREATE FUNCTION "agentic_db_private".documents_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
+BEGIN
+  new.embedding_stale := true;
+  new.embedding := NULL;
+  RETURN NEW;
+END;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE;
+

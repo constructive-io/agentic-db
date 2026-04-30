@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_attendees/table
+-- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 -- requires: schemas/agentic_db_app_public/tables/calendar_attendees/columns/contact_id/column
--- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 CREATE INDEX calendar_attendees_contact_id_idx ON agentic_db_app_public.calendar_attendees USING BTREE ( contact_id );

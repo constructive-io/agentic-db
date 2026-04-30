@@ -30,6 +30,7 @@ const definition: BlueprintDefinition = {
       ref: 'images',
       table_name: 'images',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } },
       ],
@@ -46,6 +47,7 @@ const definition: BlueprintDefinition = {
       ref: 'contacts',
       table_name: 'contacts',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'], chunks: {} },
@@ -86,6 +88,7 @@ const definition: BlueprintDefinition = {
       ref: 'companies',
       table_name: 'companies',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'description', 'industry'] },
@@ -116,6 +119,7 @@ const definition: BlueprintDefinition = {
       ref: 'deals',
       table_name: 'deals',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'notes_text'] },
@@ -138,6 +142,7 @@ const definition: BlueprintDefinition = {
       ref: 'events',
       table_name: 'events',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'notes_text', 'location'] },
@@ -172,6 +177,7 @@ const definition: BlueprintDefinition = {
       ref: 'venues',
       table_name: 'venues',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['name', 'notes', 'neighborhood'] },
@@ -210,6 +216,7 @@ const definition: BlueprintDefinition = {
       ref: 'notes',
       table_name: 'notes',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['content', 'abstract'], chunks: {} },
@@ -231,6 +238,7 @@ const definition: BlueprintDefinition = {
       ref: 'interactions',
       table_name: 'interactions',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['summary'] },
@@ -252,6 +260,7 @@ const definition: BlueprintDefinition = {
       ref: 'touchpoints',
       table_name: 'touchpoints',
       nodes: [
+        'DataId',
         'DataTimestamps',
         { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['subject', 'summary'] },
@@ -279,7 +288,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'tags',
       table_name: 'tags',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'name', type: 'text', is_required: true },
         { name: 'color', type: 'text' },
@@ -296,7 +305,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'contact_emails',
       table_name: 'contact_emails',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'email', type: 'text', is_required: true },
         { name: 'email_type', type: 'text' },
@@ -306,7 +315,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'contact_phones',
       table_name: 'contact_phones',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'phone', type: 'text', is_required: true },
         { name: 'phone_type', type: 'text' },
@@ -316,7 +325,7 @@ const definition: BlueprintDefinition = {
     {
       ref: 'contact_addresses',
       table_name: 'contact_addresses',
-      nodes: ['DataTimestamps'],
+      nodes: ['DataId', 'DataTimestamps'],
       fields: [
         { name: 'street', type: 'text' },
         { name: 'city', type: 'text' },
@@ -332,25 +341,25 @@ const definition: BlueprintDefinition = {
     {
       ref: 'contact_links',
       table_name: 'contact_links',
-      nodes: ['DataTimestamps', { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: ['DataId', 'DataTimestamps', { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
     },
     {
       ref: 'company_links',
       table_name: 'company_links',
-      nodes: ['DataTimestamps', { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: ['DataId', 'DataTimestamps', { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
     },
     {
       ref: 'event_links',
       table_name: 'event_links',
-      nodes: ['DataTimestamps', { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: ['DataId', 'DataTimestamps', { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
     },
     {
       ref: 'venue_links',
       table_name: 'venue_links',
-      nodes: ['DataTimestamps', { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: ['DataId', 'DataTimestamps', { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
     },
 
@@ -400,8 +409,6 @@ const definition: BlueprintDefinition = {
   ],
 
   indexes: [
-    { table_ref: 'notes', column: 'content', access_method: 'bm25', options: { text_config: 'english' } },
-
     { table_ref: 'contacts', column: 'tags', access_method: 'gin' },
     { table_ref: 'companies', column: 'tags', access_method: 'gin' },
     { table_ref: 'deals', column: 'tags', access_method: 'gin' },
