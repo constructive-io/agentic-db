@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.5.0...@agentic-db/cli@1.6.0) (2026-04-30)
+
+### Features
+
+- add @agentic-db/documents-loader package and CLI docs command ([24b78c9](https://github.com/constructive-io/agentic-db/commit/24b78c9083e3537850fe54f764bfd5e3bdcdf11a))
+
 # [1.5.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.4.0...@agentic-db/cli@1.5.0) (2026-04-30)
 
 ### Bug Fixes
