@@ -487,6 +487,9 @@ jobs:
       - name: Build SDK
         run: pnpm --filter @agentic-db/sdk run build
 
+      - name: Build documents-loader
+        run: pnpm --filter @agentic-db/documents-loader run build
+
       - name: Wait for Ollama and pull model
         run: |
           echo "Waiting for Ollama to be ready..."
