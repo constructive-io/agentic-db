@@ -25,6 +25,7 @@ Once deployed, you can ask your agent questions in plain English and it translat
 - *"Find memories from conferences near San Francisco last spring."*
 - *"Remember who I met with at the partner summit last month?"*
 - *"Show me notes where I wrote about RAG architecture."*
+- *"Find all documents from the biz-docs repo tagged 'pitch'."*
 - *"Who have I met with more than three times this quarter?"*
 - *"What's the latest status on deals tagged `enterprise`?"*
 
@@ -39,6 +40,7 @@ Conversations, messages, tool calls, long-term memories, rules, skills, prompts,
 | Need for an agent | What agentic-db ships |
 |---|---|
 | Long-term memory | `memories` + agent-scoped `memories` with vector + BM25 + chunked embeddings |
+| Documents / CMS | `documents` with chunked embeddings + BM25, repo/path/commit tracking for Git-backed content; junction tables to companies and projects |
 | Working memory / conversation state | `conversations` + `messages` + `tool_calls` + `tool_results` |
 | Skills / tools registry | `skills`, `tool_definitions`, `tool_executions`, `prompts` (versioned) |
 | Behavior rules | `rules` with semantic `trigger_concept` matching |
@@ -72,6 +74,8 @@ It's all in one database, with vector + BM25 + full-text + trigram + PostGIS sea
 │                                                         │
 │  memories ── autonomy_records ── notes (chunked)        │
 │                                                         │
+│  documents (chunked) ── company_documents ── project_…   │
+│                                                         │
 │  contacts · companies · events · places · emails · …    │
 │                                                         │
 │  [ vector · BM25 · FTS · trigram · PostGIS, unified ]   │
@@ -92,8 +96,9 @@ It's all in one database, with vector + BM25 + full-text + trigram + PostGIS sea
 - **`autonomy_records`** — self-managed knowledge units the agent writes for itself (goals, notes-to-self, learned facts), with self-referential many-to-many links (`autonomy_record_links`) so the agent builds its own knowledge graph.
 - **`notes`** — long-form knowledge with **chunked embeddings**: a single note gets split into multiple vector rows automatically so retrieval works on long documents.
 - **Cross-domain memory junctions** — `contact_memories`, `company_memories` tie memories to the people/orgs they're about, so the agent can pull "everything I remember about Alice" in one query.
+- **Document junctions** — `company_documents`, `project_documents` link version-controlled documents to CRM entities.
 - **Agent-attributed memories** — every memory can carry an `agent_id` FK so multi-agent setups get isolated or shared memory.
-- **Chunk-aware search** — `contacts_chunks` and `notes_chunks` let the agent retrieve the *relevant paragraph* of a long record, not the whole record.
+- **Chunk-aware search** — `contacts_chunks`, `notes_chunks`, and `documents_chunks` let the agent retrieve the *relevant paragraph* of a long record, not the whole record.
 - **Tags as first-class citizens** — `citext[]` tag columns on every memory-ish table, GIN-indexed, so filtering by `['hackathon','kris-floyd']` is fast.
 
 ### 💬 Chats / Conversations
@@ -141,21 +146,22 @@ It's all in one database, with vector + BM25 + full-text + trigram + PostGIS sea
   - `memory.nearbyMemories` — self-join, "what else happened near this memory?" (1 km default)
 
   All 5 use `st_dwithin` with a per-query `distance` param, so radius is a query-time input not a schema constant. Each renders server-side as an `EXISTS (… ST_DWithin(geo_a, geo_b, $distance) …)` subquery — zero GeoJSON on the wire.
-- **Chunked long-doc retrieval** on contacts and notes.
+- **Chunked long-doc retrieval** on contacts, notes, and documents.
 
 ### 🌍 World model (context the agent needs to actually help you)
 
 - **CRM**: `contacts` (with denormalized primary email/phone/location + normalized `contact_emails` / `contact_phones` / `contact_addresses` children), `companies`, `deals`, `events`, `venues`, `notes`, `interactions`, `touchpoints`, `tags`, image galleries.
 - **Life-OS**: `goals`, `habits`, `activity_logs`, `memories`, `trips`, `places`.
 - **Projects & expenses**: `projects`, `expenses`, with cross-relations to contacts, trips, tasks.
+- **Documents / CMS**: `documents` — version-controlled files with `repo_name`, `file_path`, `commit_hash` for Git sync; `title`, `content`, `metadata` (jsonb), `tags`. Chunked embeddings via `documents_chunks` for long-doc RAG. Junction tables: `company_documents`, `project_documents`.
 - **Email & Calendar**: `email_threads`, `emails`, `email_attachments`, `calendars`, `calendar_events`, `calendar_attendees`, `provider_sync_states` (for Gmail / Google Calendar-style provider sync).
 - **Staging tables** (`raw_contacts`, `raw_contact_emails`, etc.) for messy import pipelines before normalizing into `contacts`.
-- **~25 cross-domain M:N junctions** so your agent can answer "notes about Alice from the partner summit" without schema gymnastics.
+- **~27 cross-domain M:N junctions** so your agent can answer "notes about Alice from the partner summit" or "documents linked to this project" without schema gymnastics.
 
 ### ⚙️ Platform / DX
 
 - **One command to deploy**: `pgpm deploy --createdb --database agentic-db --yes --package agentic-db`.
-- **[`@agentic-db/sdk`](sdk/sdk)** — Prisma-like typed ORM generated from the GraphQL schema (covers all 91 tables).
+- **[`@agentic-db/sdk`](sdk/sdk)** — Prisma-like typed ORM generated from the GraphQL schema (covers all 95 tables).
 - **[`@agentic-db/cli`](sdk/cli)** — CRUD + search + admin commands for every table.
 - **[`@agentic-db/rag`](packages/rag)** — hybrid search, batch embedding, multi-pass Q&A CLI tools.
 - **[`@agentic-db/worker`](packages/worker)** — background embedding worker.
@@ -204,7 +210,7 @@ pgpm init workspace
 cd my-app && pgpm init && cd packages/my-module
 pgpm install agentic-db
 
-# Create the database and deploy all 91 tables + indexes + triggers
+# Create the database and deploy all 95 tables + indexes + triggers
 pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
@@ -363,7 +369,7 @@ cd packages/worker
 pnpm run start
 ```
 
-The worker generates embeddings for all tables with `SearchUnified` or `SearchVector` nodes. Contacts and notes also get chunked embeddings for long-document search.
+The worker generates embeddings for all tables with `SearchUnified` or `SearchVector` nodes. Contacts, notes, and documents also get chunked embeddings for long-document search.
 
 ## Testing
 
@@ -386,8 +392,8 @@ This repo ships with [Agent Skills](https://github.com/agent-skills/agent-skills
 | Skill | Description |
 |-------|-------------|
 | `pgpm` | Install and deploy agentic-db using pgpm |
-| `cli-default` | CLI command reference for all 91 tables |
-| `orm-default` | Type-safe ORM client reference for all 91 tables |
+| `cli-default` | CLI command reference for all 95 tables |
+| `orm-default` | Type-safe ORM client reference for all 95 tables |
 | `agent/memories` | Storing and retrieving long-term agent memories |
 | `agent/tasks` | Managing agent task queues |
 | `rag-query` | Multi-collection RAG query patterns |
