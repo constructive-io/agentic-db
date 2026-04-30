@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.4.0...@agentic-db/cli@1.5.0) (2026-04-30)
+
+### Bug Fixes
+
+- remove duplicate content BM25 indexes from documents and notes ([8e94952](https://github.com/constructive-io/agentic-db/commit/8e94952db91b18ea954d54c9db9ff45c7c86abca))
+
+### Features
+
+- provision + export documents table with generated SQL, SDK, and CLI ([1f6efc8](https://github.com/constructive-io/agentic-db/commit/1f6efc89ac8a79100c35ca4a23401446136b14a9))
+
 # [1.4.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/cli@1.3.0...@agentic-db/cli@1.4.0) (2026-04-18)
 
 ### Bug Fixes

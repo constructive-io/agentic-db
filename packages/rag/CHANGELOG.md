@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/rag@1.4.0...@agentic-db/rag@1.5.0) (2026-04-30)
+
+**Note:** Version bump only for package @agentic-db/rag
+
 # [1.4.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/rag@1.3.0...@agentic-db/rag@1.4.0) (2026-04-18)
 
 **Note:** Version bump only for package @agentic-db/rag
