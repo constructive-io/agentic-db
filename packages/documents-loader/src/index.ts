@@ -1,5 +1,12 @@
 export type { ExportOptions, ExportProgressEvent,ExportStats } from './exporter';
 export { exportDocuments } from './exporter';
+export type { GitignoreMatcher, GitignoreRule } from './gitignore';
+export {
+  createGitignoreMatcher,
+  loadGitignore,
+  parseGitignore,
+  parseGitignoreLine,
+} from './gitignore';
 export type {
   DocumentClient,
   DocumentRecord,
