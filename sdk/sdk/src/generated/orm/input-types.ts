@@ -543,8 +543,6 @@ export interface Note {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
-  contentBm25Score?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -687,8 +685,6 @@ export interface Document {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
-  contentBm25Score?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -3096,7 +3092,6 @@ export type NoteSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  contentBm25Score?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   contentTrgmSimilarity?: boolean;
@@ -3493,7 +3488,6 @@ export type DocumentSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  contentBm25Score?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   titleTrgmSimilarity?: boolean;
@@ -5925,8 +5919,6 @@ export interface NoteFilter {
   calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
   /** `calendarEventNotes` exist. */
   calendarEventNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -6271,8 +6263,6 @@ export interface DocumentFilter {
   projectDocuments?: DocumentToManyProjectDocumentFilter;
   /** `projectDocuments` exist. */
   projectDocumentsExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -9269,8 +9259,6 @@ export type NoteOrderBy =
   | 'EMBEDDING_DESC'
   | 'EMBEDDING_STALE_ASC'
   | 'EMBEDDING_STALE_DESC'
-  | 'CONTENT_BM25_SCORE_ASC'
-  | 'CONTENT_BM25_SCORE_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9471,8 +9459,6 @@ export type DocumentOrderBy =
   | 'EMBEDDING_DESC'
   | 'EMBEDDING_STALE_ASC'
   | 'EMBEDDING_STALE_DESC'
-  | 'CONTENT_BM25_SCORE_ASC'
-  | 'CONTENT_BM25_SCORE_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -18481,8 +18467,6 @@ export interface NoteFilter {
   calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
   /** `calendarEventNotes` exist. */
   calendarEventNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -18826,8 +18810,6 @@ export interface DocumentFilter {
   projectDocuments?: DocumentToManyProjectDocumentFilter;
   /** `projectDocuments` exist. */
   projectDocumentsExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */

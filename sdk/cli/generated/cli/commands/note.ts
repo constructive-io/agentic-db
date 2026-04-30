@@ -28,7 +28,6 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
-  contentBm25Score: 'float',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
   contentTrgmSimilarity: 'float',
@@ -172,9 +171,6 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
     const searchWhere = {
       embedding: {
         vector: query,
-      },
-      bm25Content: {
-        query,
       },
       bm25EmbeddingText: {
         query,

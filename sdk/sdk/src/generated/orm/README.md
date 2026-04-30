@@ -746,7 +746,6 @@ CRUD operations for Note records.
 | `embeddingText` | String | Yes |
 | `embedding` | Vector | Yes |
 | `embeddingStale` | Boolean | Yes |
-| `contentBm25Score` | Float | Yes |
 | `embeddingTextBm25Score` | Float | Yes |
 | `embeddingVectorDistance` | Float | Yes |
 | `contentTrgmSimilarity` | Float | Yes |
@@ -759,13 +758,13 @@ CRUD operations for Note records.
 
 ```typescript
 // List all note records
-const items = await db.note.findMany({ select: { content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const items = await db.note.findMany({ select: { content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.note.findOne({ id: '<UUID>', select: { content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const item = await db.note.findOne({ id: '<UUID>', select: { content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.note.create({ data: { content: '<String>', abstract: '<String>', overview: '<String>', activeCount: '<Int>', lastAccessedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', contentBm25Score: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', abstractTrgmSimilarity: '<Float>', overviewTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+const created = await db.note.create({ data: { content: '<String>', abstract: '<String>', overview: '<String>', activeCount: '<Int>', lastAccessedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', abstractTrgmSimilarity: '<Float>', overviewTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.note.update({ where: { id: '<UUID>' }, data: { content: '<String>' }, select: { id: true } }).execute();
@@ -1020,7 +1019,6 @@ CRUD operations for Document records.
 | `embeddingText` | String | Yes |
 | `embedding` | Vector | Yes |
 | `embeddingStale` | Boolean | Yes |
-| `contentBm25Score` | Float | Yes |
 | `embeddingTextBm25Score` | Float | Yes |
 | `embeddingVectorDistance` | Float | Yes |
 | `titleTrgmSimilarity` | Float | Yes |
@@ -1035,13 +1033,13 @@ CRUD operations for Document records.
 
 ```typescript
 // List all document records
-const items = await db.document.findMany({ select: { title: true, content: true, metadata: true, repoName: true, filePath: true, commitHash: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, contentTrgmSimilarity: true, repoNameTrgmSimilarity: true, filePathTrgmSimilarity: true, commitHashTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const items = await db.document.findMany({ select: { title: true, content: true, metadata: true, repoName: true, filePath: true, commitHash: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, contentTrgmSimilarity: true, repoNameTrgmSimilarity: true, filePathTrgmSimilarity: true, commitHashTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.document.findOne({ id: '<UUID>', select: { title: true, content: true, metadata: true, repoName: true, filePath: true, commitHash: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, contentTrgmSimilarity: true, repoNameTrgmSimilarity: true, filePathTrgmSimilarity: true, commitHashTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const item = await db.document.findOne({ id: '<UUID>', select: { title: true, content: true, metadata: true, repoName: true, filePath: true, commitHash: true, tags: true, id: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, contentTrgmSimilarity: true, repoNameTrgmSimilarity: true, filePathTrgmSimilarity: true, commitHashTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.document.create({ data: { title: '<String>', content: '<String>', metadata: '<JSON>', repoName: '<String>', filePath: '<String>', commitHash: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', contentBm25Score: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', repoNameTrgmSimilarity: '<Float>', filePathTrgmSimilarity: '<Float>', commitHashTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+const created = await db.document.create({ data: { title: '<String>', content: '<String>', metadata: '<JSON>', repoName: '<String>', filePath: '<String>', commitHash: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', repoNameTrgmSimilarity: '<Float>', filePathTrgmSimilarity: '<Float>', commitHashTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.document.update({ where: { id: '<UUID>' }, data: { title: '<String>' }, select: { id: true } }).execute();

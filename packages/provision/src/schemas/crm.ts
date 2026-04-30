@@ -409,8 +409,6 @@ const definition: BlueprintDefinition = {
   ],
 
   indexes: [
-    { table_ref: 'notes', column: 'content', access_method: 'bm25', options: { text_config: 'english' } },
-
     { table_ref: 'contacts', column: 'tags', access_method: 'gin' },
     { table_ref: 'companies', column: 'tags', access_method: 'gin' },
     { table_ref: 'deals', column: 'tags', access_method: 'gin' },

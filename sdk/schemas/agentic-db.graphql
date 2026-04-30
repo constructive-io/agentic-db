@@ -907,8 +907,6 @@ enum DocumentOrderBy {
   EMBEDDING_DESC
   EMBEDDING_STALE_ASC
   EMBEDDING_STALE_DESC
-  CONTENT_BM25_SCORE_ASC
-  CONTENT_BM25_SCORE_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1575,8 +1573,6 @@ enum NoteOrderBy {
   EMBEDDING_DESC
   EMBEDDING_STALE_ASC
   EMBEDDING_STALE_DESC
-  CONTENT_BM25_SCORE_ASC
-  CONTENT_BM25_SCORE_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -9812,8 +9808,6 @@ type Document {
     "The method to use when ordering `ProjectDocument`."
     orderBy: [ProjectDocumentOrderBy!] = [NATURAL]
   ): ProjectDocumentConnection!
-  "BM25 score when searching `content`. Returns null when no bm25 search filter is active."
-  contentBm25Score: Float
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
@@ -14480,8 +14474,6 @@ type Note {
     "The method to use when ordering `CalendarEventNote`."
     orderBy: [CalendarEventNoteOrderBy!] = [NATURAL]
   ): CalendarEventNoteConnection!
-  "BM25 score when searching `content`. Returns null when no bm25 search filter is active."
-  contentBm25Score: Float
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
@@ -24994,8 +24986,6 @@ input DocumentFilter {
   projectDocuments: DocumentToManyProjectDocumentFilter
   "`projectDocuments` exist."
   projectDocumentsExist: Boolean
-  "BM25 search on the `content` column."
-  bm25Content: Bm25SearchInput
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -26993,8 +26983,6 @@ input NoteFilter {
   calendarEventNotes: NoteToManyCalendarEventNoteFilter
   "`calendarEventNotes` exist."
   calendarEventNotesExist: Boolean
-  "BM25 search on the `content` column."
-  bm25Content: Bm25SearchInput
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."

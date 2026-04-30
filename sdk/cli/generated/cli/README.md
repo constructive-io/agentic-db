@@ -1196,7 +1196,6 @@ CRUD operations for Note records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
-| `contentBm25Score` | Float |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `contentTrgmSimilarity` | Float |
@@ -1210,7 +1209,7 @@ CRUD operations for Note records.
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-> **Unified Search API fields:** `contentBm25Score`, `embeddingTextBm25Score`, `contentTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 **Search Examples:**
@@ -1233,11 +1232,6 @@ EMBEDDER_PROVIDER=ollama agentic-db note list --where.embedding.vector "semantic
 # --auto-embed on create/update converts text strings in vector fields to embeddings before saving
 EMBEDDER_PROVIDER=ollama agentic-db note create --embedding "text to embed" --auto-embed
 EMBEDDER_PROVIDER=ollama agentic-db note update --embedding "new text to embed" --auto-embed
-```
-
-*BM25 keyword search via `bm25Content`:*
-```bash
-agentic-db note list --where.bm25Content.query "search query" --select title,contentBm25Score
 ```
 
 *BM25 keyword search via `bm25EmbeddingText`:*
@@ -1267,7 +1261,7 @@ agentic-db note list --where.trgmEmbeddingText.value "approximate query" --where
 
 *Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db note list --where.unifiedSearch "search query" --select title,contentBm25Score,embeddingTextBm25Score,contentTrgmSimilarity,abstractTrgmSimilarity,overviewTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db note list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,contentTrgmSimilarity,abstractTrgmSimilarity,overviewTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
@@ -1696,7 +1690,6 @@ CRUD operations for Document records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
-| `contentBm25Score` | Float |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `titleTrgmSimilarity` | Float |
@@ -1712,7 +1705,7 @@ CRUD operations for Document records.
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-> **Unified Search API fields:** `contentBm25Score`, `embeddingTextBm25Score`, `titleTrgmSimilarity`, `contentTrgmSimilarity`, `repoNameTrgmSimilarity`, `filePathTrgmSimilarity`, `commitHashTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `contentTrgmSimilarity`, `repoNameTrgmSimilarity`, `filePathTrgmSimilarity`, `commitHashTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 **Search Examples:**
@@ -1735,11 +1728,6 @@ EMBEDDER_PROVIDER=ollama agentic-db document list --where.embedding.vector "sema
 # --auto-embed on create/update converts text strings in vector fields to embeddings before saving
 EMBEDDER_PROVIDER=ollama agentic-db document create --embedding "text to embed" --auto-embed
 EMBEDDER_PROVIDER=ollama agentic-db document update --embedding "new text to embed" --auto-embed
-```
-
-*BM25 keyword search via `bm25Content`:*
-```bash
-agentic-db document list --where.bm25Content.query "search query" --select title,contentBm25Score
 ```
 
 *BM25 keyword search via `bm25EmbeddingText`:*
@@ -1779,7 +1767,7 @@ agentic-db document list --where.trgmEmbeddingText.value "approximate query" --w
 
 *Composite search (unifiedSearch dispatches to all text adapters):*
 ```bash
-agentic-db document list --where.unifiedSearch "search query" --select title,contentBm25Score,embeddingTextBm25Score,titleTrgmSimilarity,contentTrgmSimilarity,repoNameTrgmSimilarity,filePathTrgmSimilarity,commitHashTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
+agentic-db document list --where.unifiedSearch "search query" --select title,embeddingTextBm25Score,titleTrgmSimilarity,contentTrgmSimilarity,repoNameTrgmSimilarity,filePathTrgmSimilarity,commitHashTrgmSimilarity,embeddingTextTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
