@@ -1,6 +1,6 @@
 {
   "name": "@agentic-db/cli",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "CLI for agentic-db database operations",
   "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
