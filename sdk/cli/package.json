@@ -29,8 +29,8 @@
     "appstash": "^0.7.0",
     "gql-ast": "^3.4.2",
     "graphql": "16.13.0",
-    "inquirerer": "^4.7.0",
-    "nested-obj": "^0.1.5"
+    "inquirerer": "^4.8.1",
+    "nested-obj": "^0.2.2"
   },
   "devDependencies": {
     "@agentic-db/schemas": "workspace:*",
