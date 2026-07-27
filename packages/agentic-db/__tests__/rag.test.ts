@@ -32,7 +32,6 @@ jest.setTimeout(300000);
 process.env.LOG_SCOPE = '@constructive-io/graphql-test';
 
 import { getConnections, GraphQLTestAdapter } from '@constructive-io/graphql-test';
-import { ConstructivePreset } from 'graphile-settings';
 import type { GraphQLQueryFn } from '@constructive-io/graphql-test';
 import { createClient } from '@agentic-db/sdk';
 import OllamaClient from '@agentic-kit/ollama';
@@ -57,13 +56,6 @@ beforeAll(async () => {
   const connections = await getConnections({
     schemas: SCHEMAS,
     authRole: 'anonymous',
-    preset: {
-      extends: [ConstructivePreset],
-      // agentic-db tables have a physical embedding_text column;
-      // LlmTextMutationPlugin's synthesized embeddingText companion
-      // field would collide with it.
-      disablePlugins: ['LlmTextMutationPlugin'],
-    },
   });
   ({ db, pg, query, teardown } = connections);
 

@@ -66,10 +66,6 @@ describe('RAG integration (ORM + real Ollama)', () => {
         authRole: 'postgres',
         preset: {
           extends: [ConstructivePreset],
-          // agentic-db tables have a physical embedding_text column;
-          // LlmTextMutationPlugin's synthesized embeddingText companion
-          // field would collide with it.
-          disablePlugins: ['LlmTextMutationPlugin'],
         },
       },
       [
