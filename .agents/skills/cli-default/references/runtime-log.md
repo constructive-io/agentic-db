@@ -19,8 +19,8 @@ agentic-db runtime-log list --limit 10 --after <cursor>
 agentic-db runtime-log find-first --where.<field>.<op> <value>
 agentic-db runtime-log search <query>
 agentic-db runtime-log get --id <UUID>
-agentic-db runtime-log create --runtimeStateId <UUID> --level <String> --message <String> [--context <JSON>] [--stepIndex <Int>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db runtime-log update --id <UUID> [--runtimeStateId <UUID>] [--level <String>] [--message <String>] [--context <JSON>] [--stepIndex <Int>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db runtime-log create --runtimeStateId <UUID> --level <String> --message <String> [--context <JSON>] [--stepIndex <Int>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db runtime-log update --id <UUID> [--runtimeStateId <UUID>] [--level <String>] [--message <String>] [--context <JSON>] [--stepIndex <Int>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db runtime-log delete --id <UUID>
 ```
 
@@ -125,7 +125,7 @@ agentic-db runtime-log search "query" --limit 10 --select id,title,searchScore
 ### Create a runtimeLog
 
 ```bash
-agentic-db runtime-log create --runtimeStateId <UUID> --level <String> --message <String> [--context <JSON>] [--stepIndex <Int>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db runtime-log create --runtimeStateId <UUID> --level <String> --message <String> [--context <JSON>] [--stepIndex <Int>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a runtimeLog by id

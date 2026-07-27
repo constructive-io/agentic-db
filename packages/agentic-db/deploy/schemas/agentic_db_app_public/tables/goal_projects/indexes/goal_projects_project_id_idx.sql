@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goal_projects/table
 -- requires: schemas/agentic_db_app_public/tables/goal_projects/columns/project_id/column
--- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 CREATE INDEX goal_projects_project_id_idx ON agentic_db_app_public.goal_projects USING BTREE ( project_id );

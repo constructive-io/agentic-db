@@ -19,8 +19,8 @@ agentic-db prompt list --limit 10 --after <cursor>
 agentic-db prompt find-first --where.<field>.<op> <value>
 agentic-db prompt search <query>
 agentic-db prompt get --id <UUID>
-agentic-db prompt create --name <String> --content <String> [--category <String>] [--version <Int>] [--isActive <Boolean>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db prompt update --id <UUID> [--name <String>] [--content <String>] [--category <String>] [--version <Int>] [--isActive <Boolean>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db prompt create --name <String> --content <String> [--category <String>] [--version <Int>] [--isActive <Boolean>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db prompt update --id <UUID> [--name <String>] [--content <String>] [--category <String>] [--version <Int>] [--isActive <Boolean>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db prompt delete --id <UUID>
 ```
 
@@ -131,7 +131,7 @@ agentic-db prompt search "query" --limit 10 --select id,title,searchScore
 ### Create a prompt
 
 ```bash
-agentic-db prompt create --name <String> --content <String> [--category <String>] [--version <Int>] [--isActive <Boolean>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db prompt create --name <String> --content <String> [--category <String>] [--version <Int>] [--isActive <Boolean>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a prompt by id

@@ -70,13 +70,11 @@ export class HabitModel {
     });
   }
   findFirst<S extends HabitSelect>(
-    args: FindFirstArgs<S, HabitFilter> & {
+    args: FindFirstArgs<S, HabitFilter, HabitOrderBy> & {
       select: S;
     } & StrictSelect<S, HabitSelect>
   ): QueryBuilder<{
-    habits: {
-      nodes: InferSelectResult<HabitWithRelations, S>[];
-    };
+    habit: InferSelectResult<HabitWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Habit',
@@ -84,17 +82,26 @@ export class HabitModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'HabitFilter',
+      'HabitOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Habit',
-      fieldName: 'habits',
+      fieldName: 'habit',
       document,
       variables,
+      transform: (data: {
+        habits?: {
+          nodes?: InferSelectResult<HabitWithRelations, S>[];
+        };
+      }) => ({
+        habit: data.habits?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends HabitSelect>(
@@ -189,7 +196,8 @@ export class HabitModel {
       'UpdateHabitInput',
       'id',
       'habitPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

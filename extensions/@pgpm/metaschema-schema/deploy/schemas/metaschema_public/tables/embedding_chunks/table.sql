@@ -31,12 +31,23 @@ CREATE TABLE metaschema_public.embedding_chunks (
     -- metadata fields from parent to copy into chunks
     metadata_fields jsonb,
 
+    -- search indexes to create on the chunks content column
+    -- NULL means "mirror parent table's text search indexes"
+    search_indexes jsonb,
+
     -- job configuration
     enqueue_chunking_job boolean NOT NULL DEFAULT true,
     chunking_task_name text NOT NULL DEFAULT 'generate_chunks',
 
+    -- model config (optional — worker falls back to runtime config when null)
+    embedding_model text,
+    embedding_provider text,
+
     -- FK field on chunks table pointing to parent
     parent_fk_field_id uuid,
+
+    created_at timestamptz DEFAULT now(),
+    updated_at timestamptz DEFAULT now(),
 
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
     CONSTRAINT table_fkey FOREIGN KEY (table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,

@@ -70,13 +70,11 @@ export class ContactImageModel {
     });
   }
   findFirst<S extends ContactImageSelect>(
-    args: FindFirstArgs<S, ContactImageFilter> & {
+    args: FindFirstArgs<S, ContactImageFilter, ContactImageOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactImageSelect>
   ): QueryBuilder<{
-    contactImages: {
-      nodes: InferSelectResult<ContactImageWithRelations, S>[];
-    };
+    contactImage: InferSelectResult<ContactImageWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ContactImage',
@@ -84,17 +82,26 @@ export class ContactImageModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ContactImageFilter',
+      'ContactImageOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ContactImage',
-      fieldName: 'contactImages',
+      fieldName: 'contactImage',
       document,
       variables,
+      transform: (data: {
+        contactImages?: {
+          nodes?: InferSelectResult<ContactImageWithRelations, S>[];
+        };
+      }) => ({
+        contactImage: data.contactImages?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends ContactImageSelect>(

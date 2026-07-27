@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/places/table
 -- requires: schemas/agentic_db_app_public/tables/places/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE INDEX places_embedding_hnsw_idx ON agentic_db_app_public.places USING hnsw ( embedding vector_cosine_ops );

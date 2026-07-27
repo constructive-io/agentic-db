@@ -70,13 +70,11 @@ export class PlaceModel {
     });
   }
   findFirst<S extends PlaceSelect>(
-    args: FindFirstArgs<S, PlaceFilter> & {
+    args: FindFirstArgs<S, PlaceFilter, PlaceOrderBy> & {
       select: S;
     } & StrictSelect<S, PlaceSelect>
   ): QueryBuilder<{
-    places: {
-      nodes: InferSelectResult<PlaceWithRelations, S>[];
-    };
+    place: InferSelectResult<PlaceWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Place',
@@ -84,17 +82,26 @@ export class PlaceModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'PlaceFilter',
+      'PlaceOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Place',
-      fieldName: 'places',
+      fieldName: 'place',
       document,
       variables,
+      transform: (data: {
+        places?: {
+          nodes?: InferSelectResult<PlaceWithRelations, S>[];
+        };
+      }) => ({
+        place: data.places?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends PlaceSelect>(
@@ -189,7 +196,8 @@ export class PlaceModel {
       'UpdatePlaceInput',
       'id',
       'placePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

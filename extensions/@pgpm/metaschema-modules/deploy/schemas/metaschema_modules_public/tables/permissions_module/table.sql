@@ -7,9 +7,18 @@ BEGIN;
 CREATE TABLE metaschema_modules_public.permissions_module (
     id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
+
+    -- Scope-key column name on the generated table(s), recorded by the insert
+    -- trigger via metaschema_generators.scope_key_column(scope, key): database ->
+    -- 'database_id', entity -> the module's key ('entity_id' here), global -> NULL.
+    entity_field text,
     --
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
     private_schema_id uuid NOT NULL DEFAULT uuid_nil(),
+
+  -- Schema name overrides: when set, the trigger uses these instead of hardcoded defaults.
+  public_schema_name text,
+  private_schema_name text,
     table_id uuid NOT NULL DEFAULT uuid_nil(),
     table_name text NOT NULL DEFAULT '',
     -- 
@@ -19,16 +28,41 @@ CREATE TABLE metaschema_modules_public.permissions_module (
     default_table_name text NOT NULL DEFAULT '',
     -- 
      
-    bitlen int NOT NULL DEFAULT 24,
-    membership_type int NOT NULL,
-    -- if this is NOT NULL, then we add entity_id 
-    -- e.g. limits to the app itself are considered global owned by app and no explicit owner
+    -- Default bit-width of the permission mask for this module.
+    --
+    -- Chosen to maximize permission headroom without costing extra storage or
+    -- compute. PostgreSQL lays out heap tuples to MAXALIGN (8 bytes on x86_64),
+    -- so the row-size bucket that holds bit(24) already extends up to bit(64):
+    --
+    --   bitlen | row bytes | heap (1M rows) | btree idx (1M rows)
+    --   -------+-----------+----------------+--------------------
+    --   24     |  67       |  74 MB         |  47 MB
+    --   48     |  70       |  74 MB         |  47 MB
+    --   64     |  72       |  74 MB         |  47 MB   <-- same bucket
+    --   65     |  73       |  81 MB         |  47 MB   <-- next bucket
+    --
+    -- Bitwise AND/OR on bit(<=64) fits in a single 64-bit machine word, so
+    -- permission checks at 64 cost the same as at 24. Raising the default from
+    -- 24 to 64 gives new modules 6.4x more permission slots before anyone has
+    -- to think about running update_bitlen_permissions, at identical storage
+    -- and compute cost. Do not raise past 64 casually -- bit(65+) jumps to the
+    -- next 8-byte tuple bucket (+~10% heap) and pays on every write.
+    --
+    -- Existing databases are unaffected; this only changes the default for
+    -- newly inserted permissions_module rows.
+    bitlen int NOT NULL DEFAULT 64,
+
+    -- Scope: determines the security level for this module instance.
+    scope text NOT NULL,
+
+    -- Table name prefix. Auto-derived from scope by the trigger when empty.
+    prefix text NOT NULL DEFAULT '',
+
+    -- Entity table for RLS (NULL for app-level, entity table for entity-scoped)
     entity_table_id uuid NULL,
 
     -- required tables    
     actor_table_id uuid NOT NULL DEFAULT uuid_nil(),
-
-    prefix text NULL,
 
     --
 
@@ -38,6 +72,10 @@ CREATE TABLE metaschema_modules_public.permissions_module (
     get_mask_by_name text NOT NULL DEFAULT '',
 
     --
+
+    -- API routing (configurable per-module)
+    api_name text DEFAULT 'admin',
+    private_api_name text DEFAULT NULL,
 
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
     CONSTRAINT schema_fkey FOREIGN KEY (schema_id) REFERENCES metaschema_public.schema (id) ON DELETE CASCADE,

@@ -70,13 +70,11 @@ export class TripModel {
     });
   }
   findFirst<S extends TripSelect>(
-    args: FindFirstArgs<S, TripFilter> & {
+    args: FindFirstArgs<S, TripFilter, TripOrderBy> & {
       select: S;
     } & StrictSelect<S, TripSelect>
   ): QueryBuilder<{
-    trips: {
-      nodes: InferSelectResult<TripWithRelations, S>[];
-    };
+    trip: InferSelectResult<TripWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Trip',
@@ -84,17 +82,26 @@ export class TripModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'TripFilter',
+      'TripOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Trip',
-      fieldName: 'trips',
+      fieldName: 'trip',
       document,
       variables,
+      transform: (data: {
+        trips?: {
+          nodes?: InferSelectResult<TripWithRelations, S>[];
+        };
+      }) => ({
+        trip: data.trips?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends TripSelect>(
@@ -189,7 +196,8 @@ export class TripModel {
       'UpdateTripInput',
       'id',
       'tripPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

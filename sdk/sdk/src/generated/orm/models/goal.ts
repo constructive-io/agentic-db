@@ -70,13 +70,11 @@ export class GoalModel {
     });
   }
   findFirst<S extends GoalSelect>(
-    args: FindFirstArgs<S, GoalFilter> & {
+    args: FindFirstArgs<S, GoalFilter, GoalOrderBy> & {
       select: S;
     } & StrictSelect<S, GoalSelect>
   ): QueryBuilder<{
-    goals: {
-      nodes: InferSelectResult<GoalWithRelations, S>[];
-    };
+    goal: InferSelectResult<GoalWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Goal',
@@ -84,17 +82,26 @@ export class GoalModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'GoalFilter',
+      'GoalOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Goal',
-      fieldName: 'goals',
+      fieldName: 'goal',
       document,
       variables,
+      transform: (data: {
+        goals?: {
+          nodes?: InferSelectResult<GoalWithRelations, S>[];
+        };
+      }) => ({
+        goal: data.goals?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends GoalSelect>(
@@ -189,7 +196,8 @@ export class GoalModel {
       'UpdateGoalInput',
       'id',
       'goalPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

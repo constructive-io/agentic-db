@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/expenses/table
 -- requires: schemas/agentic_db_app_public/tables/expenses/columns/trip_id/column
--- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 CREATE INDEX expenses_trip_id_idx ON agentic_db_app_public.expenses USING BTREE ( trip_id );

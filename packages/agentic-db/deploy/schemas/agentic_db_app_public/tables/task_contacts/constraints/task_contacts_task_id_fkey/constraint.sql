@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tasks/table
 -- requires: schemas/agentic_db_app_public/tables/task_contacts/table
--- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 ALTER TABLE agentic_db_app_public.task_contacts 

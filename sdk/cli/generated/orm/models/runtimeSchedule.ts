@@ -70,13 +70,11 @@ export class RuntimeScheduleModel {
     });
   }
   findFirst<S extends RuntimeScheduleSelect>(
-    args: FindFirstArgs<S, RuntimeScheduleFilter> & {
+    args: FindFirstArgs<S, RuntimeScheduleFilter, RuntimeScheduleOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeScheduleSelect>
   ): QueryBuilder<{
-    runtimeSchedules: {
-      nodes: InferSelectResult<RuntimeScheduleWithRelations, S>[];
-    };
+    runtimeSchedule: InferSelectResult<RuntimeScheduleWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RuntimeSchedule',
@@ -84,17 +82,26 @@ export class RuntimeScheduleModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuntimeScheduleFilter',
+      'RuntimeScheduleOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RuntimeSchedule',
-      fieldName: 'runtimeSchedules',
+      fieldName: 'runtimeSchedule',
       document,
       variables,
+      transform: (data: {
+        runtimeSchedules?: {
+          nodes?: InferSelectResult<RuntimeScheduleWithRelations, S>[];
+        };
+      }) => ({
+        runtimeSchedule: data.runtimeSchedules?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RuntimeScheduleSelect>(
@@ -189,7 +196,8 @@ export class RuntimeScheduleModel {
       'UpdateRuntimeScheduleInput',
       'id',
       'runtimeSchedulePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

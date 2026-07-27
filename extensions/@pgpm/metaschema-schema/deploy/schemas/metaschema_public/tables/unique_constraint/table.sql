@@ -18,11 +18,20 @@ CREATE TABLE metaschema_public.unique_constraint (
   type text,
   field_ids uuid[] NOT NULL,
 
+  -- PG18 application-time temporal UNIQUE: designates the trailing period/range
+  -- column in field_ids as WITHOUT OVERLAPS.
+  without_overlaps boolean NOT NULL DEFAULT false,
+
+  -- Constraint timing: emit DEFERRABLE / INITIALLY DEFERRED.
+  is_deferrable boolean NOT NULL DEFAULT false,
+  initially_deferred boolean NOT NULL DEFAULT false,
+
   category metaschema_public.object_category NOT NULL DEFAULT 'app',
-  module text NULL,
-  scope int NULL,
 
   tags citext[] NOT NULL DEFAULT '{}',
+
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
 
   CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
   CONSTRAINT table_fkey FOREIGN KEY (table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,

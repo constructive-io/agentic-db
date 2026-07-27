@@ -19,8 +19,8 @@ agentic-db trip list --limit 10 --after <cursor>
 agentic-db trip find-first --where.<field>.<op> <value>
 agentic-db trip search <query>
 agentic-db trip get --id <UUID>
-agentic-db trip create --name <String> [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--destinationGeo <GeographyInterface>]
-agentic-db trip update --id <UUID> [--name <String>] [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--destinationGeo <GeographyInterface>]
+agentic-db trip create --name <String> [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--destinationGeo <GeographyInterface>]
+agentic-db trip update --id <UUID> [--name <String>] [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--destinationGeo <GeographyInterface>]
 agentic-db trip delete --id <UUID>
 ```
 
@@ -131,7 +131,7 @@ agentic-db trip search "query" --limit 10 --select id,title,searchScore
 ### Create a trip
 
 ```bash
-agentic-db trip create --name <String> [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--destinationGeo <GeographyInterface>]
+agentic-db trip create --name <String> [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--destinationGeo <GeographyInterface>]
 ```
 
 ### Get a trip by id

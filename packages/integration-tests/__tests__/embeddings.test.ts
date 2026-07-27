@@ -48,7 +48,8 @@ beforeAll(async () => {
     ],
   );
 
-  db = connections.db;
+  // Root client: the exported single-user package strips grants/RLS.
+  db = connections.pg;
   teardown = connections.teardown;
 });
 

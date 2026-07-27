@@ -1,7 +1,6 @@
 -- Deploy schemas/metaschema_modules_public/tables/rls_module/table to pg
 
 -- requires: schemas/metaschema_modules_public/schema
--- requires: schemas/services_public/tables/apis/table
 
 BEGIN;
 
@@ -21,6 +20,10 @@ CREATE TABLE metaschema_modules_public.rls_module (
     authenticate_strict text NOT NULL DEFAULT 'authenticate_strict',
     "current_role" text NOT NULL DEFAULT 'current_user',
     current_role_id text NOT NULL DEFAULT 'current_user_id',
+
+    -- API routing (configurable per-module)
+    api_name text DEFAULT 'auth',
+    private_api_name text DEFAULT NULL,
 
     --
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,

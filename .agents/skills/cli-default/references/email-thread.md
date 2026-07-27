@@ -19,8 +19,8 @@ agentic-db email-thread list --limit 10 --after <cursor>
 agentic-db email-thread find-first --where.<field>.<op> <value>
 agentic-db email-thread search <query>
 agentic-db email-thread get --id <UUID>
-agentic-db email-thread create [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db email-thread update --id <UUID> [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db email-thread create [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db email-thread update --id <UUID> [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db email-thread delete --id <UUID>
 ```
 
@@ -143,7 +143,7 @@ agentic-db email-thread search "query" --limit 10 --select id,title,searchScore
 ### Create a emailThread
 
 ```bash
-agentic-db email-thread create [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db email-thread create [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a emailThread by id

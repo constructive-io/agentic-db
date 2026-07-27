@@ -19,8 +19,8 @@ agentic-db contact list --limit 10 --after <cursor>
 agentic-db contact find-first --where.<field>.<op> <value>
 agentic-db contact search <query>
 agentic-db contact get --id <UUID>
-agentic-db contact create --firstName <String> [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipTypes <String>] [--howWeMet <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
-agentic-db contact update --id <UUID> [--firstName <String>] [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipTypes <String>] [--howWeMet <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
+agentic-db contact create --firstName <String> [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipTypes <String>] [--howWeMet <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--locationGeo <GeographyInterface>]
+agentic-db contact update --id <UUID> [--firstName <String>] [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipTypes <String>] [--howWeMet <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--locationGeo <GeographyInterface>]
 agentic-db contact delete --id <UUID>
 ```
 
@@ -167,7 +167,7 @@ agentic-db contact search "query" --limit 10 --select id,title,searchScore
 ### Create a contact
 
 ```bash
-agentic-db contact create --firstName <String> [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipTypes <String>] [--howWeMet <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
+agentic-db contact create --firstName <String> [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipTypes <String>] [--howWeMet <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--locationGeo <GeographyInterface>]
 ```
 
 ### Get a contact by id

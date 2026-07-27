@@ -10,8 +10,13 @@
  *   eval "$(pgpm env)" && PGDATABASE=constructive tsx src/run-export.ts
  *
  * Environment:
- *   DATABASE_ID  - UUID of the provisioned database (optional; uses latest if omitted)
- *   PGDATABASE   - Postgres database name (default: constructive)
+ *   DATABASE_ID        - UUID of the provisioned database (optional; uses latest if omitted)
+ *   PGDATABASE         - Postgres database name (default: constructive)
+ *   EXCLUDE_CATEGORIES - Comma-separated sql_actions categories to strip from
+ *                        the export (default: "security,permissions").
+ *                        agentic-db is a single-user personal database, so
+ *                        RLS/grant machinery is stripped by default.
+ *                        Set to "" (empty) to keep all categories.
  */
 
 import { PgpmPackage } from '@pgpmjs/core';
@@ -29,11 +34,19 @@ async function main() {
   const username = process.env.GITHUB_USERNAME || 'pyramation-studio';
   const repoName = process.env.REPO_NAME || 'agent-os';  // GitHub repo name stays agent-os
 
+  // agentic-db is a single-user personal DB: strip RLS/security and grant
+  // actions from the export by default. Override via EXCLUDE_CATEGORIES.
+  const excludeCategories = (process.env.EXCLUDE_CATEGORIES ?? 'security,permissions')
+    .split(',')
+    .map((c) => c.trim())
+    .filter(Boolean);
+
   console.log(`\npgpm export (non-interactive)\n`);
   console.log(`  workspace: ${workspaceRoot}`);
   console.log(`  database:  ${dbname}`);
   console.log(`  extension: ${extensionName}`);
   console.log(`  author:    ${author}`);
+  console.log(`  excluded categories: ${excludeCategories.length ? excludeCategories.join(', ') : '(none)'}`);
 
   // 1. Initialize pgpm workspace
   const project = new PgpmPackage(workspaceRoot);
@@ -106,6 +119,7 @@ async function main() {
     metaExtensionDesc: 'agentic-db services metadata extension for API/site configuration',
     repoName,
     username,
+    excludeCategories,
   });
 
   console.log(`\nExport complete! Output: ${path.join(outdir, extensionName)}`);

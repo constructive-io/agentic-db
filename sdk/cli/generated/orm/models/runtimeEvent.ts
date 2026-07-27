@@ -70,13 +70,11 @@ export class RuntimeEventModel {
     });
   }
   findFirst<S extends RuntimeEventSelect>(
-    args: FindFirstArgs<S, RuntimeEventFilter> & {
+    args: FindFirstArgs<S, RuntimeEventFilter, RuntimeEventOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeEventSelect>
   ): QueryBuilder<{
-    runtimeEvents: {
-      nodes: InferSelectResult<RuntimeEventWithRelations, S>[];
-    };
+    runtimeEvent: InferSelectResult<RuntimeEventWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RuntimeEvent',
@@ -84,17 +82,26 @@ export class RuntimeEventModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuntimeEventFilter',
+      'RuntimeEventOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RuntimeEvent',
-      fieldName: 'runtimeEvents',
+      fieldName: 'runtimeEvent',
       document,
       variables,
+      transform: (data: {
+        runtimeEvents?: {
+          nodes?: InferSelectResult<RuntimeEventWithRelations, S>[];
+        };
+      }) => ({
+        runtimeEvent: data.runtimeEvents?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RuntimeEventSelect>(
@@ -189,7 +196,8 @@ export class RuntimeEventModel {
       'UpdateRuntimeEventInput',
       'id',
       'runtimeEventPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

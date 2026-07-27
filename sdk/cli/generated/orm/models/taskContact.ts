@@ -70,13 +70,11 @@ export class TaskContactModel {
     });
   }
   findFirst<S extends TaskContactSelect>(
-    args: FindFirstArgs<S, TaskContactFilter> & {
+    args: FindFirstArgs<S, TaskContactFilter, TaskContactOrderBy> & {
       select: S;
     } & StrictSelect<S, TaskContactSelect>
   ): QueryBuilder<{
-    taskContacts: {
-      nodes: InferSelectResult<TaskContactWithRelations, S>[];
-    };
+    taskContact: InferSelectResult<TaskContactWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'TaskContact',
@@ -84,17 +82,26 @@ export class TaskContactModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'TaskContactFilter',
+      'TaskContactOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'TaskContact',
-      fieldName: 'taskContacts',
+      fieldName: 'taskContact',
       document,
       variables,
+      transform: (data: {
+        taskContacts?: {
+          nodes?: InferSelectResult<TaskContactWithRelations, S>[];
+        };
+      }) => ({
+        taskContact: data.taskContacts?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends TaskContactSelect>(

@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/table
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/columns/habit_id/column
--- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 CREATE INDEX activity_logs_habit_id_idx ON agentic_db_app_public.activity_logs USING BTREE ( habit_id );

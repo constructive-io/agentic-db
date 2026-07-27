@@ -13,6 +13,11 @@ CREATE TABLE metaschema_public.full_text_search (
     field_ids uuid[] NOT NULL,
     weights text[] NOT NULL,
     langs text[] NOT NULL,
+    lang_column text,
+
+    created_at timestamptz DEFAULT now(),
+    updated_at timestamptz DEFAULT now(),
+
     --
   
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,

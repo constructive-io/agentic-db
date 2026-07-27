@@ -12,7 +12,7 @@ High-dimensional vector columns for semantic similarity search. Query via the Un
 ```typescript
 db.eventLink.findMany({ select: { id: true } }).execute()
 db.eventLink.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.eventLink.create({ data: { title: '<String>', url: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', eventId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.eventLink.create({ data: { title: '<String>', url: '<String>', embedding: '<Vector>', embeddingUpdatedAt: '<Datetime>', eventId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
 db.eventLink.update({ where: { id: '<UUID>' }, data: { title: '<String>' }, select: { id: true } }).execute()
 db.eventLink.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -31,7 +31,7 @@ const items = await db.eventLink.findMany({
 
 ```typescript
 const item = await db.eventLink.create({
-  data: { title: '<String>', url: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', eventId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { title: '<String>', url: '<String>', embedding: '<Vector>', embeddingUpdatedAt: '<Datetime>', eventId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

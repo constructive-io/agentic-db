@@ -19,8 +19,8 @@ agentic-db expense list --limit 10 --after <cursor>
 agentic-db expense find-first --where.<field>.<op> <value>
 agentic-db expense search <query>
 agentic-db expense get --id <UUID>
-agentic-db expense create [--description <String>] [--amount <BigFloat>] [--currency <String>] [--category <String>] [--occurredAt <Datetime>] [--vendor <String>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--tripId <UUID>]
-agentic-db expense update --id <UUID> [--description <String>] [--amount <BigFloat>] [--currency <String>] [--category <String>] [--occurredAt <Datetime>] [--vendor <String>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--tripId <UUID>]
+agentic-db expense create [--description <String>] [--amount <BigFloat>] [--currency <String>] [--category <String>] [--occurredAt <Datetime>] [--vendor <String>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--tripId <UUID>]
+agentic-db expense update --id <UUID> [--description <String>] [--amount <BigFloat>] [--currency <String>] [--category <String>] [--occurredAt <Datetime>] [--vendor <String>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--tripId <UUID>]
 agentic-db expense delete --id <UUID>
 ```
 
@@ -143,7 +143,7 @@ agentic-db expense search "query" --limit 10 --select id,title,searchScore
 ### Create a expense
 
 ```bash
-agentic-db expense create [--description <String>] [--amount <BigFloat>] [--currency <String>] [--category <String>] [--occurredAt <Datetime>] [--vendor <String>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--tripId <UUID>]
+agentic-db expense create [--description <String>] [--amount <BigFloat>] [--currency <String>] [--category <String>] [--occurredAt <Datetime>] [--vendor <String>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--tripId <UUID>]
 ```
 
 ### Get a expense by id

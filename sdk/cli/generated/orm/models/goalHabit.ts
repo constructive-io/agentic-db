@@ -70,13 +70,11 @@ export class GoalHabitModel {
     });
   }
   findFirst<S extends GoalHabitSelect>(
-    args: FindFirstArgs<S, GoalHabitFilter> & {
+    args: FindFirstArgs<S, GoalHabitFilter, GoalHabitOrderBy> & {
       select: S;
     } & StrictSelect<S, GoalHabitSelect>
   ): QueryBuilder<{
-    goalHabits: {
-      nodes: InferSelectResult<GoalHabitWithRelations, S>[];
-    };
+    goalHabit: InferSelectResult<GoalHabitWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'GoalHabit',
@@ -84,17 +82,26 @@ export class GoalHabitModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'GoalHabitFilter',
+      'GoalHabitOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'GoalHabit',
-      fieldName: 'goalHabits',
+      fieldName: 'goalHabit',
       document,
       variables,
+      transform: (data: {
+        goalHabits?: {
+          nodes?: InferSelectResult<GoalHabitWithRelations, S>[];
+        };
+      }) => ({
+        goalHabit: data.goalHabits?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends GoalHabitSelect>(

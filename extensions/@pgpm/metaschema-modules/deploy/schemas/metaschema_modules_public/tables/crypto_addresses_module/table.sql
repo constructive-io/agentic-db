@@ -17,6 +17,10 @@ CREATE TABLE metaschema_modules_public.crypto_addresses_module (
     table_name text NOT NULL,
     crypto_network text NOT NULL DEFAULT 'BTC',
 
+    -- API routing (configurable per-module)
+    api_name text DEFAULT 'auth',
+    private_api_name text DEFAULT NULL,
+
     --
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
     CONSTRAINT table_fkey FOREIGN KEY (table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,

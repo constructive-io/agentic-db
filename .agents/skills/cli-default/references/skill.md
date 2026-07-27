@@ -19,8 +19,8 @@ agentic-db skill list --limit 10 --after <cursor>
 agentic-db skill find-first --where.<field>.<op> <value>
 agentic-db skill search <query>
 agentic-db skill get --id <UUID>
-agentic-db skill create --name <String> --agentId <UUID> [--description <String>] [--category <String>] [--implementation <String>] [--config <JSON>] [--isActive <Boolean>] [--intentTrigger <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--intentTriggerEmbedding <Vector>]
-agentic-db skill update --id <UUID> [--name <String>] [--description <String>] [--category <String>] [--implementation <String>] [--config <JSON>] [--isActive <Boolean>] [--intentTrigger <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--intentTriggerEmbedding <Vector>] [--agentId <UUID>]
+agentic-db skill create --name <String> --agentId <UUID> [--description <String>] [--category <String>] [--implementation <String>] [--config <JSON>] [--isActive <Boolean>] [--intentTrigger <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--intentTriggerEmbedding <Vector>] [--intentTriggerEmbeddingUpdatedAt <Datetime>]
+agentic-db skill update --id <UUID> [--name <String>] [--description <String>] [--category <String>] [--implementation <String>] [--config <JSON>] [--isActive <Boolean>] [--intentTrigger <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--intentTriggerEmbedding <Vector>] [--intentTriggerEmbeddingUpdatedAt <Datetime>] [--agentId <UUID>]
 agentic-db skill delete --id <UUID>
 ```
 
@@ -166,7 +166,7 @@ agentic-db skill search "query" --limit 10 --select id,title,searchScore
 ### Create a skill
 
 ```bash
-agentic-db skill create --name <String> --agentId <UUID> [--description <String>] [--category <String>] [--implementation <String>] [--config <JSON>] [--isActive <Boolean>] [--intentTrigger <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--intentTriggerEmbedding <Vector>]
+agentic-db skill create --name <String> --agentId <UUID> [--description <String>] [--category <String>] [--implementation <String>] [--config <JSON>] [--isActive <Boolean>] [--intentTrigger <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--intentTriggerEmbedding <Vector>] [--intentTriggerEmbeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a skill by id

@@ -70,13 +70,11 @@ export class CompanyMemoryModel {
     });
   }
   findFirst<S extends CompanyMemorySelect>(
-    args: FindFirstArgs<S, CompanyMemoryFilter> & {
+    args: FindFirstArgs<S, CompanyMemoryFilter, CompanyMemoryOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanyMemorySelect>
   ): QueryBuilder<{
-    companyMemories: {
-      nodes: InferSelectResult<CompanyMemoryWithRelations, S>[];
-    };
+    companyMemory: InferSelectResult<CompanyMemoryWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'CompanyMemory',
@@ -84,17 +82,26 @@ export class CompanyMemoryModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'CompanyMemoryFilter',
+      'CompanyMemoryOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'CompanyMemory',
-      fieldName: 'companyMemories',
+      fieldName: 'companyMemory',
       document,
       variables,
+      transform: (data: {
+        companyMemories?: {
+          nodes?: InferSelectResult<CompanyMemoryWithRelations, S>[];
+        };
+      }) => ({
+        companyMemory: data.companyMemories?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends CompanyMemorySelect>(

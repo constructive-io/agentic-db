@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goals/table
 -- requires: schemas/agentic_db_app_public/tables/goals/columns/target_date/column
--- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE INDEX goals_target_date_idx ON agentic_db_app_public.goals USING BTREE ( target_date );

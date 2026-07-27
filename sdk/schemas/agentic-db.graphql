@@ -64,8 +64,8 @@ enum ActivityLogOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   HABIT_ID_ASC
   HABIT_ID_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
@@ -120,8 +120,8 @@ enum AgentLogOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -167,8 +167,8 @@ enum AgentOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -238,8 +238,8 @@ enum AutonomyRecordOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -332,8 +332,8 @@ enum CalendarEventOrderBy {
   SEARCH_TSV_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   CALENDAR_ID_ASC
   CALENDAR_ID_DESC
   SEARCH_TSV_RANK_ASC
@@ -430,8 +430,8 @@ enum CompanyLinkOrderBy {
   UPDATED_AT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   COMPANY_ID_ASC
   COMPANY_ID_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -487,8 +487,8 @@ enum CompanyOrderBy {
   SEARCH_TSV_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   SEARCH_TSV_RANK_ASC
   SEARCH_TSV_RANK_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
@@ -603,8 +603,8 @@ enum ContactLinkOrderBy {
   UPDATED_AT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   CONTACT_ID_ASC
   CONTACT_ID_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -672,8 +672,8 @@ enum ContactOrderBy {
   SEARCH_TSV_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   LOCATION_GEO_ASC
   LOCATION_GEO_DESC
   SEARCH_TSV_RANK_ASC
@@ -755,8 +755,16 @@ enum ContactsChunkOrderBy {
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
+  SEARCH_ASC
+  SEARCH_DESC
+  SEARCH_TSV_RANK_ASC
+  SEARCH_TSV_RANK_DESC
+  CONTENT_BM25_SCORE_ASC
+  CONTENT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
   EMBEDDING_VECTOR_DISTANCE_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
 }
@@ -784,8 +792,8 @@ enum ConversationOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -856,8 +864,8 @@ enum DealOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -905,8 +913,8 @@ enum DocumentOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -948,8 +956,12 @@ enum DocumentsChunkOrderBy {
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
+  CONTENT_BM25_SCORE_ASC
+  CONTENT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
   EMBEDDING_VECTOR_DISTANCE_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
 }
@@ -1025,8 +1037,8 @@ enum EmailOrderBy {
   SEARCH_TSV_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMAIL_THREAD_ID_ASC
   EMAIL_THREAD_ID_DESC
   SEARCH_TSV_RANK_ASC
@@ -1087,8 +1099,8 @@ enum EmailThreadOrderBy {
   SEARCH_TSV_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   SEARCH_TSV_RANK_ASC
   SEARCH_TSV_RANK_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
@@ -1135,8 +1147,8 @@ enum EventLinkOrderBy {
   UPDATED_AT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EVENT_ID_ASC
   EVENT_ID_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1189,8 +1201,8 @@ enum EventOrderBy {
   SEARCH_TSV_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   LOCATION_GEO_ASC
   LOCATION_GEO_DESC
   SEARCH_TSV_RANK_ASC
@@ -1264,8 +1276,8 @@ enum ExpenseOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   TRIP_ID_ASC
   TRIP_ID_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
@@ -1324,8 +1336,8 @@ enum GoalOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1395,8 +1407,8 @@ enum ImageOrderBy {
   UPDATED_AT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
   EMBEDDING_VECTOR_DISTANCE_DESC
   SEARCH_SCORE_ASC
@@ -1430,8 +1442,8 @@ enum InteractionOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1475,8 +1487,8 @@ enum MemoryOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   LOCATION_GEO_ASC
   LOCATION_GEO_DESC
   AGENT_ID_ASC
@@ -1528,8 +1540,8 @@ enum MessageOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1571,8 +1583,8 @@ enum NoteOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1610,8 +1622,12 @@ enum NotesChunkOrderBy {
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
+  CONTENT_BM25_SCORE_ASC
+  CONTENT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
   EMBEDDING_VECTOR_DISTANCE_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
 }
@@ -1643,8 +1659,8 @@ enum PlaceOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   LOCATION_GEO_ASC
   LOCATION_GEO_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
@@ -1718,8 +1734,8 @@ enum ProjectOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1765,8 +1781,8 @@ enum PromptOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -1953,10 +1969,12 @@ enum RuleOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   TRIGGER_CONCEPT_EMBEDDING_ASC
   TRIGGER_CONCEPT_EMBEDDING_DESC
+  TRIGGER_CONCEPT_EMBEDDING_UPDATED_AT_ASC
+  TRIGGER_CONCEPT_EMBEDDING_UPDATED_AT_DESC
   AGENT_ID_ASC
   AGENT_ID_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
@@ -2075,8 +2093,8 @@ enum RuntimeLogOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -2179,8 +2197,8 @@ enum RuntimeStateOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -2226,10 +2244,12 @@ enum SkillOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   INTENT_TRIGGER_EMBEDDING_ASC
   INTENT_TRIGGER_EMBEDDING_DESC
+  INTENT_TRIGGER_EMBEDDING_UPDATED_AT_ASC
+  INTENT_TRIGGER_EMBEDDING_UPDATED_AT_DESC
   AGENT_ID_ASC
   AGENT_ID_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
@@ -2335,8 +2355,8 @@ enum TaskOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -2400,8 +2420,8 @@ enum ToolDefinitionOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -2488,8 +2508,8 @@ enum TouchpointOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -2539,8 +2559,8 @@ enum TripOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   DESTINATION_GEO_ASC
   DESTINATION_GEO_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
@@ -2595,8 +2615,8 @@ enum VenueLinkOrderBy {
   UPDATED_AT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   VENUE_ID_ASC
   VENUE_ID_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -2648,8 +2668,8 @@ enum VenueOrderBy {
   SEARCH_TSV_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  EMBEDDING_STALE_ASC
-  EMBEDDING_STALE_DESC
+  EMBEDDING_UPDATED_AT_ASC
+  EMBEDDING_UPDATED_AT_DESC
   LOCATION_ASC
   LOCATION_DESC
   SEARCH_TSV_RANK_ASC
@@ -2722,7 +2742,7 @@ interface GeographyInterface {
   srid: Int!
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type ActivityLog {
   activityType: String!
   completedAt: Datetime!
@@ -2740,7 +2760,8 @@ type ActivityLog {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   habitId: UUID
   "Reads a single `Habit` that is related to this `ActivityLog`."
   habit: Habit
@@ -2758,7 +2779,7 @@ type ActivityLog {
   notesTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -2782,7 +2803,7 @@ type ActivityLogEdge {
   node: ActivityLog
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Agent {
   name: String!
   description: String
@@ -2799,7 +2820,8 @@ type Agent {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Agent`."
   agentsByAgentCollaboratorAgentIdAndCollaboratorId(
     "Only read the first `n` values of the set."
@@ -3036,7 +3058,7 @@ type Agent {
   statusTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -3169,7 +3191,7 @@ type AgentEdge {
   node: Agent
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type AgentLog {
   agentId: UUID
   level: String!
@@ -3183,7 +3205,8 @@ type AgentLog {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads a single `Agent` that is related to this `AgentLog`."
   agent: Agent
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
@@ -3196,7 +3219,7 @@ type AgentLog {
   messageTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -3289,7 +3312,7 @@ type AgentPromptsManyToManyEdge {
   ): AgentPromptConnection!
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type AutonomyRecord {
   title: String!
   recordType: String
@@ -3306,7 +3329,8 @@ type AutonomyRecord {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `AutonomyRecord`."
   autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId(
     "Only read the first `n` values of the set."
@@ -3403,7 +3427,7 @@ type AutonomyRecord {
   sourceTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -3626,7 +3650,7 @@ type CalendarEdge {
 
 """
 @@trgmSearch title
-@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "title", "weight": "A"}, {"field": "description", "weight": "B"}]}
+@@searchConfig {"weights": {"tsv": 1, "bm25": 1}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "title", "weight": "A"}, {"field": "description", "weight": "B"}]}
 """
 type CalendarEvent {
   providerEventId: String
@@ -3645,7 +3669,8 @@ type CalendarEvent {
   embeddingText: String
   searchTsv: FullText
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   calendarId: UUID!
   "Reads and enables pagination through a set of `Contact`."
   contactsByCalendarEventContactCalendarEventIdAndContactId(
@@ -3807,7 +3832,7 @@ type CalendarEvent {
   meetingUrlTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -4040,7 +4065,7 @@ type CalendarEventTasksManyToManyEdge {
 
 """
 @@trgmSearch name
-@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "description", "weight": "B"}, {"field": "industry", "weight": "C"}]}
+@@searchConfig {"weights": {"tsv": 1, "bm25": 1}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "description", "weight": "B"}, {"field": "industry", "weight": "C"}]}
 """
 type Company {
   name: String!
@@ -4057,7 +4082,8 @@ type Company {
   embeddingText: String
   searchTsv: FullText
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Image`."
   imagesByCompanyImageCompanyIdAndImageId(
     "Only read the first `n` values of the set."
@@ -4396,7 +4422,7 @@ type Company {
   descriptionTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -4716,13 +4742,14 @@ type CompanyLink {
   "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   companyId: UUID!
   "Reads a single `Company` that is related to this `CompanyLink`."
   company: Company
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -4884,20 +4911,11 @@ type CompanyNotesManyToManyEdge {
   ): CompanyNoteConnection!
 }
 
-type ConfirmUploadPayload {
-  "The confirmed file ID"
-  fileId: UUID!
-  "New file status"
-  status: String!
-  "Whether confirmation succeeded"
-  success: Boolean!
-}
-
 """
-@@hasChunks {"chunks_table": "contacts_chunks", "embedding_field": "embedding"}
+@@hasChunks {"parentFk": "contacts_id", "parentPk": "id", "chunksTable": "contacts_chunks", "searchField": "search", "contentField": "content", "searchIndexes": ["fulltext", "bm25"], "embeddingField": "embedding"}
 @@trgmSearch first_name
 @@trgmSearch last_name
-@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "first_name", "weight": "A"}, {"field": "last_name", "weight": "A"}, {"field": "headline", "weight": "B"}, {"field": "bio", "weight": "C"}]}
+@@searchConfig {"weights": {"tsv": 1, "bm25": 1}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "first_name", "weight": "A"}, {"field": "last_name", "weight": "A"}, {"field": "headline", "weight": "B"}, {"field": "bio", "weight": "C"}]}
 """
 type Contact {
   firstName: String!
@@ -4920,7 +4938,8 @@ type Contact {
   embeddingText: String
   searchTsv: FullText
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByContactImageContactIdAndImageId(
@@ -5708,7 +5727,7 @@ type Contact {
   howWeMetTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -6300,13 +6319,14 @@ type ContactLink {
   "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   contactId: UUID!
   "Reads a single `Contact` that is related to this `ContactLink`."
   contact: Contact
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -6571,7 +6591,10 @@ type ContactRelationshipEdge {
   node: ContactRelationship
 }
 
-"@@chunksOf {\"parent_fk\": \"contacts_id\", \"parent_table\": \"contacts\"}"
+"""
+@@chunksOf {"parentFk": "contacts_id", "parentTable": "contacts"}
+@@searchConfig {"weights": {"tsv": 1, "bm25": 1}, "fts_field": "search", "bm25_field": "content", "bm25_text_config": "english", "fts_source_fields": [{"lang": "english", "field": "content", "weight": "A"}]}
+"""
 type ContactsChunk {
   id: UUID!
   contactsId: UUID!
@@ -6581,11 +6604,18 @@ type ContactsChunk {
   metadata: JSON
   createdAt: Datetime
   updatedAt: Datetime
+  search: FullText
   "Reads a single `Contact` that is related to this `ContactsChunk`."
   contacts: Contact
+  "TSV rank when searching `search`. Returns null when no tsv search filter is active."
+  searchTsvRank: Float
+  "BM25 score when searching `content`. Returns null when no bm25 search filter is active."
+  contentBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -6649,7 +6679,7 @@ type ContactTasksManyToManyEdge {
   ): TaskContactConnection!
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Conversation {
   title: String!
   agentId: UUID
@@ -6662,7 +6692,8 @@ type Conversation {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Message`."
   messages(
     "Only read the first `n` values of the set."
@@ -6693,7 +6724,7 @@ type Conversation {
   statusTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -8242,7 +8273,7 @@ type CreateVenuePayload {
   ): VenueEdge
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Deal {
   name: String!
   stage: String
@@ -8258,7 +8289,8 @@ type Deal {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Contact`."
   contactsByDealContactDealIdAndContactId(
     "Only read the first `n` values of the set."
@@ -8413,7 +8445,7 @@ type Deal {
   notesTextTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -9689,8 +9721,8 @@ type DeleteVenuePayload {
 }
 
 """
-@@hasChunks {"chunks_table": "documents_chunks", "embedding_field": "embedding"}
-@@searchConfig {"weights": {"bm25": 1.0}, "bm25_field": "embedding_text", "bm25_text_config": "english"}
+@@hasChunks {"parentFk": "documents_id", "parentPk": "id", "chunksTable": "documents_chunks", "searchField": null, "contentField": "content", "searchIndexes": ["bm25"], "embeddingField": "embedding"}
+@@searchConfig {"weights": {"bm25": 1}, "bm25_field": "embedding_text", "bm25_text_config": "english"}
 """
 type Document {
   title: String
@@ -9707,7 +9739,8 @@ type Document {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Company`."
   companies(
     "Only read the first `n` values of the set."
@@ -9824,7 +9857,7 @@ type Document {
   commitHashTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -9928,7 +9961,10 @@ type DocumentProjectsManyToManyEdge {
   ): ProjectDocumentConnection!
 }
 
-"@@chunksOf {\"parent_fk\": \"documents_id\", \"parent_table\": \"documents\"}"
+"""
+@@chunksOf {"parentFk": "documents_id", "parentTable": "documents"}
+@@searchConfig {"weights": {"bm25": 1}, "bm25_field": "content", "bm25_text_config": "english"}
+"""
 type DocumentsChunk {
   id: UUID!
   documentsId: UUID!
@@ -9940,9 +9976,13 @@ type DocumentsChunk {
   updatedAt: Datetime
   "Reads a single `Document` that is related to this `DocumentsChunk`."
   documents: Document
+  "BM25 score when searching `content`. Returns null when no bm25 search filter is active."
+  contentBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -9968,7 +10008,7 @@ type DocumentsChunkEdge {
 
 """
 @@trgmSearch subject
-@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "subject", "weight": "A"}, {"field": "body_text", "weight": "B"}]}
+@@searchConfig {"weights": {"tsv": 1, "bm25": 1}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "subject", "weight": "A"}, {"field": "body_text", "weight": "B"}]}
 """
 type Email {
   providerMessageId: String
@@ -9989,7 +10029,8 @@ type Email {
   embeddingText: String
   searchTsv: FullText
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   emailThreadId: UUID!
   "Reads and enables pagination through a set of `Contact`."
   contactsByEmailRecipientEmailIdAndContactId(
@@ -10111,7 +10152,7 @@ type Email {
   bodyHtmlTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -10311,7 +10352,7 @@ type EmailRecipientEdge {
 
 """
 @@trgmSearch subject
-@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "subject", "weight": "A"}, {"field": "summary", "weight": "B"}]}
+@@searchConfig {"weights": {"tsv": 1, "bm25": 1}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "subject", "weight": "A"}, {"field": "summary", "weight": "B"}]}
 """
 type EmailThread {
   providerThreadId: String
@@ -10328,7 +10369,8 @@ type EmailThread {
   embeddingText: String
   searchTsv: FullText
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Contact`."
   contactsByThreadParticipantEmailThreadIdAndContactId(
     "Only read the first `n` values of the set."
@@ -10405,7 +10447,7 @@ type EmailThread {
   statusTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -10471,7 +10513,7 @@ type EmailThreadEdge {
 
 """
 @@trgmSearch name
-@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "notes_text", "weight": "B"}, {"field": "location", "weight": "C"}]}
+@@searchConfig {"weights": {"tsv": 1, "bm25": 1}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "notes_text", "weight": "B"}, {"field": "location", "weight": "C"}]}
 """
 type Event {
   name: String!
@@ -10491,7 +10533,8 @@ type Event {
   embeddingText: String
   searchTsv: FullText
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByEventImageEventIdAndImageId(
@@ -10753,7 +10796,7 @@ type Event {
   notesTextTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -10935,13 +10978,14 @@ type EventLink {
   "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   eventId: UUID!
   "Reads a single `Event` that is related to this `EventLink`."
   event: Event
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -11103,7 +11147,7 @@ type EventVenuesManyToManyEdge {
   ): EventVenueConnection!
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Expense {
   description: String
   amount: BigFloat
@@ -11120,7 +11164,8 @@ type Expense {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   tripId: UUID
   "Reads and enables pagination through a set of `Contact`."
   contacts(
@@ -11180,7 +11225,7 @@ type Expense {
   notesTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -11751,7 +11796,7 @@ type GeographyPolygonZM implements GeographyInterface & GeographyGeometryZM {
   numPoints: Int!
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Goal {
   title: String!
   description: String
@@ -11766,7 +11811,8 @@ type Goal {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Habit`."
   habits(
     "Only read the first `n` values of the set."
@@ -11859,7 +11905,7 @@ type Goal {
   statusTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -12165,7 +12211,8 @@ type Image {
   "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Contact`."
   contacts(
     "Only read the first `n` values of the set."
@@ -12408,7 +12455,7 @@ type Image {
   ): VenueImageConnection!
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -12592,7 +12639,7 @@ type ImageVenuesManyToManyEdge {
   ): VenueImageConnection!
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Interaction {
   contactId: UUID!
   type: String!
@@ -12607,7 +12654,8 @@ type Interaction {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads a single `Contact` that is related to this `Interaction`."
   contact: Contact
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
@@ -12622,7 +12670,7 @@ type Interaction {
   sentimentTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -12646,7 +12694,7 @@ type InteractionEdge {
   node: Interaction
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Memory {
   title: String!
   content: String
@@ -12661,7 +12709,8 @@ type Memory {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeographyInterface
   agentId: UUID
   "Reads and enables pagination through a set of `Contact`."
@@ -12760,7 +12809,7 @@ type Memory {
   moodTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -12864,7 +12913,7 @@ type MemoryEdge {
   node: Memory
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Message {
   conversationId: UUID!
   role: String!
@@ -12880,7 +12929,8 @@ type Message {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads a single `Conversation` that is related to this `Message`."
   conversation: Conversation
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
@@ -12893,7 +12943,7 @@ type Message {
   contentTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -12933,6 +12983,14 @@ type MetaConstraints {
   foreignKey: [MetaForeignKeyConstraint!]!
 }
 
+"Information about a PostgreSQL enum type"
+type MetaEnum {
+  "The PostgreSQL enum type name"
+  name: String!
+  "Allowed values for this enum"
+  values: [String!]!
+}
+
 "Information about a table field/column"
 type MetaField {
   name: String!
@@ -12942,6 +13000,8 @@ type MetaField {
   isPrimaryKey: Boolean!
   isForeignKey: Boolean!
   description: String
+  "Enum metadata if this field has an enum type"
+  enumValues: MetaEnum
 }
 
 "Information about a foreign key constraint"
@@ -12961,6 +13021,22 @@ type MetaHasRelation {
   type: String
   keys: [MetaField!]!
   referencedBy: MetaRefTable!
+}
+
+"i18n metadata for a table with @i18n tag"
+type MetaI18n {
+  "Name of the translation table"
+  translationTable: String!
+  "Fields that are translatable"
+  translatableFields: [MetaI18nField!]!
+}
+
+"A translatable field"
+type MetaI18nField {
+  "GraphQL field name"
+  name: String!
+  "PostgreSQL column type (text, citext)"
+  type: String!
 }
 
 "Information about a database index"
@@ -13017,6 +13093,12 @@ type MetaQuery {
   delete: String
 }
 
+"Realtime metadata for a table with @realtime tag"
+type MetaRealtime {
+  "The generated subscription field name (e.g. onPostChanged)"
+  subscriptionFieldName: String!
+}
+
 "Reference to a related table"
 type MetaRefTable {
   name: String!
@@ -13031,9 +13113,79 @@ type MetaRelations {
   manyToMany: [MetaManyToManyRelation!]!
 }
 
+"How a client must serialize/parse a scalar — the one field-type detail standard GraphQL introspection cannot describe. Null for plain scalars whose wire format is obvious from gqlType."
+type MetaScalarEncoding {
+  "Machine kind: bigint, datetime, date, time, interval, uuid, geojson, point, inet, ltree, vector, bytea, or composite."
+  kind: String!
+  "For 'vector': element scalar (e.g. 'float')."
+  elementType: String
+  "For 'vector': declared length, else null."
+  dimensions: Int
+  "For 'geojson': Point/LineString/Polygon/…, else null."
+  geometrySubtype: String
+  "For 'geojson': spatial reference id, else null."
+  srid: Int
+  "For 'ltree': values are dot-separated path strings."
+  dotPath: Boolean
+}
+
 "Root meta schema type"
 type MetaSchema {
   tables: [MetaTable!]!
+}
+
+"Provisioning scope metadata for a table"
+type MetaScope {
+  "Provisioning scope: 'platform', 'app', 'database', or an entity scope (e.g. 'org')"
+  scope: String!
+  "Coarse bucket: 'global', 'database', or 'entity'"
+  tier: String!
+  "Inflected scope key column (e.g. databaseId, orgId), null for global tiers"
+  keyColumn: String
+  "SQL name of the entity table for entity scopes, else null"
+  entityTable: String
+  "Provenance of the scope metadata (always 'smartTag')"
+  source: String!
+}
+
+"Search metadata for a table"
+type MetaSearch {
+  "Active search algorithms on this table"
+  algorithms: [String!]!
+  "Searchable columns with their algorithm"
+  columns: [MetaSearchColumn!]!
+  "Whether unifiedSearch composite filter is available"
+  hasUnifiedSearch: Boolean!
+  "Per-table search configuration"
+  config: MetaSearchConfig
+}
+
+"A searchable column with its algorithm"
+type MetaSearchColumn {
+  "Column name (camelCase)"
+  name: String!
+  "Search algorithm: tsvector, bm25, trgm, or vector"
+  algorithm: String!
+}
+
+"Per-table search configuration from @searchConfig smart tag"
+type MetaSearchConfig {
+  "JSON-encoded per-adapter score weights"
+  weights: String
+  "Whether recency boosting is enabled"
+  boostRecent: Boolean!
+  "Field used for recency decay"
+  boostRecencyField: String
+  "Exponential decay factor per day"
+  boostRecencyDecay: Float
+}
+
+"Storage metadata for a table"
+type MetaStorage {
+  "Whether this table is a storage files table"
+  isFilesTable: Boolean!
+  "Whether this table is a storage buckets table"
+  isBucketsTable: Boolean!
 }
 
 "Information about a database table"
@@ -13049,6 +13201,16 @@ type MetaTable {
   relations: MetaRelations!
   inflection: MetaInflection!
   query: MetaQuery!
+  "Storage metadata (null if not a storage table)"
+  storage: MetaStorage
+  "Search metadata (null if no search configured)"
+  search: MetaSearch
+  "i18n metadata (null if no @i18n tag)"
+  i18n: MetaI18n
+  "Realtime metadata (null if no @realtime tag)"
+  realtime: MetaRealtime
+  "Provisioning scope metadata (null if no @scope tag)"
+  scope: MetaScope
 }
 
 "Information about a PostgreSQL type"
@@ -13059,6 +13221,8 @@ type MetaType {
   isNotNull: Boolean
   hasDefault: Boolean
   subtype: String
+  "Scalar serialization contract (null for plain scalars)"
+  encoding: MetaScalarEncoding
 }
 
 "Information about a unique constraint"
@@ -13264,6 +13428,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCalendarAttendeeInput!
   ): CreateCalendarAttendeePayload
+  "Creates a single `ProviderSyncState`."
+  createProviderSyncState(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateProviderSyncStateInput!
+  ): CreateProviderSyncStatePayload
   "Creates a single `Tag`."
   createTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13274,11 +13443,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRawContactUrlInput!
   ): CreateRawContactUrlPayload
-  "Creates a single `ProviderSyncState`."
-  createProviderSyncState(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateProviderSyncStateInput!
-  ): CreateProviderSyncStatePayload
   "Creates a single `RuntimeArtifact`."
   createRuntimeArtifact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13304,21 +13468,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeConfigInput!
   ): CreateRuntimeConfigPayload
-  "Creates a single `RuntimeEvent`."
-  createRuntimeEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuntimeEventInput!
-  ): CreateRuntimeEventPayload
   "Creates a single `ContactAddress`."
   createContactAddress(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateContactAddressInput!
   ): CreateContactAddressPayload
-  "Creates a single `Conversation`."
-  createConversation(
+  "Creates a single `RuntimeEvent`."
+  createRuntimeEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateConversationInput!
-  ): CreateConversationPayload
+    input: CreateRuntimeEventInput!
+  ): CreateRuntimeEventPayload
   "Creates a single `RuntimeSchedule`."
   createRuntimeSchedule(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13339,6 +13498,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateEmailAttachmentInput!
   ): CreateEmailAttachmentPayload
+  "Creates a single `Conversation`."
+  createConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateConversationInput!
+  ): CreateConversationPayload
   "Creates a single `Image`."
   createImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13354,6 +13518,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeLogInput!
   ): CreateRuntimeLogPayload
+  "Creates a single `ToolExecution`."
+  createToolExecution(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateToolExecutionInput!
+  ): CreateToolExecutionPayload
+  "Creates a single `ToolDefinition`."
+  createToolDefinition(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateToolDefinitionInput!
+  ): CreateToolDefinitionPayload
   "Creates a single `CompanyLink`."
   createCompanyLink(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13374,21 +13548,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateVenueLinkInput!
   ): CreateVenueLinkPayload
-  "Creates a single `ToolExecution`."
-  createToolExecution(
+  "Creates a single `RuntimeState`."
+  createRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateToolExecutionInput!
-  ): CreateToolExecutionPayload
-  "Creates a single `ToolDefinition`."
-  createToolDefinition(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateToolDefinitionInput!
-  ): CreateToolDefinitionPayload
-  "Creates a single `ContactsChunk`."
-  createContactsChunk(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateContactsChunkInput!
-  ): CreateContactsChunkPayload
+    input: CreateRuntimeStateInput!
+  ): CreateRuntimeStatePayload
   "Creates a single `DocumentsChunk`."
   createDocumentsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13399,21 +13563,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateNotesChunkInput!
   ): CreateNotesChunkPayload
-  "Creates a single `RuntimeState`."
-  createRuntimeState(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuntimeStateInput!
-  ): CreateRuntimeStatePayload
   "Creates a single `Message`."
   createMessage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateMessageInput!
   ): CreateMessagePayload
-  "Creates a single `Skill`."
-  createSkill(
+  "Creates a single `RawContact`."
+  createRawContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateSkillInput!
-  ): CreateSkillPayload
+    input: CreateRawContactInput!
+  ): CreateRawContactPayload
   "Creates a single `Habit`."
   createHabit(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13424,16 +13583,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateTaskInput!
   ): CreateTaskPayload
-  "Creates a single `RawContact`."
-  createRawContact(
+  "Creates a single `Skill`."
+  createSkill(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRawContactInput!
-  ): CreateRawContactPayload
-  "Creates a single `Rule`."
-  createRule(
+    input: CreateSkillInput!
+  ): CreateSkillPayload
+  "Creates a single `ContactsChunk`."
+  createContactsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuleInput!
-  ): CreateRulePayload
+    input: CreateContactsChunkInput!
+  ): CreateContactsChunkPayload
   "Creates a single `Goal`."
   createGoal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13479,6 +13638,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateProjectInput!
   ): CreateProjectPayload
+  "Creates a single `Rule`."
+  createRule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuleInput!
+  ): CreateRulePayload
   "Creates a single `Expense`."
   createExpense(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13489,16 +13653,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateActivityLogInput!
   ): CreateActivityLogPayload
-  "Creates a single `Touchpoint`."
-  createTouchpoint(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateTouchpointInput!
-  ): CreateTouchpointPayload
   "Creates a single `EmailThread`."
   createEmailThread(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateEmailThreadInput!
   ): CreateEmailThreadPayload
+  "Creates a single `Touchpoint`."
+  createTouchpoint(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateTouchpointInput!
+  ): CreateTouchpointPayload
   "Creates a single `Company`."
   createCompany(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13554,6 +13718,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCalendarAttendeeInput!
   ): UpdateCalendarAttendeePayload
+  "Updates a single `ProviderSyncState` using a unique key and a patch."
+  updateProviderSyncState(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateProviderSyncStateInput!
+  ): UpdateProviderSyncStatePayload
   "Updates a single `Tag` using a unique key and a patch."
   updateTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13564,11 +13733,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRawContactUrlInput!
   ): UpdateRawContactUrlPayload
-  "Updates a single `ProviderSyncState` using a unique key and a patch."
-  updateProviderSyncState(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateProviderSyncStateInput!
-  ): UpdateProviderSyncStatePayload
   "Updates a single `RuntimeArtifact` using a unique key and a patch."
   updateRuntimeArtifact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13594,21 +13758,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeConfigInput!
   ): UpdateRuntimeConfigPayload
-  "Updates a single `RuntimeEvent` using a unique key and a patch."
-  updateRuntimeEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeEventInput!
-  ): UpdateRuntimeEventPayload
   "Updates a single `ContactAddress` using a unique key and a patch."
   updateContactAddress(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateContactAddressInput!
   ): UpdateContactAddressPayload
-  "Updates a single `Conversation` using a unique key and a patch."
-  updateConversation(
+  "Updates a single `RuntimeEvent` using a unique key and a patch."
+  updateRuntimeEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateConversationInput!
-  ): UpdateConversationPayload
+    input: UpdateRuntimeEventInput!
+  ): UpdateRuntimeEventPayload
   "Updates a single `RuntimeSchedule` using a unique key and a patch."
   updateRuntimeSchedule(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13629,6 +13788,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateEmailAttachmentInput!
   ): UpdateEmailAttachmentPayload
+  "Updates a single `Conversation` using a unique key and a patch."
+  updateConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateConversationInput!
+  ): UpdateConversationPayload
   "Updates a single `Image` using a unique key and a patch."
   updateImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13644,6 +13808,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeLogInput!
   ): UpdateRuntimeLogPayload
+  "Updates a single `ToolExecution` using a unique key and a patch."
+  updateToolExecution(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateToolExecutionInput!
+  ): UpdateToolExecutionPayload
+  "Updates a single `ToolDefinition` using a unique key and a patch."
+  updateToolDefinition(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateToolDefinitionInput!
+  ): UpdateToolDefinitionPayload
   "Updates a single `CompanyLink` using a unique key and a patch."
   updateCompanyLink(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13664,21 +13838,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateVenueLinkInput!
   ): UpdateVenueLinkPayload
-  "Updates a single `ToolExecution` using a unique key and a patch."
-  updateToolExecution(
+  "Updates a single `RuntimeState` using a unique key and a patch."
+  updateRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateToolExecutionInput!
-  ): UpdateToolExecutionPayload
-  "Updates a single `ToolDefinition` using a unique key and a patch."
-  updateToolDefinition(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateToolDefinitionInput!
-  ): UpdateToolDefinitionPayload
-  "Updates a single `ContactsChunk` using a unique key and a patch."
-  updateContactsChunk(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateContactsChunkInput!
-  ): UpdateContactsChunkPayload
+    input: UpdateRuntimeStateInput!
+  ): UpdateRuntimeStatePayload
   "Updates a single `DocumentsChunk` using a unique key and a patch."
   updateDocumentsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13689,21 +13853,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateNotesChunkInput!
   ): UpdateNotesChunkPayload
-  "Updates a single `RuntimeState` using a unique key and a patch."
-  updateRuntimeState(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeStateInput!
-  ): UpdateRuntimeStatePayload
   "Updates a single `Message` using a unique key and a patch."
   updateMessage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateMessageInput!
   ): UpdateMessagePayload
-  "Updates a single `Skill` using a unique key and a patch."
-  updateSkill(
+  "Updates a single `RawContact` using a unique key and a patch."
+  updateRawContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateSkillInput!
-  ): UpdateSkillPayload
+    input: UpdateRawContactInput!
+  ): UpdateRawContactPayload
   "Updates a single `Habit` using a unique key and a patch."
   updateHabit(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13714,16 +13873,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateTaskInput!
   ): UpdateTaskPayload
-  "Updates a single `RawContact` using a unique key and a patch."
-  updateRawContact(
+  "Updates a single `Skill` using a unique key and a patch."
+  updateSkill(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRawContactInput!
-  ): UpdateRawContactPayload
-  "Updates a single `Rule` using a unique key and a patch."
-  updateRule(
+    input: UpdateSkillInput!
+  ): UpdateSkillPayload
+  "Updates a single `ContactsChunk` using a unique key and a patch."
+  updateContactsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuleInput!
-  ): UpdateRulePayload
+    input: UpdateContactsChunkInput!
+  ): UpdateContactsChunkPayload
   "Updates a single `Goal` using a unique key and a patch."
   updateGoal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13769,6 +13928,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateProjectInput!
   ): UpdateProjectPayload
+  "Updates a single `Rule` using a unique key and a patch."
+  updateRule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuleInput!
+  ): UpdateRulePayload
   "Updates a single `Expense` using a unique key and a patch."
   updateExpense(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13779,16 +13943,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateActivityLogInput!
   ): UpdateActivityLogPayload
-  "Updates a single `Touchpoint` using a unique key and a patch."
-  updateTouchpoint(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateTouchpointInput!
-  ): UpdateTouchpointPayload
   "Updates a single `EmailThread` using a unique key and a patch."
   updateEmailThread(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateEmailThreadInput!
   ): UpdateEmailThreadPayload
+  "Updates a single `Touchpoint` using a unique key and a patch."
+  updateTouchpoint(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateTouchpointInput!
+  ): UpdateTouchpointPayload
   "Updates a single `Company` using a unique key and a patch."
   updateCompany(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13844,6 +14008,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCalendarAttendeeInput!
   ): DeleteCalendarAttendeePayload
+  "Deletes a single `ProviderSyncState` using a unique key."
+  deleteProviderSyncState(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteProviderSyncStateInput!
+  ): DeleteProviderSyncStatePayload
   "Deletes a single `Tag` using a unique key."
   deleteTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13854,11 +14023,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRawContactUrlInput!
   ): DeleteRawContactUrlPayload
-  "Deletes a single `ProviderSyncState` using a unique key."
-  deleteProviderSyncState(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteProviderSyncStateInput!
-  ): DeleteProviderSyncStatePayload
   "Deletes a single `RuntimeArtifact` using a unique key."
   deleteRuntimeArtifact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13884,21 +14048,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeConfigInput!
   ): DeleteRuntimeConfigPayload
-  "Deletes a single `RuntimeEvent` using a unique key."
-  deleteRuntimeEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeEventInput!
-  ): DeleteRuntimeEventPayload
   "Deletes a single `ContactAddress` using a unique key."
   deleteContactAddress(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteContactAddressInput!
   ): DeleteContactAddressPayload
-  "Deletes a single `Conversation` using a unique key."
-  deleteConversation(
+  "Deletes a single `RuntimeEvent` using a unique key."
+  deleteRuntimeEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteConversationInput!
-  ): DeleteConversationPayload
+    input: DeleteRuntimeEventInput!
+  ): DeleteRuntimeEventPayload
   "Deletes a single `RuntimeSchedule` using a unique key."
   deleteRuntimeSchedule(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13919,6 +14078,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteEmailAttachmentInput!
   ): DeleteEmailAttachmentPayload
+  "Deletes a single `Conversation` using a unique key."
+  deleteConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteConversationInput!
+  ): DeleteConversationPayload
   "Deletes a single `Image` using a unique key."
   deleteImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13934,6 +14098,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeLogInput!
   ): DeleteRuntimeLogPayload
+  "Deletes a single `ToolExecution` using a unique key."
+  deleteToolExecution(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteToolExecutionInput!
+  ): DeleteToolExecutionPayload
+  "Deletes a single `ToolDefinition` using a unique key."
+  deleteToolDefinition(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteToolDefinitionInput!
+  ): DeleteToolDefinitionPayload
   "Deletes a single `CompanyLink` using a unique key."
   deleteCompanyLink(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13954,21 +14128,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteVenueLinkInput!
   ): DeleteVenueLinkPayload
-  "Deletes a single `ToolExecution` using a unique key."
-  deleteToolExecution(
+  "Deletes a single `RuntimeState` using a unique key."
+  deleteRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteToolExecutionInput!
-  ): DeleteToolExecutionPayload
-  "Deletes a single `ToolDefinition` using a unique key."
-  deleteToolDefinition(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteToolDefinitionInput!
-  ): DeleteToolDefinitionPayload
-  "Deletes a single `ContactsChunk` using a unique key."
-  deleteContactsChunk(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteContactsChunkInput!
-  ): DeleteContactsChunkPayload
+    input: DeleteRuntimeStateInput!
+  ): DeleteRuntimeStatePayload
   "Deletes a single `DocumentsChunk` using a unique key."
   deleteDocumentsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13979,21 +14143,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteNotesChunkInput!
   ): DeleteNotesChunkPayload
-  "Deletes a single `RuntimeState` using a unique key."
-  deleteRuntimeState(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeStateInput!
-  ): DeleteRuntimeStatePayload
   "Deletes a single `Message` using a unique key."
   deleteMessage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteMessageInput!
   ): DeleteMessagePayload
-  "Deletes a single `Skill` using a unique key."
-  deleteSkill(
+  "Deletes a single `RawContact` using a unique key."
+  deleteRawContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteSkillInput!
-  ): DeleteSkillPayload
+    input: DeleteRawContactInput!
+  ): DeleteRawContactPayload
   "Deletes a single `Habit` using a unique key."
   deleteHabit(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14004,16 +14163,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteTaskInput!
   ): DeleteTaskPayload
-  "Deletes a single `RawContact` using a unique key."
-  deleteRawContact(
+  "Deletes a single `Skill` using a unique key."
+  deleteSkill(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRawContactInput!
-  ): DeleteRawContactPayload
-  "Deletes a single `Rule` using a unique key."
-  deleteRule(
+    input: DeleteSkillInput!
+  ): DeleteSkillPayload
+  "Deletes a single `ContactsChunk` using a unique key."
+  deleteContactsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuleInput!
-  ): DeleteRulePayload
+    input: DeleteContactsChunkInput!
+  ): DeleteContactsChunkPayload
   "Deletes a single `Goal` using a unique key."
   deleteGoal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14059,6 +14218,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteProjectInput!
   ): DeleteProjectPayload
+  "Deletes a single `Rule` using a unique key."
+  deleteRule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuleInput!
+  ): DeleteRulePayload
   "Deletes a single `Expense` using a unique key."
   deleteExpense(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14069,16 +14233,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteActivityLogInput!
   ): DeleteActivityLogPayload
-  "Deletes a single `Touchpoint` using a unique key."
-  deleteTouchpoint(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteTouchpointInput!
-  ): DeleteTouchpointPayload
   "Deletes a single `EmailThread` using a unique key."
   deleteEmailThread(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteEmailThreadInput!
   ): DeleteEmailThreadPayload
+  "Deletes a single `Touchpoint` using a unique key."
+  deleteTouchpoint(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteTouchpointInput!
+  ): DeleteTouchpointPayload
   "Deletes a single `Company` using a unique key."
   deleteCompany(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14125,25 +14289,6 @@ type Mutation {
     input: DeleteMemoryInput!
   ): DeleteMemoryPayload
   """
-  Request a presigned URL for uploading a file directly to S3.
-  Client computes SHA-256 of the file content and provides it here.
-  If a file with the same hash already exists (dedup), returns the
-  existing file ID and deduplicated=true with no uploadUrl.
-  """
-  requestUploadUrl(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: RequestUploadUrlInput!
-  ): RequestUploadUrlPayload
-  """
-  Confirm that a file has been uploaded to S3.
-  Verifies the object exists in S3, checks content-type,
-  and transitions the file status from 'pending' to 'ready'.
-  """
-  confirmUpload(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: ConfirmUploadInput!
-  ): ConfirmUploadPayload
-  """
   Provision an S3 bucket for a logical bucket in the database.
   Reads the bucket config via RLS, then creates and configures
   the S3 bucket with the appropriate privacy policies, CORS rules,
@@ -14156,8 +14301,8 @@ type Mutation {
 }
 
 """
-@@hasChunks {"chunks_table": "notes_chunks", "embedding_field": "embedding"}
-@@searchConfig {"weights": {"bm25": 1.0}, "bm25_field": "embedding_text", "bm25_text_config": "english"}
+@@hasChunks {"parentFk": "notes_id", "parentPk": "id", "chunksTable": "notes_chunks", "searchField": null, "contentField": "content", "searchIndexes": ["bm25"], "embeddingField": "embedding"}
+@@searchConfig {"weights": {"bm25": 1}, "bm25_field": "embedding_text", "bm25_text_config": "english"}
 """
 type Note {
   content: String!
@@ -14173,7 +14318,8 @@ type Note {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Contact`."
   contacts(
     "Only read the first `n` values of the set."
@@ -14486,7 +14632,7 @@ type Note {
   overviewTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -14750,7 +14896,10 @@ type NoteEventsManyToManyEdge {
   ): EventNoteConnection!
 }
 
-"@@chunksOf {\"parent_fk\": \"notes_id\", \"parent_table\": \"notes\"}"
+"""
+@@chunksOf {"parentFk": "notes_id", "parentTable": "notes"}
+@@searchConfig {"weights": {"bm25": 1}, "bm25_field": "content", "bm25_text_config": "english"}
+"""
 type NotesChunk {
   id: UUID!
   notesId: UUID!
@@ -14762,9 +14911,13 @@ type NotesChunk {
   updatedAt: Datetime
   "Reads a single `Note` that is related to this `NotesChunk`."
   notes: Note
+  "BM25 score when searching `content`. Returns null when no bm25 search filter is active."
+  contentBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -14840,7 +14993,7 @@ type PageInfo {
   endCursor: Cursor
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Place {
   name: String!
   address: String
@@ -14855,7 +15008,8 @@ type Place {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeographyInterface
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
@@ -14871,7 +15025,7 @@ type Place {
   categoryTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -14895,7 +15049,7 @@ type PlaceEdge {
   node: Place
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Project {
   name: String!
   description: String
@@ -14914,7 +15068,8 @@ type Project {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Contact`."
   contacts(
     "Only read the first `n` values of the set."
@@ -15089,7 +15244,7 @@ type Project {
   projectTypeTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -15331,7 +15486,7 @@ type ProjectTasksManyToManyEdge {
   ): TaskProjectConnection!
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Prompt {
   name: String!
   content: String!
@@ -15346,7 +15501,8 @@ type Prompt {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Agent`."
   agents(
     "Only read the first `n` values of the set."
@@ -15399,7 +15555,7 @@ type Prompt {
   categoryTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -16294,6 +16450,26 @@ type Query {
     "The method to use when ordering `CalendarAttendee`."
     orderBy: [CalendarAttendeeOrderBy!] = [PRIMARY_KEY_ASC]
   ): CalendarAttendeeConnection
+  "Reads and enables pagination through a set of `ProviderSyncState`."
+  providerSyncStates(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProviderSyncStateFilter
+    "The method to use when ordering `ProviderSyncState`."
+    orderBy: [ProviderSyncStateOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ProviderSyncStateConnection
   "Reads and enables pagination through a set of `Tag`."
   tags(
     "Only read the first `n` values of the set."
@@ -16334,26 +16510,6 @@ type Query {
     "The method to use when ordering `RawContactUrl`."
     orderBy: [RawContactUrlOrderBy!] = [PRIMARY_KEY_ASC]
   ): RawContactUrlConnection
-  "Reads and enables pagination through a set of `ProviderSyncState`."
-  providerSyncStates(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ProviderSyncStateFilter
-    "The method to use when ordering `ProviderSyncState`."
-    orderBy: [ProviderSyncStateOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ProviderSyncStateConnection
   "Reads and enables pagination through a set of `RuntimeArtifact`."
   runtimeArtifacts(
     "Only read the first `n` values of the set."
@@ -16454,26 +16610,6 @@ type Query {
     "The method to use when ordering `RuntimeConfig`."
     orderBy: [RuntimeConfigOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeConfigConnection
-  "Reads and enables pagination through a set of `RuntimeEvent`."
-  runtimeEvents(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeEventFilter
-    "The method to use when ordering `RuntimeEvent`."
-    orderBy: [RuntimeEventOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeEventConnection
   "Reads and enables pagination through a set of `ContactAddress`."
   contactAddresses(
     "Only read the first `n` values of the set."
@@ -16494,8 +16630,8 @@ type Query {
     "The method to use when ordering `ContactAddress`."
     orderBy: [ContactAddressOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactAddressConnection
-  "Reads and enables pagination through a set of `Conversation`."
-  conversations(
+  "Reads and enables pagination through a set of `RuntimeEvent`."
+  runtimeEvents(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -16510,10 +16646,10 @@ type Query {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: ConversationFilter
-    "The method to use when ordering `Conversation`."
-    orderBy: [ConversationOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ConversationConnection
+    where: RuntimeEventFilter
+    "The method to use when ordering `RuntimeEvent`."
+    orderBy: [RuntimeEventOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuntimeEventConnection
   "Reads and enables pagination through a set of `RuntimeSchedule`."
   runtimeSchedules(
     "Only read the first `n` values of the set."
@@ -16594,6 +16730,26 @@ type Query {
     "The method to use when ordering `EmailAttachment`."
     orderBy: [EmailAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailAttachmentConnection
+  "Reads and enables pagination through a set of `Conversation`."
+  conversations(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ConversationFilter
+    "The method to use when ordering `Conversation`."
+    orderBy: [ConversationOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ConversationConnection
   "Reads and enables pagination through a set of `Image`."
   images(
     "Only read the first `n` values of the set."
@@ -16654,6 +16810,46 @@ type Query {
     "The method to use when ordering `RuntimeLog`."
     orderBy: [RuntimeLogOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeLogConnection
+  "Reads and enables pagination through a set of `ToolExecution`."
+  toolExecutions(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ToolExecutionFilter
+    "The method to use when ordering `ToolExecution`."
+    orderBy: [ToolExecutionOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ToolExecutionConnection
+  "Reads and enables pagination through a set of `ToolDefinition`."
+  toolDefinitions(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ToolDefinitionFilter
+    "The method to use when ordering `ToolDefinition`."
+    orderBy: [ToolDefinitionOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ToolDefinitionConnection
   "Reads and enables pagination through a set of `CompanyLink`."
   companyLinks(
     "Only read the first `n` values of the set."
@@ -16734,8 +16930,8 @@ type Query {
     "The method to use when ordering `VenueLink`."
     orderBy: [VenueLinkOrderBy!] = [PRIMARY_KEY_ASC]
   ): VenueLinkConnection
-  "Reads and enables pagination through a set of `ToolExecution`."
-  toolExecutions(
+  "Reads and enables pagination through a set of `RuntimeState`."
+  runtimeStates(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -16750,50 +16946,10 @@ type Query {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: ToolExecutionFilter
-    "The method to use when ordering `ToolExecution`."
-    orderBy: [ToolExecutionOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ToolExecutionConnection
-  "Reads and enables pagination through a set of `ToolDefinition`."
-  toolDefinitions(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ToolDefinitionFilter
-    "The method to use when ordering `ToolDefinition`."
-    orderBy: [ToolDefinitionOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ToolDefinitionConnection
-  "Reads and enables pagination through a set of `ContactsChunk`."
-  contactsChunks(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ContactsChunkFilter
-    "The method to use when ordering `ContactsChunk`."
-    orderBy: [ContactsChunkOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactsChunkConnection
+    where: RuntimeStateFilter
+    "The method to use when ordering `RuntimeState`."
+    orderBy: [RuntimeStateOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuntimeStateConnection
   "Reads and enables pagination through a set of `DocumentsChunk`."
   documentsChunks(
     "Only read the first `n` values of the set."
@@ -16834,26 +16990,6 @@ type Query {
     "The method to use when ordering `NotesChunk`."
     orderBy: [NotesChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): NotesChunkConnection
-  "Reads and enables pagination through a set of `RuntimeState`."
-  runtimeStates(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeStateFilter
-    "The method to use when ordering `RuntimeState`."
-    orderBy: [RuntimeStateOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeStateConnection
   "Reads and enables pagination through a set of `Message`."
   messages(
     "Only read the first `n` values of the set."
@@ -16874,8 +17010,8 @@ type Query {
     "The method to use when ordering `Message`."
     orderBy: [MessageOrderBy!] = [PRIMARY_KEY_ASC]
   ): MessageConnection
-  "Reads and enables pagination through a set of `Skill`."
-  skills(
+  "Reads and enables pagination through a set of `RawContact`."
+  rawContacts(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -16890,10 +17026,10 @@ type Query {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: SkillFilter
-    "The method to use when ordering `Skill`."
-    orderBy: [SkillOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SkillConnection
+    where: RawContactFilter
+    "The method to use when ordering `RawContact`."
+    orderBy: [RawContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactConnection
   "Reads and enables pagination through a set of `Habit`."
   habits(
     "Only read the first `n` values of the set."
@@ -16934,8 +17070,8 @@ type Query {
     "The method to use when ordering `Task`."
     orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
   ): TaskConnection
-  "Reads and enables pagination through a set of `RawContact`."
-  rawContacts(
+  "Reads and enables pagination through a set of `Skill`."
+  skills(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -16950,12 +17086,12 @@ type Query {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: RawContactFilter
-    "The method to use when ordering `RawContact`."
-    orderBy: [RawContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RawContactConnection
-  "Reads and enables pagination through a set of `Rule`."
-  rules(
+    where: SkillFilter
+    "The method to use when ordering `Skill`."
+    orderBy: [SkillOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillConnection
+  "Reads and enables pagination through a set of `ContactsChunk`."
+  contactsChunks(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -16970,10 +17106,10 @@ type Query {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: RuleFilter
-    "The method to use when ordering `Rule`."
-    orderBy: [RuleOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuleConnection
+    where: ContactsChunkFilter
+    "The method to use when ordering `ContactsChunk`."
+    orderBy: [ContactsChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactsChunkConnection
   "Reads and enables pagination through a set of `Goal`."
   goals(
     "Only read the first `n` values of the set."
@@ -17154,6 +17290,26 @@ type Query {
     "The method to use when ordering `Project`."
     orderBy: [ProjectOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectConnection
+  "Reads and enables pagination through a set of `Rule`."
+  rules(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuleFilter
+    "The method to use when ordering `Rule`."
+    orderBy: [RuleOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuleConnection
   "Reads and enables pagination through a set of `Expense`."
   expenses(
     "Only read the first `n` values of the set."
@@ -17194,26 +17350,6 @@ type Query {
     "The method to use when ordering `ActivityLog`."
     orderBy: [ActivityLogOrderBy!] = [PRIMARY_KEY_ASC]
   ): ActivityLogConnection
-  "Reads and enables pagination through a set of `Touchpoint`."
-  touchpoints(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: TouchpointFilter
-    "The method to use when ordering `Touchpoint`."
-    orderBy: [TouchpointOrderBy!] = [PRIMARY_KEY_ASC]
-  ): TouchpointConnection
   "Reads and enables pagination through a set of `EmailThread`."
   emailThreads(
     "Only read the first `n` values of the set."
@@ -17234,6 +17370,26 @@ type Query {
     "The method to use when ordering `EmailThread`."
     orderBy: [EmailThreadOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailThreadConnection
+  "Reads and enables pagination through a set of `Touchpoint`."
+  touchpoints(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TouchpointFilter
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TouchpointConnection
   "Reads and enables pagination through a set of `Company`."
   companies(
     "Only read the first `n` values of the set."
@@ -17626,22 +17782,7 @@ type RawContactUrlEdge {
   node: RawContactUrl
 }
 
-type RequestUploadUrlPayload {
-  "Presigned PUT URL (null if file was deduplicated)"
-  uploadUrl: String
-  "The file ID (existing if deduplicated, new if fresh upload)"
-  fileId: UUID!
-  "The S3 object key"
-  key: String!
-  "Whether this file was deduplicated (already exists with same hash)"
-  deduplicated: Boolean!
-  "Presigned URL expiry time (null if deduplicated)"
-  expiresAt: Datetime
-  "File status — 'pending' for fresh uploads, 'ready' or 'processed' for deduplicated files. Clients can use this to know immediately whether the file is usable."
-  status: String!
-}
-
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Rule {
   name: String!
   description: String
@@ -17659,8 +17800,11 @@ type Rule {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   triggerConceptEmbedding: Vector
+  "@@behavior -insert -update"
+  triggerConceptEmbeddingUpdatedAt: Datetime
   agentId: UUID!
   "Reads a single `Agent` that is related to this `Rule`."
   agent: Agent
@@ -17682,7 +17826,7 @@ type Rule {
   triggerConceptTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -17807,7 +17951,7 @@ type RuntimeEventEdge {
   node: RuntimeEvent
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type RuntimeLog {
   runtimeStateId: UUID!
   level: String!
@@ -17821,7 +17965,8 @@ type RuntimeLog {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads a single `RuntimeState` that is related to this `RuntimeLog`."
   runtimeState: RuntimeState
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
@@ -17834,7 +17979,7 @@ type RuntimeLog {
   messageTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -17928,7 +18073,7 @@ type RuntimeScheduleEdge {
   node: RuntimeSchedule
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type RuntimeState {
   name: String!
   stateType: String
@@ -17944,7 +18089,8 @@ type RuntimeState {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `RuntimeState`."
   runtimeStatesByRuntimeStateDependencyDependencyIdAndStateId(
     "Only read the first `n` values of the set."
@@ -18097,7 +18243,7 @@ type RuntimeState {
   statusTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -18230,7 +18376,7 @@ type RuntimeStateRuntimeStatesByRuntimeStateDependencyStateIdAndDependencyIdMany
   ): RuntimeStateDependencyConnection!
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Skill {
   name: String!
   description: String
@@ -18246,8 +18392,11 @@ type Skill {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   intentTriggerEmbedding: Vector
+  "@@behavior -insert -update"
+  intentTriggerEmbeddingUpdatedAt: Datetime
   agentId: UUID!
   "Reads and enables pagination through a set of `ToolDefinition`."
   toolDefinitions(
@@ -18309,7 +18458,7 @@ type Skill {
   intentTriggerTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -18434,7 +18583,7 @@ type TagEdge {
   node: Tag
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Task {
   agentId: UUID
   title: String!
@@ -18452,7 +18601,8 @@ type Task {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Contact`."
   contacts(
     "Only read the first `n` values of the set."
@@ -18629,7 +18779,7 @@ type Task {
   resultTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -18929,7 +19079,7 @@ type ThreadParticipantEdge {
   node: ThreadParticipant
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type ToolDefinition {
   name: String!
   description: String
@@ -18944,7 +19094,8 @@ type ToolDefinition {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads and enables pagination through a set of `Skill`."
   skills(
     "Only read the first `n` values of the set."
@@ -19017,7 +19168,7 @@ type ToolDefinition {
   toolTypeTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -19119,7 +19270,7 @@ type ToolExecutionEdge {
   node: ToolExecution
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Touchpoint {
   contactId: UUID!
   touchpointType: String!
@@ -19141,7 +19292,8 @@ type Touchpoint {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   "Reads a single `Company` that is related to this `Touchpoint`."
   company: Company
   "Reads a single `Contact` that is related to this `Touchpoint`."
@@ -19168,7 +19320,7 @@ type Touchpoint {
   channelTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -19192,7 +19344,7 @@ type TouchpointEdge {
   node: Touchpoint
 }
 
-"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+"@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Trip {
   name: String!
   destination: String
@@ -19207,7 +19359,8 @@ type Trip {
   updatedAt: Datetime!
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   destinationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Expense`."
   expenses(
@@ -19241,7 +19394,7 @@ type Trip {
   descriptionTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -20311,7 +20464,7 @@ type UpdateVenuePayload {
 
 """
 @@trgmSearch name
-@@searchConfig {"weights": {"tsv": 1.0, "bm25": 1.0}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "notes", "weight": "B"}, {"field": "neighborhood", "weight": "C"}]}
+@@searchConfig {"weights": {"tsv": 1, "bm25": 1}, "fts_field": "search_tsv", "bm25_field": "embedding_text", "bm25_text_config": "english", "fts_source_fields": [{"field": "name", "weight": "A"}, {"field": "notes", "weight": "B"}, {"field": "neighborhood", "weight": "C"}]}
 """
 type Venue {
   name: String!
@@ -20335,7 +20488,8 @@ type Venue {
   embeddingText: String
   searchTsv: FullText
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   location: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByVenueImageVenueIdAndImageId(
@@ -20465,7 +20619,7 @@ type Venue {
   notesTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -20607,13 +20761,14 @@ type VenueLink {
   "Timestamp when this record was last updated"
   updatedAt: Datetime!
   embedding: Vector
-  embeddingStale: Boolean!
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   venueId: UUID!
   "Reads a single `Venue` that is related to this `VenueLink`."
   venue: Venue
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  "Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
 }
 
@@ -20667,8 +20822,8 @@ input ActivityLogFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `habitId` field."
   habitId: UUIDFilter
   "Checks for all expressions in this list."
@@ -20698,7 +20853,8 @@ input ActivityLogFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -20722,7 +20878,8 @@ input ActivityLogInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   habitId: UUID
 }
 
@@ -20744,7 +20901,8 @@ input ActivityLogPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   habitId: UUID
 }
 
@@ -20800,8 +20958,8 @@ input AgentFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [AgentFilter!]
   "Checks for any expressions in this list."
@@ -20859,7 +21017,8 @@ input AgentFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -20882,7 +21041,8 @@ input AgentInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `AgentLog` object types. All fields are combined with a logical ‘and.’"
@@ -20907,8 +21067,8 @@ input AgentLogFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [AgentLogFilter!]
   "Checks for any expressions in this list."
@@ -20932,7 +21092,8 @@ input AgentLogFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -20952,7 +21113,8 @@ input AgentLogInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `AgentLog`. Fields that are set will be updated."
@@ -20969,7 +21131,8 @@ input AgentLogPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Agent`. Fields that are set will be updated."
@@ -20989,7 +21152,8 @@ input AgentPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `AgentPrompt` object types. All fields are combined with a logical ‘and.’"
@@ -21114,8 +21278,8 @@ input AutonomyRecordFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [AutonomyRecordFilter!]
   "Checks for any expressions in this list."
@@ -21149,7 +21313,8 @@ input AutonomyRecordFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -21172,7 +21337,8 @@ input AutonomyRecordInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’"
@@ -21216,7 +21382,8 @@ input AutonomyRecordPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’"
@@ -21399,8 +21566,8 @@ input CalendarEventFilter {
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `calendarId` field."
   calendarId: UUIDFilter
   "Checks for all expressions in this list."
@@ -21450,7 +21617,8 @@ input CalendarEventFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -21473,7 +21641,8 @@ input CalendarEventInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   calendarId: UUID!
 }
 
@@ -21518,7 +21687,8 @@ input CalendarEventPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   calendarId: UUID
 }
 
@@ -21724,8 +21894,8 @@ input CompanyFilter {
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [CompanyFilter!]
   "Checks for any expressions in this list."
@@ -21791,7 +21961,8 @@ input CompanyFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -21836,7 +22007,8 @@ input CompanyInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `CompanyLink` object types. All fields are combined with a logical ‘and.’"
@@ -21853,8 +22025,8 @@ input CompanyLinkFilter {
   updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `companyId` field."
   companyId: UUIDFilter
   "Checks for all expressions in this list."
@@ -21879,7 +22051,8 @@ input CompanyLinkInput {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   companyId: UUID!
 }
 
@@ -21893,7 +22066,8 @@ input CompanyLinkPatch {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   companyId: UUID
 }
 
@@ -21960,7 +22134,8 @@ input CompanyPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `CompanyDocument` object types. All fields are combined with a logical ‘and.’"
@@ -22051,11 +22226,6 @@ input CompanyToManyTouchpointFilter {
   every: TouchpointFilter
   "Filters to entities where no related entity matches."
   none: TouchpointFilter
-}
-
-input ConfirmUploadInput {
-  "The file ID returned by requestUploadUrl"
-  fileId: UUID!
 }
 
 "A filter to be used against `ContactAddress` object types. All fields are combined with a logical ‘and.’"
@@ -22264,8 +22434,8 @@ input ContactFilter {
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `locationGeo` field."
   locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
@@ -22401,7 +22571,8 @@ input ContactFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -22452,7 +22623,8 @@ input ContactInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeoJSON
 }
 
@@ -22470,8 +22642,8 @@ input ContactLinkFilter {
   updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `contactId` field."
   contactId: UUIDFilter
   "Checks for all expressions in this list."
@@ -22496,7 +22668,8 @@ input ContactLinkInput {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   contactId: UUID!
 }
 
@@ -22510,7 +22683,8 @@ input ContactLinkPatch {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   contactId: UUID
 }
 
@@ -22583,7 +22757,8 @@ input ContactPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeoJSON
 }
 
@@ -22670,7 +22845,7 @@ input ContactsChunkFilter {
   "Filter by the object’s `contactsId` field."
   contactsId: UUIDFilter
   "Filter by the object’s `content` field."
-  content: StringFilter
+  content: StringTrgmFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `embedding` field."
@@ -22681,6 +22856,8 @@ input ContactsChunkFilter {
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `search` field."
+  search: FullTextFilter
   "Checks for all expressions in this list."
   and: [ContactsChunkFilter!]
   "Checks for any expressions in this list."
@@ -22689,8 +22866,22 @@ input ContactsChunkFilter {
   not: ContactsChunkFilter
   "Filter by the object’s `contacts` relation."
   contacts: ContactFilter
+  "TSV search on the `search` column."
+  tsvSearch: String
+  "BM25 search on the `content` column."
+  bm25Content: Bm25SearchInput
   "VECTOR search on the `embedding` column."
   vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  """
+  Composite unified search. Provide a search string and it will be dispatched to
+  all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  unifiedSearch: String
 }
 
 "An input for mutations affecting `ContactsChunk`"
@@ -22967,8 +23158,8 @@ input ConversationFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [ConversationFilter!]
   "Checks for any expressions in this list."
@@ -22992,7 +23183,8 @@ input ConversationFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -23011,7 +23203,8 @@ input ConversationInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Conversation`. Fields that are set will be updated."
@@ -23027,7 +23220,8 @@ input ConversationPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `Message` object types. All fields are combined with a logical ‘and.’"
@@ -24211,8 +24405,8 @@ input DealFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [DealFilter!]
   "Checks for any expressions in this list."
@@ -24252,7 +24446,8 @@ input DealFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -24274,7 +24469,8 @@ input DealInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `DealNote` object types. All fields are combined with a logical ‘and.’"
@@ -24317,7 +24513,8 @@ input DealPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `DealCompany` object types. All fields are combined with a logical ‘and.’"
@@ -24966,8 +25163,8 @@ input DocumentFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [DocumentFilter!]
   "Checks for any expressions in this list."
@@ -25005,7 +25202,8 @@ input DocumentFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -25027,7 +25225,8 @@ input DocumentInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Document`. Fields that are set will be updated."
@@ -25046,7 +25245,8 @@ input DocumentPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `DocumentsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -25056,7 +25256,7 @@ input DocumentsChunkFilter {
   "Filter by the object’s `documentsId` field."
   documentsId: UUIDFilter
   "Filter by the object’s `content` field."
-  content: StringFilter
+  content: StringTrgmFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `embedding` field."
@@ -25075,8 +25275,20 @@ input DocumentsChunkFilter {
   not: DocumentsChunkFilter
   "Filter by the object’s `documents` relation."
   documents: DocumentFilter
+  "BM25 search on the `content` column."
+  bm25Content: Bm25SearchInput
   "VECTOR search on the `embedding` column."
   vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  """
+  Composite unified search. Provide a search string and it will be dispatched to
+  all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  unifiedSearch: String
 }
 
 "An input for mutations affecting `DocumentsChunk`"
@@ -25227,8 +25439,8 @@ input EmailFilter {
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `emailThreadId` field."
   emailThreadId: UUIDFilter
   "Checks for all expressions in this list."
@@ -25274,7 +25486,8 @@ input EmailFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -25299,7 +25512,8 @@ input EmailInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   emailThreadId: UUID!
 }
 
@@ -25346,7 +25560,8 @@ input EmailPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   emailThreadId: UUID
 }
 
@@ -25400,8 +25615,8 @@ input EmailThreadFilter {
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [EmailThreadFilter!]
   "Checks for any expressions in this list."
@@ -25435,7 +25650,8 @@ input EmailThreadFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -25456,7 +25672,8 @@ input EmailThreadInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `EmailThread`. Fields that are set will be updated."
@@ -25474,7 +25691,8 @@ input EmailThreadPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’"
@@ -25559,8 +25777,8 @@ input EventFilter {
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `locationGeo` field."
   locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
@@ -25624,7 +25842,8 @@ input EventFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -25672,7 +25891,8 @@ input EventInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeoJSON
 }
 
@@ -25690,8 +25910,8 @@ input EventLinkFilter {
   updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `eventId` field."
   eventId: UUIDFilter
   "Checks for all expressions in this list."
@@ -25716,7 +25936,8 @@ input EventLinkInput {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   eventId: UUID!
 }
 
@@ -25730,7 +25951,8 @@ input EventLinkPatch {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   eventId: UUID
 }
 
@@ -25776,7 +25998,8 @@ input EventPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeoJSON
 }
 
@@ -25938,8 +26161,8 @@ input ExpenseFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `tripId` field."
   tripId: UUIDFilter
   "Checks for all expressions in this list."
@@ -25975,7 +26198,8 @@ input ExpenseFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -25998,7 +26222,8 @@ input ExpenseInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   tripId: UUID
 }
 
@@ -26019,7 +26244,8 @@ input ExpensePatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   tripId: UUID
 }
 
@@ -26105,8 +26331,8 @@ input GoalFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [GoalFilter!]
   "Checks for any expressions in this list."
@@ -26136,7 +26362,8 @@ input GoalFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -26181,7 +26408,8 @@ input GoalInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Goal`. Fields that are set will be updated."
@@ -26199,7 +26427,8 @@ input GoalPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `GoalProject` object types. All fields are combined with a logical ‘and.’"
@@ -26346,8 +26575,8 @@ input ImageFilter {
   updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [ImageFilter!]
   "Checks for any expressions in this list."
@@ -26402,7 +26631,8 @@ input ImageInput {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Image`. Fields that are set will be updated."
@@ -26417,7 +26647,8 @@ input ImagePatch {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `Company` object types. All fields are combined with a logical ‘and.’"
@@ -26524,8 +26755,8 @@ input InteractionFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [InteractionFilter!]
   "Checks for any expressions in this list."
@@ -26549,7 +26780,8 @@ input InteractionFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -26570,7 +26802,8 @@ input InteractionInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Interaction`. Fields that are set will be updated."
@@ -26588,7 +26821,8 @@ input InteractionPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against Int fields. All fields are combined with a logical ‘and.’"
@@ -26677,8 +26911,8 @@ input MemoryFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `locationGeo` field."
   locationGeo: GeographyInterfaceFilter
   "Filter by the object’s `agentId` field."
@@ -26724,7 +26958,8 @@ input MemoryFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -26745,7 +26980,8 @@ input MemoryInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeoJSON
   agentId: UUID
 }
@@ -26765,7 +27001,8 @@ input MemoryPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeoJSON
   agentId: UUID
 }
@@ -26852,8 +27089,8 @@ input MessageFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [MessageFilter!]
   "Checks for any expressions in this list."
@@ -26875,7 +27112,8 @@ input MessageFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -26897,7 +27135,8 @@ input MessageInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Message`. Fields that are set will be updated."
@@ -26916,7 +27155,8 @@ input MessagePatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `Note` object types. All fields are combined with a logical ‘and.’"
@@ -26943,8 +27183,8 @@ input NoteFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [NoteFilter!]
   "Checks for any expressions in this list."
@@ -26998,7 +27238,8 @@ input NoteFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -27019,7 +27260,8 @@ input NoteInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Note`. Fields that are set will be updated."
@@ -27037,7 +27279,8 @@ input NotePatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `NotesChunk` object types. All fields are combined with a logical ‘and.’"
@@ -27047,7 +27290,7 @@ input NotesChunkFilter {
   "Filter by the object’s `notesId` field."
   notesId: UUIDFilter
   "Filter by the object’s `content` field."
-  content: StringFilter
+  content: StringTrgmFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `embedding` field."
@@ -27066,8 +27309,20 @@ input NotesChunkFilter {
   not: NotesChunkFilter
   "Filter by the object’s `notes` relation."
   notes: NoteFilter
+  "BM25 search on the `content` column."
+  bm25Content: Bm25SearchInput
   "VECTOR search on the `embedding` column."
   vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  """
+  Composite unified search. Provide a search string and it will be dispatched to
+  all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  unifiedSearch: String
 }
 
 "An input for mutations affecting `NotesChunk`"
@@ -27198,8 +27453,8 @@ input PlaceFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `locationGeo` field."
   locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
@@ -27225,7 +27480,8 @@ input PlaceFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -27246,7 +27502,8 @@ input PlaceInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeoJSON
 }
 
@@ -27265,7 +27522,8 @@ input PlacePatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   locationGeo: GeoJSON
 }
 
@@ -27349,8 +27607,8 @@ input ProjectFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [ProjectFilter!]
   "Checks for any expressions in this list."
@@ -27390,7 +27648,8 @@ input ProjectFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -27415,7 +27674,8 @@ input ProjectInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Project`. Fields that are set will be updated."
@@ -27437,7 +27697,8 @@ input ProjectPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `GoalProject` object types. All fields are combined with a logical ‘and.’"
@@ -27504,8 +27765,8 @@ input PromptFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [PromptFilter!]
   "Checks for any expressions in this list."
@@ -27531,7 +27792,8 @@ input PromptFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -27552,7 +27814,8 @@ input PromptInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Prompt`. Fields that are set will be updated."
@@ -27570,7 +27833,8 @@ input PromptPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `AgentPrompt` object types. All fields are combined with a logical ‘and.’"
@@ -27955,26 +28219,6 @@ input RawContactUrlPatch {
   rawContactId: UUID
 }
 
-input RequestUploadUrlInput {
-  "Bucket key (e.g., \"public\", \"private\")"
-  bucketKey: String!
-  """
-  Owner entity ID for entity-scoped uploads.
-  Omit for app-level (database-wide) storage.
-  When provided, resolves the storage module for the entity type
-  that owns this entity instance (e.g., a data room ID, team ID).
-  """
-  ownerId: UUID
-  "SHA-256 content hash computed by the client (hex-encoded, 64 chars)"
-  contentHash: String!
-  "MIME type of the file (e.g., \"image/png\")"
-  contentType: String!
-  "File size in bytes"
-  size: Int!
-  "Original filename (optional, for display and Content-Disposition)"
-  filename: String
-}
-
 "A filter to be used against `Rule` object types. All fields are combined with a logical ‘and.’"
 input RuleFilter {
   "Filter by the object’s `name` field."
@@ -28005,10 +28249,12 @@ input RuleFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `triggerConceptEmbedding` field."
   triggerConceptEmbedding: VectorFilter
+  "Filter by the object’s `triggerConceptEmbeddingUpdatedAt` field."
+  triggerConceptEmbeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Checks for all expressions in this list."
@@ -28040,7 +28286,8 @@ input RuleFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -28064,8 +28311,11 @@ input RuleInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   triggerConceptEmbedding: Vector
+  "@@behavior -insert -update"
+  triggerConceptEmbeddingUpdatedAt: Datetime
   agentId: UUID!
 }
 
@@ -28087,8 +28337,11 @@ input RulePatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   triggerConceptEmbedding: Vector
+  "@@behavior -insert -update"
+  triggerConceptEmbeddingUpdatedAt: Datetime
   agentId: UUID
 }
 
@@ -28278,8 +28531,8 @@ input RuntimeLogFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [RuntimeLogFilter!]
   "Checks for any expressions in this list."
@@ -28301,7 +28554,8 @@ input RuntimeLogFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -28321,7 +28575,8 @@ input RuntimeLogInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `RuntimeLog`. Fields that are set will be updated."
@@ -28338,7 +28593,8 @@ input RuntimeLogPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `RuntimeMetric` object types. All fields are combined with a logical ‘and.’"
@@ -28509,8 +28765,8 @@ input RuntimeStateFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [RuntimeStateFilter!]
   "Checks for any expressions in this list."
@@ -28552,7 +28808,8 @@ input RuntimeStateFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -28574,7 +28831,8 @@ input RuntimeStateInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `RuntimeState`. Fields that are set will be updated."
@@ -28593,7 +28851,8 @@ input RuntimeStatePatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `RuntimeArtifact` object types. All fields are combined with a logical ‘and.’"
@@ -28662,10 +28921,12 @@ input SkillFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `intentTriggerEmbedding` field."
   intentTriggerEmbedding: VectorFilter
+  "Filter by the object’s `intentTriggerEmbeddingUpdatedAt` field."
+  intentTriggerEmbeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Checks for all expressions in this list."
@@ -28701,7 +28962,8 @@ input SkillFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -28723,8 +28985,11 @@ input SkillInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   intentTriggerEmbedding: Vector
+  "@@behavior -insert -update"
+  intentTriggerEmbeddingUpdatedAt: Datetime
   agentId: UUID!
 }
 
@@ -28744,8 +29009,11 @@ input SkillPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   intentTriggerEmbedding: Vector
+  "@@behavior -insert -update"
+  intentTriggerEmbeddingUpdatedAt: Datetime
   agentId: UUID
 }
 
@@ -29087,8 +29355,8 @@ input TaskFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [TaskFilter!]
   "Checks for any expressions in this list."
@@ -29132,7 +29400,8 @@ input TaskFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -29156,7 +29425,8 @@ input TaskInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `TaskNote` object types. All fields are combined with a logical ‘and.’"
@@ -29201,7 +29471,8 @@ input TaskPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’"
@@ -29316,8 +29587,8 @@ input ToolDefinitionFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [ToolDefinitionFilter!]
   "Checks for any expressions in this list."
@@ -29347,7 +29618,8 @@ input ToolDefinitionFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -29368,7 +29640,8 @@ input ToolDefinitionInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `ToolDefinition`. Fields that are set will be updated."
@@ -29386,7 +29659,8 @@ input ToolDefinitionPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’"
@@ -29515,8 +29789,8 @@ input TouchpointFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [TouchpointFilter!]
   "Checks for any expressions in this list."
@@ -29558,7 +29832,8 @@ input TouchpointFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -29586,7 +29861,8 @@ input TouchpointInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Represents an update to a `Touchpoint`. Fields that are set will be updated."
@@ -29611,7 +29887,8 @@ input TouchpointPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
 }
 
 "Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold."
@@ -29646,8 +29923,8 @@ input TripFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `destinationGeo` field."
   destinationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
@@ -29677,7 +29954,8 @@ input TripFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -29698,7 +29976,8 @@ input TripInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   destinationGeo: GeoJSON
 }
 
@@ -29717,7 +29996,8 @@ input TripPatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   destinationGeo: GeoJSON
 }
 
@@ -30535,8 +30815,8 @@ input VenueFilter {
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `location` field."
   location: GeographyInterfaceFilter
   "Checks for all expressions in this list."
@@ -30590,7 +30870,8 @@ input VenueFilter {
   """
   Composite unified search. Provide a search string and it will be dispatched to
   all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  simultaneously. When the LLM plugin is active, pgvector also participates via
+  auto-embedding. Rows matching ANY algorithm are returned. All matching score
   fields are populated.
   """
   unifiedSearch: String
@@ -30642,7 +30923,8 @@ input VenueInput {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   location: GeoJSON
 }
 
@@ -30660,8 +30942,8 @@ input VenueLinkFilter {
   updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
+  "Filter by the object’s `embeddingUpdatedAt` field."
+  embeddingUpdatedAt: DatetimeFilter
   "Filter by the object’s `venueId` field."
   venueId: UUIDFilter
   "Checks for all expressions in this list."
@@ -30686,7 +30968,8 @@ input VenueLinkInput {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   venueId: UUID!
 }
 
@@ -30700,7 +30983,8 @@ input VenueLinkPatch {
   "Timestamp when this record was last updated"
   updatedAt: Datetime
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   venueId: UUID
 }
 
@@ -30726,7 +31010,8 @@ input VenuePatch {
   updatedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingStale: Boolean
+  "@@behavior -insert -update"
+  embeddingUpdatedAt: Datetime
   location: GeoJSON
 }
 

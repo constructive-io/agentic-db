@@ -70,13 +70,11 @@ export class PromptModel {
     });
   }
   findFirst<S extends PromptSelect>(
-    args: FindFirstArgs<S, PromptFilter> & {
+    args: FindFirstArgs<S, PromptFilter, PromptOrderBy> & {
       select: S;
     } & StrictSelect<S, PromptSelect>
   ): QueryBuilder<{
-    prompts: {
-      nodes: InferSelectResult<PromptWithRelations, S>[];
-    };
+    prompt: InferSelectResult<PromptWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Prompt',
@@ -84,17 +82,26 @@ export class PromptModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'PromptFilter',
+      'PromptOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Prompt',
-      fieldName: 'prompts',
+      fieldName: 'prompt',
       document,
       variables,
+      transform: (data: {
+        prompts?: {
+          nodes?: InferSelectResult<PromptWithRelations, S>[];
+        };
+      }) => ({
+        prompt: data.prompts?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends PromptSelect>(
@@ -189,7 +196,8 @@ export class PromptModel {
       'UpdatePromptInput',
       'id',
       'promptPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

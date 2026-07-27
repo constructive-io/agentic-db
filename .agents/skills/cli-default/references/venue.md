@@ -19,8 +19,8 @@ agentic-db venue list --limit 10 --after <cursor>
 agentic-db venue find-first --where.<field>.<op> <value>
 agentic-db venue search <query>
 agentic-db venue get --id <UUID>
-agentic-db venue create --name <String> [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--location <GeographyInterface>]
-agentic-db venue update --id <UUID> [--name <String>] [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--location <GeographyInterface>]
+agentic-db venue create --name <String> [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--location <GeographyInterface>]
+agentic-db venue update --id <UUID> [--name <String>] [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--location <GeographyInterface>]
 agentic-db venue delete --id <UUID>
 ```
 
@@ -173,7 +173,7 @@ agentic-db venue search "query" --limit 10 --select id,title,searchScore
 ### Create a venue
 
 ```bash
-agentic-db venue create --name <String> [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--location <GeographyInterface>]
+agentic-db venue create --name <String> [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--location <GeographyInterface>]
 ```
 
 ### Get a venue by id

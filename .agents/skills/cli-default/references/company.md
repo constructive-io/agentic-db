@@ -19,8 +19,8 @@ agentic-db company list --limit 10 --after <cursor>
 agentic-db company find-first --where.<field>.<op> <value>
 agentic-db company search <query>
 agentic-db company get --id <UUID>
-agentic-db company create --name <String> [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db company update --id <UUID> [--name <String>] [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db company create --name <String> [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db company update --id <UUID> [--name <String>] [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db company delete --id <UUID>
 ```
 
@@ -143,7 +143,7 @@ agentic-db company search "query" --limit 10 --select id,title,searchScore
 ### Create a company
 
 ```bash
-agentic-db company create --name <String> [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db company create --name <String> [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a company by id

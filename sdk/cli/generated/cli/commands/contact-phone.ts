@@ -25,7 +25,7 @@ const fieldSchema: FieldSchema = {
   contactId: 'uuid',
 };
 const usage =
-  '\ncontact-phone <command>\n\nCommands:\n  list                  List contactPhone records\n  find-first            Find first matching contactPhone record\n  get                   Get a contactPhone by ID\n  create                Create a new contactPhone\n  update                Update an existing contactPhone\n  delete                Delete a contactPhone\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\n  --help, -h            Show this help message\n';
+  '\ncontact-phone <command>\n\nCommands:\n  list                  List contactPhone records\n  find-first            Find first matching contactPhone record\n  get                   Get a contactPhone by ID\n  create                Create a new contactPhone\n  update                Update an existing contactPhone\n  delete                Delete a contactPhone\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -111,7 +111,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       contactId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<ContactPhoneSelect, ContactPhoneFilter> & {
+      FindFirstArgs<ContactPhoneSelect, ContactPhoneFilter, ContactPhoneOrderBy> & {
         select: ContactPhoneSelect;
       }
     >(argv, defaultSelect);

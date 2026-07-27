@@ -86,7 +86,7 @@ async function main() {
     console.log(`   \u2713 app_public schema created (ID: ${schemaId})`);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    if (msg.includes('already exists') || msg.includes('exists')) {
+    if (msg.includes('already exists') || msg.includes('exists') || msg.includes('duplicate key')) {
       console.log('   \u2713 app_public schema already exists');
     } else {
       throw err;

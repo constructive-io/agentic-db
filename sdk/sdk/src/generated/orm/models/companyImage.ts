@@ -70,13 +70,11 @@ export class CompanyImageModel {
     });
   }
   findFirst<S extends CompanyImageSelect>(
-    args: FindFirstArgs<S, CompanyImageFilter> & {
+    args: FindFirstArgs<S, CompanyImageFilter, CompanyImageOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanyImageSelect>
   ): QueryBuilder<{
-    companyImages: {
-      nodes: InferSelectResult<CompanyImageWithRelations, S>[];
-    };
+    companyImage: InferSelectResult<CompanyImageWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'CompanyImage',
@@ -84,17 +82,26 @@ export class CompanyImageModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'CompanyImageFilter',
+      'CompanyImageOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'CompanyImage',
-      fieldName: 'companyImages',
+      fieldName: 'companyImage',
       document,
       variables,
+      transform: (data: {
+        companyImages?: {
+          nodes?: InferSelectResult<CompanyImageWithRelations, S>[];
+        };
+      }) => ({
+        companyImage: data.companyImages?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends CompanyImageSelect>(

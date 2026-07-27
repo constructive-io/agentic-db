@@ -70,13 +70,11 @@ export class DealCompanyModel {
     });
   }
   findFirst<S extends DealCompanySelect>(
-    args: FindFirstArgs<S, DealCompanyFilter> & {
+    args: FindFirstArgs<S, DealCompanyFilter, DealCompanyOrderBy> & {
       select: S;
     } & StrictSelect<S, DealCompanySelect>
   ): QueryBuilder<{
-    dealCompanies: {
-      nodes: InferSelectResult<DealCompanyWithRelations, S>[];
-    };
+    dealCompany: InferSelectResult<DealCompanyWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'DealCompany',
@@ -84,17 +82,26 @@ export class DealCompanyModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'DealCompanyFilter',
+      'DealCompanyOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'DealCompany',
-      fieldName: 'dealCompanies',
+      fieldName: 'dealCompany',
       document,
       variables,
+      transform: (data: {
+        dealCompanies?: {
+          nodes?: InferSelectResult<DealCompanyWithRelations, S>[];
+        };
+      }) => ({
+        dealCompany: data.dealCompanies?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends DealCompanySelect>(

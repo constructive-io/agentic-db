@@ -70,13 +70,11 @@ export class DealContactModel {
     });
   }
   findFirst<S extends DealContactSelect>(
-    args: FindFirstArgs<S, DealContactFilter> & {
+    args: FindFirstArgs<S, DealContactFilter, DealContactOrderBy> & {
       select: S;
     } & StrictSelect<S, DealContactSelect>
   ): QueryBuilder<{
-    dealContacts: {
-      nodes: InferSelectResult<DealContactWithRelations, S>[];
-    };
+    dealContact: InferSelectResult<DealContactWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'DealContact',
@@ -84,17 +82,26 @@ export class DealContactModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'DealContactFilter',
+      'DealContactOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'DealContact',
-      fieldName: 'dealContacts',
+      fieldName: 'dealContact',
       document,
       variables,
+      transform: (data: {
+        dealContacts?: {
+          nodes?: InferSelectResult<DealContactWithRelations, S>[];
+        };
+      }) => ({
+        dealContact: data.dealContacts?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends DealContactSelect>(

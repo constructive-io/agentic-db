@@ -19,8 +19,8 @@ agentic-db project list --limit 10 --after <cursor>
 agentic-db project find-first --where.<field>.<op> <value>
 agentic-db project search <query>
 agentic-db project get --id <UUID>
-agentic-db project create --name <String> [--description <String>] [--status <String>] [--projectType <String>] [--priority <Int>] [--startedAt <Datetime>] [--targetDate <Datetime>] [--completedAt <Datetime>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db project update --id <UUID> [--name <String>] [--description <String>] [--status <String>] [--projectType <String>] [--priority <Int>] [--startedAt <Datetime>] [--targetDate <Datetime>] [--completedAt <Datetime>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db project create --name <String> [--description <String>] [--status <String>] [--projectType <String>] [--priority <Int>] [--startedAt <Datetime>] [--targetDate <Datetime>] [--completedAt <Datetime>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db project update --id <UUID> [--name <String>] [--description <String>] [--status <String>] [--projectType <String>] [--priority <Int>] [--startedAt <Datetime>] [--targetDate <Datetime>] [--completedAt <Datetime>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db project delete --id <UUID>
 ```
 
@@ -137,7 +137,7 @@ agentic-db project search "query" --limit 10 --select id,title,searchScore
 ### Create a project
 
 ```bash
-agentic-db project create --name <String> [--description <String>] [--status <String>] [--projectType <String>] [--priority <Int>] [--startedAt <Datetime>] [--targetDate <Datetime>] [--completedAt <Datetime>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db project create --name <String> [--description <String>] [--status <String>] [--projectType <String>] [--priority <Int>] [--startedAt <Datetime>] [--targetDate <Datetime>] [--completedAt <Datetime>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a project by id

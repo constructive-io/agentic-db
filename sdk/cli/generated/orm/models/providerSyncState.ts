@@ -70,13 +70,11 @@ export class ProviderSyncStateModel {
     });
   }
   findFirst<S extends ProviderSyncStateSelect>(
-    args: FindFirstArgs<S, ProviderSyncStateFilter> & {
+    args: FindFirstArgs<S, ProviderSyncStateFilter, ProviderSyncStateOrderBy> & {
       select: S;
     } & StrictSelect<S, ProviderSyncStateSelect>
   ): QueryBuilder<{
-    providerSyncStates: {
-      nodes: InferSelectResult<ProviderSyncStateWithRelations, S>[];
-    };
+    providerSyncState: InferSelectResult<ProviderSyncStateWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ProviderSyncState',
@@ -84,17 +82,26 @@ export class ProviderSyncStateModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ProviderSyncStateFilter',
+      'ProviderSyncStateOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ProviderSyncState',
-      fieldName: 'providerSyncStates',
+      fieldName: 'providerSyncState',
       document,
       variables,
+      transform: (data: {
+        providerSyncStates?: {
+          nodes?: InferSelectResult<ProviderSyncStateWithRelations, S>[];
+        };
+      }) => ({
+        providerSyncState: data.providerSyncStates?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ProviderSyncStateSelect>(
@@ -189,7 +196,8 @@ export class ProviderSyncStateModel {
       'UpdateProviderSyncStateInput',
       'id',
       'providerSyncStatePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

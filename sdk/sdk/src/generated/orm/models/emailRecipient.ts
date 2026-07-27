@@ -70,13 +70,11 @@ export class EmailRecipientModel {
     });
   }
   findFirst<S extends EmailRecipientSelect>(
-    args: FindFirstArgs<S, EmailRecipientFilter> & {
+    args: FindFirstArgs<S, EmailRecipientFilter, EmailRecipientOrderBy> & {
       select: S;
     } & StrictSelect<S, EmailRecipientSelect>
   ): QueryBuilder<{
-    emailRecipients: {
-      nodes: InferSelectResult<EmailRecipientWithRelations, S>[];
-    };
+    emailRecipient: InferSelectResult<EmailRecipientWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'EmailRecipient',
@@ -84,17 +82,26 @@ export class EmailRecipientModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'EmailRecipientFilter',
+      'EmailRecipientOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'EmailRecipient',
-      fieldName: 'emailRecipients',
+      fieldName: 'emailRecipient',
       document,
       variables,
+      transform: (data: {
+        emailRecipients?: {
+          nodes?: InferSelectResult<EmailRecipientWithRelations, S>[];
+        };
+      }) => ({
+        emailRecipient: data.emailRecipients?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends EmailRecipientSelect>(

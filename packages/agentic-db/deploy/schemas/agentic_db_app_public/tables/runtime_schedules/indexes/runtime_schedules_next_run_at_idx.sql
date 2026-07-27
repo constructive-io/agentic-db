@@ -3,7 +3,6 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_schedules/table
--- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 -- requires: schemas/agentic_db_app_public/tables/runtime_schedules/columns/next_run_at/column
 
 

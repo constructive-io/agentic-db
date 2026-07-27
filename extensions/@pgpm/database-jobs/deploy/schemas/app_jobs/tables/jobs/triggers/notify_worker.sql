@@ -5,9 +5,19 @@
 -- requires: schemas/app_jobs/tables/jobs/triggers/increase_job_queue_count
 
 BEGIN;
-CREATE TRIGGER _900_notify_worker
-    AFTER INSERT ON app_jobs.jobs
-    FOR EACH ROW
-    EXECUTE PROCEDURE app_jobs.do_notify ('jobs:insert');
-COMMIT;
+CREATE FUNCTION app_jobs.tg_jobs__after_insert ()
+  RETURNS TRIGGER
+  AS $$
+BEGIN
+  PERFORM
+    pg_notify('jobs:insert', '');
+  RETURN NULL;
+END;
+$$
+LANGUAGE plpgsql;
 
+CREATE TRIGGER _900_after_insert
+  AFTER INSERT ON app_jobs.jobs
+  FOR EACH STATEMENT
+  EXECUTE PROCEDURE app_jobs.tg_jobs__after_insert ();
+COMMIT;

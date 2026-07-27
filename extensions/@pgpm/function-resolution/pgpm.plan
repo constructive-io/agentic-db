@@ -1,0 +1,11 @@
+%syntax-version=1.0.0
+%project=pgpm-function-resolution
+%uri=pgpm-function-resolution
+
+schemas/function_resolution/schema 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # function_resolution schema
+schemas/function_resolution/procedures/definitions_location [schemas/function_resolution/schema] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # locate a scope defs table
+schemas/function_resolution/procedures/probe [schemas/function_resolution/schema schemas/function_resolution/procedures/definitions_location] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # probe one scope for a task
+schemas/function_resolution/procedures/routing [schemas/function_resolution/schema schemas/function_resolution/procedures/definitions_location] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # queue routing for a definition
+schemas/function_resolution/procedures/resolve [schemas/function_resolution/schema schemas/function_resolution/procedures/probe] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # cross-scope resolver
+schemas/function_resolution/procedures/resolve_invocation [schemas/function_resolution/schema schemas/function_resolution/procedures/probe schemas/function_resolution/procedures/resolve] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # invocation-lane resolver
+schemas/function_resolution/procedures/enqueue [schemas/function_resolution/schema schemas/function_resolution/procedures/routing schemas/function_resolution/procedures/resolve] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # resolver-aware enqueue entry point

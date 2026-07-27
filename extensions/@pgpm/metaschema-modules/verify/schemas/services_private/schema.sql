@@ -1,1 +1,0 @@
--- Verify schemas/services_private/schema  on pg

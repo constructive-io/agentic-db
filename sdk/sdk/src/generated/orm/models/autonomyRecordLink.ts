@@ -70,13 +70,11 @@ export class AutonomyRecordLinkModel {
     });
   }
   findFirst<S extends AutonomyRecordLinkSelect>(
-    args: FindFirstArgs<S, AutonomyRecordLinkFilter> & {
+    args: FindFirstArgs<S, AutonomyRecordLinkFilter, AutonomyRecordLinkOrderBy> & {
       select: S;
     } & StrictSelect<S, AutonomyRecordLinkSelect>
   ): QueryBuilder<{
-    autonomyRecordLinks: {
-      nodes: InferSelectResult<AutonomyRecordLinkWithRelations, S>[];
-    };
+    autonomyRecordLink: InferSelectResult<AutonomyRecordLinkWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'AutonomyRecordLink',
@@ -84,17 +82,26 @@ export class AutonomyRecordLinkModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'AutonomyRecordLinkFilter',
+      'AutonomyRecordLinkOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'AutonomyRecordLink',
-      fieldName: 'autonomyRecordLinks',
+      fieldName: 'autonomyRecordLink',
       document,
       variables,
+      transform: (data: {
+        autonomyRecordLinks?: {
+          nodes?: InferSelectResult<AutonomyRecordLinkWithRelations, S>[];
+        };
+      }) => ({
+        autonomyRecordLink: data.autonomyRecordLinks?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends AutonomyRecordLinkSelect>(

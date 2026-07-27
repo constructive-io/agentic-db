@@ -19,8 +19,8 @@ agentic-db event list --limit 10 --after <cursor>
 agentic-db event find-first --where.<field>.<op> <value>
 agentic-db event search <query>
 agentic-db event get --id <UUID>
-agentic-db event create --name <String> [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
-agentic-db event update --id <UUID> [--name <String>] [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
+agentic-db event create --name <String> [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--locationGeo <GeographyInterface>]
+agentic-db event update --id <UUID> [--name <String>] [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--locationGeo <GeographyInterface>]
 agentic-db event delete --id <UUID>
 ```
 
@@ -149,7 +149,7 @@ agentic-db event search "query" --limit 10 --select id,title,searchScore
 ### Create a event
 
 ```bash
-agentic-db event create --name <String> [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
+agentic-db event create --name <String> [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--locationGeo <GeographyInterface>]
 ```
 
 ### Get a event by id

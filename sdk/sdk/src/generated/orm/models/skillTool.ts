@@ -70,13 +70,11 @@ export class SkillToolModel {
     });
   }
   findFirst<S extends SkillToolSelect>(
-    args: FindFirstArgs<S, SkillToolFilter> & {
+    args: FindFirstArgs<S, SkillToolFilter, SkillToolOrderBy> & {
       select: S;
     } & StrictSelect<S, SkillToolSelect>
   ): QueryBuilder<{
-    skillTools: {
-      nodes: InferSelectResult<SkillToolWithRelations, S>[];
-    };
+    skillTool: InferSelectResult<SkillToolWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'SkillTool',
@@ -84,17 +82,26 @@ export class SkillToolModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'SkillToolFilter',
+      'SkillToolOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'SkillTool',
-      fieldName: 'skillTools',
+      fieldName: 'skillTool',
       document,
       variables,
+      transform: (data: {
+        skillTools?: {
+          nodes?: InferSelectResult<SkillToolWithRelations, S>[];
+        };
+      }) => ({
+        skillTool: data.skillTools?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends SkillToolSelect>(

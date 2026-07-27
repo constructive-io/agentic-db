@@ -70,13 +70,11 @@ export class RawContactUrlModel {
     });
   }
   findFirst<S extends RawContactUrlSelect>(
-    args: FindFirstArgs<S, RawContactUrlFilter> & {
+    args: FindFirstArgs<S, RawContactUrlFilter, RawContactUrlOrderBy> & {
       select: S;
     } & StrictSelect<S, RawContactUrlSelect>
   ): QueryBuilder<{
-    rawContactUrls: {
-      nodes: InferSelectResult<RawContactUrlWithRelations, S>[];
-    };
+    rawContactUrl: InferSelectResult<RawContactUrlWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RawContactUrl',
@@ -84,17 +82,26 @@ export class RawContactUrlModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RawContactUrlFilter',
+      'RawContactUrlOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RawContactUrl',
-      fieldName: 'rawContactUrls',
+      fieldName: 'rawContactUrl',
       document,
       variables,
+      transform: (data: {
+        rawContactUrls?: {
+          nodes?: InferSelectResult<RawContactUrlWithRelations, S>[];
+        };
+      }) => ({
+        rawContactUrl: data.rawContactUrls?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RawContactUrlSelect>(
@@ -189,7 +196,8 @@ export class RawContactUrlModel {
       'UpdateRawContactUrlInput',
       'id',
       'rawContactUrlPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

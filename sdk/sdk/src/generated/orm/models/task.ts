@@ -70,13 +70,11 @@ export class TaskModel {
     });
   }
   findFirst<S extends TaskSelect>(
-    args: FindFirstArgs<S, TaskFilter> & {
+    args: FindFirstArgs<S, TaskFilter, TaskOrderBy> & {
       select: S;
     } & StrictSelect<S, TaskSelect>
   ): QueryBuilder<{
-    tasks: {
-      nodes: InferSelectResult<TaskWithRelations, S>[];
-    };
+    task: InferSelectResult<TaskWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Task',
@@ -84,17 +82,26 @@ export class TaskModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'TaskFilter',
+      'TaskOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Task',
-      fieldName: 'tasks',
+      fieldName: 'task',
       document,
       variables,
+      transform: (data: {
+        tasks?: {
+          nodes?: InferSelectResult<TaskWithRelations, S>[];
+        };
+      }) => ({
+        task: data.tasks?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends TaskSelect>(
@@ -189,7 +196,8 @@ export class TaskModel {
       'UpdateTaskInput',
       'id',
       'taskPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

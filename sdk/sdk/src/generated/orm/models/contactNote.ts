@@ -70,13 +70,11 @@ export class ContactNoteModel {
     });
   }
   findFirst<S extends ContactNoteSelect>(
-    args: FindFirstArgs<S, ContactNoteFilter> & {
+    args: FindFirstArgs<S, ContactNoteFilter, ContactNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactNoteSelect>
   ): QueryBuilder<{
-    contactNotes: {
-      nodes: InferSelectResult<ContactNoteWithRelations, S>[];
-    };
+    contactNote: InferSelectResult<ContactNoteWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ContactNote',
@@ -84,17 +82,26 @@ export class ContactNoteModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ContactNoteFilter',
+      'ContactNoteOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ContactNote',
-      fieldName: 'contactNotes',
+      fieldName: 'contactNote',
       document,
       variables,
+      transform: (data: {
+        contactNotes?: {
+          nodes?: InferSelectResult<ContactNoteWithRelations, S>[];
+        };
+      }) => ({
+        contactNote: data.contactNotes?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends ContactNoteSelect>(

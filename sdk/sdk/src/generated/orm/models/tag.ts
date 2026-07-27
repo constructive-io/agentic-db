@@ -70,13 +70,11 @@ export class TagModel {
     });
   }
   findFirst<S extends TagSelect>(
-    args: FindFirstArgs<S, TagFilter> & {
+    args: FindFirstArgs<S, TagFilter, TagOrderBy> & {
       select: S;
     } & StrictSelect<S, TagSelect>
   ): QueryBuilder<{
-    tags: {
-      nodes: InferSelectResult<TagWithRelations, S>[];
-    };
+    tag: InferSelectResult<TagWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Tag',
@@ -84,17 +82,26 @@ export class TagModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'TagFilter',
+      'TagOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Tag',
-      fieldName: 'tags',
+      fieldName: 'tag',
       document,
       variables,
+      transform: (data: {
+        tags?: {
+          nodes?: InferSelectResult<TagWithRelations, S>[];
+        };
+      }) => ({
+        tag: data.tags?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends TagSelect>(
@@ -189,7 +196,8 @@ export class TagModel {
       'UpdateTagInput',
       'id',
       'tagPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

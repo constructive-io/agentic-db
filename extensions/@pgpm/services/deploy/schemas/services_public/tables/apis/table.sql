@@ -14,6 +14,9 @@ CREATE TABLE services_public.apis (
     anon_role text NOT NULL DEFAULT 'anonymous',
     is_public boolean NOT NULL DEFAULT true,
 
+    labels jsonb NOT NULL DEFAULT '{}',
+    annotations jsonb NOT NULL DEFAULT '{}',
+
     --
 
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
@@ -28,6 +31,8 @@ COMMENT ON COLUMN services_public.apis.dbname IS 'PostgreSQL database name to co
 COMMENT ON COLUMN services_public.apis.role_name IS 'PostgreSQL role used for authenticated requests';
 COMMENT ON COLUMN services_public.apis.anon_role IS 'PostgreSQL role used for anonymous/unauthenticated requests';
 COMMENT ON COLUMN services_public.apis.is_public IS 'Whether this API is publicly accessible without authentication';
+COMMENT ON COLUMN services_public.apis.labels IS 'Key/value pairs for selecting and filtering APIs';
+COMMENT ON COLUMN services_public.apis.annotations IS 'Freeform metadata for tooling and operational notes';
 
 CREATE INDEX apis_database_id_idx ON services_public.apis ( database_id );
 

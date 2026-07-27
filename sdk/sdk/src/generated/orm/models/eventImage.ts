@@ -70,13 +70,11 @@ export class EventImageModel {
     });
   }
   findFirst<S extends EventImageSelect>(
-    args: FindFirstArgs<S, EventImageFilter> & {
+    args: FindFirstArgs<S, EventImageFilter, EventImageOrderBy> & {
       select: S;
     } & StrictSelect<S, EventImageSelect>
   ): QueryBuilder<{
-    eventImages: {
-      nodes: InferSelectResult<EventImageWithRelations, S>[];
-    };
+    eventImage: InferSelectResult<EventImageWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'EventImage',
@@ -84,17 +82,26 @@ export class EventImageModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'EventImageFilter',
+      'EventImageOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'EventImage',
-      fieldName: 'eventImages',
+      fieldName: 'eventImage',
       document,
       variables,
+      transform: (data: {
+        eventImages?: {
+          nodes?: InferSelectResult<EventImageWithRelations, S>[];
+        };
+      }) => ({
+        eventImage: data.eventImages?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends EventImageSelect>(

@@ -12,7 +12,7 @@ High-dimensional vector columns for semantic similarity search. Query via the Un
 ```typescript
 db.document.findMany({ select: { id: true } }).execute()
 db.document.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.document.create({ data: { title: '<String>', content: '<String>', metadata: '<JSON>', repoName: '<String>', filePath: '<String>', commitHash: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', repoNameTrgmSimilarity: '<Float>', filePathTrgmSimilarity: '<Float>', commitHashTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.document.create({ data: { title: '<String>', content: '<String>', metadata: '<JSON>', repoName: '<String>', filePath: '<String>', commitHash: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingUpdatedAt: '<Datetime>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', repoNameTrgmSimilarity: '<Float>', filePathTrgmSimilarity: '<Float>', commitHashTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
 db.document.update({ where: { id: '<UUID>' }, data: { title: '<String>' }, select: { id: true } }).execute()
 db.document.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -31,7 +31,7 @@ const items = await db.document.findMany({
 
 ```typescript
 const item = await db.document.create({
-  data: { title: '<String>', content: '<String>', metadata: '<JSON>', repoName: '<String>', filePath: '<String>', commitHash: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', repoNameTrgmSimilarity: '<Float>', filePathTrgmSimilarity: '<Float>', commitHashTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
+  data: { title: '<String>', content: '<String>', metadata: '<JSON>', repoName: '<String>', filePath: '<String>', commitHash: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingUpdatedAt: '<Datetime>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', repoNameTrgmSimilarity: '<Float>', filePathTrgmSimilarity: '<Float>', commitHashTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

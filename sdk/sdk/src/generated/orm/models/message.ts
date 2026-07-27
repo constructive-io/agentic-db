@@ -70,13 +70,11 @@ export class MessageModel {
     });
   }
   findFirst<S extends MessageSelect>(
-    args: FindFirstArgs<S, MessageFilter> & {
+    args: FindFirstArgs<S, MessageFilter, MessageOrderBy> & {
       select: S;
     } & StrictSelect<S, MessageSelect>
   ): QueryBuilder<{
-    messages: {
-      nodes: InferSelectResult<MessageWithRelations, S>[];
-    };
+    message: InferSelectResult<MessageWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Message',
@@ -84,17 +82,26 @@ export class MessageModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'MessageFilter',
+      'MessageOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Message',
-      fieldName: 'messages',
+      fieldName: 'message',
       document,
       variables,
+      transform: (data: {
+        messages?: {
+          nodes?: InferSelectResult<MessageWithRelations, S>[];
+        };
+      }) => ({
+        message: data.messages?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends MessageSelect>(
@@ -189,7 +196,8 @@ export class MessageModel {
       'UpdateMessageInput',
       'id',
       'messagePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

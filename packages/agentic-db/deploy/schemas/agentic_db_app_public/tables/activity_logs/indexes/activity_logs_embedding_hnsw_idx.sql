@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/table
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE INDEX activity_logs_embedding_hnsw_idx ON agentic_db_app_public.activity_logs USING hnsw ( embedding vector_cosine_ops );

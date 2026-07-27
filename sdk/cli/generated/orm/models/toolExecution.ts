@@ -70,13 +70,11 @@ export class ToolExecutionModel {
     });
   }
   findFirst<S extends ToolExecutionSelect>(
-    args: FindFirstArgs<S, ToolExecutionFilter> & {
+    args: FindFirstArgs<S, ToolExecutionFilter, ToolExecutionOrderBy> & {
       select: S;
     } & StrictSelect<S, ToolExecutionSelect>
   ): QueryBuilder<{
-    toolExecutions: {
-      nodes: InferSelectResult<ToolExecutionWithRelations, S>[];
-    };
+    toolExecution: InferSelectResult<ToolExecutionWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ToolExecution',
@@ -84,17 +82,26 @@ export class ToolExecutionModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ToolExecutionFilter',
+      'ToolExecutionOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ToolExecution',
-      fieldName: 'toolExecutions',
+      fieldName: 'toolExecution',
       document,
       variables,
+      transform: (data: {
+        toolExecutions?: {
+          nodes?: InferSelectResult<ToolExecutionWithRelations, S>[];
+        };
+      }) => ({
+        toolExecution: data.toolExecutions?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ToolExecutionSelect>(
@@ -189,7 +196,8 @@ export class ToolExecutionModel {
       'UpdateToolExecutionInput',
       'id',
       'toolExecutionPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

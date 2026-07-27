@@ -70,13 +70,11 @@ export class CompanyLinkModel {
     });
   }
   findFirst<S extends CompanyLinkSelect>(
-    args: FindFirstArgs<S, CompanyLinkFilter> & {
+    args: FindFirstArgs<S, CompanyLinkFilter, CompanyLinkOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanyLinkSelect>
   ): QueryBuilder<{
-    companyLinks: {
-      nodes: InferSelectResult<CompanyLinkWithRelations, S>[];
-    };
+    companyLink: InferSelectResult<CompanyLinkWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'CompanyLink',
@@ -84,17 +82,26 @@ export class CompanyLinkModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'CompanyLinkFilter',
+      'CompanyLinkOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'CompanyLink',
-      fieldName: 'companyLinks',
+      fieldName: 'companyLink',
       document,
       variables,
+      transform: (data: {
+        companyLinks?: {
+          nodes?: InferSelectResult<CompanyLinkWithRelations, S>[];
+        };
+      }) => ({
+        companyLink: data.companyLinks?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends CompanyLinkSelect>(
@@ -189,7 +196,8 @@ export class CompanyLinkModel {
       'UpdateCompanyLinkInput',
       'id',
       'companyLinkPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

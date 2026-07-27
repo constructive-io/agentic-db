@@ -70,13 +70,11 @@ export class ContactEmailModel {
     });
   }
   findFirst<S extends ContactEmailSelect>(
-    args: FindFirstArgs<S, ContactEmailFilter> & {
+    args: FindFirstArgs<S, ContactEmailFilter, ContactEmailOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactEmailSelect>
   ): QueryBuilder<{
-    contactEmails: {
-      nodes: InferSelectResult<ContactEmailWithRelations, S>[];
-    };
+    contactEmail: InferSelectResult<ContactEmailWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ContactEmail',
@@ -84,17 +82,26 @@ export class ContactEmailModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ContactEmailFilter',
+      'ContactEmailOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ContactEmail',
-      fieldName: 'contactEmails',
+      fieldName: 'contactEmail',
       document,
       variables,
+      transform: (data: {
+        contactEmails?: {
+          nodes?: InferSelectResult<ContactEmailWithRelations, S>[];
+        };
+      }) => ({
+        contactEmail: data.contactEmails?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ContactEmailSelect>(
@@ -189,7 +196,8 @@ export class ContactEmailModel {
       'UpdateContactEmailInput',
       'id',
       'contactEmailPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

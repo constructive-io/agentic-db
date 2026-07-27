@@ -70,13 +70,11 @@ export class TouchpointModel {
     });
   }
   findFirst<S extends TouchpointSelect>(
-    args: FindFirstArgs<S, TouchpointFilter> & {
+    args: FindFirstArgs<S, TouchpointFilter, TouchpointOrderBy> & {
       select: S;
     } & StrictSelect<S, TouchpointSelect>
   ): QueryBuilder<{
-    touchpoints: {
-      nodes: InferSelectResult<TouchpointWithRelations, S>[];
-    };
+    touchpoint: InferSelectResult<TouchpointWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Touchpoint',
@@ -84,17 +82,26 @@ export class TouchpointModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'TouchpointFilter',
+      'TouchpointOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Touchpoint',
-      fieldName: 'touchpoints',
+      fieldName: 'touchpoint',
       document,
       variables,
+      transform: (data: {
+        touchpoints?: {
+          nodes?: InferSelectResult<TouchpointWithRelations, S>[];
+        };
+      }) => ({
+        touchpoint: data.touchpoints?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends TouchpointSelect>(
@@ -189,7 +196,8 @@ export class TouchpointModel {
       'UpdateTouchpointInput',
       'id',
       'touchpointPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

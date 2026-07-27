@@ -19,8 +19,8 @@ agentic-db conversation list --limit 10 --after <cursor>
 agentic-db conversation find-first --where.<field>.<op> <value>
 agentic-db conversation search <query>
 agentic-db conversation get --id <UUID>
-agentic-db conversation create --title <String> [--agentId <UUID>] [--status <String>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db conversation update --id <UUID> [--title <String>] [--agentId <UUID>] [--status <String>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db conversation create --title <String> [--agentId <UUID>] [--status <String>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db conversation update --id <UUID> [--title <String>] [--agentId <UUID>] [--status <String>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db conversation delete --id <UUID>
 ```
 
@@ -125,7 +125,7 @@ agentic-db conversation search "query" --limit 10 --select id,title,searchScore
 ### Create a conversation
 
 ```bash
-agentic-db conversation create --title <String> [--agentId <UUID>] [--status <String>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db conversation create --title <String> [--agentId <UUID>] [--status <String>] [--meta <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a conversation by id

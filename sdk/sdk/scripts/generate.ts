@@ -34,7 +34,6 @@ async function main() {
     schemaFile,
     output: outputDir,
     orm: true,
-    nodeHttpAdapter: true,
     docs: {
       readme: true,
       agents: true,

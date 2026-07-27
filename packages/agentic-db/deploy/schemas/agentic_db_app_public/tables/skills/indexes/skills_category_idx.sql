@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
 -- requires: schemas/agentic_db_app_public/tables/skills/columns/category/column
--- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
 CREATE INDEX skills_category_idx ON agentic_db_app_public.skills USING BTREE ( category );

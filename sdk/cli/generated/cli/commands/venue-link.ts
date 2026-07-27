@@ -22,14 +22,14 @@ const fieldSchema: FieldSchema = {
   createdAt: 'string',
   updatedAt: 'string',
   embedding: 'string',
-  embeddingStale: 'boolean',
+  embeddingUpdatedAt: 'string',
   venueId: 'uuid',
   embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
 import { resolveEmbedder, autoEmbedWhere, autoEmbedInput } from '../embedder';
 const usage =
-  '\nvenue-link <command>\n\nCommands:\n  list                  List venueLink records\n  find-first            Find first matching venueLink record\n  search <query>        Search venueLink records\n  get                   Get a venueLink by ID\n  create                Create a new venueLink\n  update                Update an existing venueLink\n\nCreate/Update Options:\n  --auto-embed          Convert text values in vector fields to embeddings before saving\n  delete                Delete a venueLink\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\nSearch Options:\n  <query>               Search query string (required)\n  --limit <n>           Max number of records to return\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --orderBy <values>    Comma-separated list of ordering values\n  --auto-embed          Convert text queries to vectors via configured embedder\n\nEmbedding Options (for --auto-embed):\n  Set EMBEDDER_PROVIDER=ollama to enable text-to-vector embedding.\n  Optional: EMBEDDER_MODEL (default: nomic-embed-text)\n  Optional: EMBEDDER_BASE_URL (default: http://localhost:11434)\n\n  --help, -h            Show this help message\n';
+  '\nvenue-link <command>\n\nCommands:\n  list                  List venueLink records\n  find-first            Find first matching venueLink record\n  search <query>        Search venueLink records\n  get                   Get a venueLink by ID\n  create                Create a new venueLink\n  update                Update an existing venueLink\n\nCreate/Update Options:\n  --auto-embed          Convert text values in vector fields to embeddings before saving\n  delete                Delete a venueLink\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nSearch Options:\n  <query>               Search query string (required)\n  --limit <n>           Max number of records to return\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --orderBy <values>    Comma-separated list of ordering values\n  --auto-embed          Convert text queries to vectors via configured embedder\n\nEmbedding Options (for --auto-embed):\n  Set EMBEDDER_PROVIDER=ollama to enable text-to-vector embedding.\n  Optional: EMBEDDER_MODEL (default: nomic-embed-text)\n  Optional: EMBEDDER_BASE_URL (default: http://localhost:11434)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -87,7 +87,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       createdAt: true,
       updatedAt: true,
       embedding: true,
-      embeddingStale: true,
+      embeddingUpdatedAt: true,
       venueId: true,
     };
     const findManyArgs = parseFindManyArgs<
@@ -125,11 +125,11 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       createdAt: true,
       updatedAt: true,
       embedding: true,
-      embeddingStale: true,
+      embeddingUpdatedAt: true,
       venueId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<VenueLinkSelect, VenueLinkFilter> & {
+      FindFirstArgs<VenueLinkSelect, VenueLinkFilter, VenueLinkOrderBy> & {
         select: VenueLinkSelect;
       }
     >(argv, defaultSelect);
@@ -173,7 +173,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       createdAt: true,
       updatedAt: true,
       embedding: true,
-      embeddingStale: true,
+      embeddingUpdatedAt: true,
       venueId: true,
     };
     const findManyArgs = parseFindManyArgs<
@@ -213,7 +213,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           createdAt: true,
           updatedAt: true,
           embedding: true,
-          embeddingStale: true,
+          embeddingUpdatedAt: true,
           venueId: true,
         },
       })
@@ -251,9 +251,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
-        type: 'boolean',
-        name: 'embeddingStale',
-        message: 'embeddingStale',
+        type: 'text',
+        name: 'embeddingUpdatedAt',
+        message: 'embeddingUpdatedAt',
         required: false,
         skipPrompt: true,
       },
@@ -283,7 +283,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           title: cleanedData.title,
           url: cleanedData.url,
           embedding: cleanedData.embedding,
-          embeddingStale: cleanedData.embeddingStale,
+          embeddingUpdatedAt: cleanedData.embeddingUpdatedAt,
           venueId: cleanedData.venueId,
         },
         select: {
@@ -293,7 +293,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           embedding: true,
-          embeddingStale: true,
+          embeddingUpdatedAt: true,
           venueId: true,
         },
       })
@@ -337,9 +337,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
-        type: 'boolean',
-        name: 'embeddingStale',
-        message: 'embeddingStale',
+        type: 'text',
+        name: 'embeddingUpdatedAt',
+        message: 'embeddingUpdatedAt',
         required: false,
         skipPrompt: true,
       },
@@ -372,7 +372,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           title: cleanedData.title,
           url: cleanedData.url,
           embedding: cleanedData.embedding,
-          embeddingStale: cleanedData.embeddingStale,
+          embeddingUpdatedAt: cleanedData.embeddingUpdatedAt,
           venueId: cleanedData.venueId,
         },
         select: {
@@ -382,7 +382,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           embedding: true,
-          embeddingStale: true,
+          embeddingUpdatedAt: true,
           venueId: true,
         },
       })

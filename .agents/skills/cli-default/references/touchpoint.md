@@ -19,8 +19,8 @@ agentic-db touchpoint list --limit 10 --after <cursor>
 agentic-db touchpoint find-first --where.<field>.<op> <value>
 agentic-db touchpoint search <query>
 agentic-db touchpoint get --id <UUID>
-agentic-db touchpoint create --contactId <UUID> --touchpointType <String> --occurredAt <Datetime> [--subject <String>] [--summary <String>] [--sentiment <String>] [--direction <String>] [--channel <String>] [--dealId <UUID>] [--companyId <UUID>] [--eventId <UUID>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db touchpoint update --id <UUID> [--contactId <UUID>] [--touchpointType <String>] [--occurredAt <Datetime>] [--subject <String>] [--summary <String>] [--sentiment <String>] [--direction <String>] [--channel <String>] [--dealId <UUID>] [--companyId <UUID>] [--eventId <UUID>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db touchpoint create --contactId <UUID> --touchpointType <String> --occurredAt <Datetime> [--subject <String>] [--summary <String>] [--sentiment <String>] [--direction <String>] [--channel <String>] [--dealId <UUID>] [--companyId <UUID>] [--eventId <UUID>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db touchpoint update --id <UUID> [--contactId <UUID>] [--touchpointType <String>] [--occurredAt <Datetime>] [--subject <String>] [--summary <String>] [--sentiment <String>] [--direction <String>] [--channel <String>] [--dealId <UUID>] [--companyId <UUID>] [--eventId <UUID>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db touchpoint delete --id <UUID>
 ```
 
@@ -149,7 +149,7 @@ agentic-db touchpoint search "query" --limit 10 --select id,title,searchScore
 ### Create a touchpoint
 
 ```bash
-agentic-db touchpoint create --contactId <UUID> --touchpointType <String> --occurredAt <Datetime> [--subject <String>] [--summary <String>] [--sentiment <String>] [--direction <String>] [--channel <String>] [--dealId <UUID>] [--companyId <UUID>] [--eventId <UUID>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db touchpoint create --contactId <UUID> --touchpointType <String> --occurredAt <Datetime> [--subject <String>] [--summary <String>] [--sentiment <String>] [--direction <String>] [--channel <String>] [--dealId <UUID>] [--companyId <UUID>] [--eventId <UUID>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a touchpoint by id

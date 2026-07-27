@@ -70,13 +70,11 @@ export class RuntimeArtifactModel {
     });
   }
   findFirst<S extends RuntimeArtifactSelect>(
-    args: FindFirstArgs<S, RuntimeArtifactFilter> & {
+    args: FindFirstArgs<S, RuntimeArtifactFilter, RuntimeArtifactOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeArtifactSelect>
   ): QueryBuilder<{
-    runtimeArtifacts: {
-      nodes: InferSelectResult<RuntimeArtifactWithRelations, S>[];
-    };
+    runtimeArtifact: InferSelectResult<RuntimeArtifactWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RuntimeArtifact',
@@ -84,17 +82,26 @@ export class RuntimeArtifactModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuntimeArtifactFilter',
+      'RuntimeArtifactOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RuntimeArtifact',
-      fieldName: 'runtimeArtifacts',
+      fieldName: 'runtimeArtifact',
       document,
       variables,
+      transform: (data: {
+        runtimeArtifacts?: {
+          nodes?: InferSelectResult<RuntimeArtifactWithRelations, S>[];
+        };
+      }) => ({
+        runtimeArtifact: data.runtimeArtifacts?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RuntimeArtifactSelect>(
@@ -189,7 +196,8 @@ export class RuntimeArtifactModel {
       'UpdateRuntimeArtifactInput',
       'id',
       'runtimeArtifactPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

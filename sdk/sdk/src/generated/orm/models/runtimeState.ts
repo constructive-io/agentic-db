@@ -70,13 +70,11 @@ export class RuntimeStateModel {
     });
   }
   findFirst<S extends RuntimeStateSelect>(
-    args: FindFirstArgs<S, RuntimeStateFilter> & {
+    args: FindFirstArgs<S, RuntimeStateFilter, RuntimeStateOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeStateSelect>
   ): QueryBuilder<{
-    runtimeStates: {
-      nodes: InferSelectResult<RuntimeStateWithRelations, S>[];
-    };
+    runtimeState: InferSelectResult<RuntimeStateWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RuntimeState',
@@ -84,17 +82,26 @@ export class RuntimeStateModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuntimeStateFilter',
+      'RuntimeStateOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RuntimeState',
-      fieldName: 'runtimeStates',
+      fieldName: 'runtimeState',
       document,
       variables,
+      transform: (data: {
+        runtimeStates?: {
+          nodes?: InferSelectResult<RuntimeStateWithRelations, S>[];
+        };
+      }) => ({
+        runtimeState: data.runtimeStates?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RuntimeStateSelect>(
@@ -189,7 +196,8 @@ export class RuntimeStateModel {
       'UpdateRuntimeStateInput',
       'id',
       'runtimeStatePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

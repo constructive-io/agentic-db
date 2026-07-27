@@ -4,13 +4,15 @@
 
 migrate/database 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
 migrate/schema [migrate/database] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/table [migrate/schema] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/trigger_function [migrate/schema] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/default_privilege [migrate/trigger_function] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/schema_grant [migrate/default_privilege] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/table [migrate/schema_grant] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
 migrate/field [migrate/table] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/index [migrate/field] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/trigger [migrate/index] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/trigger_function [migrate/trigger] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/foreign_key_constraint [migrate/trigger_function] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/primary_key_constraint [migrate/foreign_key_constraint] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/full_text_search [migrate/primary_key_constraint] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/schema_grant [migrate/full_text_search] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
-migrate/default_privilege [migrate/schema_grant] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/foreign_key_constraint [migrate/field] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/full_text_search [migrate/foreign_key_constraint] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/index [migrate/full_text_search] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/primary_key_constraint [migrate/index] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/trigger [migrate/primary_key_constraint] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/embedding_chunks [migrate/trigger] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
+migrate/spatial_relation [migrate/embedding_chunks] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined

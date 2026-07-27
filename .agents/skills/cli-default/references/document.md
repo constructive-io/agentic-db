@@ -19,8 +19,8 @@ agentic-db document list --limit 10 --after <cursor>
 agentic-db document find-first --where.<field>.<op> <value>
 agentic-db document search <query>
 agentic-db document get --id <UUID>
-agentic-db document create --content <String> [--title <String>] [--metadata <JSON>] [--repoName <String>] [--filePath <String>] [--commitHash <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db document update --id <UUID> [--title <String>] [--content <String>] [--metadata <JSON>] [--repoName <String>] [--filePath <String>] [--commitHash <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db document create --content <String> [--title <String>] [--metadata <JSON>] [--repoName <String>] [--filePath <String>] [--commitHash <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db document update --id <UUID> [--title <String>] [--content <String>] [--metadata <JSON>] [--repoName <String>] [--filePath <String>] [--commitHash <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db document delete --id <UUID>
 ```
 
@@ -143,7 +143,7 @@ agentic-db document search "query" --limit 10 --select id,title,searchScore
 ### Create a document
 
 ```bash
-agentic-db document create --content <String> [--title <String>] [--metadata <JSON>] [--repoName <String>] [--filePath <String>] [--commitHash <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db document create --content <String> [--title <String>] [--metadata <JSON>] [--repoName <String>] [--filePath <String>] [--commitHash <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a document by id

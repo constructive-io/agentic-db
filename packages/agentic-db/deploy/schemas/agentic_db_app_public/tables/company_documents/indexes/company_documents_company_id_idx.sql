@@ -3,7 +3,6 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/company_documents/table
--- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 -- requires: schemas/agentic_db_app_public/tables/company_documents/columns/company_id/column
 
 

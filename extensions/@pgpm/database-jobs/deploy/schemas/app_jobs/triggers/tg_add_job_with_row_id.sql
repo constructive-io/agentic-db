@@ -9,12 +9,12 @@ CREATE FUNCTION app_jobs.tg_add_job_with_row_id ()
 BEGIN
   IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
     PERFORM
-      app_jobs.add_job (jwt_private.current_database_id(), tg_argv[0], json_build_object('id', NEW.id));
+      app_jobs.add_job (tg_argv[0], json_build_object('id', NEW.id));
     RETURN NEW;
   END IF;
   IF (TG_OP = 'DELETE') THEN
     PERFORM
-      app_jobs.add_job (jwt_private.current_database_id(), tg_argv[0], json_build_object('id', OLD.id));
+      app_jobs.add_job (tg_argv[0], json_build_object('id', OLD.id));
     RETURN OLD;
   END IF;
 END;

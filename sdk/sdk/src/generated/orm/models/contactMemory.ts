@@ -70,13 +70,11 @@ export class ContactMemoryModel {
     });
   }
   findFirst<S extends ContactMemorySelect>(
-    args: FindFirstArgs<S, ContactMemoryFilter> & {
+    args: FindFirstArgs<S, ContactMemoryFilter, ContactMemoryOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactMemorySelect>
   ): QueryBuilder<{
-    contactMemories: {
-      nodes: InferSelectResult<ContactMemoryWithRelations, S>[];
-    };
+    contactMemory: InferSelectResult<ContactMemoryWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ContactMemory',
@@ -84,17 +82,26 @@ export class ContactMemoryModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ContactMemoryFilter',
+      'ContactMemoryOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ContactMemory',
-      fieldName: 'contactMemories',
+      fieldName: 'contactMemory',
       document,
       variables,
+      transform: (data: {
+        contactMemories?: {
+          nodes?: InferSelectResult<ContactMemoryWithRelations, S>[];
+        };
+      }) => ({
+        contactMemory: data.contactMemories?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends ContactMemorySelect>(

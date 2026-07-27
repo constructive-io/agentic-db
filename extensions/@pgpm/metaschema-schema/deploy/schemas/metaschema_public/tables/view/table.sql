@@ -31,15 +31,18 @@ CREATE TABLE metaschema_public.view (
 
   -- View options
   security_invoker boolean DEFAULT true,
+  security_barrier boolean DEFAULT false,
+  -- WITH [LOCAL|CASCADED] CHECK OPTION: null | 'local' | 'cascaded'
+  check_option text,
   is_read_only boolean DEFAULT true,
 
   smart_tags jsonb,
 
   category metaschema_public.object_category NOT NULL DEFAULT 'app',
-  module text NULL,
-  scope int NULL,
 
   tags citext[] NOT NULL DEFAULT '{}',
+
+  CONSTRAINT view_check_option_valid CHECK (check_option IS NULL OR check_option IN ('local', 'cascaded')),
 
   CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
   CONSTRAINT schema_fkey FOREIGN KEY (schema_id) REFERENCES metaschema_public.schema (id) ON DELETE CASCADE,

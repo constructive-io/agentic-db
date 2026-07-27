@@ -12,7 +12,7 @@ High-dimensional vector columns for semantic similarity search. Query via the Un
 ```typescript
 db.documentsChunk.findMany({ select: { id: true } }).execute()
 db.documentsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.documentsChunk.create({ data: { documentsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.documentsChunk.create({ data: { documentsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', contentBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
 db.documentsChunk.update({ where: { id: '<UUID>' }, data: { documentsId: '<UUID>' }, select: { id: true } }).execute()
 db.documentsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -31,7 +31,7 @@ const items = await db.documentsChunk.findMany({
 
 ```typescript
 const item = await db.documentsChunk.create({
-  data: { documentsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { documentsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', contentBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

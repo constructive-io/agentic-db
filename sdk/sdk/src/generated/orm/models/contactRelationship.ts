@@ -70,13 +70,11 @@ export class ContactRelationshipModel {
     });
   }
   findFirst<S extends ContactRelationshipSelect>(
-    args: FindFirstArgs<S, ContactRelationshipFilter> & {
+    args: FindFirstArgs<S, ContactRelationshipFilter, ContactRelationshipOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactRelationshipSelect>
   ): QueryBuilder<{
-    contactRelationships: {
-      nodes: InferSelectResult<ContactRelationshipWithRelations, S>[];
-    };
+    contactRelationship: InferSelectResult<ContactRelationshipWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ContactRelationship',
@@ -84,17 +82,26 @@ export class ContactRelationshipModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ContactRelationshipFilter',
+      'ContactRelationshipOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ContactRelationship',
-      fieldName: 'contactRelationships',
+      fieldName: 'contactRelationship',
       document,
       variables,
+      transform: (data: {
+        contactRelationships?: {
+          nodes?: InferSelectResult<ContactRelationshipWithRelations, S>[];
+        };
+      }) => ({
+        contactRelationship: data.contactRelationships?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends ContactRelationshipSelect>(

@@ -111,6 +111,39 @@ CREATE FUNCTION jwt_public.current_origin() RETURNS origin AS $EOFCODE$
   SELECT nullif(current_setting('jwt.claims.origin', true), '')::origin;
 $EOFCODE$ LANGUAGE sql STABLE;
 
+CREATE FUNCTION jwt_public.current_principal_id() RETURNS uuid AS $EOFCODE$
+DECLARE
+  v_identifier_id uuid;
+BEGIN
+  IF current_setting('jwt.claims.principal_id', TRUE)
+    IS NOT NULL THEN
+    BEGIN
+      v_identifier_id = current_setting('jwt.claims.principal_id', TRUE)::uuid;
+    EXCEPTION
+      WHEN OTHERS THEN
+      RAISE NOTICE 'Invalid UUID value';
+    RETURN NULL;
+    END;
+    RETURN v_identifier_id;
+  ELSE
+    RETURN NULL;
+  END IF;
+END;
+$EOFCODE$ LANGUAGE plpgsql STABLE;
+
+CREATE FUNCTION jwt_public.current_role_type() RETURNS text AS $EOFCODE$
+DECLARE
+  v_role_type text;
+BEGIN
+  v_role_type := current_setting('jwt.claims.role_type', TRUE);
+  IF v_role_type IS NOT NULL AND v_role_type <> '' THEN
+    RETURN v_role_type;
+  ELSE
+    RETURN 'user';
+  END IF;
+END;
+$EOFCODE$ LANGUAGE plpgsql STABLE;
+
 CREATE SCHEMA jwt_private;
 
 GRANT USAGE ON SCHEMA jwt_private TO authenticated, anonymous;
@@ -145,3 +178,43 @@ $EOFCODE$ LANGUAGE sql STABLE;
 CREATE FUNCTION jwt_private.current_session_id() RETURNS uuid AS $EOFCODE$
   SELECT nullif(current_setting('jwt.claims.session_id', true), '')::uuid;
 $EOFCODE$ LANGUAGE sql STABLE;
+
+CREATE FUNCTION jwt_private.current_api_id() RETURNS uuid AS $EOFCODE$
+DECLARE
+  v_identifier_id uuid;
+BEGIN
+  IF current_setting('jwt.claims.api_id', TRUE)
+    IS NOT NULL THEN
+    BEGIN
+      v_identifier_id = current_setting('jwt.claims.api_id', TRUE)::uuid;
+    EXCEPTION
+      WHEN OTHERS THEN
+      RAISE NOTICE 'Invalid UUID value';
+      RETURN NULL;
+    END;
+    RETURN v_identifier_id;
+  ELSE
+    RETURN NULL;
+  END IF;
+END;
+$EOFCODE$ LANGUAGE plpgsql STABLE;
+
+CREATE FUNCTION jwt_private.current_graph_execution_id() RETURNS uuid AS $EOFCODE$
+DECLARE
+  v_identifier_id uuid;
+BEGIN
+  IF current_setting('jwt.claims.graph_execution_id', TRUE)
+    IS NOT NULL THEN
+    BEGIN
+      v_identifier_id = current_setting('jwt.claims.graph_execution_id', TRUE)::uuid;
+    EXCEPTION
+      WHEN OTHERS THEN
+      RAISE NOTICE 'Invalid UUID value';
+      RETURN NULL;
+    END;
+    RETURN v_identifier_id;
+  ELSE
+    RETURN NULL;
+  END IF;
+END;
+$EOFCODE$ LANGUAGE plpgsql STABLE;

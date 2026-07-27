@@ -1,15 +1,14 @@
 -- Deploy: schemas/agentic_db_app_public/tables/projects/triggers/projects_embedding_stale_insert_tg
 -- made with <3 @ constructive.io
 
--- requires: schemas/agentic_db_private/schema
 -- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_private/schema
 -- requires: schemas/agentic_db_app_public/tables/projects/table
--- requires: schemas/agentic_db_private/trigger_fns/projects_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
+-- requires: schemas/agentic_db_app_private/trigger_fns/projects_embedding_stale
 
 
 CREATE TRIGGER projects_embedding_stale_insert_tg
 BEFORE INSERT ON agentic_db_app_public.projects
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".projects_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_app_private.projects_embedding_stale ( );
 

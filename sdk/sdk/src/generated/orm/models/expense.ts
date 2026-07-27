@@ -70,13 +70,11 @@ export class ExpenseModel {
     });
   }
   findFirst<S extends ExpenseSelect>(
-    args: FindFirstArgs<S, ExpenseFilter> & {
+    args: FindFirstArgs<S, ExpenseFilter, ExpenseOrderBy> & {
       select: S;
     } & StrictSelect<S, ExpenseSelect>
   ): QueryBuilder<{
-    expenses: {
-      nodes: InferSelectResult<ExpenseWithRelations, S>[];
-    };
+    expense: InferSelectResult<ExpenseWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Expense',
@@ -84,17 +82,26 @@ export class ExpenseModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ExpenseFilter',
+      'ExpenseOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Expense',
-      fieldName: 'expenses',
+      fieldName: 'expense',
       document,
       variables,
+      transform: (data: {
+        expenses?: {
+          nodes?: InferSelectResult<ExpenseWithRelations, S>[];
+        };
+      }) => ({
+        expense: data.expenses?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ExpenseSelect>(
@@ -189,7 +196,8 @@ export class ExpenseModel {
       'UpdateExpenseInput',
       'id',
       'expensePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

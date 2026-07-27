@@ -70,13 +70,11 @@ export class RuntimeLogModel {
     });
   }
   findFirst<S extends RuntimeLogSelect>(
-    args: FindFirstArgs<S, RuntimeLogFilter> & {
+    args: FindFirstArgs<S, RuntimeLogFilter, RuntimeLogOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeLogSelect>
   ): QueryBuilder<{
-    runtimeLogs: {
-      nodes: InferSelectResult<RuntimeLogWithRelations, S>[];
-    };
+    runtimeLog: InferSelectResult<RuntimeLogWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RuntimeLog',
@@ -84,17 +82,26 @@ export class RuntimeLogModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuntimeLogFilter',
+      'RuntimeLogOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RuntimeLog',
-      fieldName: 'runtimeLogs',
+      fieldName: 'runtimeLog',
       document,
       variables,
+      transform: (data: {
+        runtimeLogs?: {
+          nodes?: InferSelectResult<RuntimeLogWithRelations, S>[];
+        };
+      }) => ({
+        runtimeLog: data.runtimeLogs?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RuntimeLogSelect>(
@@ -189,7 +196,8 @@ export class RuntimeLogModel {
       'UpdateRuntimeLogInput',
       'id',
       'runtimeLogPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

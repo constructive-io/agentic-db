@@ -19,8 +19,8 @@ agentic-db runtime-state list --limit 10 --after <cursor>
 agentic-db runtime-state find-first --where.<field>.<op> <value>
 agentic-db runtime-state search <query>
 agentic-db runtime-state get --id <UUID>
-agentic-db runtime-state create --name <String> [--stateType <String>] [--status <String>] [--data <JSON>] [--parentId <UUID>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db runtime-state update --id <UUID> [--name <String>] [--stateType <String>] [--status <String>] [--data <JSON>] [--parentId <UUID>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db runtime-state create --name <String> [--stateType <String>] [--status <String>] [--data <JSON>] [--parentId <UUID>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db runtime-state update --id <UUID> [--name <String>] [--stateType <String>] [--status <String>] [--data <JSON>] [--parentId <UUID>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db runtime-state delete --id <UUID>
 ```
 
@@ -131,7 +131,7 @@ agentic-db runtime-state search "query" --limit 10 --select id,title,searchScore
 ### Create a runtimeState
 
 ```bash
-agentic-db runtime-state create --name <String> [--stateType <String>] [--status <String>] [--data <JSON>] [--parentId <UUID>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db runtime-state create --name <String> [--stateType <String>] [--status <String>] [--data <JSON>] [--parentId <UUID>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a runtimeState by id

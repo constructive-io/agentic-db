@@ -32,7 +32,6 @@ async function main() {
       toolName: 'agentic-db',
       entryPoint: true,
     },
-    nodeHttpAdapter: true,
     docs: {
       readme: true,
       agents: true,

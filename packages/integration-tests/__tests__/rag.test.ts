@@ -66,6 +66,10 @@ describe('RAG integration (ORM + real Ollama)', () => {
         authRole: 'postgres',
         preset: {
           extends: [ConstructivePreset],
+          // agentic-db tables have a physical embedding_text column;
+          // LlmTextMutationPlugin's synthesized embeddingText companion
+          // field would collide with it.
+          disablePlugins: ['LlmTextMutationPlugin'],
         },
       },
       [
@@ -74,7 +78,8 @@ describe('RAG integration (ORM + real Ollama)', () => {
       ],
     );
 
-    db = connections.db;
+    // Root client: the exported single-user package strips grants/RLS.
+    db = connections.pg;
     teardown = connections.teardown;
     query = connections.query;
 
@@ -242,10 +247,10 @@ describe('RAG integration (ORM + real Ollama)', () => {
       const chunkText = 'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
       const vec = await embed(chunkText);
 
-      const createRes = await orm.contactChunk
+      const createRes = await orm.contactsChunk
         .create({
           data: {
-            contactId: carolId,
+            contactsId: carolId,
             content: chunkText,
             chunkIndex: 0,
             embedding: vec as any,
@@ -254,8 +259,8 @@ describe('RAG integration (ORM + real Ollama)', () => {
         })
         .execute();
 
-      expectOk(createRes, 'contactChunk.create');
-      const chunk = unwrapData(createRes.data).contactChunk;
+      expectOk(createRes, 'contactsChunk.create');
+      const chunk = unwrapData(createRes.data).contactsChunk;
       expect(chunk.content).toContain('Carol');
       expect(chunk.chunkIndex).toBe(0);
     });
@@ -374,7 +379,7 @@ describe('RAG integration (ORM + real Ollama)', () => {
     it('should search chunk tables via ORM vector search', async () => {
       const queryVec = await embed('PGConf indexing strategies HNSW IVFFlat');
 
-      const result = await orm.contactChunk
+      const result = await orm.contactsChunk
         .findMany({
           where: {
             vectorEmbedding: {
@@ -388,13 +393,13 @@ describe('RAG integration (ORM + real Ollama)', () => {
             id: true,
             content: true,
             chunkIndex: true,
-            contactId: true,
+            contactsId: true,
             embeddingVectorDistance: true,
           },
         })
         .execute();
 
-      expectOk(result, 'contactChunk.findMany(vector search)');
+      expectOk(result, 'contactsChunk.findMany(vector search)');
       const nodes = unwrapData(result.data).nodes;
 
       expect(nodes.length).toBeGreaterThanOrEqual(1);

@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/venue_links/columns/created_at/alterations/alt0000000234
-
-
-COMMENT ON COLUMN agentic_db_app_public.venue_links.created_at IS NULL;
-
-

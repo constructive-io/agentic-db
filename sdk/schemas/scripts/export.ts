@@ -319,12 +319,14 @@ async function main() {
   // When API_IS_PUBLIC=false, we use X-Schemata header instead of Host-based routing
   const DATABASE_ID = process.env.DATABASE_ID;
   const APP_SCHEMATA = process.env.APP_SCHEMATA; // e.g. "agentic-db-1774120949709-edffa638-app-public"
+  const API_NAME = process.env.API_NAME; // e.g. "app" — resolves per-database settings
 
-  // Try header-based routing first (X-Schemata), fall back to domain-based (Host)
-  const useHeaderRouting = !!(DATABASE_ID || APP_SCHEMATA);
+  // Try header-based routing first (X-Api-Name / X-Schemata), fall back to domain-based (Host)
+  const useHeaderRouting = !!(DATABASE_ID || APP_SCHEMATA || API_NAME);
 
   if (useHeaderRouting) {
     console.log(`\nExporting schema via header-based routing`);
+    if (API_NAME) console.log(`  api: ${API_NAME}`);
     if (APP_SCHEMATA) console.log(`  schemata: ${APP_SCHEMATA}`);
     if (DATABASE_ID) console.log(`  database_id: ${DATABASE_ID}`);
   } else {
@@ -339,6 +341,9 @@ async function main() {
   if (useHeaderRouting) {
     if (DATABASE_ID) {
       reqHeaders['X-Database-Id'] = DATABASE_ID;
+    }
+    if (API_NAME) {
+      reqHeaders['X-Api-Name'] = API_NAME;
     }
     if (APP_SCHEMATA) {
       reqHeaders['X-Schemata'] = APP_SCHEMATA;

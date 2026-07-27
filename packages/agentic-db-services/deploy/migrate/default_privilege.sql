@@ -1,7 +1,7 @@
 -- Deploy: migrate/default_privilege
 -- made with <3 @ constructive.io
 
--- requires: migrate/schema_grant
+-- requires: migrate/trigger_function
 
 
 SET session_replication_role TO replica;
@@ -29,24 +29,18 @@ INSERT INTO metaschema_public.default_privilege (
   grantee_name,
   is_grant
 ) VALUES
-  ('019ddc1e-6957-7647-aea3-b5d2c62beb06', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'tables', 'ALL', 'administrator', true),
-  ('019ddc1e-6965-7dd1-b5b0-2934d3ba85d4', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'sequences', 'ALL', 'administrator', true),
-  ('019ddc1e-696f-7d33-8eb7-6c42596893e5', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'functions', 'ALL', 'administrator', true),
-  ('019ddc1e-6979-7e32-b153-e8126b43d7f7', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'functions', 'ALL', 'authenticated', true),
-  ('019ddc1e-6983-7ff3-8116-9774197a1e5f', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'sequences', 'ALL', 'authenticated', true),
-  ('019ddc1e-698d-7ffb-b414-02f679a44779', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'functions', 'ALL', 'anonymous', true),
-  ('019ddc1e-69d5-7058-986b-81277b27d2cc', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'tables', 'ALL', 'administrator', true),
-  ('019ddc1e-69e1-7e60-82e2-5d00331e7bde', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'sequences', 'ALL', 'administrator', true),
-  ('019ddc1e-69ec-7b7b-9581-7407832ff399', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'functions', 'ALL', 'administrator', true),
-  ('019ddc1e-69f6-7b5b-8884-b6f52475be81', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'functions', 'ALL', 'authenticated', true),
-  ('019ddc1e-6a00-7da8-bff5-635b77ba7d5c', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'sequences', 'ALL', 'authenticated', true),
-  ('019ddc1e-6a0a-7bd7-8f46-f59bf9767b52', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'functions', 'ALL', 'anonymous', true),
-  ('2674ba59-8e89-5f38-bc03-596155b47c7b', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'sequences', 'ALL', 'administrator', true),
-  ('79a4a5be-304b-1dfa-3b01-766ba6e5ba3b', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'functions', 'ALL', 'authenticated', true),
-  ('7fa0dd95-4e67-b6a9-8b99-170e808ee6da', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'functions', 'ALL', 'administrator', true),
-  ('9d264c4f-c3b6-345f-a153-fa9cdd32e094', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'functions', 'ALL', 'anonymous', true),
-  ('bccb6763-2088-23e1-ed93-7c4a13f53880', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'tables', 'ALL', 'administrator', true),
-  ('d9cda3ab-d22c-e958-d931-dbf5de7e1591', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'sequences', 'ALL', 'authenticated', true);
+  ('22bcdd16-28ee-1e83-617f-b5f0f37a2e53', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'functions', 'ALL', 'anonymous', true),
+  ('22def6b8-99f7-4d20-b5f1-449d2357e11a', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'sequences', 'ALL', 'administrator', true),
+  ('2db25ef8-2308-df0a-d398-566c4dc6554b', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'sequences', 'ALL', 'authenticated', true),
+  ('369c5926-7706-696f-9e37-7904de7a0be8', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'functions', 'ALL', 'authenticated', true),
+  ('5c4d8e93-5053-7562-6dc3-36761d2bff69', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'tables', 'ALL', 'administrator', true),
+  ('7f586f42-12ac-9a47-fdb0-988d5008be77', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'functions', 'ALL', 'anonymous', true),
+  ('816e118d-e58a-cf8e-0d85-d934017ea947', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'tables', 'ALL', 'administrator', true),
+  ('8dc071dc-145e-25c3-438c-0311a808a2cc', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'functions', 'ALL', 'administrator', true),
+  ('a0d65d65-6679-2d74-9e40-ce2b04717e71', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'sequences', 'ALL', 'administrator', true),
+  ('b4bbe4f0-77af-e87f-f8ea-b4ada572625c', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'sequences', 'ALL', 'authenticated', true),
+  ('b4d83a64-0a89-dabb-3d4c-50bf8f820e23', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'functions', 'ALL', 'administrator', true),
+  ('c30ee511-d095-b7fd-6efa-01ab428b8299', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'functions', 'ALL', 'authenticated', true);
 
 
 SET session_replication_role TO DEFAULT;

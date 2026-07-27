@@ -19,8 +19,8 @@ agentic-db email list --limit 10 --after <cursor>
 agentic-db email find-first --where.<field>.<op> <value>
 agentic-db email search <query>
 agentic-db email get --id <UUID>
-agentic-db email create --emailThreadId <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db email update --id <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--emailThreadId <UUID>]
+agentic-db email create --emailThreadId <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db email update --id <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--emailThreadId <UUID>]
 agentic-db email delete --id <UUID>
 ```
 
@@ -143,7 +143,7 @@ agentic-db email search "query" --limit 10 --select id,title,searchScore
 ### Create a email
 
 ```bash
-agentic-db email create --emailThreadId <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db email create --emailThreadId <UUID> [--providerMessageId <String>] [--fromContactId <UUID>] [--to <JSON>] [--cc <JSON>] [--bcc <JSON>] [--subject <String>] [--bodyText <String>] [--bodyHtml <String>] [--sentAt <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a email by id

@@ -70,13 +70,11 @@ export class ContactAddressModel {
     });
   }
   findFirst<S extends ContactAddressSelect>(
-    args: FindFirstArgs<S, ContactAddressFilter> & {
+    args: FindFirstArgs<S, ContactAddressFilter, ContactAddressOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactAddressSelect>
   ): QueryBuilder<{
-    contactAddresses: {
-      nodes: InferSelectResult<ContactAddressWithRelations, S>[];
-    };
+    contactAddress: InferSelectResult<ContactAddressWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ContactAddress',
@@ -84,17 +82,26 @@ export class ContactAddressModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ContactAddressFilter',
+      'ContactAddressOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ContactAddress',
-      fieldName: 'contactAddresses',
+      fieldName: 'contactAddress',
       document,
       variables,
+      transform: (data: {
+        contactAddresses?: {
+          nodes?: InferSelectResult<ContactAddressWithRelations, S>[];
+        };
+      }) => ({
+        contactAddress: data.contactAddresses?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ContactAddressSelect>(
@@ -189,7 +196,8 @@ export class ContactAddressModel {
       'UpdateContactAddressInput',
       'id',
       'contactAddressPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

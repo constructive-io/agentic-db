@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/agents/columns/created_at/alterations/alt0000000297
-
-
-COMMENT ON COLUMN agentic_db_app_public.agents.created_at IS NULL;
-
-

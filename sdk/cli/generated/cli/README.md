@@ -121,13 +121,6 @@ agentic-db auth set-token <your-token>
 | `trip` | trip CRUD operations |
 | `venue-image` | venueImage CRUD operations |
 | `venue-link` | venueLink CRUD operations |
-| `request-upload-url` | Request a presigned URL for uploading a file directly to S3.
-Client computes SHA-256 of the file content and provides it here.
-If a file with the same hash already exists (dedup), returns the
-existing file ID and deduplicated=true with no uploadUrl. |
-| `confirm-upload` | Confirm that a file has been uploaded to S3.
-Verifies the object exists in S3, checks content-type,
-and transitions the file status from 'pending' to 'ready'. |
 | `provision-bucket` | Provision an S3 bucket for a logical bucket in the database.
 Reads the bucket config via RLS, then creates and configures
 the S3 bucket with the appropriate privacy policies, CORS rules,
@@ -206,7 +199,7 @@ CRUD operations for ActivityLog records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `habitId` | UUID |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -218,7 +211,7 @@ CRUD operations for ActivityLog records.
 | `searchScore` | Float |
 
 **Required create fields:** `activityType`, `completedAt`
-**Optional create fields (backend defaults):** `durationMinutes`, `quantity`, `quantityUnit`, `intensity`, `notes`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `habitId`
+**Optional create fields (backend defaults):** `durationMinutes`, `quantity`, `quantityUnit`, `intensity`, `notes`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `habitId`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -320,7 +313,7 @@ CRUD operations for Agent records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -332,7 +325,7 @@ CRUD operations for Agent records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `description`, `systemPrompt`, `model`, `temperature`, `status`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `description`, `systemPrompt`, `model`, `temperature`, `status`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -458,7 +451,7 @@ CRUD operations for AgentLog records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `levelTrgmSimilarity` | Float |
@@ -467,7 +460,7 @@ CRUD operations for AgentLog records.
 | `searchScore` | Float |
 
 **Required create fields:** `level`, `message`
-**Optional create fields (backend defaults):** `agentId`, `context`, `taskId`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `agentId`, `context`, `taskId`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -579,7 +572,7 @@ CRUD operations for Prompt records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -589,7 +582,7 @@ CRUD operations for Prompt records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`, `content`
-**Optional create fields (backend defaults):** `category`, `version`, `isActive`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `category`, `version`, `isActive`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -686,7 +679,7 @@ CRUD operations for AutonomyRecord records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `titleTrgmSimilarity` | Float |
@@ -698,7 +691,7 @@ CRUD operations for AutonomyRecord records.
 | `searchScore` | Float |
 
 **Required create fields:** `title`
-**Optional create fields (backend defaults):** `recordType`, `content`, `status`, `priority`, `source`, `context`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `recordType`, `content`, `status`, `priority`, `source`, `context`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -884,7 +877,7 @@ CRUD operations for CalendarEvent records.
 | `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `calendarId` | UUID |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
@@ -897,7 +890,7 @@ CRUD operations for CalendarEvent records.
 | `searchScore` | Float |
 
 **Required create fields:** `title`, `calendarId`
-**Optional create fields (backend defaults):** `providerEventId`, `description`, `startTime`, `endTime`, `meetingUrl`, `organizerContactId`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `providerEventId`, `description`, `startTime`, `endTime`, `meetingUrl`, `organizerContactId`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -1031,7 +1024,7 @@ CRUD operations for Contact records.
 | `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `locationGeo` | GeographyInterface |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
@@ -1048,7 +1041,7 @@ CRUD operations for Contact records.
 | `searchScore` | Float |
 
 **Required create fields:** `firstName`
-**Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipTypes`, `howWeMet`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
+**Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipTypes`, `howWeMet`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `locationGeo`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -1195,7 +1188,7 @@ CRUD operations for Note records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `contentTrgmSimilarity` | Float |
@@ -1205,7 +1198,7 @@ CRUD operations for Note records.
 | `searchScore` | Float |
 
 **Required create fields:** `content`
-**Optional create fields (backend defaults):** `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -1325,7 +1318,7 @@ CRUD operations for Task records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `titleTrgmSimilarity` | Float |
@@ -1336,7 +1329,7 @@ CRUD operations for Task records.
 | `searchScore` | Float |
 
 **Required create fields:** `title`
-**Optional create fields (backend defaults):** `agentId`, `description`, `status`, `priority`, `result`, `startedAt`, `completedAt`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `agentId`, `description`, `status`, `priority`, `result`, `startedAt`, `completedAt`, `meta`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -1437,7 +1430,7 @@ CRUD operations for Company records.
 | `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -1449,7 +1442,7 @@ CRUD operations for Company records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -1555,7 +1548,7 @@ CRUD operations for Deal records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -1566,7 +1559,7 @@ CRUD operations for Deal records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notesText`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notesText`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -1689,7 +1682,7 @@ CRUD operations for Document records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `titleTrgmSimilarity` | Float |
@@ -1701,7 +1694,7 @@ CRUD operations for Document records.
 | `searchScore` | Float |
 
 **Required create fields:** `content`
-**Optional create fields (backend defaults):** `title`, `metadata`, `repoName`, `filePath`, `commitHash`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `title`, `metadata`, `repoName`, `filePath`, `commitHash`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -1832,7 +1825,7 @@ CRUD operations for Event records.
 | `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `locationGeo` | GeographyInterface |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
@@ -1846,7 +1839,7 @@ CRUD operations for Event records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
+**Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `locationGeo`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -1975,12 +1968,12 @@ CRUD operations for Image records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `url`
-**Optional create fields (backend defaults):** `meta`, `altText`, `caption`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `meta`, `altText`, `caption`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -2040,13 +2033,13 @@ CRUD operations for CompanyLink records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `companyId` | UUID |
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `url`, `companyId`
-**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -2111,7 +2104,7 @@ CRUD operations for Memory records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `locationGeo` | GeographyInterface |
 | `agentId` | UUID |
 | `embeddingTextBm25Score` | Float |
@@ -2124,7 +2117,7 @@ CRUD operations for Memory records.
 | `searchScore` | Float |
 
 **Required create fields:** `title`
-**Optional create fields (backend defaults):** `content`, `location`, `occurredAt`, `mood`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`, `agentId`
+**Optional create fields (backend defaults):** `content`, `location`, `occurredAt`, `mood`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `locationGeo`, `agentId`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -2355,7 +2348,7 @@ CRUD operations for Email records.
 | `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `emailThreadId` | UUID |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
@@ -2368,7 +2361,7 @@ CRUD operations for Email records.
 | `searchScore` | Float |
 
 **Required create fields:** `emailThreadId`
-**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -2474,7 +2467,7 @@ CRUD operations for EmailThread records.
 | `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -2485,7 +2478,7 @@ CRUD operations for EmailThread records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Optional create fields (backend defaults):** `providerThreadId`, `subject`, `lastMessageAt`, `summary`, `status`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `providerThreadId`, `subject`, `lastMessageAt`, `summary`, `status`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -2614,7 +2607,7 @@ CRUD operations for Expense records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `tripId` | UUID |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -2626,7 +2619,7 @@ CRUD operations for Expense records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Optional create fields (backend defaults):** `description`, `amount`, `currency`, `category`, `occurredAt`, `vendor`, `notes`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `tripId`
+**Optional create fields (backend defaults):** `description`, `amount`, `currency`, `category`, `occurredAt`, `vendor`, `notes`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `tripId`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -2748,13 +2741,13 @@ CRUD operations for ContactLink records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `contactId` | UUID |
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `url`, `contactId`
-**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -2895,7 +2888,7 @@ CRUD operations for Project records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -2906,7 +2899,7 @@ CRUD operations for Project records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `description`, `status`, `projectType`, `priority`, `startedAt`, `targetDate`, `completedAt`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `description`, `status`, `projectType`, `priority`, `startedAt`, `targetDate`, `completedAt`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -3025,7 +3018,11 @@ CRUD operations for ContactsChunk records.
 | `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `search` | FullText |
+| `searchTsvRank` | Float |
+| `contentBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `contactsId`, `content`
@@ -3033,7 +3030,7 @@ CRUD operations for ContactsChunk records.
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `search`, `contentBm25Score`, `contentTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 **Search Examples:**
@@ -3056,6 +3053,26 @@ EMBEDDER_PROVIDER=ollama agentic-db contacts-chunk list --where.embedding.vector
 # --auto-embed on create/update converts text strings in vector fields to embeddings before saving
 EMBEDDER_PROVIDER=ollama agentic-db contacts-chunk create --embedding "text to embed" --auto-embed
 EMBEDDER_PROVIDER=ollama agentic-db contacts-chunk update --embedding "new text to embed" --auto-embed
+```
+
+*Full-text search via tsvector (`search`):*
+```bash
+agentic-db contacts-chunk list --where.search "search query" --select title,tsvRank
+```
+
+*BM25 keyword search via `bm25Content`:*
+```bash
+agentic-db contacts-chunk list --where.bm25Content.query "search query" --select title,contentBm25Score
+```
+
+*Fuzzy search via trigram similarity (`trgmContent`):*
+```bash
+agentic-db contacts-chunk list --where.trgmContent.value "approximate query" --where.trgmContent.threshold 0.3 --select title,contentTrgmSimilarity
+```
+
+*Composite search (unifiedSearch dispatches to all text adapters):*
+```bash
+agentic-db contacts-chunk list --where.unifiedSearch "search query" --select title,tsvRank,contentBm25Score,contentTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
@@ -3092,7 +3109,7 @@ CRUD operations for Conversation records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `titleTrgmSimilarity` | Float |
@@ -3101,7 +3118,7 @@ CRUD operations for Conversation records.
 | `searchScore` | Float |
 
 **Required create fields:** `title`
-**Optional create fields (backend defaults):** `agentId`, `status`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `agentId`, `status`, `meta`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -3254,7 +3271,9 @@ CRUD operations for DocumentsChunk records.
 | `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `contentBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `documentsId`, `content`
@@ -3262,7 +3281,7 @@ CRUD operations for DocumentsChunk records.
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `contentBm25Score`, `contentTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 **Search Examples:**
@@ -3285,6 +3304,21 @@ EMBEDDER_PROVIDER=ollama agentic-db documents-chunk list --where.embedding.vecto
 # --auto-embed on create/update converts text strings in vector fields to embeddings before saving
 EMBEDDER_PROVIDER=ollama agentic-db documents-chunk create --embedding "text to embed" --auto-embed
 EMBEDDER_PROVIDER=ollama agentic-db documents-chunk update --embedding "new text to embed" --auto-embed
+```
+
+*BM25 keyword search via `bm25Content`:*
+```bash
+agentic-db documents-chunk list --where.bm25Content.query "search query" --select title,contentBm25Score
+```
+
+*Fuzzy search via trigram similarity (`trgmContent`):*
+```bash
+agentic-db documents-chunk list --where.trgmContent.value "approximate query" --where.trgmContent.threshold 0.3 --select title,contentTrgmSimilarity
+```
+
+*Composite search (unifiedSearch dispatches to all text adapters):*
+```bash
+agentic-db documents-chunk list --where.unifiedSearch "search query" --select title,contentBm25Score,contentTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
@@ -3414,13 +3448,13 @@ CRUD operations for EventLink records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `eventId` | UUID |
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `url`, `eventId`
-**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -3537,7 +3571,7 @@ CRUD operations for Venue records.
 | `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `location` | GeographyInterface |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
@@ -3555,7 +3589,7 @@ CRUD operations for Venue records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `location`
+**Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `location`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -3707,7 +3741,7 @@ CRUD operations for Goal records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `titleTrgmSimilarity` | Float |
@@ -3717,7 +3751,7 @@ CRUD operations for Goal records.
 | `searchScore` | Float |
 
 **Required create fields:** `title`
-**Optional create fields (backend defaults):** `description`, `status`, `targetDate`, `progress`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `description`, `status`, `targetDate`, `progress`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -3885,7 +3919,7 @@ CRUD operations for Interaction records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `typeTrgmSimilarity` | Float |
@@ -3895,7 +3929,7 @@ CRUD operations for Interaction records.
 | `searchScore` | Float |
 
 **Required create fields:** `contactId`, `type`, `occurredAt`
-**Optional create fields (backend defaults):** `summary`, `sentiment`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `summary`, `sentiment`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -3991,7 +4025,7 @@ CRUD operations for Message records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `roleTrgmSimilarity` | Float |
@@ -4000,7 +4034,7 @@ CRUD operations for Message records.
 | `searchScore` | Float |
 
 **Required create fields:** `conversationId`, `role`, `content`
-**Optional create fields (backend defaults):** `tokenCount`, `meta`, `toolCalls`, `toolResults`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `tokenCount`, `meta`, `toolCalls`, `toolResults`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -4087,7 +4121,9 @@ CRUD operations for NotesChunk records.
 | `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `contentBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `notesId`, `content`
@@ -4095,7 +4131,7 @@ CRUD operations for NotesChunk records.
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `contentBm25Score`, `contentTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 **Search Examples:**
@@ -4118,6 +4154,21 @@ EMBEDDER_PROVIDER=ollama agentic-db notes-chunk list --where.embedding.vector "s
 # --auto-embed on create/update converts text strings in vector fields to embeddings before saving
 EMBEDDER_PROVIDER=ollama agentic-db notes-chunk create --embedding "text to embed" --auto-embed
 EMBEDDER_PROVIDER=ollama agentic-db notes-chunk update --embedding "new text to embed" --auto-embed
+```
+
+*BM25 keyword search via `bm25Content`:*
+```bash
+agentic-db notes-chunk list --where.bm25Content.query "search query" --select title,contentBm25Score
+```
+
+*Fuzzy search via trigram similarity (`trgmContent`):*
+```bash
+agentic-db notes-chunk list --where.trgmContent.value "approximate query" --where.trgmContent.threshold 0.3 --select title,contentTrgmSimilarity
+```
+
+*Composite search (unifiedSearch dispatches to all text adapters):*
+```bash
+agentic-db notes-chunk list --where.unifiedSearch "search query" --select title,contentBm25Score,contentTrgmSimilarity,searchScore
 ```
 
 *Search with pagination and field projection:*
@@ -4156,7 +4207,7 @@ CRUD operations for Place records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `locationGeo` | GeographyInterface |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -4168,7 +4219,7 @@ CRUD operations for Place records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `address`, `description`, `category`, `rating`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
+**Optional create fields (backend defaults):** `address`, `description`, `category`, `rating`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `locationGeo`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -4470,8 +4521,9 @@ CRUD operations for Rule records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `triggerConceptEmbedding` | Vector |
+| `triggerConceptEmbeddingUpdatedAt` | Datetime |
 | `agentId` | UUID |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -4485,7 +4537,7 @@ CRUD operations for Rule records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`, `agentId`
-**Optional create fields (backend defaults):** `description`, `triggerType`, `triggerConfig`, `actionType`, `actionConfig`, `isActive`, `priority`, `triggerConcept`, `embeddingText`, `embedding`, `embeddingStale`, `triggerConceptEmbedding`
+**Optional create fields (backend defaults):** `description`, `triggerType`, `triggerConfig`, `actionType`, `actionConfig`, `isActive`, `priority`, `triggerConcept`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `triggerConceptEmbedding`, `triggerConceptEmbeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`, `triggerConceptEmbedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -4696,7 +4748,7 @@ CRUD operations for RuntimeLog records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `levelTrgmSimilarity` | Float |
@@ -4705,7 +4757,7 @@ CRUD operations for RuntimeLog records.
 | `searchScore` | Float |
 
 **Required create fields:** `runtimeStateId`, `level`, `message`
-**Optional create fields (backend defaults):** `context`, `stepIndex`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `context`, `stepIndex`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -4856,7 +4908,7 @@ CRUD operations for RuntimeState records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -4866,7 +4918,7 @@ CRUD operations for RuntimeState records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `stateType`, `status`, `data`, `parentId`, `startedAt`, `endedAt`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `stateType`, `status`, `data`, `parentId`, `startedAt`, `endedAt`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -4984,8 +5036,9 @@ CRUD operations for Skill records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `intentTriggerEmbedding` | Vector |
+| `intentTriggerEmbeddingUpdatedAt` | Datetime |
 | `agentId` | UUID |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -4999,7 +5052,7 @@ CRUD operations for Skill records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`, `agentId`
-**Optional create fields (backend defaults):** `description`, `category`, `implementation`, `config`, `isActive`, `intentTrigger`, `embeddingText`, `embedding`, `embeddingStale`, `intentTriggerEmbedding`
+**Optional create fields (backend defaults):** `description`, `category`, `implementation`, `config`, `isActive`, `intentTrigger`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `intentTriggerEmbedding`, `intentTriggerEmbeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`, `intentTriggerEmbedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -5146,7 +5199,7 @@ CRUD operations for ToolDefinition records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -5156,7 +5209,7 @@ CRUD operations for ToolDefinition records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `description`, `toolType`, `schema`, `config`, `isActive`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `description`, `toolType`, `schema`, `config`, `isActive`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -5406,7 +5459,7 @@ CRUD operations for Touchpoint records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `touchpointTypeTrgmSimilarity` | Float |
@@ -5419,7 +5472,7 @@ CRUD operations for Touchpoint records.
 | `searchScore` | Float |
 
 **Required create fields:** `contactId`, `touchpointType`, `occurredAt`
-**Optional create fields (backend defaults):** `subject`, `summary`, `sentiment`, `direction`, `channel`, `dealId`, `companyId`, `eventId`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `subject`, `summary`, `sentiment`, `direction`, `channel`, `dealId`, `companyId`, `eventId`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -5529,7 +5582,7 @@ CRUD operations for Trip records.
 | `updatedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `destinationGeo` | GeographyInterface |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -5540,7 +5593,7 @@ CRUD operations for Trip records.
 | `searchScore` | Float |
 
 **Required create fields:** `name`
-**Optional create fields (backend defaults):** `destination`, `description`, `startDate`, `endDate`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `destinationGeo`
+**Optional create fields (backend defaults):** `destination`, `description`, `startDate`, `endDate`, `tags`, `embeddingText`, `embedding`, `embeddingUpdatedAt`, `destinationGeo`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -5652,13 +5705,13 @@ CRUD operations for VenueLink records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `embedding` | Vector |
-| `embeddingStale` | Boolean |
+| `embeddingUpdatedAt` | Datetime |
 | `venueId` | UUID |
 | `embeddingVectorDistance` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `url`, `venueId`
-**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingUpdatedAt`
 > **pgvector embedding fields:** `embedding`
 > High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
@@ -5695,38 +5748,6 @@ agentic-db venue-link search "query" --limit 10 --select id,title,searchScore
 
 
 ## Custom Operations
-
-### `request-upload-url`
-
-Request a presigned URL for uploading a file directly to S3.
-Client computes SHA-256 of the file content and provides it here.
-If a file with the same hash already exists (dedup), returns the
-existing file ID and deduplicated=true with no uploadUrl.
-
-- **Type:** mutation
-- **Arguments:**
-
-  | Argument | Type |
-  |----------|------|
-  | `--input.bucketKey` | String (required) |
-  | `--input.ownerId` | UUID |
-  | `--input.contentHash` | String (required) |
-  | `--input.contentType` | String (required) |
-  | `--input.size` | Int (required) |
-  | `--input.filename` | String |
-
-### `confirm-upload`
-
-Confirm that a file has been uploaded to S3.
-Verifies the object exists in S3, checks content-type,
-and transitions the file status from 'pending' to 'ready'.
-
-- **Type:** mutation
-- **Arguments:**
-
-  | Argument | Type |
-  |----------|------|
-  | `--input.fileId` | UUID (required) |
 
 ### `provision-bucket`
 

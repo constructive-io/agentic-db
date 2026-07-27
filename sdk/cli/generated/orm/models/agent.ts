@@ -70,13 +70,11 @@ export class AgentModel {
     });
   }
   findFirst<S extends AgentSelect>(
-    args: FindFirstArgs<S, AgentFilter> & {
+    args: FindFirstArgs<S, AgentFilter, AgentOrderBy> & {
       select: S;
     } & StrictSelect<S, AgentSelect>
   ): QueryBuilder<{
-    agents: {
-      nodes: InferSelectResult<AgentWithRelations, S>[];
-    };
+    agent: InferSelectResult<AgentWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Agent',
@@ -84,17 +82,26 @@ export class AgentModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'AgentFilter',
+      'AgentOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Agent',
-      fieldName: 'agents',
+      fieldName: 'agent',
       document,
       variables,
+      transform: (data: {
+        agents?: {
+          nodes?: InferSelectResult<AgentWithRelations, S>[];
+        };
+      }) => ({
+        agent: data.agents?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends AgentSelect>(
@@ -189,7 +196,8 @@ export class AgentModel {
       'UpdateAgentInput',
       'id',
       'agentPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

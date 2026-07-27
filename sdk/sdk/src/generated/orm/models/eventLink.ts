@@ -70,13 +70,11 @@ export class EventLinkModel {
     });
   }
   findFirst<S extends EventLinkSelect>(
-    args: FindFirstArgs<S, EventLinkFilter> & {
+    args: FindFirstArgs<S, EventLinkFilter, EventLinkOrderBy> & {
       select: S;
     } & StrictSelect<S, EventLinkSelect>
   ): QueryBuilder<{
-    eventLinks: {
-      nodes: InferSelectResult<EventLinkWithRelations, S>[];
-    };
+    eventLink: InferSelectResult<EventLinkWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'EventLink',
@@ -84,17 +82,26 @@ export class EventLinkModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'EventLinkFilter',
+      'EventLinkOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'EventLink',
-      fieldName: 'eventLinks',
+      fieldName: 'eventLink',
       document,
       variables,
+      transform: (data: {
+        eventLinks?: {
+          nodes?: InferSelectResult<EventLinkWithRelations, S>[];
+        };
+      }) => ({
+        eventLink: data.eventLinks?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends EventLinkSelect>(
@@ -189,7 +196,8 @@ export class EventLinkModel {
       'UpdateEventLinkInput',
       'id',
       'eventLinkPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,
