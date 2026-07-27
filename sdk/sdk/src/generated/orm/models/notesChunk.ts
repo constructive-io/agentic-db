@@ -70,13 +70,11 @@ export class NotesChunkModel {
     });
   }
   findFirst<S extends NotesChunkSelect>(
-    args: FindFirstArgs<S, NotesChunkFilter> & {
+    args: FindFirstArgs<S, NotesChunkFilter, NotesChunkOrderBy> & {
       select: S;
     } & StrictSelect<S, NotesChunkSelect>
   ): QueryBuilder<{
-    notesChunks: {
-      nodes: InferSelectResult<NotesChunkWithRelations, S>[];
-    };
+    notesChunk: InferSelectResult<NotesChunkWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'NotesChunk',
@@ -84,17 +82,26 @@ export class NotesChunkModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'NotesChunkFilter',
+      'NotesChunkOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'NotesChunk',
-      fieldName: 'notesChunks',
+      fieldName: 'notesChunk',
       document,
       variables,
+      transform: (data: {
+        notesChunks?: {
+          nodes?: InferSelectResult<NotesChunkWithRelations, S>[];
+        };
+      }) => ({
+        notesChunk: data.notesChunks?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends NotesChunkSelect>(
@@ -189,7 +196,8 @@ export class NotesChunkModel {
       'UpdateNotesChunkInput',
       'id',
       'notesChunkPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

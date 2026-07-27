@@ -1,0 +1,7 @@
+# pgpm-partman extension
+comment = 'pg_partman wrapper - installs pg_partman into partman schema'
+default_version = '0.0.1'
+module_pathname = '$libdir/pgpm-partman'
+requires = 'plpgsql,metaschema-schema'
+relocatable = false
+superuser = false

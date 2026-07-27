@@ -72,13 +72,11 @@ export class RuntimeStateDependencyModel {
     });
   }
   findFirst<S extends RuntimeStateDependencySelect>(
-    args: FindFirstArgs<S, RuntimeStateDependencyFilter> & {
+    args: FindFirstArgs<S, RuntimeStateDependencyFilter, RuntimeStateDependencyOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeStateDependencySelect>
   ): QueryBuilder<{
-    runtimeStateDependencies: {
-      nodes: InferSelectResult<RuntimeStateDependencyWithRelations, S>[];
-    };
+    runtimeStateDependency: InferSelectResult<RuntimeStateDependencyWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RuntimeStateDependency',
@@ -86,17 +84,26 @@ export class RuntimeStateDependencyModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuntimeStateDependencyFilter',
+      'RuntimeStateDependencyOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RuntimeStateDependency',
-      fieldName: 'runtimeStateDependencies',
+      fieldName: 'runtimeStateDependency',
       document,
       variables,
+      transform: (data: {
+        runtimeStateDependencies?: {
+          nodes?: InferSelectResult<RuntimeStateDependencyWithRelations, S>[];
+        };
+      }) => ({
+        runtimeStateDependency: data.runtimeStateDependencies?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends RuntimeStateDependencySelect>(

@@ -2,7 +2,7 @@
 
 BEGIN;
 
-SELECT id, view_id, table_id, join_order
+SELECT id, database_id, view_id, table_id, join_order
 FROM metaschema_public.view_table
 WHERE FALSE;
 

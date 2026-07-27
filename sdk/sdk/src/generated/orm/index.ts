@@ -102,11 +102,10 @@ import { VenueImageModel } from './models/venueImage';
 import { VenueLinkModel } from './models/venueLink';
 import { createMutationOperations } from './mutation';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
-export { GraphQLRequestError } from './client';
+export { GraphQLRequestError, FetchAdapter } from './client';
 export { QueryBuilder } from './query-builder';
 export * from './select-types';
 export * from './models';
-export { NodeHttpAdapter } from './node-fetch';
 export { createMutationOperations } from './mutation';
 /**
  * Create an ORM client instance

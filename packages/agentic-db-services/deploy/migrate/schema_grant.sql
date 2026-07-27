@@ -1,7 +1,7 @@
 -- Deploy: migrate/schema_grant
 -- made with <3 @ constructive.io
 
--- requires: migrate/full_text_search
+-- requires: migrate/default_privilege
 
 
 SET session_replication_role TO replica;
@@ -26,15 +26,12 @@ INSERT INTO metaschema_public.schema_grant (
   schema_id,
   grantee_name
 ) VALUES
-  ('019ddc1e-6917-713a-bcb8-a0b97ba43b08', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'administrator'),
-  ('019ddc1e-692e-7d66-8e4e-41de9fcd6359', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'authenticated'),
-  ('019ddc1e-6943-70b9-aea5-e3c79d5ed1ff', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ec-7c89-801c-b87425e84bf0', 'anonymous'),
-  ('019ddc1e-69a3-7e53-b4de-2798a22cad04', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'administrator'),
-  ('019ddc1e-69b3-7ab3-9398-c1867de6fc35', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'authenticated'),
-  ('019ddc1e-69c4-7036-b770-456e10077781', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-68ee-7e2f-b5ac-9921ddfab2fe', 'anonymous'),
-  ('0536663e-e9e7-d11c-93a6-a80fa6885e87', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'authenticated'),
-  ('89fe7dc1-ddaa-7e58-8bc1-e3caba968eea', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'administrator'),
-  ('a46a489f-eaa2-8024-2c93-c4fa1b868ed5', '019ddc1e-68db-79cd-9cdb-45c3fccb11fe', 'b9366791-5079-4ba2-60c6-59e7b1ca4313', 'anonymous');
+  ('1ca87cc7-21eb-2dda-0d42-0d41126dd525', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'administrator'),
+  ('3530af27-3af9-7030-e836-c5bce19e279e', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'authenticated'),
+  ('6ff93cee-2ad8-d3cd-0813-124b8e41be3b', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'anonymous'),
+  ('8bc1ceb9-07fb-2e07-b91c-59a40fa6ffc8', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'administrator'),
+  ('ac3c4efa-e5cc-fe0d-6b3f-e79a23437f4c', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'anonymous'),
+  ('e77c13fe-5a2d-fe77-9d25-6f2bf1852d1b', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'authenticated');
 
 
 SET session_replication_role TO DEFAULT;

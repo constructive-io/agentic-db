@@ -70,13 +70,11 @@ export class ContactLinkModel {
     });
   }
   findFirst<S extends ContactLinkSelect>(
-    args: FindFirstArgs<S, ContactLinkFilter> & {
+    args: FindFirstArgs<S, ContactLinkFilter, ContactLinkOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactLinkSelect>
   ): QueryBuilder<{
-    contactLinks: {
-      nodes: InferSelectResult<ContactLinkWithRelations, S>[];
-    };
+    contactLink: InferSelectResult<ContactLinkWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ContactLink',
@@ -84,17 +82,26 @@ export class ContactLinkModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ContactLinkFilter',
+      'ContactLinkOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ContactLink',
-      fieldName: 'contactLinks',
+      fieldName: 'contactLink',
       document,
       variables,
+      transform: (data: {
+        contactLinks?: {
+          nodes?: InferSelectResult<ContactLinkWithRelations, S>[];
+        };
+      }) => ({
+        contactLink: data.contactLinks?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ContactLinkSelect>(
@@ -189,7 +196,8 @@ export class ContactLinkModel {
       'UpdateContactLinkInput',
       'id',
       'contactLinkPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

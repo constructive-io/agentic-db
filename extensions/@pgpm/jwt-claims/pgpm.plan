@@ -13,7 +13,11 @@ schemas/jwt_public/procedures/current_user_id [schemas/jwt_public/schema] 2020-1
 schemas/jwt_public/procedures/current_ip_address [schemas/jwt_public/schema] 2020-12-17T23:19:17Z Dan Lynch <dlynch@Dans-MBP-3> # add schemas/jwt_public/procedures/current_ip_address
 schemas/jwt_public/procedures/current_user_agent [schemas/jwt_public/schema] 2020-12-17T23:20:04Z Dan Lynch <dlynch@Dans-MBP-3> # add schemas/jwt_public/procedures/current_user_agent
 schemas/jwt_public/procedures/current_origin [schemas/jwt_public/schema] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/jwt_public/procedures/current_origin
+schemas/jwt_public/procedures/current_principal_id [schemas/jwt_public/schema] 2026-06-26T02:05:00Z Dan Lynch <dlynch@constructive.io> # add schemas/jwt_public/procedures/current_principal_id
+schemas/jwt_public/procedures/current_role_type [schemas/jwt_public/schema] 2026-06-28T08:00:00Z Dan Lynch <dlynch@constructive.io> # add schemas/jwt_public/procedures/current_role_type
 schemas/jwt_private/schema 2020-12-17T06:47:34Z Dan Lynch <dlynch@Dans-MBP-3> # add schemas/jwt_private/schema
 schemas/jwt_private/procedures/current_database_id [schemas/jwt_private/schema] 2020-12-17T23:22:28Z Dan Lynch <dlynch@Dans-MBP-3> # add schemas/jwt_private/procedures/current_database_id
 schemas/jwt_private/procedures/current_token_id [schemas/jwt_private/schema] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/jwt_private/procedures/current_token_id
 schemas/jwt_private/procedures/current_session_id [schemas/jwt_private/schema] 2026-01-28T05:44:00Z Dan Lynch <dlynch@constructive.io> # add schemas/jwt_private/procedures/current_session_id
+schemas/jwt_private/procedures/current_api_id [schemas/jwt_private/schema] 2026-07-12T13:40:27Z Dan Lynch <dlynch@constructive.io> # add schemas/jwt_private/procedures/current_api_id
+schemas/jwt_private/procedures/current_graph_execution_id [schemas/jwt_private/schema] 2026-07-16T09:17:00Z Dan Lynch <dlynch@constructive.io> # add schemas/jwt_private/procedures/current_graph_execution_id

@@ -8,7 +8,8 @@
  * Usage:  pnpm run create-db
  */
 
-import { auth, public_, NodeHttpAdapter } from '@constructive-io/node';
+import { auth, api } from '@constructive-io/sdk';
+import { NodeHttpAdapter } from '@constructive-io/node';
 import { config } from './config';
 import { withRetry } from './helpers';
 import * as path from 'path';
@@ -58,7 +59,7 @@ async function main() {
     Authorization: `Bearer ${accessToken}`,
     'X-Meta-Schema': 'true',
   });
-  const apiClient = public_.createClient({ adapter: apiAdapter });
+  const apiClient = api.createClient({ adapter: apiAdapter });
 
   const dbData = await withRetry(() =>
     apiClient.database

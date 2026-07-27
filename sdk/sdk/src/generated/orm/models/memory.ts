@@ -70,13 +70,11 @@ export class MemoryModel {
     });
   }
   findFirst<S extends MemorySelect>(
-    args: FindFirstArgs<S, MemoryFilter> & {
+    args: FindFirstArgs<S, MemoryFilter, MemoryOrderBy> & {
       select: S;
     } & StrictSelect<S, MemorySelect>
   ): QueryBuilder<{
-    memories: {
-      nodes: InferSelectResult<MemoryWithRelations, S>[];
-    };
+    memory: InferSelectResult<MemoryWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Memory',
@@ -84,17 +82,26 @@ export class MemoryModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'MemoryFilter',
+      'MemoryOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Memory',
-      fieldName: 'memories',
+      fieldName: 'memory',
       document,
       variables,
+      transform: (data: {
+        memories?: {
+          nodes?: InferSelectResult<MemoryWithRelations, S>[];
+        };
+      }) => ({
+        memory: data.memories?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends MemorySelect>(
@@ -189,7 +196,8 @@ export class MemoryModel {
       'UpdateMemoryInput',
       'id',
       'memoryPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

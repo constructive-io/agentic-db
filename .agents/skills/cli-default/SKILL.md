@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 3 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 1 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 3 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 1 custom operations
 
 ## Usage
 
@@ -152,6 +152,4 @@ See the `references/` directory for detailed per-entity API documentation:
 - [trip](references/trip.md)
 - [venue-image](references/venue-image.md)
 - [venue-link](references/venue-link.md)
-- [request-upload-url](references/request-upload-url.md)
-- [confirm-upload](references/confirm-upload.md)
 - [provision-bucket](references/provision-bucket.md)

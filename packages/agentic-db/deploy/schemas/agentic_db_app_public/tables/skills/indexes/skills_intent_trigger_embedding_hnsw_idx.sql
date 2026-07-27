@@ -3,7 +3,6 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
--- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 -- requires: schemas/agentic_db_app_public/tables/skills/columns/intent_trigger_embedding/column
 
 

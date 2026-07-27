@@ -19,8 +19,8 @@ agentic-db tool-definition list --limit 10 --after <cursor>
 agentic-db tool-definition find-first --where.<field>.<op> <value>
 agentic-db tool-definition search <query>
 agentic-db tool-definition get --id <UUID>
-agentic-db tool-definition create --name <String> [--description <String>] [--toolType <String>] [--schema <JSON>] [--config <JSON>] [--isActive <Boolean>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db tool-definition update --id <UUID> [--name <String>] [--description <String>] [--toolType <String>] [--schema <JSON>] [--config <JSON>] [--isActive <Boolean>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db tool-definition create --name <String> [--description <String>] [--toolType <String>] [--schema <JSON>] [--config <JSON>] [--isActive <Boolean>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db tool-definition update --id <UUID> [--name <String>] [--description <String>] [--toolType <String>] [--schema <JSON>] [--config <JSON>] [--isActive <Boolean>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db tool-definition delete --id <UUID>
 ```
 
@@ -131,7 +131,7 @@ agentic-db tool-definition search "query" --limit 10 --select id,title,searchSco
 ### Create a toolDefinition
 
 ```bash
-agentic-db tool-definition create --name <String> [--description <String>] [--toolType <String>] [--schema <JSON>] [--config <JSON>] [--isActive <Boolean>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db tool-definition create --name <String> [--description <String>] [--toolType <String>] [--schema <JSON>] [--config <JSON>] [--isActive <Boolean>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a toolDefinition by id

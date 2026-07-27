@@ -70,13 +70,11 @@ export class CompanyEventModel {
     });
   }
   findFirst<S extends CompanyEventSelect>(
-    args: FindFirstArgs<S, CompanyEventFilter> & {
+    args: FindFirstArgs<S, CompanyEventFilter, CompanyEventOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanyEventSelect>
   ): QueryBuilder<{
-    companyEvents: {
-      nodes: InferSelectResult<CompanyEventWithRelations, S>[];
-    };
+    companyEvent: InferSelectResult<CompanyEventWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'CompanyEvent',
@@ -84,17 +82,26 @@ export class CompanyEventModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'CompanyEventFilter',
+      'CompanyEventOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'CompanyEvent',
-      fieldName: 'companyEvents',
+      fieldName: 'companyEvent',
       document,
       variables,
+      transform: (data: {
+        companyEvents?: {
+          nodes?: InferSelectResult<CompanyEventWithRelations, S>[];
+        };
+      }) => ({
+        companyEvent: data.companyEvents?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends CompanyEventSelect>(

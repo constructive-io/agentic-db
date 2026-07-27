@@ -19,8 +19,8 @@ agentic-db agent-log list --limit 10 --after <cursor>
 agentic-db agent-log find-first --where.<field>.<op> <value>
 agentic-db agent-log search <query>
 agentic-db agent-log get --id <UUID>
-agentic-db agent-log create --level <String> --message <String> [--agentId <UUID>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db agent-log update --id <UUID> [--agentId <UUID>] [--level <String>] [--message <String>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db agent-log create --level <String> --message <String> [--agentId <UUID>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db agent-log update --id <UUID> [--agentId <UUID>] [--level <String>] [--message <String>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db agent-log delete --id <UUID>
 ```
 
@@ -125,7 +125,7 @@ agentic-db agent-log search "query" --limit 10 --select id,title,searchScore
 ### Create a agentLog
 
 ```bash
-agentic-db agent-log create --level <String> --message <String> [--agentId <UUID>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db agent-log create --level <String> --message <String> [--agentId <UUID>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a agentLog by id

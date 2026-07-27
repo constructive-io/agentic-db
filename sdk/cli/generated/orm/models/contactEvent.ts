@@ -70,13 +70,11 @@ export class ContactEventModel {
     });
   }
   findFirst<S extends ContactEventSelect>(
-    args: FindFirstArgs<S, ContactEventFilter> & {
+    args: FindFirstArgs<S, ContactEventFilter, ContactEventOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactEventSelect>
   ): QueryBuilder<{
-    contactEvents: {
-      nodes: InferSelectResult<ContactEventWithRelations, S>[];
-    };
+    contactEvent: InferSelectResult<ContactEventWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ContactEvent',
@@ -84,17 +82,26 @@ export class ContactEventModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ContactEventFilter',
+      'ContactEventOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ContactEvent',
-      fieldName: 'contactEvents',
+      fieldName: 'contactEvent',
       document,
       variables,
+      transform: (data: {
+        contactEvents?: {
+          nodes?: InferSelectResult<ContactEventWithRelations, S>[];
+        };
+      }) => ({
+        contactEvent: data.contactEvents?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends ContactEventSelect>(

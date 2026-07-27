@@ -13,6 +13,7 @@ DECLARE
 BEGIN
   DELETE FROM app_jobs.jobs
   WHERE id = job_id
+    AND locked_by = worker_id
   RETURNING
     * INTO v_row;
   IF v_row.queue_name IS NOT NULL THEN

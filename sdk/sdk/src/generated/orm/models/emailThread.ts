@@ -70,13 +70,11 @@ export class EmailThreadModel {
     });
   }
   findFirst<S extends EmailThreadSelect>(
-    args: FindFirstArgs<S, EmailThreadFilter> & {
+    args: FindFirstArgs<S, EmailThreadFilter, EmailThreadOrderBy> & {
       select: S;
     } & StrictSelect<S, EmailThreadSelect>
   ): QueryBuilder<{
-    emailThreads: {
-      nodes: InferSelectResult<EmailThreadWithRelations, S>[];
-    };
+    emailThread: InferSelectResult<EmailThreadWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'EmailThread',
@@ -84,17 +82,26 @@ export class EmailThreadModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'EmailThreadFilter',
+      'EmailThreadOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'EmailThread',
-      fieldName: 'emailThreads',
+      fieldName: 'emailThread',
       document,
       variables,
+      transform: (data: {
+        emailThreads?: {
+          nodes?: InferSelectResult<EmailThreadWithRelations, S>[];
+        };
+      }) => ({
+        emailThread: data.emailThreads?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends EmailThreadSelect>(
@@ -189,7 +196,8 @@ export class EmailThreadModel {
       'UpdateEmailThreadInput',
       'id',
       'emailThreadPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

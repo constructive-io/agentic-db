@@ -70,13 +70,11 @@ export class CalendarAttendeeModel {
     });
   }
   findFirst<S extends CalendarAttendeeSelect>(
-    args: FindFirstArgs<S, CalendarAttendeeFilter> & {
+    args: FindFirstArgs<S, CalendarAttendeeFilter, CalendarAttendeeOrderBy> & {
       select: S;
     } & StrictSelect<S, CalendarAttendeeSelect>
   ): QueryBuilder<{
-    calendarAttendees: {
-      nodes: InferSelectResult<CalendarAttendeeWithRelations, S>[];
-    };
+    calendarAttendee: InferSelectResult<CalendarAttendeeWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'CalendarAttendee',
@@ -84,17 +82,26 @@ export class CalendarAttendeeModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'CalendarAttendeeFilter',
+      'CalendarAttendeeOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'CalendarAttendee',
-      fieldName: 'calendarAttendees',
+      fieldName: 'calendarAttendee',
       document,
       variables,
+      transform: (data: {
+        calendarAttendees?: {
+          nodes?: InferSelectResult<CalendarAttendeeWithRelations, S>[];
+        };
+      }) => ({
+        calendarAttendee: data.calendarAttendees?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends CalendarAttendeeSelect>(
@@ -189,7 +196,8 @@ export class CalendarAttendeeModel {
       'UpdateCalendarAttendeeInput',
       'id',
       'calendarAttendeePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

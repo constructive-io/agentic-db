@@ -41,6 +41,8 @@ BEGIN
   -- insert new job
   INSERT INTO app_jobs.jobs (
     database_id,
+    actor_id,
+    entity_id,
     queue_name,
     task_identifier,
     payload,
@@ -49,6 +51,8 @@ BEGIN
     key
   ) SELECT
     database_id,
+    actor_id,
+    entity_id,
     queue_name,
     task_identifier,
     payload,
@@ -63,10 +67,10 @@ BEGIN
     * INTO j;
   -- update the scheduled job
   UPDATE
-    app_jobs.scheduled_jobs s
+  app_jobs.scheduled_jobs s
   SET
     last_scheduled = NOW(),
-    last_scheduled_id = j.id
+    last_scheduled_id = COALESCE(j.id, s.last_scheduled_id)
   WHERE
     s.id = run_scheduled_job.id;
   RETURN j;
@@ -75,4 +79,3 @@ $$
 LANGUAGE 'plpgsql'
 VOLATILE;
 COMMIT;
-

@@ -70,13 +70,11 @@ export class ActivityLogModel {
     });
   }
   findFirst<S extends ActivityLogSelect>(
-    args: FindFirstArgs<S, ActivityLogFilter> & {
+    args: FindFirstArgs<S, ActivityLogFilter, ActivityLogOrderBy> & {
       select: S;
     } & StrictSelect<S, ActivityLogSelect>
   ): QueryBuilder<{
-    activityLogs: {
-      nodes: InferSelectResult<ActivityLogWithRelations, S>[];
-    };
+    activityLog: InferSelectResult<ActivityLogWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ActivityLog',
@@ -84,17 +82,26 @@ export class ActivityLogModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ActivityLogFilter',
+      'ActivityLogOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ActivityLog',
-      fieldName: 'activityLogs',
+      fieldName: 'activityLog',
       document,
       variables,
+      transform: (data: {
+        activityLogs?: {
+          nodes?: InferSelectResult<ActivityLogWithRelations, S>[];
+        };
+      }) => ({
+        activityLog: data.activityLogs?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ActivityLogSelect>(
@@ -189,7 +196,8 @@ export class ActivityLogModel {
       'UpdateActivityLogInput',
       'id',
       'activityLogPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

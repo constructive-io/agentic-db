@@ -70,13 +70,11 @@ export class AgentPromptModel {
     });
   }
   findFirst<S extends AgentPromptSelect>(
-    args: FindFirstArgs<S, AgentPromptFilter> & {
+    args: FindFirstArgs<S, AgentPromptFilter, AgentPromptOrderBy> & {
       select: S;
     } & StrictSelect<S, AgentPromptSelect>
   ): QueryBuilder<{
-    agentPrompts: {
-      nodes: InferSelectResult<AgentPromptWithRelations, S>[];
-    };
+    agentPrompt: InferSelectResult<AgentPromptWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'AgentPrompt',
@@ -84,17 +82,26 @@ export class AgentPromptModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'AgentPromptFilter',
+      'AgentPromptOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'AgentPrompt',
-      fieldName: 'agentPrompts',
+      fieldName: 'agentPrompt',
       document,
       variables,
+      transform: (data: {
+        agentPrompts?: {
+          nodes?: InferSelectResult<AgentPromptWithRelations, S>[];
+        };
+      }) => ({
+        agentPrompt: data.agentPrompts?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends AgentPromptSelect>(

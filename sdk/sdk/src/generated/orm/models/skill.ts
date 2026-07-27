@@ -70,13 +70,11 @@ export class SkillModel {
     });
   }
   findFirst<S extends SkillSelect>(
-    args: FindFirstArgs<S, SkillFilter> & {
+    args: FindFirstArgs<S, SkillFilter, SkillOrderBy> & {
       select: S;
     } & StrictSelect<S, SkillSelect>
   ): QueryBuilder<{
-    skills: {
-      nodes: InferSelectResult<SkillWithRelations, S>[];
-    };
+    skill: InferSelectResult<SkillWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Skill',
@@ -84,17 +82,26 @@ export class SkillModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'SkillFilter',
+      'SkillOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Skill',
-      fieldName: 'skills',
+      fieldName: 'skill',
       document,
       variables,
+      transform: (data: {
+        skills?: {
+          nodes?: InferSelectResult<SkillWithRelations, S>[];
+        };
+      }) => ({
+        skill: data.skills?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends SkillSelect>(
@@ -189,7 +196,8 @@ export class SkillModel {
       'UpdateSkillInput',
       'id',
       'skillPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/table
 -- requires: schemas/agentic_db_app_public/tables/tool_definitions/table
--- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 ALTER TABLE agentic_db_app_public.tool_executions 

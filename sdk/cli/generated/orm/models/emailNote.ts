@@ -70,13 +70,11 @@ export class EmailNoteModel {
     });
   }
   findFirst<S extends EmailNoteSelect>(
-    args: FindFirstArgs<S, EmailNoteFilter> & {
+    args: FindFirstArgs<S, EmailNoteFilter, EmailNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, EmailNoteSelect>
   ): QueryBuilder<{
-    emailNotes: {
-      nodes: InferSelectResult<EmailNoteWithRelations, S>[];
-    };
+    emailNote: InferSelectResult<EmailNoteWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'EmailNote',
@@ -84,17 +82,26 @@ export class EmailNoteModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'EmailNoteFilter',
+      'EmailNoteOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'EmailNote',
-      fieldName: 'emailNotes',
+      fieldName: 'emailNote',
       document,
       variables,
+      transform: (data: {
+        emailNotes?: {
+          nodes?: InferSelectResult<EmailNoteWithRelations, S>[];
+        };
+      }) => ({
+        emailNote: data.emailNotes?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends EmailNoteSelect>(

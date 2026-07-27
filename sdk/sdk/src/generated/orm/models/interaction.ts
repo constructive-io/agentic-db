@@ -70,13 +70,11 @@ export class InteractionModel {
     });
   }
   findFirst<S extends InteractionSelect>(
-    args: FindFirstArgs<S, InteractionFilter> & {
+    args: FindFirstArgs<S, InteractionFilter, InteractionOrderBy> & {
       select: S;
     } & StrictSelect<S, InteractionSelect>
   ): QueryBuilder<{
-    interactions: {
-      nodes: InferSelectResult<InteractionWithRelations, S>[];
-    };
+    interaction: InferSelectResult<InteractionWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Interaction',
@@ -84,17 +82,26 @@ export class InteractionModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'InteractionFilter',
+      'InteractionOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Interaction',
-      fieldName: 'interactions',
+      fieldName: 'interaction',
       document,
       variables,
+      transform: (data: {
+        interactions?: {
+          nodes?: InferSelectResult<InteractionWithRelations, S>[];
+        };
+      }) => ({
+        interaction: data.interactions?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends InteractionSelect>(
@@ -189,7 +196,8 @@ export class InteractionModel {
       'UpdateInteractionInput',
       'id',
       'interactionPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

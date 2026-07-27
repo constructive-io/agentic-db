@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/companies/table
 -- requires: schemas/agentic_db_app_public/tables/companies/columns/tags/column
--- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
 CREATE INDEX companies_tags_gin_idx ON agentic_db_app_public.companies USING GIN ( tags );

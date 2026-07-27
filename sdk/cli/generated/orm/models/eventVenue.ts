@@ -70,13 +70,11 @@ export class EventVenueModel {
     });
   }
   findFirst<S extends EventVenueSelect>(
-    args: FindFirstArgs<S, EventVenueFilter> & {
+    args: FindFirstArgs<S, EventVenueFilter, EventVenueOrderBy> & {
       select: S;
     } & StrictSelect<S, EventVenueSelect>
   ): QueryBuilder<{
-    eventVenues: {
-      nodes: InferSelectResult<EventVenueWithRelations, S>[];
-    };
+    eventVenue: InferSelectResult<EventVenueWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'EventVenue',
@@ -84,17 +82,26 @@ export class EventVenueModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'EventVenueFilter',
+      'EventVenueOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'EventVenue',
-      fieldName: 'eventVenues',
+      fieldName: 'eventVenue',
       document,
       variables,
+      transform: (data: {
+        eventVenues?: {
+          nodes?: InferSelectResult<EventVenueWithRelations, S>[];
+        };
+      }) => ({
+        eventVenue: data.eventVenues?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends EventVenueSelect>(

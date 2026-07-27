@@ -1,7 +1,7 @@
 %syntax-version=1.0.0
 %project=pgpm-inflection
 %uri=pgpm-inflection
-  
+
 schemas/inflection/schema 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/inflection/schema
 schemas/inflection/procedures/no_consecutive_caps [schemas/inflection/schema] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/inflection/procedures/no_consecutive_caps
 schemas/inflection/procedures/pg_slugify [schemas/inflection/schema schemas/inflection/procedures/no_consecutive_caps] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/inflection/procedures/pg_slugify
@@ -18,3 +18,4 @@ schemas/inflection/procedures/singular [schemas/inflection/schema schemas/inflec
 schemas/inflection/procedures/slugify [schemas/inflection/schema] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/inflection/procedures/slugify
 schemas/inflection/tables/inflection_rules/fixtures/1589249334312_fixture [schemas/inflection/schema schemas/inflection/tables/inflection_rules/table] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/inflection/tables/inflection_rules/fixtures/1589249334312_fixture
 schemas/inflection/tables/inflection_rules/indexes/inflection_rules_type_idx [schemas/inflection/schema schemas/inflection/tables/inflection_rules/table] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/inflection/tables/inflection_rules/indexes/inflection_rules_type_idx
+schemas/inflection/procedures/dns_1123 [schemas/inflection/schema] 2026-07-11T22:14:14Z constructive <constructive@5b0c196eeb62> # Kubernetes DNS-1123 label normalization

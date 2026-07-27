@@ -22,11 +22,25 @@ CREATE TABLE metaschema_public.foreign_key_constraint (
     delete_action char(1) DEFAULT 'c', -- postgres default is 'a'
     update_action char(1) DEFAULT 'a',
 
+    -- PG18 application-time temporal FK: renders the trailing field_ids /
+    -- ref_field_ids period column with PERIOD on both sides (WITH PERIOD).
+    with_period boolean NOT NULL DEFAULT false,
+
+    -- PG18 column-list referential action: a subset of field_ids to null out /
+    -- reset when delete_action is SET NULL ('n') / SET DEFAULT ('d'), rendering
+    -- ON DELETE SET NULL (col, ...). NULL means the whole FK column list.
+    delete_set_field_ids uuid[],
+
+    -- Constraint timing: emit DEFERRABLE / INITIALLY DEFERRED.
+    is_deferrable boolean NOT NULL DEFAULT false,
+    initially_deferred boolean NOT NULL DEFAULT false,
+
     category metaschema_public.object_category NOT NULL DEFAULT 'app',
-    module text NULL,
-    scope int NULL,
 
     tags citext[] NOT NULL DEFAULT '{}',
+
+    created_at timestamptz DEFAULT now(),
+    updated_at timestamptz DEFAULT now(),
 
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
     CONSTRAINT table_fkey FOREIGN KEY (table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,

@@ -70,3 +70,36 @@ BEGIN
   RETURN NEW;
 END;
 $EOFCODE$ LANGUAGE plpgsql;
+
+CREATE FUNCTION utils.enforce_identity_providers_quota() RETURNS trigger AS $EOFCODE$
+DECLARE
+  v_settings_schema text;
+  v_settings_table text;
+  v_max int;
+  v_count int;
+BEGIN
+
+  v_settings_schema = TG_ARGV[0];
+  v_settings_table = TG_ARGV[1];
+
+  EXECUTE format(
+    'SELECT identity_providers_max FROM %1$I.%2$I LIMIT 1',
+    v_settings_schema,
+    v_settings_table
+  )
+  INTO v_max;
+
+  EXECUTE format(
+    'SELECT count(1) FROM %1$I.%2$I',
+    TG_TABLE_SCHEMA,
+    TG_TABLE_NAME
+  )
+  INTO v_count;
+
+  IF (v_count >= v_max) THEN
+    RAISE EXCEPTION 'IDENTITY_PROVIDER_QUOTA_EXCEEDED';
+  END IF;
+
+  RETURN NEW;
+END;
+$EOFCODE$ LANGUAGE plpgsql;

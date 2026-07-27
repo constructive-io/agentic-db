@@ -250,7 +250,7 @@ export interface ActivityLog {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   habitId?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
@@ -266,7 +266,7 @@ export interface ActivityLog {
   notesTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Agent {
@@ -285,7 +285,7 @@ export interface Agent {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -302,7 +302,7 @@ export interface Agent {
   statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface AgentCollaborator {
@@ -322,7 +322,7 @@ export interface AgentLog {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -333,7 +333,7 @@ export interface AgentLog {
   messageTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface AgentPrompt {
@@ -354,7 +354,7 @@ export interface Prompt {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -367,7 +367,7 @@ export interface Prompt {
   categoryTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface AutonomyRecord {
@@ -386,7 +386,7 @@ export interface AutonomyRecord {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -403,7 +403,7 @@ export interface AutonomyRecord {
   sourceTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface AutonomyRecordLink {
@@ -449,7 +449,7 @@ export interface CalendarEvent {
   embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   calendarId?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
@@ -467,7 +467,7 @@ export interface CalendarEvent {
   meetingUrlTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface CalendarEventContact {
@@ -495,7 +495,7 @@ export interface Contact {
   embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   locationGeo?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
@@ -521,7 +521,7 @@ export interface Contact {
   howWeMetTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface CalendarEventNote {
@@ -542,7 +542,7 @@ export interface Note {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -555,7 +555,7 @@ export interface Note {
   overviewTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface CalendarEventTask {
@@ -579,7 +579,7 @@ export interface Task {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -594,7 +594,7 @@ export interface Task {
   resultTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Company {
@@ -612,7 +612,7 @@ export interface Company {
   embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -629,7 +629,7 @@ export interface Company {
   descriptionTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Deal {
@@ -647,7 +647,7 @@ export interface Deal {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -662,7 +662,7 @@ export interface Deal {
   notesTextTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface CompanyDocument {
@@ -684,7 +684,7 @@ export interface Document {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -701,7 +701,7 @@ export interface Document {
   commitHashTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface CompanyEvent {
@@ -726,7 +726,7 @@ export interface Event {
   embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   locationGeo?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
@@ -746,7 +746,7 @@ export interface Event {
   notesTextTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface CompanyImage {
@@ -764,10 +764,10 @@ export interface Image {
   /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface CompanyLink {
@@ -779,11 +779,11 @@ export interface CompanyLink {
   /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   companyId?: string | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Memory {
@@ -800,7 +800,7 @@ export interface Memory {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   locationGeo?: GeographyInterface | null;
   agentId?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -817,7 +817,7 @@ export interface Memory {
   moodTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface CompanyMemory {
@@ -877,7 +877,7 @@ export interface Email {
   embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   emailThreadId?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
@@ -895,7 +895,7 @@ export interface Email {
   bodyHtmlTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface EmailThread {
@@ -913,7 +913,7 @@ export interface EmailThread {
   embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -930,7 +930,7 @@ export interface EmailThread {
   statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface ContactEvent {
@@ -953,7 +953,7 @@ export interface Expense {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   tripId?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
@@ -971,7 +971,7 @@ export interface Expense {
   notesTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface ContactImage {
@@ -987,11 +987,11 @@ export interface ContactLink {
   /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   contactId?: string | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface ContactMemory {
@@ -1031,7 +1031,7 @@ export interface Project {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1046,7 +1046,7 @@ export interface Project {
   projectTypeTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface ContactRelationship {
@@ -1062,9 +1062,16 @@ export interface ContactsChunk {
   metadata?: Record<string, unknown> | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  search?: string | null;
+  /** TSV rank when searching `search`. Returns null when no tsv search filter is active. */
+  searchTsvRank?: number | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Conversation {
@@ -1079,7 +1086,7 @@ export interface Conversation {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1090,7 +1097,7 @@ export interface Conversation {
   statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface DealCompany {
@@ -1114,9 +1121,13 @@ export interface DocumentsChunk {
   metadata?: Record<string, unknown> | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface EmailAttachment {
@@ -1153,11 +1164,11 @@ export interface EventLink {
   /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   eventId?: string | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface EventNote {
@@ -1190,7 +1201,7 @@ export interface Venue {
   embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   location?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
@@ -1218,7 +1229,7 @@ export interface Venue {
   notesTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface ExpenseContact {
@@ -1239,7 +1250,7 @@ export interface Goal {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1252,7 +1263,7 @@ export interface Goal {
   statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface GoalHabit {
@@ -1289,7 +1300,7 @@ export interface Interaction {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1302,7 +1313,7 @@ export interface Interaction {
   sentimentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Message {
@@ -1320,7 +1331,7 @@ export interface Message {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1331,7 +1342,7 @@ export interface Message {
   contentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface NotesChunk {
@@ -1343,9 +1354,13 @@ export interface NotesChunk {
   metadata?: Record<string, unknown> | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Place {
@@ -1362,7 +1377,7 @@ export interface Place {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   locationGeo?: GeographyInterface | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
@@ -1378,7 +1393,7 @@ export interface Place {
   categoryTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface ProjectContact {
@@ -1477,8 +1492,9 @@ export interface Rule {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   triggerConceptEmbedding?: number[] | null;
+  triggerConceptEmbeddingUpdatedAt?: string | null;
   agentId?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
@@ -1498,7 +1514,7 @@ export interface Rule {
   triggerConceptTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface RuntimeArtifact {
@@ -1550,7 +1566,7 @@ export interface RuntimeLog {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1561,7 +1577,7 @@ export interface RuntimeLog {
   messageTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface RuntimeMetric {
@@ -1605,7 +1621,7 @@ export interface RuntimeState {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1618,7 +1634,7 @@ export interface RuntimeState {
   statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface RuntimeStateDependency {
@@ -1640,8 +1656,9 @@ export interface Skill {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   intentTriggerEmbedding?: number[] | null;
+  intentTriggerEmbeddingUpdatedAt?: string | null;
   agentId?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
@@ -1661,7 +1678,7 @@ export interface Skill {
   intentTriggerTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface SkillTool {
@@ -1682,7 +1699,7 @@ export interface ToolDefinition {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1695,7 +1712,7 @@ export interface ToolDefinition {
   toolTypeTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Tag {
@@ -1761,7 +1778,7 @@ export interface Touchpoint {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1780,7 +1797,7 @@ export interface Touchpoint {
   channelTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface Trip {
@@ -1797,7 +1814,7 @@ export interface Trip {
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   destinationGeo?: GeographyInterface | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
@@ -1811,7 +1828,7 @@ export interface Trip {
   descriptionTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 export interface VenueImage {
@@ -1827,11 +1844,11 @@ export interface VenueLink {
   /** Timestamp when this record was last updated */
   updatedAt?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   venueId?: string | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  /** Composite search relevance score (0..1, higher = more relevant). Computed using Reciprocal Rank Fusion (RRF) across all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
 // ============ Relation Helper Types ============
@@ -2449,7 +2466,7 @@ export type ActivityLogSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   habitId?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -2477,7 +2494,7 @@ export type AgentSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -2575,7 +2592,7 @@ export type AgentLogSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   levelTrgmSimilarity?: boolean;
@@ -2608,7 +2625,7 @@ export type PromptSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -2643,7 +2660,7 @@ export type AutonomyRecordSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   titleTrgmSimilarity?: boolean;
@@ -2733,7 +2750,7 @@ export type CalendarEventSelect = {
   embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   calendarId?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2822,7 +2839,7 @@ export type ContactSelect = {
   embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   locationGeo?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3091,7 +3108,7 @@ export type NoteSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   contentTrgmSimilarity?: boolean;
@@ -3215,7 +3232,7 @@ export type TaskSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   titleTrgmSimilarity?: boolean;
@@ -3289,7 +3306,7 @@ export type CompanySelect = {
   embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -3412,7 +3429,7 @@ export type DealSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -3487,7 +3504,7 @@ export type DocumentSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   titleTrgmSimilarity?: boolean;
@@ -3554,7 +3571,7 @@ export type EventSelect = {
   embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   locationGeo?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3661,7 +3678,7 @@ export type ImageSelect = {
   createdAt?: boolean;
   updatedAt?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
   contacts?: {
@@ -3744,7 +3761,7 @@ export type CompanyLinkSelect = {
   createdAt?: boolean;
   updatedAt?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   companyId?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
@@ -3764,7 +3781,7 @@ export type MemorySelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   locationGeo?: boolean;
   agentId?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3878,7 +3895,7 @@ export type EmailSelect = {
   embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   emailThreadId?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3939,7 +3956,7 @@ export type EmailThreadSelect = {
   embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -3992,7 +4009,7 @@ export type ExpenseSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   tripId?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -4036,7 +4053,7 @@ export type ContactLinkSelect = {
   createdAt?: boolean;
   updatedAt?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   contactId?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
@@ -4092,7 +4109,7 @@ export type ProjectSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -4169,7 +4186,11 @@ export type ContactsChunkSelect = {
   metadata?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  search?: boolean;
+  searchTsvRank?: boolean;
+  contentBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
   searchScore?: boolean;
   contacts?: {
     select: ContactSelect;
@@ -4185,7 +4206,7 @@ export type ConversationSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   titleTrgmSimilarity?: boolean;
@@ -4238,7 +4259,9 @@ export type DocumentsChunkSelect = {
   metadata?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  contentBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
   searchScore?: boolean;
   documents?: {
     select: DocumentSelect;
@@ -4295,7 +4318,7 @@ export type EventLinkSelect = {
   createdAt?: boolean;
   updatedAt?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   eventId?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
@@ -4343,7 +4366,7 @@ export type VenueSelect = {
   embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   location?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4415,7 +4438,7 @@ export type GoalSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   titleTrgmSimilarity?: boolean;
@@ -4508,7 +4531,7 @@ export type InteractionSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   typeTrgmSimilarity?: boolean;
@@ -4533,7 +4556,7 @@ export type MessageSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   roleTrgmSimilarity?: boolean;
@@ -4553,7 +4576,9 @@ export type NotesChunkSelect = {
   metadata?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  contentBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
   searchScore?: boolean;
   notes?: {
     select: NoteSelect;
@@ -4571,7 +4596,7 @@ export type PlaceSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   locationGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -4705,8 +4730,9 @@ export type RuleSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   triggerConceptEmbedding?: boolean;
+  triggerConceptEmbeddingUpdatedAt?: boolean;
   agentId?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -4766,7 +4792,7 @@ export type RuntimeLogSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   levelTrgmSimilarity?: boolean;
@@ -4815,7 +4841,7 @@ export type RuntimeStateSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -4889,8 +4915,9 @@ export type SkillSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   intentTriggerEmbedding?: boolean;
+  intentTriggerEmbeddingUpdatedAt?: boolean;
   agentId?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -4940,7 +4967,7 @@ export type ToolDefinitionSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -5051,7 +5078,7 @@ export type TouchpointSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   touchpointTypeTrgmSimilarity?: boolean;
@@ -5087,7 +5114,7 @@ export type TripSelect = {
   updatedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   destinationGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -5120,7 +5147,7 @@ export type VenueLinkSelect = {
   createdAt?: boolean;
   updatedAt?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  embeddingUpdatedAt?: boolean;
   venueId?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
@@ -5158,8 +5185,8 @@ export interface ActivityLogFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `habitId` field. */
   habitId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -5189,7 +5216,8 @@ export interface ActivityLogFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -5221,8 +5249,8 @@ export interface AgentFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: AgentFilter[];
   /** Checks for any expressions in this list. */
@@ -5280,7 +5308,8 @@ export interface AgentFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -5322,8 +5351,8 @@ export interface AgentLogFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: AgentLogFilter[];
   /** Checks for any expressions in this list. */
@@ -5347,7 +5376,8 @@ export interface AgentLogFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -5391,8 +5421,8 @@ export interface PromptFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: PromptFilter[];
   /** Checks for any expressions in this list. */
@@ -5418,7 +5448,8 @@ export interface PromptFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -5450,8 +5481,8 @@ export interface AutonomyRecordFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: AutonomyRecordFilter[];
   /** Checks for any expressions in this list. */
@@ -5485,7 +5516,8 @@ export interface AutonomyRecordFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -5589,8 +5621,8 @@ export interface CalendarEventFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `calendarId` field. */
   calendarId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -5640,7 +5672,8 @@ export interface CalendarEventFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -5698,8 +5731,8 @@ export interface ContactFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `locationGeo` field. */
   locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -5835,7 +5868,8 @@ export interface ContactFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -5879,8 +5913,8 @@ export interface NoteFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: NoteFilter[];
   /** Checks for any expressions in this list. */
@@ -5934,7 +5968,8 @@ export interface NoteFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -5984,8 +6019,8 @@ export interface TaskFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: TaskFilter[];
   /** Checks for any expressions in this list. */
@@ -6029,7 +6064,8 @@ export interface TaskFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6059,8 +6095,8 @@ export interface CompanyFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: CompanyFilter[];
   /** Checks for any expressions in this list. */
@@ -6126,7 +6162,8 @@ export interface CompanyFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6156,8 +6193,8 @@ export interface DealFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: DealFilter[];
   /** Checks for any expressions in this list. */
@@ -6197,7 +6234,8 @@ export interface DealFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6243,8 +6281,8 @@ export interface DocumentFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: DocumentFilter[];
   /** Checks for any expressions in this list. */
@@ -6282,7 +6320,8 @@ export interface DocumentFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6334,8 +6373,8 @@ export interface EventFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `locationGeo` field. */
   locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -6399,7 +6438,8 @@ export interface EventFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6437,8 +6477,8 @@ export interface ImageFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ImageFilter[];
   /** Checks for any expressions in this list. */
@@ -6493,8 +6533,8 @@ export interface CompanyLinkFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `companyId` field. */
   companyId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -6531,8 +6571,8 @@ export interface MemoryFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `locationGeo` field. */
   locationGeo?: GeographyInterfaceFilter;
   /** Filter by the object’s `agentId` field. */
@@ -6578,7 +6618,8 @@ export interface MemoryFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6720,8 +6761,8 @@ export interface EmailFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `emailThreadId` field. */
   emailThreadId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -6767,7 +6808,8 @@ export interface EmailFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6797,8 +6839,8 @@ export interface EmailThreadFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: EmailThreadFilter[];
   /** Checks for any expressions in this list. */
@@ -6832,7 +6874,8 @@ export interface EmailThreadFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6880,8 +6923,8 @@ export interface ExpenseFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `tripId` field. */
   tripId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -6917,7 +6960,8 @@ export interface ExpenseFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -6951,8 +6995,8 @@ export interface ContactLinkFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -7053,8 +7097,8 @@ export interface ProjectFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ProjectFilter[];
   /** Checks for any expressions in this list. */
@@ -7094,7 +7138,8 @@ export interface ProjectFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -7121,7 +7166,7 @@ export interface ContactsChunkFilter {
   /** Filter by the object’s `contactsId` field. */
   contactsId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringFilter;
+  content?: StringTrgmFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `embedding` field. */
@@ -7132,6 +7177,8 @@ export interface ContactsChunkFilter {
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `search` field. */
+  search?: FullTextFilter;
   /** Checks for all expressions in this list. */
   and?: ContactsChunkFilter[];
   /** Checks for any expressions in this list. */
@@ -7140,8 +7187,22 @@ export interface ContactsChunkFilter {
   not?: ContactsChunkFilter;
   /** Filter by the object’s `contacts` relation. */
   contacts?: ContactFilter;
+  /** TSV search on the `search` column. */
+  tsvSearch?: string;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 export interface ConversationFilter {
   /** Filter by the object’s `title` field. */
@@ -7162,8 +7223,8 @@ export interface ConversationFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ConversationFilter[];
   /** Checks for any expressions in this list. */
@@ -7187,7 +7248,8 @@ export interface ConversationFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -7246,7 +7308,7 @@ export interface DocumentsChunkFilter {
   /** Filter by the object’s `documentsId` field. */
   documentsId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringFilter;
+  content?: StringTrgmFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `embedding` field. */
@@ -7265,8 +7327,20 @@ export interface DocumentsChunkFilter {
   not?: DocumentsChunkFilter;
   /** Filter by the object’s `documents` relation. */
   documents?: DocumentFilter;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 export interface EmailAttachmentFilter {
   /** Filter by the object’s `filename` field. */
@@ -7357,8 +7431,8 @@ export interface EventLinkFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `eventId` field. */
   eventId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -7443,8 +7517,8 @@ export interface VenueFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `location` field. */
   location?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -7498,7 +7572,8 @@ export interface VenueFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -7542,8 +7617,8 @@ export interface GoalFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: GoalFilter[];
   /** Checks for any expressions in this list. */
@@ -7573,7 +7648,8 @@ export interface GoalFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -7665,8 +7741,8 @@ export interface InteractionFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: InteractionFilter[];
   /** Checks for any expressions in this list. */
@@ -7690,7 +7766,8 @@ export interface InteractionFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -7720,8 +7797,8 @@ export interface MessageFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: MessageFilter[];
   /** Checks for any expressions in this list. */
@@ -7743,7 +7820,8 @@ export interface MessageFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -7754,7 +7832,7 @@ export interface NotesChunkFilter {
   /** Filter by the object’s `notesId` field. */
   notesId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringFilter;
+  content?: StringTrgmFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `embedding` field. */
@@ -7773,8 +7851,20 @@ export interface NotesChunkFilter {
   not?: NotesChunkFilter;
   /** Filter by the object’s `notes` relation. */
   notes?: NoteFilter;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 export interface PlaceFilter {
   /** Filter by the object’s `name` field. */
@@ -7799,8 +7889,8 @@ export interface PlaceFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `locationGeo` field. */
   locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -7826,7 +7916,8 @@ export interface PlaceFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -8052,10 +8143,12 @@ export interface RuleFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `triggerConceptEmbedding` field. */
   triggerConceptEmbedding?: VectorFilter;
+  /** Filter by the object’s `triggerConceptEmbeddingUpdatedAt` field. */
+  triggerConceptEmbeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -8087,7 +8180,8 @@ export interface RuleFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -8187,8 +8281,8 @@ export interface RuntimeLogFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeLogFilter[];
   /** Checks for any expressions in this list. */
@@ -8210,7 +8304,8 @@ export interface RuntimeLogFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -8294,8 +8389,8 @@ export interface RuntimeStateFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeStateFilter[];
   /** Checks for any expressions in this list. */
@@ -8337,7 +8432,8 @@ export interface RuntimeStateFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -8383,10 +8479,12 @@ export interface SkillFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `intentTriggerEmbedding` field. */
   intentTriggerEmbedding?: VectorFilter;
+  /** Filter by the object’s `intentTriggerEmbeddingUpdatedAt` field. */
+  intentTriggerEmbeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -8422,7 +8520,8 @@ export interface SkillFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -8466,8 +8565,8 @@ export interface ToolDefinitionFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ToolDefinitionFilter[];
   /** Checks for any expressions in this list. */
@@ -8497,7 +8596,8 @@ export interface ToolDefinitionFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -8657,8 +8757,8 @@ export interface TouchpointFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: TouchpointFilter[];
   /** Checks for any expressions in this list. */
@@ -8700,7 +8800,8 @@ export interface TouchpointFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -8728,8 +8829,8 @@ export interface TripFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `destinationGeo` field. */
   destinationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -8759,7 +8860,8 @@ export interface TripFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -8793,8 +8895,8 @@ export interface VenueLinkFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `venueId` field. */
   venueId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -8841,8 +8943,8 @@ export type ActivityLogOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'HABIT_ID_ASC'
   | 'HABIT_ID_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -8891,8 +8993,8 @@ export type AgentOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -8941,8 +9043,8 @@ export type AgentLogOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -8987,8 +9089,8 @@ export type PromptOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9033,8 +9135,8 @@ export type AutonomyRecordOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9127,8 +9229,8 @@ export type CalendarEventOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'CALENDAR_ID_ASC'
   | 'CALENDAR_ID_DESC'
   | 'SEARCH_TSV_RANK_ASC'
@@ -9195,8 +9297,8 @@ export type ContactOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'LOCATION_GEO_ASC'
   | 'LOCATION_GEO_DESC'
   | 'SEARCH_TSV_RANK_ASC'
@@ -9257,8 +9359,8 @@ export type NoteOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9311,8 +9413,8 @@ export type TaskOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9357,8 +9459,8 @@ export type CompanyOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -9405,8 +9507,8 @@ export type DealOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9457,8 +9559,8 @@ export type DocumentOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9517,8 +9619,8 @@ export type EventOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'LOCATION_GEO_ASC'
   | 'LOCATION_GEO_DESC'
   | 'SEARCH_TSV_RANK_ASC'
@@ -9567,8 +9669,8 @@ export type ImageOrderBy =
   | 'UPDATED_AT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
@@ -9589,8 +9691,8 @@ export type CompanyLinkOrderBy =
   | 'UPDATED_AT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'COMPANY_ID_ASC'
   | 'COMPANY_ID_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9623,8 +9725,8 @@ export type MemoryOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'LOCATION_GEO_ASC'
   | 'LOCATION_GEO_DESC'
   | 'AGENT_ID_ASC'
@@ -9743,8 +9845,8 @@ export type EmailOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMAIL_THREAD_ID_ASC'
   | 'EMAIL_THREAD_ID_DESC'
   | 'SEARCH_TSV_RANK_ASC'
@@ -9793,8 +9895,8 @@ export type EmailThreadOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -9849,8 +9951,8 @@ export type ExpenseOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'TRIP_ID_ASC'
   | 'TRIP_ID_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -9893,8 +9995,8 @@ export type ContactLinkOrderBy =
   | 'UPDATED_AT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'CONTACT_ID_ASC'
   | 'CONTACT_ID_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -9965,8 +10067,8 @@ export type ProjectOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10009,8 +10111,16 @@ export type ContactsChunkOrderBy =
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
+  | 'SEARCH_ASC'
+  | 'SEARCH_DESC'
+  | 'SEARCH_TSV_RANK_ASC'
+  | 'SEARCH_TSV_RANK_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ConversationOrderBy =
@@ -10035,8 +10145,8 @@ export type ConversationOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10087,8 +10197,12 @@ export type DocumentsChunkOrderBy =
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type EmailAttachmentOrderBy =
@@ -10147,8 +10261,8 @@ export type EventLinkOrderBy =
   | 'UPDATED_AT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EVENT_ID_ASC'
   | 'EVENT_ID_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10209,8 +10323,8 @@ export type VenueOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'LOCATION_ASC'
   | 'LOCATION_DESC'
   | 'SEARCH_TSV_RANK_ASC'
@@ -10273,8 +10387,8 @@ export type GoalOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10347,8 +10461,8 @@ export type InteractionOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10391,8 +10505,8 @@ export type MessageOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10425,8 +10539,12 @@ export type NotesChunkOrderBy =
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type PlaceOrderBy =
@@ -10455,8 +10573,8 @@ export type PlaceOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'LOCATION_GEO_ASC'
   | 'LOCATION_GEO_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -10641,10 +10759,12 @@ export type RuleOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'TRIGGER_CONCEPT_EMBEDDING_ASC'
   | 'TRIGGER_CONCEPT_EMBEDDING_DESC'
+  | 'TRIGGER_CONCEPT_EMBEDDING_UPDATED_AT_ASC'
+  | 'TRIGGER_CONCEPT_EMBEDDING_UPDATED_AT_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -10751,8 +10871,8 @@ export type RuntimeLogOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10837,8 +10957,8 @@ export type RuntimeStateOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10887,10 +11007,12 @@ export type SkillOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'INTENT_TRIGGER_EMBEDDING_ASC'
   | 'INTENT_TRIGGER_EMBEDDING_DESC'
+  | 'INTENT_TRIGGER_EMBEDDING_UPDATED_AT_ASC'
+  | 'INTENT_TRIGGER_EMBEDDING_UPDATED_AT_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -10945,8 +11067,8 @@ export type ToolDefinitionOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -11069,8 +11191,8 @@ export type TouchpointOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -11117,8 +11239,8 @@ export type TripOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'DESTINATION_GEO_ASC'
   | 'DESTINATION_GEO_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -11157,8 +11279,8 @@ export type VenueLinkOrderBy =
   | 'UPDATED_AT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_STALE_ASC'
-  | 'EMBEDDING_STALE_DESC'
+  | 'EMBEDDING_UPDATED_AT_ASC'
+  | 'EMBEDDING_UPDATED_AT_DESC'
   | 'VENUE_ID_ASC'
   | 'VENUE_ID_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -11180,7 +11302,7 @@ export interface CreateActivityLogInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     habitId?: string;
   };
 }
@@ -11196,7 +11318,7 @@ export interface ActivityLogPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   habitId?: string | null;
 }
 export interface UpdateActivityLogInput {
@@ -11221,7 +11343,7 @@ export interface CreateAgentInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface AgentPatch {
@@ -11235,7 +11357,7 @@ export interface AgentPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateAgentInput {
   clientMutationId?: string;
@@ -11276,7 +11398,7 @@ export interface CreateAgentLogInput {
     taskId?: string;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface AgentLogPatch {
@@ -11287,7 +11409,7 @@ export interface AgentLogPatch {
   taskId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateAgentLogInput {
   clientMutationId?: string;
@@ -11329,7 +11451,7 @@ export interface CreatePromptInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface PromptPatch {
@@ -11341,7 +11463,7 @@ export interface PromptPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdatePromptInput {
   clientMutationId?: string;
@@ -11365,7 +11487,7 @@ export interface CreateAutonomyRecordInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface AutonomyRecordPatch {
@@ -11379,7 +11501,7 @@ export interface AutonomyRecordPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateAutonomyRecordInput {
   clientMutationId?: string;
@@ -11471,7 +11593,7 @@ export interface CreateCalendarEventInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     calendarId: string;
   };
 }
@@ -11486,7 +11608,7 @@ export interface CalendarEventPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   calendarId?: string | null;
 }
 export interface UpdateCalendarEventInput {
@@ -11535,7 +11657,7 @@ export interface CreateContactInput {
     mainImageId?: string;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     locationGeo?: unknown;
   };
 }
@@ -11554,7 +11676,7 @@ export interface ContactPatch {
   mainImageId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   locationGeo?: unknown | null;
 }
 export interface UpdateContactInput {
@@ -11597,7 +11719,7 @@ export interface CreateNoteInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface NotePatch {
@@ -11609,7 +11731,7 @@ export interface NotePatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateNoteInput {
   clientMutationId?: string;
@@ -11654,7 +11776,7 @@ export interface CreateTaskInput {
     meta?: Record<string, unknown>;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface TaskPatch {
@@ -11669,7 +11791,7 @@ export interface TaskPatch {
   meta?: Record<string, unknown> | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateTaskInput {
   clientMutationId?: string;
@@ -11691,7 +11813,7 @@ export interface CreateCompanyInput {
     mainImageId?: string;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface CompanyPatch {
@@ -11703,7 +11825,7 @@ export interface CompanyPatch {
   mainImageId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateCompanyInput {
   clientMutationId?: string;
@@ -11726,7 +11848,7 @@ export interface CreateDealInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface DealPatch {
@@ -11739,7 +11861,7 @@ export interface DealPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateDealInput {
   clientMutationId?: string;
@@ -11782,7 +11904,7 @@ export interface CreateDocumentInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface DocumentPatch {
@@ -11795,7 +11917,7 @@ export interface DocumentPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateDocumentInput {
   clientMutationId?: string;
@@ -11840,7 +11962,7 @@ export interface CreateEventInput {
     mainImageId?: string;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     locationGeo?: unknown;
   };
 }
@@ -11856,7 +11978,7 @@ export interface EventPatch {
   mainImageId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   locationGeo?: unknown | null;
 }
 export interface UpdateEventInput {
@@ -11896,7 +12018,7 @@ export interface CreateImageInput {
     altText?: string;
     caption?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface ImagePatch {
@@ -11905,7 +12027,7 @@ export interface ImagePatch {
   altText?: string | null;
   caption?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateImageInput {
   clientMutationId?: string;
@@ -11922,7 +12044,7 @@ export interface CreateCompanyLinkInput {
     title?: string;
     url: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     companyId: string;
   };
 }
@@ -11930,7 +12052,7 @@ export interface CompanyLinkPatch {
   title?: string | null;
   url?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   companyId?: string | null;
 }
 export interface UpdateCompanyLinkInput {
@@ -11953,7 +12075,7 @@ export interface CreateMemoryInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     locationGeo?: unknown;
     agentId?: string;
   };
@@ -11967,7 +12089,7 @@ export interface MemoryPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   locationGeo?: unknown | null;
   agentId?: string | null;
 }
@@ -12111,7 +12233,7 @@ export interface CreateEmailInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     emailThreadId: string;
   };
 }
@@ -12128,7 +12250,7 @@ export interface EmailPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   emailThreadId?: string | null;
 }
 export interface UpdateEmailInput {
@@ -12151,7 +12273,7 @@ export interface CreateEmailThreadInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface EmailThreadPatch {
@@ -12163,7 +12285,7 @@ export interface EmailThreadPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateEmailThreadInput {
   clientMutationId?: string;
@@ -12207,7 +12329,7 @@ export interface CreateExpenseInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     tripId?: string;
   };
 }
@@ -12222,7 +12344,7 @@ export interface ExpensePatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   tripId?: string | null;
 }
 export interface UpdateExpenseInput {
@@ -12260,7 +12382,7 @@ export interface CreateContactLinkInput {
     title?: string;
     url: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     contactId: string;
   };
 }
@@ -12268,7 +12390,7 @@ export interface ContactLinkPatch {
   title?: string | null;
   url?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   contactId?: string | null;
 }
 export interface UpdateContactLinkInput {
@@ -12359,7 +12481,7 @@ export interface CreateProjectInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface ProjectPatch {
@@ -12375,7 +12497,7 @@ export interface ProjectPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateProjectInput {
   clientMutationId?: string;
@@ -12441,7 +12563,7 @@ export interface CreateConversationInput {
     meta?: Record<string, unknown>;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface ConversationPatch {
@@ -12451,7 +12573,7 @@ export interface ConversationPatch {
   meta?: Record<string, unknown> | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateConversationInput {
   clientMutationId?: string;
@@ -12642,7 +12764,7 @@ export interface CreateEventLinkInput {
     title?: string;
     url: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     eventId: string;
   };
 }
@@ -12650,7 +12772,7 @@ export interface EventLinkPatch {
   title?: string | null;
   url?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   eventId?: string | null;
 }
 export interface UpdateEventLinkInput {
@@ -12720,7 +12842,7 @@ export interface CreateVenueInput {
     mainImageId?: string;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     location?: unknown;
   };
 }
@@ -12740,7 +12862,7 @@ export interface VenuePatch {
   mainImageId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   location?: unknown | null;
 }
 export interface UpdateVenueInput {
@@ -12783,7 +12905,7 @@ export interface CreateGoalInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface GoalPatch {
@@ -12795,7 +12917,7 @@ export interface GoalPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateGoalInput {
   clientMutationId?: string;
@@ -12883,7 +13005,7 @@ export interface CreateInteractionInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface InteractionPatch {
@@ -12895,7 +13017,7 @@ export interface InteractionPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateInteractionInput {
   clientMutationId?: string;
@@ -12918,7 +13040,7 @@ export interface CreateMessageInput {
     toolResults?: Record<string, unknown>;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface MessagePatch {
@@ -12931,7 +13053,7 @@ export interface MessagePatch {
   toolResults?: Record<string, unknown> | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateMessageInput {
   clientMutationId?: string;
@@ -12979,7 +13101,7 @@ export interface CreatePlaceInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     locationGeo?: unknown;
   };
 }
@@ -12992,7 +13114,7 @@ export interface PlacePatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   locationGeo?: unknown | null;
 }
 export interface UpdatePlaceInput {
@@ -13210,8 +13332,9 @@ export interface CreateRuleInput {
     triggerConcept?: string;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     triggerConceptEmbedding?: number[];
+    triggerConceptEmbeddingUpdatedAt?: string;
     agentId: string;
   };
 }
@@ -13227,8 +13350,9 @@ export interface RulePatch {
   triggerConcept?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   triggerConceptEmbedding?: number[] | null;
+  triggerConceptEmbeddingUpdatedAt?: string | null;
   agentId?: string | null;
 }
 export interface UpdateRuleInput {
@@ -13328,7 +13452,7 @@ export interface CreateRuntimeLogInput {
     stepIndex?: number;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface RuntimeLogPatch {
@@ -13339,7 +13463,7 @@ export interface RuntimeLogPatch {
   stepIndex?: number | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateRuntimeLogInput {
   clientMutationId?: string;
@@ -13418,7 +13542,7 @@ export interface CreateRuntimeStateInput {
     endedAt?: string;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface RuntimeStatePatch {
@@ -13431,7 +13555,7 @@ export interface RuntimeStatePatch {
   endedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateRuntimeStateInput {
   clientMutationId?: string;
@@ -13474,8 +13598,9 @@ export interface CreateSkillInput {
     intentTrigger?: string;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     intentTriggerEmbedding?: number[];
+    intentTriggerEmbeddingUpdatedAt?: string;
     agentId: string;
   };
 }
@@ -13489,8 +13614,9 @@ export interface SkillPatch {
   intentTrigger?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   intentTriggerEmbedding?: number[] | null;
+  intentTriggerEmbeddingUpdatedAt?: string | null;
   agentId?: string | null;
 }
 export interface UpdateSkillInput {
@@ -13533,7 +13659,7 @@ export interface CreateToolDefinitionInput {
     isActive?: boolean;
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface ToolDefinitionPatch {
@@ -13545,7 +13671,7 @@ export interface ToolDefinitionPatch {
   isActive?: boolean | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateToolDefinitionInput {
   clientMutationId?: string;
@@ -13710,7 +13836,7 @@ export interface CreateTouchpointInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
   };
 }
 export interface TouchpointPatch {
@@ -13729,7 +13855,7 @@ export interface TouchpointPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
 }
 export interface UpdateTouchpointInput {
   clientMutationId?: string;
@@ -13751,7 +13877,7 @@ export interface CreateTripInput {
     tags?: string[];
     embeddingText?: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     destinationGeo?: unknown;
   };
 }
@@ -13764,7 +13890,7 @@ export interface TripPatch {
   tags?: string[] | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   destinationGeo?: unknown | null;
 }
 export interface UpdateTripInput {
@@ -13802,7 +13928,7 @@ export interface CreateVenueLinkInput {
     title?: string;
     url: string;
     embedding?: number[];
-    embeddingStale?: boolean;
+    embeddingUpdatedAt?: string;
     venueId: string;
   };
 }
@@ -13810,7 +13936,7 @@ export interface VenueLinkPatch {
   title?: string | null;
   url?: string | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  embeddingUpdatedAt?: string | null;
   venueId?: string | null;
 }
 export interface UpdateVenueLinkInput {
@@ -14069,29 +14195,6 @@ export const connectionFieldsMap = {
   },
 } as Record<string, Record<string, string>>;
 // ============ Custom Input Types (from schema) ============
-export interface RequestUploadUrlInput {
-  /** Bucket key (e.g., "public", "private") */
-  bucketKey: string;
-  /**
-   * Owner entity ID for entity-scoped uploads.
-   * Omit for app-level (database-wide) storage.
-   * When provided, resolves the storage module for the entity type
-   * that owns this entity instance (e.g., a data room ID, team ID).
-   */
-  ownerId?: string;
-  /** SHA-256 content hash computed by the client (hex-encoded, 64 chars) */
-  contentHash: string;
-  /** MIME type of the file (e.g., "image/png") */
-  contentType: string;
-  /** File size in bytes */
-  size: number;
-  /** Original filename (optional, for display and Content-Disposition) */
-  filename?: string;
-}
-export interface ConfirmUploadInput {
-  /** The file ID returned by requestUploadUrl */
-  fileId: string;
-}
 export interface ProvisionBucketInput {
   /** The logical bucket key (e.g., "public", "private") */
   bucketKey: string;
@@ -15288,6 +15391,1145 @@ export interface TripSpatialNearbyVenuesFilter {
   /** Filters to entities where no spatially-related entity matches. */
   none?: VenueFilter;
 }
+/** An input for mutations affecting `ActivityLog` */
+export interface ActivityLogInput {
+  activityType: string;
+  completedAt: string;
+  durationMinutes?: number;
+  quantity?: string;
+  quantityUnit?: string;
+  intensity?: string;
+  notes?: string;
+  meta?: Record<string, unknown>;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  habitId?: string;
+}
+/** An input for mutations affecting `Agent` */
+export interface AgentInput {
+  name: string;
+  description?: string;
+  systemPrompt?: string;
+  model?: string;
+  temperature?: string;
+  status?: string;
+  config?: Record<string, unknown>;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `AgentCollaborator` */
+export interface AgentCollaboratorInput {
+  agentId: string;
+  collaboratorId: string;
+}
+/** An input for mutations affecting `AgentLog` */
+export interface AgentLogInput {
+  agentId?: string;
+  level: string;
+  message: string;
+  context?: Record<string, unknown>;
+  taskId?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `AgentPrompt` */
+export interface AgentPromptInput {
+  agentId: string;
+  promptId: string;
+}
+/** An input for mutations affecting `Prompt` */
+export interface PromptInput {
+  name: string;
+  content: string;
+  category?: string;
+  version?: number;
+  isActive?: boolean;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `AutonomyRecord` */
+export interface AutonomyRecordInput {
+  title: string;
+  recordType?: string;
+  content?: string;
+  status?: string;
+  priority?: number;
+  source?: string;
+  context?: Record<string, unknown>;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `AutonomyRecordLink` */
+export interface AutonomyRecordLinkInput {
+  sourceRecordId: string;
+  targetRecordId: string;
+}
+/** An input for mutations affecting `CalendarAttendee` */
+export interface CalendarAttendeeInput {
+  contactId?: string;
+  responseStatus?: string;
+  role?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  calendarEventId: string;
+}
+/** An input for mutations affecting `Calendar` */
+export interface CalendarInput {
+  providerAccountId?: string;
+  providerCalendarId?: string;
+  name: string;
+  color?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `CalendarEvent` */
+export interface CalendarEventInput {
+  providerEventId?: string;
+  title: string;
+  description?: string;
+  startTime?: string;
+  endTime?: string;
+  meetingUrl?: string;
+  organizerContactId?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  calendarId: string;
+}
+/** An input for mutations affecting `CalendarEventContact` */
+export interface CalendarEventContactInput {
+  calendarEventId: string;
+  contactId: string;
+}
+/** An input for mutations affecting `Contact` */
+export interface ContactInput {
+  firstName: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  headline?: string;
+  bio?: string;
+  location?: string;
+  birthday?: string;
+  relationshipTypes?: string[];
+  howWeMet?: string;
+  tags?: string[];
+  mainImageId?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  locationGeo?: unknown;
+}
+/** An input for mutations affecting `CalendarEventNote` */
+export interface CalendarEventNoteInput {
+  calendarEventId: string;
+  noteId: string;
+}
+/** An input for mutations affecting `Note` */
+export interface NoteInput {
+  content: string;
+  abstract?: string;
+  overview?: string;
+  activeCount?: number;
+  lastAccessedAt?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `CalendarEventTask` */
+export interface CalendarEventTaskInput {
+  calendarEventId: string;
+  taskId: string;
+}
+/** An input for mutations affecting `Task` */
+export interface TaskInput {
+  agentId?: string;
+  title: string;
+  description?: string;
+  status?: string;
+  priority?: number;
+  result?: string;
+  startedAt?: string;
+  completedAt?: string;
+  meta?: Record<string, unknown>;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `Company` */
+export interface CompanyInput {
+  name: string;
+  domain?: string;
+  industry?: string;
+  description?: string;
+  tags?: string[];
+  mainImageId?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `Deal` */
+export interface DealInput {
+  name: string;
+  stage?: string;
+  value?: string;
+  currency?: string;
+  expectedCloseDate?: string;
+  notesText?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `CompanyDocument` */
+export interface CompanyDocumentInput {
+  companyId: string;
+  documentId: string;
+}
+/** An input for mutations affecting `Document` */
+export interface DocumentInput {
+  title?: string;
+  content: string;
+  metadata?: Record<string, unknown>;
+  repoName?: string;
+  filePath?: string;
+  commitHash?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `CompanyEvent` */
+export interface CompanyEventInput {
+  companyId: string;
+  eventId: string;
+}
+/** An input for mutations affecting `Event` */
+export interface EventInput {
+  name: string;
+  eventType?: string;
+  location?: string;
+  city?: string;
+  startedAt?: string;
+  endedAt?: string;
+  notesText?: string;
+  tags?: string[];
+  mainImageId?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  locationGeo?: unknown;
+}
+/** An input for mutations affecting `CompanyImage` */
+export interface CompanyImageInput {
+  companyId: string;
+  imageId: string;
+}
+/** An input for mutations affecting `Image` */
+export interface ImageInput {
+  url: string;
+  meta?: Record<string, unknown>;
+  altText?: string;
+  caption?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `CompanyLink` */
+export interface CompanyLinkInput {
+  title?: string;
+  url: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  companyId: string;
+}
+/** An input for mutations affecting `Memory` */
+export interface MemoryInput {
+  title: string;
+  content?: string;
+  location?: string;
+  occurredAt?: string;
+  mood?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  locationGeo?: unknown;
+  agentId?: string;
+}
+/** An input for mutations affecting `CompanyMemory` */
+export interface CompanyMemoryInput {
+  companyId: string;
+  memoryId: string;
+}
+/** An input for mutations affecting `CompanyNote` */
+export interface CompanyNoteInput {
+  companyId: string;
+  noteId: string;
+}
+/** An input for mutations affecting `ContactAddress` */
+export interface ContactAddressInput {
+  street?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  country?: string;
+  addressType?: string;
+  isPrimary?: boolean;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  contactId: string;
+}
+/** An input for mutations affecting `ContactCompany` */
+export interface ContactCompanyInput {
+  contactId: string;
+  companyId: string;
+}
+/** An input for mutations affecting `ContactEmail` */
+export interface ContactEmailInput {
+  email: string;
+  emailType?: string;
+  isPrimary?: boolean;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  contactId: string;
+}
+/** An input for mutations affecting `Email` */
+export interface EmailInput {
+  providerMessageId?: string;
+  fromContactId?: string;
+  to?: Record<string, unknown>;
+  cc?: Record<string, unknown>;
+  bcc?: Record<string, unknown>;
+  subject?: string;
+  bodyText?: string;
+  bodyHtml?: string;
+  sentAt?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  emailThreadId: string;
+}
+/** An input for mutations affecting `EmailThread` */
+export interface EmailThreadInput {
+  providerThreadId?: string;
+  subject?: string;
+  lastMessageAt?: string;
+  summary?: string;
+  status?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `ContactEvent` */
+export interface ContactEventInput {
+  contactId: string;
+  eventId: string;
+}
+/** An input for mutations affecting `Expense` */
+export interface ExpenseInput {
+  description?: string;
+  amount?: string;
+  currency?: string;
+  category?: string;
+  occurredAt?: string;
+  vendor?: string;
+  notes?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  tripId?: string;
+}
+/** An input for mutations affecting `ContactImage` */
+export interface ContactImageInput {
+  contactId: string;
+  imageId: string;
+}
+/** An input for mutations affecting `ContactLink` */
+export interface ContactLinkInput {
+  title?: string;
+  url: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  contactId: string;
+}
+/** An input for mutations affecting `ContactMemory` */
+export interface ContactMemoryInput {
+  contactId: string;
+  memoryId: string;
+}
+/** An input for mutations affecting `ContactNote` */
+export interface ContactNoteInput {
+  contactId: string;
+  noteId: string;
+}
+/** An input for mutations affecting `ContactPhone` */
+export interface ContactPhoneInput {
+  phone: string;
+  phoneType?: string;
+  isPrimary?: boolean;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  contactId: string;
+}
+/** An input for mutations affecting `Project` */
+export interface ProjectInput {
+  name: string;
+  description?: string;
+  status?: string;
+  projectType?: string;
+  priority?: number;
+  startedAt?: string;
+  targetDate?: string;
+  completedAt?: string;
+  config?: Record<string, unknown>;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `ContactRelationship` */
+export interface ContactRelationshipInput {
+  contactId: string;
+  relatedContactId: string;
+}
+/** An input for mutations affecting `ContactsChunk` */
+export interface ContactsChunkInput {
+  id?: string;
+  contactsId: string;
+  content: string;
+  chunkIndex?: number;
+  embedding?: number[];
+  metadata?: Record<string, unknown>;
+  createdAt?: string;
+  updatedAt?: string;
+}
+/** An input for mutations affecting `Conversation` */
+export interface ConversationInput {
+  title: string;
+  agentId?: string;
+  status?: string;
+  meta?: Record<string, unknown>;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `DealCompany` */
+export interface DealCompanyInput {
+  dealId: string;
+  companyId: string;
+}
+/** An input for mutations affecting `DealContact` */
+export interface DealContactInput {
+  dealId: string;
+  contactId: string;
+}
+/** An input for mutations affecting `DealNote` */
+export interface DealNoteInput {
+  dealId: string;
+  noteId: string;
+}
+/** An input for mutations affecting `DocumentsChunk` */
+export interface DocumentsChunkInput {
+  id?: string;
+  documentsId: string;
+  content: string;
+  chunkIndex?: number;
+  embedding?: number[];
+  metadata?: Record<string, unknown>;
+  createdAt?: string;
+  updatedAt?: string;
+}
+/** An input for mutations affecting `EmailAttachment` */
+export interface EmailAttachmentInput {
+  filename: string;
+  contentType?: string;
+  sizeBytes?: number;
+  storageUrl?: string;
+  providerAttachmentId?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  emailId: string;
+}
+/** An input for mutations affecting `EmailNote` */
+export interface EmailNoteInput {
+  emailId: string;
+  noteId: string;
+}
+/** An input for mutations affecting `EmailRecipient` */
+export interface EmailRecipientInput {
+  emailId: string;
+  contactId: string;
+}
+/** An input for mutations affecting `EventImage` */
+export interface EventImageInput {
+  eventId: string;
+  imageId: string;
+}
+/** An input for mutations affecting `EventLink` */
+export interface EventLinkInput {
+  title?: string;
+  url: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  eventId: string;
+}
+/** An input for mutations affecting `EventNote` */
+export interface EventNoteInput {
+  eventId: string;
+  noteId: string;
+}
+/** An input for mutations affecting `EventVenue` */
+export interface EventVenueInput {
+  eventId: string;
+  venueId: string;
+}
+/** An input for mutations affecting `Venue` */
+export interface VenueInput {
+  name: string;
+  address?: string;
+  neighborhood?: string;
+  city?: string;
+  category?: string;
+  status?: string;
+  googlePlaceId?: string;
+  rating?: string;
+  priceLevel?: string;
+  isFavorite?: boolean;
+  notes?: string;
+  tags?: string[];
+  mainImageId?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  location?: unknown;
+}
+/** An input for mutations affecting `ExpenseContact` */
+export interface ExpenseContactInput {
+  expenseId: string;
+  contactId: string;
+}
+/** An input for mutations affecting `Goal` */
+export interface GoalInput {
+  title: string;
+  description?: string;
+  status?: string;
+  targetDate?: string;
+  progress?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `GoalHabit` */
+export interface GoalHabitInput {
+  goalId: string;
+  habitId: string;
+}
+/** An input for mutations affecting `Habit` */
+export interface HabitInput {
+  name: string;
+  frequency?: string;
+  streak?: number;
+  lastCompletedAt?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `GoalProject` */
+export interface GoalProjectInput {
+  goalId: string;
+  projectId: string;
+}
+/** An input for mutations affecting `Interaction` */
+export interface InteractionInput {
+  contactId: string;
+  type: string;
+  occurredAt: string;
+  summary?: string;
+  sentiment?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `Message` */
+export interface MessageInput {
+  conversationId: string;
+  role: string;
+  content: string;
+  tokenCount?: number;
+  meta?: Record<string, unknown>;
+  toolCalls?: Record<string, unknown>;
+  toolResults?: Record<string, unknown>;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `NotesChunk` */
+export interface NotesChunkInput {
+  id?: string;
+  notesId: string;
+  content: string;
+  chunkIndex?: number;
+  embedding?: number[];
+  metadata?: Record<string, unknown>;
+  createdAt?: string;
+  updatedAt?: string;
+}
+/** An input for mutations affecting `Place` */
+export interface PlaceInput {
+  name: string;
+  address?: string;
+  description?: string;
+  category?: string;
+  rating?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  locationGeo?: unknown;
+}
+/** An input for mutations affecting `ProjectContact` */
+export interface ProjectContactInput {
+  projectId: string;
+  contactId: string;
+}
+/** An input for mutations affecting `ProjectDocument` */
+export interface ProjectDocumentInput {
+  projectId: string;
+  documentId: string;
+}
+/** An input for mutations affecting `ProviderSyncState` */
+export interface ProviderSyncStateInput {
+  provider: string;
+  resourceType: string;
+  syncCursor?: string;
+  historyId?: string;
+  lastSyncAt?: string;
+  status?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `RawContact` */
+export interface RawContactInput {
+  externalId?: string;
+  source?: string;
+  firstName?: string;
+  lastName?: string;
+  fullName?: string;
+  headline?: string;
+  bio?: string;
+  location?: string;
+  company?: string;
+  jobTitle?: string;
+  rawData?: Record<string, unknown>;
+  confidence?: string;
+  ingestedAt?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `RawContactEmail` */
+export interface RawContactEmailInput {
+  email: string;
+  emailType?: string;
+  isPrimary?: boolean;
+  source?: string;
+  confidence?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  rawContactId: string;
+}
+/** An input for mutations affecting `RawContactPhone` */
+export interface RawContactPhoneInput {
+  phone: string;
+  phoneType?: string;
+  isPrimary?: boolean;
+  source?: string;
+  confidence?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  rawContactId: string;
+}
+/** An input for mutations affecting `RawContactUrl` */
+export interface RawContactUrlInput {
+  url: string;
+  urlType?: string;
+  source?: string;
+  confidence?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  rawContactId: string;
+}
+/** An input for mutations affecting `Rule` */
+export interface RuleInput {
+  name: string;
+  description?: string;
+  triggerType?: string;
+  triggerConfig?: Record<string, unknown>;
+  actionType?: string;
+  actionConfig?: Record<string, unknown>;
+  isActive?: boolean;
+  priority?: number;
+  triggerConcept?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  triggerConceptEmbedding?: number[];
+  triggerConceptEmbeddingUpdatedAt?: string;
+  agentId: string;
+}
+/** An input for mutations affecting `RuntimeArtifact` */
+export interface RuntimeArtifactInput {
+  runtimeStateId: string;
+  name: string;
+  artifactType?: string;
+  content?: string;
+  meta?: Record<string, unknown>;
+  sizeBytes?: number;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `RuntimeConfig` */
+export interface RuntimeConfigInput {
+  key: string;
+  value?: Record<string, unknown>;
+  description?: string;
+  isSecret?: boolean;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `RuntimeEvent` */
+export interface RuntimeEventInput {
+  eventType: string;
+  payload: Record<string, unknown>;
+  source?: string;
+  processedAt?: string;
+  status?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `RuntimeLog` */
+export interface RuntimeLogInput {
+  runtimeStateId: string;
+  level: string;
+  message: string;
+  context?: Record<string, unknown>;
+  stepIndex?: number;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `RuntimeMetric` */
+export interface RuntimeMetricInput {
+  runtimeStateId: string;
+  metricName: string;
+  metricValue: string;
+  unit?: string;
+  meta?: Record<string, unknown>;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `RuntimeSchedule` */
+export interface RuntimeScheduleInput {
+  name: string;
+  cronExpression?: string;
+  nextRunAt?: string;
+  lastRunAt?: string;
+  isActive?: boolean;
+  config?: Record<string, unknown>;
+  timezone?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `RuntimeState` */
+export interface RuntimeStateInput {
+  name: string;
+  stateType?: string;
+  status?: string;
+  data?: Record<string, unknown>;
+  parentId?: string;
+  startedAt?: string;
+  endedAt?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `RuntimeStateDependency` */
+export interface RuntimeStateDependencyInput {
+  stateId: string;
+  dependencyId: string;
+}
+/** An input for mutations affecting `Skill` */
+export interface SkillInput {
+  name: string;
+  description?: string;
+  category?: string;
+  implementation?: string;
+  config?: Record<string, unknown>;
+  isActive?: boolean;
+  intentTrigger?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  intentTriggerEmbedding?: number[];
+  intentTriggerEmbeddingUpdatedAt?: string;
+  agentId: string;
+}
+/** An input for mutations affecting `SkillTool` */
+export interface SkillToolInput {
+  skillId: string;
+  toolDefinitionId: string;
+}
+/** An input for mutations affecting `ToolDefinition` */
+export interface ToolDefinitionInput {
+  name: string;
+  description?: string;
+  toolType?: string;
+  schema?: Record<string, unknown>;
+  config?: Record<string, unknown>;
+  isActive?: boolean;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `Tag` */
+export interface TagInput {
+  name: string;
+  color?: string;
+  category?: string;
+  usageCount?: number;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `TaskContact` */
+export interface TaskContactInput {
+  taskId: string;
+  contactId: string;
+}
+/** An input for mutations affecting `TaskNote` */
+export interface TaskNoteInput {
+  taskId: string;
+  noteId: string;
+}
+/** An input for mutations affecting `TaskProject` */
+export interface TaskProjectInput {
+  taskId: string;
+  projectId: string;
+}
+/** An input for mutations affecting `ThreadParticipant` */
+export interface ThreadParticipantInput {
+  emailThreadId: string;
+  contactId: string;
+}
+/** An input for mutations affecting `ToolExecution` */
+export interface ToolExecutionInput {
+  toolDefinitionId: string;
+  messageId?: string;
+  input?: Record<string, unknown>;
+  output?: Record<string, unknown>;
+  status?: string;
+  startedAt?: string;
+  completedAt?: string;
+  error?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+}
+/** An input for mutations affecting `Touchpoint` */
+export interface TouchpointInput {
+  contactId: string;
+  touchpointType: string;
+  occurredAt: string;
+  subject?: string;
+  summary?: string;
+  sentiment?: string;
+  direction?: string;
+  channel?: string;
+  dealId?: string;
+  companyId?: string;
+  eventId?: string;
+  meta?: Record<string, unknown>;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+}
+/** An input for mutations affecting `Trip` */
+export interface TripInput {
+  name: string;
+  destination?: string;
+  description?: string;
+  startDate?: string;
+  endDate?: string;
+  tags?: string[];
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embeddingText?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  destinationGeo?: unknown;
+}
+/** An input for mutations affecting `VenueImage` */
+export interface VenueImageInput {
+  venueId: string;
+  imageId: string;
+}
+/** An input for mutations affecting `VenueLink` */
+export interface VenueLinkInput {
+  title?: string;
+  url: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  embedding?: number[];
+  embeddingUpdatedAt?: string;
+  venueId: string;
+}
 /** Similarity metric for vector search */
 export type VectorMetric = 'COSINE' | 'L2' | 'IP';
 /** A filter to be used against `Task` object types. All fields are combined with a logical ‘and.’ */
@@ -15320,8 +16562,8 @@ export interface TaskFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: TaskFilter[];
   /** Checks for any expressions in this list. */
@@ -15365,7 +16607,8 @@ export interface TaskFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -15392,8 +16635,8 @@ export interface AgentLogFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: AgentLogFilter[];
   /** Checks for any expressions in this list. */
@@ -15417,7 +16660,8 @@ export interface AgentLogFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -15452,10 +16696,12 @@ export interface RuleFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `triggerConceptEmbedding` field. */
   triggerConceptEmbedding?: VectorFilter;
+  /** Filter by the object’s `triggerConceptEmbeddingUpdatedAt` field. */
+  triggerConceptEmbeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -15487,7 +16733,8 @@ export interface RuleFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -15518,10 +16765,12 @@ export interface SkillFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `intentTriggerEmbedding` field. */
   intentTriggerEmbedding?: VectorFilter;
+  /** Filter by the object’s `intentTriggerEmbeddingUpdatedAt` field. */
+  intentTriggerEmbeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -15557,7 +16806,8 @@ export interface SkillFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -15603,8 +16853,8 @@ export interface MemoryFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `locationGeo` field. */
   locationGeo?: GeographyInterfaceFilter;
   /** Filter by the object’s `agentId` field. */
@@ -15650,7 +16900,8 @@ export interface MemoryFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -15719,8 +16970,8 @@ export interface CalendarEventFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `calendarId` field. */
   calendarId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -15770,7 +17021,8 @@ export interface CalendarEventFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -15862,7 +17114,7 @@ export interface ContactsChunkFilter {
   /** Filter by the object’s `contactsId` field. */
   contactsId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringFilter;
+  content?: StringTrgmFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `embedding` field. */
@@ -15873,6 +17125,8 @@ export interface ContactsChunkFilter {
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `search` field. */
+  search?: FullTextFilter;
   /** Checks for all expressions in this list. */
   and?: ContactsChunkFilter[];
   /** Checks for any expressions in this list. */
@@ -15881,8 +17135,22 @@ export interface ContactsChunkFilter {
   not?: ContactsChunkFilter;
   /** Filter by the object’s `contacts` relation. */
   contacts?: ContactFilter;
+  /** TSV search on the `search` column. */
+  tsvSearch?: string;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 /** A filter to be used against `Interaction` object types. All fields are combined with a logical ‘and.’ */
 export interface InteractionFilter {
@@ -15908,8 +17176,8 @@ export interface InteractionFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: InteractionFilter[];
   /** Checks for any expressions in this list. */
@@ -15933,7 +17201,8 @@ export interface InteractionFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -15976,8 +17245,8 @@ export interface TouchpointFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: TouchpointFilter[];
   /** Checks for any expressions in this list. */
@@ -16019,7 +17288,8 @@ export interface TouchpointFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -16121,8 +17391,8 @@ export interface ContactLinkFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -16255,8 +17525,8 @@ export interface EmailFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `emailThreadId` field. */
   emailThreadId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -16302,7 +17572,8 @@ export interface EmailFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -16433,7 +17704,7 @@ export interface NotesChunkFilter {
   /** Filter by the object’s `notesId` field. */
   notesId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringFilter;
+  content?: StringTrgmFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16452,8 +17723,20 @@ export interface NotesChunkFilter {
   not?: NotesChunkFilter;
   /** Filter by the object’s `notes` relation. */
   notes?: NoteFilter;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 /** A filter to be used against `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyNoteFilter {
@@ -16571,8 +17854,8 @@ export interface CompanyLinkFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `companyId` field. */
   companyId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -16678,7 +17961,7 @@ export interface DocumentsChunkFilter {
   /** Filter by the object’s `documentsId` field. */
   documentsId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringFilter;
+  content?: StringTrgmFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16697,8 +17980,20 @@ export interface DocumentsChunkFilter {
   not?: DocumentsChunkFilter;
   /** Filter by the object’s `documents` relation. */
   documents?: DocumentFilter;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
 }
 /** A filter to be used against `ProjectDocument` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectDocumentFilter {
@@ -16731,8 +18026,8 @@ export interface EventLinkFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `eventId` field. */
   eventId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -16820,8 +18115,8 @@ export interface VenueFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `location` field. */
   location?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -16875,7 +18170,8 @@ export interface VenueFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -16918,8 +18214,8 @@ export interface ContactFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `locationGeo` field. */
   locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -17055,7 +18351,8 @@ export interface ContactFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -17086,8 +18383,8 @@ export interface CompanyFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: CompanyFilter[];
   /** Checks for any expressions in this list. */
@@ -17153,7 +18450,8 @@ export interface CompanyFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -17190,8 +18488,8 @@ export interface EventFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `locationGeo` field. */
   locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -17255,7 +18553,8 @@ export interface EventFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -17301,8 +18600,8 @@ export interface PlaceFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `locationGeo` field. */
   locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -17328,7 +18627,8 @@ export interface PlaceFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -17405,8 +18705,8 @@ export interface MessageFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: MessageFilter[];
   /** Checks for any expressions in this list. */
@@ -17428,7 +18728,8 @@ export interface MessageFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -17447,8 +18748,8 @@ export interface VenueLinkFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `venueId` field. */
   venueId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -17509,8 +18810,8 @@ export interface ActivityLogFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `habitId` field. */
   habitId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -17540,7 +18841,8 @@ export interface ActivityLogFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -17652,8 +18954,8 @@ export interface RuntimeLogFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeLogFilter[];
   /** Checks for any expressions in this list. */
@@ -17675,7 +18977,8 @@ export interface RuntimeLogFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -17831,8 +19134,8 @@ export interface ExpenseFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `tripId` field. */
   tripId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -17868,7 +19171,8 @@ export interface ExpenseFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18000,31 +19304,6 @@ export interface VectorFilter {
   /** Not included in the specified list. */
   notIn?: number[][];
 }
-/** A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’ */
-export interface BooleanFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: boolean;
-  /** Not equal to the specified value. */
-  notEqualTo?: boolean;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: boolean;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: boolean;
-  /** Included in the specified list. */
-  in?: boolean[];
-  /** Not included in the specified list. */
-  notIn?: boolean[];
-  /** Less than the specified value. */
-  lessThan?: boolean;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: boolean;
-  /** Greater than the specified value. */
-  greaterThan?: boolean;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: boolean;
-}
 /** A filter to be used against `Agent` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentFilter {
   /** Filter by the object’s `name` field. */
@@ -18053,8 +19332,8 @@ export interface AgentFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: AgentFilter[];
   /** Checks for any expressions in this list. */
@@ -18112,10 +19391,36 @@ export interface AgentFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
+}
+/** A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’ */
+export interface BooleanFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: boolean;
+  /** Not equal to the specified value. */
+  notEqualTo?: boolean;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: boolean;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: boolean;
+  /** Included in the specified list. */
+  in?: boolean[];
+  /** Not included in the specified list. */
+  notIn?: boolean[];
+  /** Less than the specified value. */
+  lessThan?: boolean;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: boolean;
+  /** Greater than the specified value. */
+  greaterThan?: boolean;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: boolean;
 }
 /** A filter to be used against String List fields. All fields are combined with a logical ‘and.’ */
 export interface StringListFilter {
@@ -18180,8 +19485,8 @@ export interface PromptFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: PromptFilter[];
   /** Checks for any expressions in this list. */
@@ -18207,7 +19512,8 @@ export interface PromptFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18240,8 +19546,8 @@ export interface AutonomyRecordFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: AutonomyRecordFilter[];
   /** Checks for any expressions in this list. */
@@ -18275,7 +19581,8 @@ export interface AutonomyRecordFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18427,8 +19734,8 @@ export interface NoteFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: NoteFilter[];
   /** Checks for any expressions in this list. */
@@ -18482,7 +19789,8 @@ export interface NoteFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18513,8 +19821,8 @@ export interface DealFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: DealFilter[];
   /** Checks for any expressions in this list. */
@@ -18554,7 +19862,8 @@ export interface DealFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18577,8 +19886,8 @@ export interface ImageFilter {
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ImageFilter[];
   /** Checks for any expressions in this list. */
@@ -18646,8 +19955,8 @@ export interface EmailThreadFilter {
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: EmailThreadFilter[];
   /** Checks for any expressions in this list. */
@@ -18681,7 +19990,8 @@ export interface EmailThreadFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18718,8 +20028,8 @@ export interface ProjectFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ProjectFilter[];
   /** Checks for any expressions in this list. */
@@ -18759,7 +20069,8 @@ export interface ProjectFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18790,8 +20101,8 @@ export interface DocumentFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: DocumentFilter[];
   /** Checks for any expressions in this list. */
@@ -18829,7 +20140,8 @@ export interface DocumentFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18908,8 +20220,8 @@ export interface GoalFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: GoalFilter[];
   /** Checks for any expressions in this list. */
@@ -18939,7 +20251,8 @@ export interface GoalFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -18964,8 +20277,8 @@ export interface ConversationFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ConversationFilter[];
   /** Checks for any expressions in this list. */
@@ -18989,7 +20302,8 @@ export interface ConversationFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -19106,8 +20420,8 @@ export interface RuntimeStateFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeStateFilter[];
   /** Checks for any expressions in this list. */
@@ -19149,7 +20463,8 @@ export interface RuntimeStateFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -19178,8 +20493,8 @@ export interface ToolDefinitionFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ToolDefinitionFilter[];
   /** Checks for any expressions in this list. */
@@ -19209,7 +20524,8 @@ export interface ToolDefinitionFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
@@ -19238,8 +20554,8 @@ export interface TripFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
   /** Filter by the object’s `destinationGeo` field. */
   destinationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
@@ -19269,47 +20585,13 @@ export interface TripFilter {
   /**
    * Composite unified search. Provide a search string and it will be dispatched to
    * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
    * fields are populated.
    */
   unifiedSearch?: string;
 }
 // ============ Payload/Return Types (for custom operations) ============
-export interface RequestUploadUrlPayload {
-  /** Presigned PUT URL (null if file was deduplicated) */
-  uploadUrl?: string | null;
-  /** The file ID (existing if deduplicated, new if fresh upload) */
-  fileId: string;
-  /** The S3 object key */
-  key: string;
-  /** Whether this file was deduplicated (already exists with same hash) */
-  deduplicated: boolean;
-  /** Presigned URL expiry time (null if deduplicated) */
-  expiresAt?: string | null;
-  /** File status — 'pending' for fresh uploads, 'ready' or 'processed' for deduplicated files. Clients can use this to know immediately whether the file is usable. */
-  status: string;
-}
-export type RequestUploadUrlPayloadSelect = {
-  uploadUrl?: boolean;
-  fileId?: boolean;
-  key?: boolean;
-  deduplicated?: boolean;
-  expiresAt?: boolean;
-  status?: boolean;
-};
-export interface ConfirmUploadPayload {
-  /** The confirmed file ID */
-  fileId: string;
-  /** New file status */
-  status: string;
-  /** Whether confirmation succeeded */
-  success: boolean;
-}
-export type ConfirmUploadPayloadSelect = {
-  fileId?: boolean;
-  status?: boolean;
-  success?: boolean;
-};
 export interface ProvisionBucketPayload {
   /** Whether provisioning succeeded */
   success: boolean;

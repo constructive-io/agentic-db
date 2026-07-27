@@ -34,7 +34,7 @@ BEGIN
       END IF;
     END LOOP;
   PERFORM
-    app_jobs.add_job (jwt_private.current_database_id(), fn, app_jobs.json_build_object_apply (args));
+    app_jobs.add_job (fn, app_jobs.json_build_object_apply (args));
   IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
     RETURN NEW;
   END IF;

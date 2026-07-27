@@ -70,13 +70,11 @@ export class NoteModel {
     });
   }
   findFirst<S extends NoteSelect>(
-    args: FindFirstArgs<S, NoteFilter> & {
+    args: FindFirstArgs<S, NoteFilter, NoteOrderBy> & {
       select: S;
     } & StrictSelect<S, NoteSelect>
   ): QueryBuilder<{
-    notes: {
-      nodes: InferSelectResult<NoteWithRelations, S>[];
-    };
+    note: InferSelectResult<NoteWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Note',
@@ -84,17 +82,26 @@ export class NoteModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'NoteFilter',
+      'NoteOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Note',
-      fieldName: 'notes',
+      fieldName: 'note',
       document,
       variables,
+      transform: (data: {
+        notes?: {
+          nodes?: InferSelectResult<NoteWithRelations, S>[];
+        };
+      }) => ({
+        note: data.notes?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends NoteSelect>(
@@ -189,7 +196,8 @@ export class NoteModel {
       'UpdateNoteInput',
       'id',
       'notePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

@@ -18,6 +18,9 @@ CREATE TABLE services_public.sites (
   -- do we need this?
   dbname text NOT NULL DEFAULT current_database(),
 
+  labels jsonb NOT NULL DEFAULT '{}',
+  annotations jsonb NOT NULL DEFAULT '{}',
+
   --
   CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
   CONSTRAINT max_title CHECK ( character_length(title) <= 120 ),
@@ -34,6 +37,8 @@ COMMENT ON COLUMN services_public.sites.favicon IS 'Browser favicon attachment';
 COMMENT ON COLUMN services_public.sites.apple_touch_icon IS 'Apple touch icon for iOS home screen bookmarks';
 COMMENT ON COLUMN services_public.sites.logo IS 'Primary logo image for the site';
 COMMENT ON COLUMN services_public.sites.dbname IS 'PostgreSQL database name this site connects to';
+COMMENT ON COLUMN services_public.sites.labels IS 'Key/value pairs for selecting and filtering sites';
+COMMENT ON COLUMN services_public.sites.annotations IS 'Freeform metadata for tooling and operational notes';
 
 CREATE INDEX sites_database_id_idx ON services_public.sites ( database_id );
 

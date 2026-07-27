@@ -22,9 +22,9 @@
   },
   "keywords": [],
   "dependencies": {
-    "@pgpm/metaschema-modules": "^0.21.0",
-    "@pgpm/metaschema-schema": "^0.21.0",
-    "@pgpm/services": "^0.20.2"
+    "@pgpm/metaschema-modules": "^0.33.1",
+    "@pgpm/metaschema-schema": "^0.33.1",
+    "@pgpm/services": "^0.33.0"
   },
   "devDependencies": {
     "pgsql-test": "^4.9.0"

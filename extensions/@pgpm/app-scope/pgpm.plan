@@ -1,0 +1,10 @@
+%syntax-version=1.0.0
+%project=pgpm-app-scope
+%uri=pgpm-app-scope
+
+schemas/app_scope/schema 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # app_scope schema
+schemas/app_scope/procedures/platform_database_id [schemas/app_scope/schema] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # platform db id
+schemas/app_scope/procedures/dyn_lookup_uuid [schemas/app_scope/schema] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # dyn lookup uuid
+schemas/app_scope/procedures/membership_parent [schemas/app_scope/schema] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # membership parent
+schemas/app_scope/procedures/local_frames [schemas/app_scope/schema schemas/app_scope/procedures/dyn_lookup_uuid schemas/app_scope/procedures/membership_parent] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # per-database local frames
+schemas/app_scope/procedures/frames [schemas/app_scope/schema schemas/app_scope/procedures/platform_database_id schemas/app_scope/procedures/local_frames] 2017-08-11T08:11:51Z constructive <constructive@5b0c196eeb62> # ordered scope frames

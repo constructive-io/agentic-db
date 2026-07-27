@@ -23,6 +23,7 @@ import type {
 } from 'node-type-registry';
 
 import {
+  createModulesClient,
   createPlatformClient,
   requireDatabaseId,
   withRetry,
@@ -89,6 +90,65 @@ export const M2M_JUNCTION_OPTS = {};
 // ---------------------------------------------------------------------------
 
 const databaseId = requireDatabaseId();
+
+// ---------------------------------------------------------------------------
+// Legacy string → structured FieldType / FieldDefault conversion
+// ---------------------------------------------------------------------------
+//
+// metaschema_public.field stores `type` and `default_value` as structured
+// JSONB objects and rejects raw strings, so legacy string shapes in our
+// blueprint schemas are converted client-side before submission.
+
+function normalizeFieldType(type: BlueprintField['type']): BlueprintField['type'] {
+  if (typeof type !== 'string') return type;
+  let name = type;
+  let arrayDimensions = 0;
+  while (name.endsWith('[]')) {
+    name = name.slice(0, -2);
+    arrayDimensions++;
+  }
+  const argsMatch = name.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\((.*)\)$/);
+  let args: (string | number)[] | undefined;
+  if (argsMatch) {
+    name = argsMatch[1];
+    args = argsMatch[2].split(',').map((a) => {
+      const trimmed = a.trim();
+      const num = Number(trimmed);
+      return Number.isNaN(num) ? trimmed : num;
+    });
+  }
+  return {
+    name,
+    ...(args ? { args } : {}),
+    ...(arrayDimensions > 0 ? { array_dimensions: arrayDimensions } : {}),
+  };
+}
+
+function normalizeFieldDefault(
+  value: BlueprintField['default_value']
+): BlueprintField['default_value'] {
+  if (typeof value !== 'string') return value;
+  const fnMatch = value.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\(\)$/);
+  if (fnMatch) return { function: fnMatch[1] };
+  const quoted = value.match(/^'(.*)'$/);
+  if (quoted) return { value: quoted[1] };
+  if (value === 'true') return { value: true };
+  if (value === 'false') return { value: false };
+  const num = Number(value);
+  if (!Number.isNaN(num)) return { value: num };
+  return { value };
+}
+
+function normalizeFields(fields?: BlueprintField[]): BlueprintField[] | undefined {
+  if (!fields) return fields;
+  return fields.map((f) => ({
+    ...f,
+    type: normalizeFieldType(f.type),
+    ...(f.default_value !== undefined
+      ? { default_value: normalizeFieldDefault(f.default_value) }
+      : {}),
+  }));
+}
 
 /**
  * Provision a blueprint definition using the server-side constructBlueprint
@@ -164,7 +224,7 @@ export async function provisionBlueprint(
       ref: t.ref,
       table_name: t.table_name,
       nodes: t.nodes,
-      fields: t.fields,
+      fields: normalizeFields(t.fields),
       // Explicitly disable security — prevents construct_blueprint from
       // defaulting grant_roles to ['authenticated'] which would generate
       // invalid GRANT SQL when the grants array is empty.
@@ -183,8 +243,9 @@ export async function provisionBlueprint(
     full_text_searches: definition.full_text_searches ?? [],
   };
 
+  const modulesSdk = createModulesClient();
   const bpResult = await withRetry(() =>
-    sdk.blueprint.create({
+    modulesSdk.blueprint.create({
       data: {
         ownerId,
         databaseId,

@@ -36,13 +36,15 @@ CREATE TABLE metaschema_public.field (
 
   is_required boolean NOT NULL DEFAULT FALSE,
   api_required boolean NOT NULL DEFAULT FALSE,
-  default_value text NULL DEFAULT NULL,
-  -- AST column for SQL expression validation (AST is the source of truth)
-  default_value_ast jsonb NULL DEFAULT NULL,
+  default_value jsonb NULL DEFAULT NULL,
 
-  type citext NOT NULL,
+  generation_expression jsonb NULL DEFAULT NULL,
+  generation_type text NULL DEFAULT NULL,
 
-  -- typmods DO THIS SOON!
+  identity_generation text NULL DEFAULT NULL,
+  identity_options jsonb NULL DEFAULT NULL,
+
+  type jsonb NOT NULL,
 
   field_order int not null default 0,
 
@@ -56,11 +58,10 @@ CREATE TABLE metaschema_public.field (
 
   -- Field categorization for system/module/app fields (mirrors table categorization)
   -- category: 'core' for system fields (id, entity_id, actor_id), 'module' for module-generated fields, 'app' for user-defined fields
-  -- module: the module name that created this field (e.g., 'users', 'permissions', 'memberships')
-  -- scope: membership_type int (1=app, 2=org, 3=group, NULL=not scoped)
   category metaschema_public.object_category NOT NULL DEFAULT 'app',
-  module text NULL,
-  scope int NULL,
+
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
 
   CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
   CONSTRAINT table_fkey FOREIGN KEY (table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,
@@ -71,8 +72,5 @@ CREATE TABLE metaschema_public.field (
 
 CREATE INDEX field_table_id_idx ON metaschema_public.field ( table_id );
 CREATE INDEX field_database_id_idx ON metaschema_public.field ( database_id );
-
--- Smart comment for Graphile SQL expression validator plugin
-COMMENT ON COLUMN metaschema_public.field.default_value IS E'@sqlExpression';
 
 COMMIT;

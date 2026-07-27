@@ -4,8 +4,10 @@
 BEGIN;
 CREATE TABLE app_jobs.scheduled_jobs (
   id bigserial PRIMARY KEY,
-  database_id uuid NOT NULL,
-  queue_name text DEFAULT (public.gen_random_uuid ()) ::text,
+  database_id uuid,
+  actor_id uuid,
+  entity_id uuid,
+  queue_name text DEFAULT NULL,
   task_identifier text NOT NULL,
   payload json DEFAULT '{}' ::json NOT NULL,
   priority integer DEFAULT 0 NOT NULL,
@@ -18,15 +20,17 @@ CREATE TABLE app_jobs.scheduled_jobs (
   last_scheduled_id bigint,
   CHECK (length(key) < 513),
   CHECK (length(task_identifier) < 127),
-  CHECK (max_attempts > 0),
+  CHECK (max_attempts >= 1),
   CHECK (length(queue_name) < 127),
   CHECK (length(locked_by) > 3),
   UNIQUE (key)
 );
 
-COMMENT ON TABLE app_jobs.scheduled_jobs IS 'Recurring/cron-style job definitions with database scoping: each row spawns jobs on a schedule for a specific database';
+COMMENT ON TABLE app_jobs.scheduled_jobs IS 'Recurring/cron-style job definitions: each row spawns jobs on a schedule, optionally scoped to a database';
 COMMENT ON COLUMN app_jobs.scheduled_jobs.id IS 'Auto-incrementing scheduled job identifier';
-COMMENT ON COLUMN app_jobs.scheduled_jobs.database_id IS 'Database this scheduled job belongs to, for multi-tenant isolation';
+COMMENT ON COLUMN app_jobs.scheduled_jobs.database_id IS 'Database this scheduled job belongs to (nullable for system-level schedules without tenant context)';
+COMMENT ON COLUMN app_jobs.scheduled_jobs.actor_id IS 'User who created this scheduled job, read from JWT claims at creation time';
+COMMENT ON COLUMN app_jobs.scheduled_jobs.entity_id IS 'Entity (org/team) this scheduled job is scoped to for billing; NULL means platform-level (resolved via database_id → owner_id)';
 COMMENT ON COLUMN app_jobs.scheduled_jobs.queue_name IS 'Name of the queue spawned jobs are placed into';
 COMMENT ON COLUMN app_jobs.scheduled_jobs.task_identifier IS 'Task type identifier for spawned jobs';
 COMMENT ON COLUMN app_jobs.scheduled_jobs.payload IS 'JSON payload passed to each spawned job';

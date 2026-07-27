@@ -70,13 +70,11 @@ export class RuntimeConfigModel {
     });
   }
   findFirst<S extends RuntimeConfigSelect>(
-    args: FindFirstArgs<S, RuntimeConfigFilter> & {
+    args: FindFirstArgs<S, RuntimeConfigFilter, RuntimeConfigOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeConfigSelect>
   ): QueryBuilder<{
-    runtimeConfigs: {
-      nodes: InferSelectResult<RuntimeConfigWithRelations, S>[];
-    };
+    runtimeConfig: InferSelectResult<RuntimeConfigWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RuntimeConfig',
@@ -84,17 +82,26 @@ export class RuntimeConfigModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuntimeConfigFilter',
+      'RuntimeConfigOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RuntimeConfig',
-      fieldName: 'runtimeConfigs',
+      fieldName: 'runtimeConfig',
       document,
       variables,
+      transform: (data: {
+        runtimeConfigs?: {
+          nodes?: InferSelectResult<RuntimeConfigWithRelations, S>[];
+        };
+      }) => ({
+        runtimeConfig: data.runtimeConfigs?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RuntimeConfigSelect>(
@@ -189,7 +196,8 @@ export class RuntimeConfigModel {
       'UpdateRuntimeConfigInput',
       'id',
       'runtimeConfigPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

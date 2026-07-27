@@ -3,7 +3,6 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/interactions/table
--- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_app_public/tables/interactions/columns/embedding_text/column
 
 

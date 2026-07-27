@@ -70,13 +70,11 @@ export class ProjectModel {
     });
   }
   findFirst<S extends ProjectSelect>(
-    args: FindFirstArgs<S, ProjectFilter> & {
+    args: FindFirstArgs<S, ProjectFilter, ProjectOrderBy> & {
       select: S;
     } & StrictSelect<S, ProjectSelect>
   ): QueryBuilder<{
-    projects: {
-      nodes: InferSelectResult<ProjectWithRelations, S>[];
-    };
+    project: InferSelectResult<ProjectWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Project',
@@ -84,17 +82,26 @@ export class ProjectModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ProjectFilter',
+      'ProjectOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Project',
-      fieldName: 'projects',
+      fieldName: 'project',
       document,
       variables,
+      transform: (data: {
+        projects?: {
+          nodes?: InferSelectResult<ProjectWithRelations, S>[];
+        };
+      }) => ({
+        project: data.projects?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ProjectSelect>(
@@ -189,7 +196,8 @@ export class ProjectModel {
       'UpdateProjectInput',
       'id',
       'projectPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

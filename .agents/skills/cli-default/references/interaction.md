@@ -19,8 +19,8 @@ agentic-db interaction list --limit 10 --after <cursor>
 agentic-db interaction find-first --where.<field>.<op> <value>
 agentic-db interaction search <query>
 agentic-db interaction get --id <UUID>
-agentic-db interaction create --contactId <UUID> --type <String> --occurredAt <Datetime> [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db interaction update --id <UUID> [--contactId <UUID>] [--type <String>] [--occurredAt <Datetime>] [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db interaction create --contactId <UUID> --type <String> --occurredAt <Datetime> [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db interaction update --id <UUID> [--contactId <UUID>] [--type <String>] [--occurredAt <Datetime>] [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db interaction delete --id <UUID>
 ```
 
@@ -131,7 +131,7 @@ agentic-db interaction search "query" --limit 10 --select id,title,searchScore
 ### Create a interaction
 
 ```bash
-agentic-db interaction create --contactId <UUID> --type <String> --occurredAt <Datetime> [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db interaction create --contactId <UUID> --type <String> --occurredAt <Datetime> [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a interaction by id

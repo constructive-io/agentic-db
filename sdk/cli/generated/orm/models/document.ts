@@ -70,13 +70,11 @@ export class DocumentModel {
     });
   }
   findFirst<S extends DocumentSelect>(
-    args: FindFirstArgs<S, DocumentFilter> & {
+    args: FindFirstArgs<S, DocumentFilter, DocumentOrderBy> & {
       select: S;
     } & StrictSelect<S, DocumentSelect>
   ): QueryBuilder<{
-    documents: {
-      nodes: InferSelectResult<DocumentWithRelations, S>[];
-    };
+    document: InferSelectResult<DocumentWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Document',
@@ -84,17 +82,26 @@ export class DocumentModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'DocumentFilter',
+      'DocumentOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Document',
-      fieldName: 'documents',
+      fieldName: 'document',
       document,
       variables,
+      transform: (data: {
+        documents?: {
+          nodes?: InferSelectResult<DocumentWithRelations, S>[];
+        };
+      }) => ({
+        document: data.documents?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends DocumentSelect>(
@@ -189,7 +196,8 @@ export class DocumentModel {
       'UpdateDocumentInput',
       'id',
       'documentPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

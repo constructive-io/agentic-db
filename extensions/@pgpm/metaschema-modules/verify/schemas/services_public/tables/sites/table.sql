@@ -1,1 +1,0 @@
--- Verify schemas/services_public/tables/sites/table  on pg

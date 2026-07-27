@@ -70,13 +70,11 @@ export class ThreadParticipantModel {
     });
   }
   findFirst<S extends ThreadParticipantSelect>(
-    args: FindFirstArgs<S, ThreadParticipantFilter> & {
+    args: FindFirstArgs<S, ThreadParticipantFilter, ThreadParticipantOrderBy> & {
       select: S;
     } & StrictSelect<S, ThreadParticipantSelect>
   ): QueryBuilder<{
-    threadParticipants: {
-      nodes: InferSelectResult<ThreadParticipantWithRelations, S>[];
-    };
+    threadParticipant: InferSelectResult<ThreadParticipantWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ThreadParticipant',
@@ -84,17 +82,26 @@ export class ThreadParticipantModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ThreadParticipantFilter',
+      'ThreadParticipantOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ThreadParticipant',
-      fieldName: 'threadParticipants',
+      fieldName: 'threadParticipant',
       document,
       variables,
+      transform: (data: {
+        threadParticipants?: {
+          nodes?: InferSelectResult<ThreadParticipantWithRelations, S>[];
+        };
+      }) => ({
+        threadParticipant: data.threadParticipants?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends ThreadParticipantSelect>(

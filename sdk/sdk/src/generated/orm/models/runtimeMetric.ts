@@ -70,13 +70,11 @@ export class RuntimeMetricModel {
     });
   }
   findFirst<S extends RuntimeMetricSelect>(
-    args: FindFirstArgs<S, RuntimeMetricFilter> & {
+    args: FindFirstArgs<S, RuntimeMetricFilter, RuntimeMetricOrderBy> & {
       select: S;
     } & StrictSelect<S, RuntimeMetricSelect>
   ): QueryBuilder<{
-    runtimeMetrics: {
-      nodes: InferSelectResult<RuntimeMetricWithRelations, S>[];
-    };
+    runtimeMetric: InferSelectResult<RuntimeMetricWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'RuntimeMetric',
@@ -84,17 +82,26 @@ export class RuntimeMetricModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuntimeMetricFilter',
+      'RuntimeMetricOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'RuntimeMetric',
-      fieldName: 'runtimeMetrics',
+      fieldName: 'runtimeMetric',
       document,
       variables,
+      transform: (data: {
+        runtimeMetrics?: {
+          nodes?: InferSelectResult<RuntimeMetricWithRelations, S>[];
+        };
+      }) => ({
+        runtimeMetric: data.runtimeMetrics?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RuntimeMetricSelect>(
@@ -189,7 +196,8 @@ export class RuntimeMetricModel {
       'UpdateRuntimeMetricInput',
       'id',
       'runtimeMetricPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

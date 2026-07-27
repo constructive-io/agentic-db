@@ -70,13 +70,11 @@ export class DealModel {
     });
   }
   findFirst<S extends DealSelect>(
-    args: FindFirstArgs<S, DealFilter> & {
+    args: FindFirstArgs<S, DealFilter, DealOrderBy> & {
       select: S;
     } & StrictSelect<S, DealSelect>
   ): QueryBuilder<{
-    deals: {
-      nodes: InferSelectResult<DealWithRelations, S>[];
-    };
+    deal: InferSelectResult<DealWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Deal',
@@ -84,17 +82,26 @@ export class DealModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'DealFilter',
+      'DealOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Deal',
-      fieldName: 'deals',
+      fieldName: 'deal',
       document,
       variables,
+      transform: (data: {
+        deals?: {
+          nodes?: InferSelectResult<DealWithRelations, S>[];
+        };
+      }) => ({
+        deal: data.deals?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends DealSelect>(
@@ -189,7 +196,8 @@ export class DealModel {
       'UpdateDealInput',
       'id',
       'dealPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

@@ -19,9 +19,8 @@ CREATE TABLE metaschema_modules_public.user_auth_module (
     session_credentials_table_id uuid NOT NULL DEFAULT uuid_nil(),
 
     audits_table_id uuid NOT NULL DEFAULT uuid_nil(),
-    audits_table_name text NOT NULL DEFAULT 'audit_logs',
+    audits_table_name text NOT NULL DEFAULT 'audit_log_auth',
 
-    -- api_id uuid NOT NULL REFERENCES services_public.apis (id),
 
     sign_in_function text NOT NULL DEFAULT 'sign_in',
     sign_up_function text NOT NULL DEFAULT 'sign_up',
@@ -38,11 +37,15 @@ CREATE TABLE metaschema_modules_public.user_auth_module (
     send_account_deletion_email_function text NOT NULL DEFAULT 'send_account_deletion_email',
     delete_account_function text NOT NULL DEFAULT 'confirm_delete_account',
 
-    sign_in_one_time_token_function text NOT NULL DEFAULT 'sign_in_one_time_token',
-    one_time_token_function text NOT NULL DEFAULT 'one_time_token',
+    sign_in_cross_origin_function text NOT NULL DEFAULT 'sign_in_cross_origin',
+    request_cross_origin_token_function text NOT NULL DEFAULT 'request_cross_origin_token',
     extend_token_expires text NOT NULL DEFAULT 'extend_token_expires',
 
     -- UNIQUE(api_id),
+
+    -- API routing (configurable per-module)
+    api_name text DEFAULT 'auth',
+    private_api_name text DEFAULT NULL,
 
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
     CONSTRAINT schema_fkey FOREIGN KEY (schema_id) REFERENCES metaschema_public.schema (id) ON DELETE CASCADE,

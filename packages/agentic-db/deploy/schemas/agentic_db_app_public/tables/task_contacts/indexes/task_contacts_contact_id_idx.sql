@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/task_contacts/table
 -- requires: schemas/agentic_db_app_public/tables/task_contacts/columns/contact_id/column
--- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_file_path_idx
 
 
 CREATE INDEX task_contacts_contact_id_idx ON agentic_db_app_public.task_contacts USING BTREE ( contact_id );

@@ -23,10 +23,13 @@ $LQLMIGRATION$;
 INSERT INTO metaschema_public.database (
   id,
   owner_id,
+  schema_hash,
   name,
-  hash
+  label,
+  hash,
+  platform
 ) VALUES
-  ('019ddc1e-68db-79cd-9cdb-45c3fccb11fe', '019ddc1e-6035-7582-a40b-408d27f66ae8', 'agentic-db-1777514470617', '73d520ef-2c17-5346-aed7-f8048d60a878');
+  ('65a856dc-b301-12f0-d108-9c49d8b99bf0', '019fa4d0-5290-7f74-8009-7c2ae875b510', 'agentic_db_1785176543859', 'agentic-db-1785176543859', 'agentic-db-1785176543859', 'f621015f-b065-5d10-aa78-acceeeac2223', false);
 
 
 SET session_replication_role TO DEFAULT;

@@ -70,13 +70,11 @@ export class DealNoteModel {
     });
   }
   findFirst<S extends DealNoteSelect>(
-    args: FindFirstArgs<S, DealNoteFilter> & {
+    args: FindFirstArgs<S, DealNoteFilter, DealNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, DealNoteSelect>
   ): QueryBuilder<{
-    dealNotes: {
-      nodes: InferSelectResult<DealNoteWithRelations, S>[];
-    };
+    dealNote: InferSelectResult<DealNoteWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'DealNote',
@@ -84,17 +82,26 @@ export class DealNoteModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'DealNoteFilter',
+      'DealNoteOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'DealNote',
-      fieldName: 'dealNotes',
+      fieldName: 'dealNote',
       document,
       variables,
+      transform: (data: {
+        dealNotes?: {
+          nodes?: InferSelectResult<DealNoteWithRelations, S>[];
+        };
+      }) => ({
+        dealNote: data.dealNotes?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends DealNoteSelect>(

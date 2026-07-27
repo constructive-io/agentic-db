@@ -12,6 +12,9 @@ CREATE TABLE metaschema_public.trigger_function (
   name text NOT NULL,
   code text,
 
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+
   --
   CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
   UNIQUE (database_id, name)

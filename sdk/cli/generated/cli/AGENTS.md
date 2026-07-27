@@ -5,7 +5,7 @@
 ## Stack
 
 - Generated CLI for a GraphQL API (TypeScript)
-- 95 tables, 3 custom operations
+- 95 tables, 1 custom operation
 - Config stored at `~/.agentic-db/config/` via appstash
 
 ## Quick Start

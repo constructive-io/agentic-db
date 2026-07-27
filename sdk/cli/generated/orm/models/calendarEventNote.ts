@@ -70,13 +70,11 @@ export class CalendarEventNoteModel {
     });
   }
   findFirst<S extends CalendarEventNoteSelect>(
-    args: FindFirstArgs<S, CalendarEventNoteFilter> & {
+    args: FindFirstArgs<S, CalendarEventNoteFilter, CalendarEventNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, CalendarEventNoteSelect>
   ): QueryBuilder<{
-    calendarEventNotes: {
-      nodes: InferSelectResult<CalendarEventNoteWithRelations, S>[];
-    };
+    calendarEventNote: InferSelectResult<CalendarEventNoteWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'CalendarEventNote',
@@ -84,17 +82,26 @@ export class CalendarEventNoteModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'CalendarEventNoteFilter',
+      'CalendarEventNoteOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'CalendarEventNote',
-      fieldName: 'calendarEventNotes',
+      fieldName: 'calendarEventNote',
       document,
       variables,
+      transform: (data: {
+        calendarEventNotes?: {
+          nodes?: InferSelectResult<CalendarEventNoteWithRelations, S>[];
+        };
+      }) => ({
+        calendarEventNote: data.calendarEventNotes?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends CalendarEventNoteSelect>(

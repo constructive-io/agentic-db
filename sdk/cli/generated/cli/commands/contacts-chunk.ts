@@ -24,12 +24,16 @@ const fieldSchema: FieldSchema = {
   metadata: 'json',
   createdAt: 'string',
   updatedAt: 'string',
+  search: 'string',
+  searchTsvRank: 'float',
+  contentBm25Score: 'float',
   embeddingVectorDistance: 'float',
+  contentTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 import { resolveEmbedder, autoEmbedWhere, autoEmbedInput } from '../embedder';
 const usage =
-  '\ncontacts-chunk <command>\n\nCommands:\n  list                  List contactsChunk records\n  find-first            Find first matching contactsChunk record\n  search <query>        Search contactsChunk records\n  get                   Get a contactsChunk by ID\n  create                Create a new contactsChunk\n  update                Update an existing contactsChunk\n\nCreate/Update Options:\n  --auto-embed          Convert text values in vector fields to embeddings before saving\n  delete                Delete a contactsChunk\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\nSearch Options:\n  <query>               Search query string (required)\n  --limit <n>           Max number of records to return\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --orderBy <values>    Comma-separated list of ordering values\n  --auto-embed          Convert text queries to vectors via configured embedder\n\nEmbedding Options (for --auto-embed):\n  Set EMBEDDER_PROVIDER=ollama to enable text-to-vector embedding.\n  Optional: EMBEDDER_MODEL (default: nomic-embed-text)\n  Optional: EMBEDDER_BASE_URL (default: http://localhost:11434)\n\n  --help, -h            Show this help message\n';
+  '\ncontacts-chunk <command>\n\nCommands:\n  list                  List contactsChunk records\n  find-first            Find first matching contactsChunk record\n  search <query>        Search contactsChunk records\n  get                   Get a contactsChunk by ID\n  create                Create a new contactsChunk\n  update                Update an existing contactsChunk\n\nCreate/Update Options:\n  --auto-embed          Convert text values in vector fields to embeddings before saving\n  delete                Delete a contactsChunk\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nSearch Options:\n  <query>               Search query string (required)\n  --limit <n>           Max number of records to return\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --orderBy <values>    Comma-separated list of ordering values\n  --auto-embed          Convert text queries to vectors via configured embedder\n\nEmbedding Options (for --auto-embed):\n  Set EMBEDDER_PROVIDER=ollama to enable text-to-vector embedding.\n  Optional: EMBEDDER_MODEL (default: nomic-embed-text)\n  Optional: EMBEDDER_BASE_URL (default: http://localhost:11434)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -129,7 +133,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       updatedAt: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<ContactsChunkSelect, ContactsChunkFilter> & {
+      FindFirstArgs<ContactsChunkSelect, ContactsChunkFilter, ContactsChunkOrderBy> & {
         select: ContactsChunkSelect;
       }
     >(argv, defaultSelect);
@@ -154,6 +158,16 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
     const searchWhere = {
       embedding: {
         vector: query,
+      },
+      search: {
+        query,
+      },
+      bm25Content: {
+        query,
+      },
+      trgmContent: {
+        value: query,
+        threshold: 0.3,
       },
     };
     if (argv['auto-embed']) {

@@ -7,7 +7,7 @@ CRUD operations for ContactsChunk records via agentic-db CLI
 **pgvector embedding fields:** `embedding`
 High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance. Supports chunk-aware search: set `includeChunks: true` in VectorNearbyInput to transparently query across parent and chunk embeddings, returning the minimum distance.
 
-**Unified Search API fields:** `searchScore`
+**Unified Search API fields:** `search`, `contentBm25Score`, `contentTrgmSimilarity`, `searchScore`
 Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 ## Usage
@@ -83,6 +83,30 @@ EMBEDDER_PROVIDER=ollama agentic-db contacts-chunk list --where.embedding.vector
 # --auto-embed on create/update converts text strings in vector fields to embeddings before saving
 EMBEDDER_PROVIDER=ollama agentic-db contacts-chunk create --embedding "text to embed" --auto-embed
 EMBEDDER_PROVIDER=ollama agentic-db contacts-chunk update --embedding "new text to embed" --auto-embed
+```
+
+### Full-text search via tsvector (`search`)
+
+```bash
+agentic-db contacts-chunk list --where.search "search query" --select title,tsvRank
+```
+
+### BM25 keyword search via `bm25Content`
+
+```bash
+agentic-db contacts-chunk list --where.bm25Content.query "search query" --select title,contentBm25Score
+```
+
+### Fuzzy search via trigram similarity (`trgmContent`)
+
+```bash
+agentic-db contacts-chunk list --where.trgmContent.value "approximate query" --where.trgmContent.threshold 0.3 --select title,contentTrgmSimilarity
+```
+
+### Composite search (unifiedSearch dispatches to all text adapters)
+
+```bash
+agentic-db contacts-chunk list --where.unifiedSearch "search query" --select title,tsvRank,contentBm25Score,contentTrgmSimilarity,searchScore
 ```
 
 ### Search with pagination and field projection

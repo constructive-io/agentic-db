@@ -6,3 +6,4 @@ schemas/utils/schema 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add sch
 schemas/utils/procedures/mask_pad [schemas/utils/schema] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/utils/procedures/mask_pad
 schemas/utils/procedures/throw [schemas/utils/schema] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add schemas/utils/procedures/throw
 schemas/utils/procedures/ensure_singleton [schemas/utils/schema] 2021-04-25T11:50:15Z Dan Lynch <dlynch@Dans-MBP-3> # add schemas/utils/procedures/ensure_singleton
+schemas/utils/procedures/enforce_identity_providers_quota [schemas/utils/schema] 2026-04-19T00:00:00Z devin <devin@cognition.ai> # add schemas/utils/procedures/enforce_identity_providers_quota

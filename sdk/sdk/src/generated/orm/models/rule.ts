@@ -70,13 +70,11 @@ export class RuleModel {
     });
   }
   findFirst<S extends RuleSelect>(
-    args: FindFirstArgs<S, RuleFilter> & {
+    args: FindFirstArgs<S, RuleFilter, RuleOrderBy> & {
       select: S;
     } & StrictSelect<S, RuleSelect>
   ): QueryBuilder<{
-    rules: {
-      nodes: InferSelectResult<RuleWithRelations, S>[];
-    };
+    rule: InferSelectResult<RuleWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Rule',
@@ -84,17 +82,26 @@ export class RuleModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'RuleFilter',
+      'RuleOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Rule',
-      fieldName: 'rules',
+      fieldName: 'rule',
       document,
       variables,
+      transform: (data: {
+        rules?: {
+          nodes?: InferSelectResult<RuleWithRelations, S>[];
+        };
+      }) => ({
+        rule: data.rules?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends RuleSelect>(
@@ -189,7 +196,8 @@ export class RuleModel {
       'UpdateRuleInput',
       'id',
       'rulePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

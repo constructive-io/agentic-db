@@ -70,13 +70,11 @@ export class ProjectDocumentModel {
     });
   }
   findFirst<S extends ProjectDocumentSelect>(
-    args: FindFirstArgs<S, ProjectDocumentFilter> & {
+    args: FindFirstArgs<S, ProjectDocumentFilter, ProjectDocumentOrderBy> & {
       select: S;
     } & StrictSelect<S, ProjectDocumentSelect>
   ): QueryBuilder<{
-    projectDocuments: {
-      nodes: InferSelectResult<ProjectDocumentWithRelations, S>[];
-    };
+    projectDocument: InferSelectResult<ProjectDocumentWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ProjectDocument',
@@ -84,17 +82,26 @@ export class ProjectDocumentModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ProjectDocumentFilter',
+      'ProjectDocumentOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ProjectDocument',
-      fieldName: 'projectDocuments',
+      fieldName: 'projectDocument',
       document,
       variables,
+      transform: (data: {
+        projectDocuments?: {
+          nodes?: InferSelectResult<ProjectDocumentWithRelations, S>[];
+        };
+      }) => ({
+        projectDocument: data.projectDocuments?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends ProjectDocumentSelect>(

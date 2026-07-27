@@ -3,6 +3,7 @@
 -- requires: schemas/metaschema_public/schema
 -- requires: schemas/metaschema_public/tables/database/table
 -- requires: schemas/metaschema_public/types/object_category
+-- requires: schemas/metaschema_public/types/api_exposure_level
 
 BEGIN;
 
@@ -18,12 +19,15 @@ CREATE TABLE metaschema_public.schema (
     smart_tags jsonb,
 
     category metaschema_public.object_category NOT NULL DEFAULT 'app',
-    module text NULL,
-    scope int NULL,
 
     tags citext[] NOT NULL DEFAULT '{}',
 
     is_public boolean NOT NULL DEFAULT TRUE,
+
+    api_exposure metaschema_public.api_exposure_level NOT NULL DEFAULT 'exposable',
+
+    created_at timestamptz DEFAULT now(),
+    updated_at timestamptz DEFAULT now(),
 
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
 

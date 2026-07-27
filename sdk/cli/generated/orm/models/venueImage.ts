@@ -70,13 +70,11 @@ export class VenueImageModel {
     });
   }
   findFirst<S extends VenueImageSelect>(
-    args: FindFirstArgs<S, VenueImageFilter> & {
+    args: FindFirstArgs<S, VenueImageFilter, VenueImageOrderBy> & {
       select: S;
     } & StrictSelect<S, VenueImageSelect>
   ): QueryBuilder<{
-    venueImages: {
-      nodes: InferSelectResult<VenueImageWithRelations, S>[];
-    };
+    venueImage: InferSelectResult<VenueImageWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'VenueImage',
@@ -84,17 +82,26 @@ export class VenueImageModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'VenueImageFilter',
+      'VenueImageOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'VenueImage',
-      fieldName: 'venueImages',
+      fieldName: 'venueImage',
       document,
       variables,
+      transform: (data: {
+        venueImages?: {
+          nodes?: InferSelectResult<VenueImageWithRelations, S>[];
+        };
+      }) => ({
+        venueImage: data.venueImages?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends VenueImageSelect>(

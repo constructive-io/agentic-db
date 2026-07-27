@@ -19,8 +19,8 @@ agentic-db message list --limit 10 --after <cursor>
 agentic-db message find-first --where.<field>.<op> <value>
 agentic-db message search <query>
 agentic-db message get --id <UUID>
-agentic-db message create --conversationId <UUID> --role <String> --content <String> [--tokenCount <Int>] [--meta <JSON>] [--toolCalls <JSON>] [--toolResults <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db message update --id <UUID> [--conversationId <UUID>] [--role <String>] [--content <String>] [--tokenCount <Int>] [--meta <JSON>] [--toolCalls <JSON>] [--toolResults <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db message create --conversationId <UUID> --role <String> --content <String> [--tokenCount <Int>] [--meta <JSON>] [--toolCalls <JSON>] [--toolResults <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db message update --id <UUID> [--conversationId <UUID>] [--role <String>] [--content <String>] [--tokenCount <Int>] [--meta <JSON>] [--toolCalls <JSON>] [--toolResults <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db message delete --id <UUID>
 ```
 
@@ -125,7 +125,7 @@ agentic-db message search "query" --limit 10 --select id,title,searchScore
 ### Create a message
 
 ```bash
-agentic-db message create --conversationId <UUID> --role <String> --content <String> [--tokenCount <Int>] [--meta <JSON>] [--toolCalls <JSON>] [--toolResults <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db message create --conversationId <UUID> --role <String> --content <String> [--tokenCount <Int>] [--meta <JSON>] [--toolCalls <JSON>] [--toolResults <JSON>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a message by id

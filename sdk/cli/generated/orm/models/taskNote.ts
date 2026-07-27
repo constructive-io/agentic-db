@@ -70,13 +70,11 @@ export class TaskNoteModel {
     });
   }
   findFirst<S extends TaskNoteSelect>(
-    args: FindFirstArgs<S, TaskNoteFilter> & {
+    args: FindFirstArgs<S, TaskNoteFilter, TaskNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, TaskNoteSelect>
   ): QueryBuilder<{
-    taskNotes: {
-      nodes: InferSelectResult<TaskNoteWithRelations, S>[];
-    };
+    taskNote: InferSelectResult<TaskNoteWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'TaskNote',
@@ -84,17 +82,26 @@ export class TaskNoteModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'TaskNoteFilter',
+      'TaskNoteOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'TaskNote',
-      fieldName: 'taskNotes',
+      fieldName: 'taskNote',
       document,
       variables,
+      transform: (data: {
+        taskNotes?: {
+          nodes?: InferSelectResult<TaskNoteWithRelations, S>[];
+        };
+      }) => ({
+        taskNote: data.taskNotes?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends TaskNoteSelect>(

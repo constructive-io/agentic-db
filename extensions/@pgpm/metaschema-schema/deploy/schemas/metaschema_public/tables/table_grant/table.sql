@@ -17,6 +17,9 @@ CREATE TABLE metaschema_public.table_grant (
     -- true = GRANT, false = REVOKE
     is_grant boolean NOT NULL DEFAULT true,
 
+    created_at timestamptz DEFAULT now(),
+    updated_at timestamptz DEFAULT now(),
+
     --
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
     CONSTRAINT table_fkey FOREIGN KEY (table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE
@@ -25,5 +28,12 @@ CREATE TABLE metaschema_public.table_grant (
 
 CREATE INDEX table_grant_table_id_idx ON metaschema_public.table_grant ( table_id );
 CREATE INDEX table_grant_database_id_idx ON metaschema_public.table_grant ( database_id );
+
+CREATE UNIQUE INDEX table_grant_unique_idx ON metaschema_public.table_grant (
+    table_id,
+    privilege,
+    grantee_name,
+    COALESCE(field_ids, '{}'::uuid[])
+);
 
 COMMIT;

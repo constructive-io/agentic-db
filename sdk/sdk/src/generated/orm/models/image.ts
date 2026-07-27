@@ -70,13 +70,11 @@ export class ImageModel {
     });
   }
   findFirst<S extends ImageSelect>(
-    args: FindFirstArgs<S, ImageFilter> & {
+    args: FindFirstArgs<S, ImageFilter, ImageOrderBy> & {
       select: S;
     } & StrictSelect<S, ImageSelect>
   ): QueryBuilder<{
-    images: {
-      nodes: InferSelectResult<ImageWithRelations, S>[];
-    };
+    image: InferSelectResult<ImageWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Image',
@@ -84,17 +82,26 @@ export class ImageModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ImageFilter',
+      'ImageOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Image',
-      fieldName: 'images',
+      fieldName: 'image',
       document,
       variables,
+      transform: (data: {
+        images?: {
+          nodes?: InferSelectResult<ImageWithRelations, S>[];
+        };
+      }) => ({
+        image: data.images?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ImageSelect>(
@@ -189,7 +196,8 @@ export class ImageModel {
       'UpdateImageInput',
       'id',
       'imagePatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

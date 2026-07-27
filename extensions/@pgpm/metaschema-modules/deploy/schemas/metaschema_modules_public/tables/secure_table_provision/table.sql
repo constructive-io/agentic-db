@@ -15,29 +15,15 @@ CREATE TABLE metaschema_modules_public.secure_table_provision (
 
     table_name text DEFAULT NULL,
 
-    node_type text DEFAULT NULL,
+    nodes jsonb NOT NULL DEFAULT '[]',
 
     use_rls boolean NOT NULL DEFAULT true,
 
-    node_data jsonb NOT NULL DEFAULT '{}',
-
     fields jsonb[] NOT NULL DEFAULT '{}',
 
-    grant_roles text[] NOT NULL DEFAULT ARRAY['authenticated'],
+    grants jsonb NOT NULL DEFAULT '[]',
 
-    grant_privileges jsonb[] NOT NULL DEFAULT '{}',
-
-    policy_type text DEFAULT NULL,
-
-    policy_privileges text[] DEFAULT NULL,
-
-    policy_role text DEFAULT NULL,
-
-    policy_permissive boolean NOT NULL DEFAULT true,
-
-    policy_name text DEFAULT NULL,
-
-    policy_data jsonb NOT NULL DEFAULT '{}',
+    policies jsonb NOT NULL DEFAULT '[]',
 
     out_fields uuid[] DEFAULT NULL,
 
@@ -47,7 +33,7 @@ CREATE TABLE metaschema_modules_public.secure_table_provision (
 );
 
 COMMENT ON TABLE metaschema_modules_public.secure_table_provision IS
-    'Provisions security, fields, grants, and policies onto a table. Each row can independently: (1) create fields via node_type, (2) grant privileges via grant_privileges, (3) create RLS policies via policy_type. Multiple rows can target the same table to compose different concerns. All three concerns are optional and independent.';
+    'Provisions security, fields, grants, and policies onto a table. Each row can independently: (1) create fields via nodes[] array (supporting multiple Data* modules per row), (2) grant privileges via grants[] array (supporting per-role privilege targeting), (3) create RLS policies via policies[] array (supporting multiple Authz* policies per row). Multiple rows can target the same table to compose different concerns. All three concerns are optional and independent.';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.id IS
     'Unique identifier for this provision row.';
@@ -64,48 +50,26 @@ COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.table_id IS
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.table_name IS
     'Name of the target table. Used to create or look up the table when table_id is not provided. If omitted, it is backfilled from the resolved table.';
 
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.node_type IS
-    'Which generator to invoke for field creation. One of: DataId, DataDirectOwner, DataEntityMembership, DataOwnershipInEntity, DataTimestamps, DataPeoplestamps, DataPublishable, DataSoftDelete. NULL means no field creation — the row only provisions grants and/or policies.';
+COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.nodes IS
+    'Array of node objects to apply to the table. Each element is a jsonb object with a required "$type" key (one of: DataId, DataDirectOwner, DataEntityMembership, DataOwnershipInEntity, DataTimestamps, DataPeoplestamps, DataPublishable, DataSoftDelete, DataEmbedding, DataFullTextSearch, DataSlug, etc.) and an optional "data" key containing generator-specific configuration. Supports multiple nodes per row, matching the blueprint definition format. Example: [{"$type": "DataId"}, {"$type": "DataTimestamps"}, {"$type": "DataDirectOwner", "data": {"owner_field_name": "author_id"}}]. Defaults to ''[]'' (no node processing).';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.use_rls IS
-    'If true and Row Level Security is not yet enabled on the target table, enable it. Automatically set to true by the trigger when policy_type is provided. Defaults to true.';
-
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.node_data IS
-    'Configuration passed to the generator function for field creation (only used when node_type is set). Known keys include: field_name (text, default ''id'') for DataId, owner_field_name (text, default ''owner_id'') for DataDirectOwner/DataOwnershipInEntity, entity_field_name (text, default ''entity_id'') for DataEntityMembership/DataOwnershipInEntity, include_id (boolean, default true) for most node_types, include_user_fk (boolean, default true) to add FK to users table, create_index (boolean, default true) to create btree indexes on FK fields for join and cascade performance. Defaults to ''{}''.';
+    'If true and Row Level Security is not yet enabled on the target table, enable it. Automatically set to true by the trigger when policies[] is non-empty. Defaults to true.';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.fields IS
     'PostgreSQL array of jsonb field definition objects to create on the target table. Each object has keys: "name" (text, required), "type" (text, required), "default" (text, optional), "is_required" (boolean, optional, defaults to false), "min" (float, optional), "max" (float, optional), "regexp" (text, optional), "index" (boolean, optional, defaults to false — creates a btree index on the field). min/max generate CHECK constraints: for text/citext they constrain character_length, for integer/float types they constrain the value. regexp generates a CHECK (col ~ pattern) constraint for text/citext. Fields are created via metaschema.create_field() after any node_type generator runs, and their IDs are appended to out_fields. Example: ARRAY[''{"name":"username","type":"citext","max":256,"regexp":"^[a-z0-9_]+$"}''::jsonb, ''{"name":"score","type":"integer","min":0,"max":100}''::jsonb]. Defaults to ''{}'' (no additional fields).';
 
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.grant_roles IS
-    'Database roles to grant privileges to. Supports multiple roles, e.g. ARRAY[''authenticated'', ''admin'']. Each role receives all privileges defined in grant_privileges. Defaults to ARRAY[''authenticated''].';
+COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.grants IS
+    'Array of grant objects defining table privileges. Each element is a jsonb object with keys: "roles" (text[], required — database roles to grant to, e.g. ["authenticated","admin"]), "privileges" (jsonb[], required — array of [privilege, columns] tuples, e.g. [["select","*"],["insert","*"]]). "*" means all columns; an array means column-level grant. Supports per-role privilege targeting: different grant entries can target different roles with different privileges. Example: [{"roles":["authenticated"],"privileges":[["select","*"]]},{"roles":["admin"],"privileges":[["insert","*"],["update","*"],["delete","*"]]}]. Defaults to ''[]'' (no grants). When policies[] omit explicit privileges/policy_role, they fall back to the verbs and first role from grants[].';
 
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.grant_privileges IS
-    'PostgreSQL array of jsonb [privilege, columns] tuples defining table grants. Examples: ARRAY[''["select","*"]''::jsonb, ''["insert","*"]''::jsonb] for full access, or ARRAY[''["update",["name","bio"]]''::jsonb] for column-level grants. "*" means all columns; an array means column-level grant. Defaults to ''{}'' (no grants — callers must explicitly specify privileges). Type safety is enforced by PostgreSQL at INSERT time.';
-
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_type IS
-    'Policy generator type, e.g. ''AuthzEntityMembership'', ''AuthzMembership'', ''AuthzAllowAll''. NULL means no policy is created. When set, the trigger automatically enables RLS on the target table.';
-
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_privileges IS
-    'Privileges the policy applies to, e.g. ARRAY[''select'',''update'']. NULL means privileges are derived from the grant_privileges verbs.';
-
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_role IS
-    'Role the policy targets. NULL means it falls back to the first role in grant_roles.';
-
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_permissive IS
-    'Whether the policy is PERMISSIVE (true) or RESTRICTIVE (false). Defaults to true.';
-
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_name IS
-    'Custom suffix for the generated policy name. When NULL and policy_type is set, the trigger auto-derives a suffix from policy_type by stripping the Authz prefix and underscoring the remainder (e.g. AuthzDirectOwner becomes direct_owner, producing policy names like auth_sel_direct_owner). When explicitly set, the value is passed through as-is to metaschema.create_policy name parameter. This ensures multiple policies on the same table do not collide (e.g. AuthzDirectOwner + AuthzPublishable each get unique names).';
-
-COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_data IS
-    'Opaque configuration passed through to metaschema.create_policy(). Structure varies by policy_type and is not interpreted by this trigger. Defaults to ''{}''.';
+COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policies IS
+    'Array of policy objects to create on the target table. Each element is a jsonb object with keys: "$type" (text, required — the Authz* policy generator type, e.g. AuthzEntityMembership, AuthzMembership, AuthzDirectOwner, AuthzPublishable, AuthzAllowAll), "data" (jsonb, optional — opaque configuration passed to metaschema.create_policy(), structure varies by type), "privileges" (text[], optional — privileges the policy applies to, e.g. ["select","insert"]; if omitted, derived from grants[] privilege verbs), "policy_role" (text, optional — role the policy targets; if omitted, falls back to first role in first grants[] entry, or ''authenticated'' if no grants), "permissive" (boolean, optional — PERMISSIVE or RESTRICTIVE; defaults to true), "policy_name" (text, optional — custom suffix for the generated policy name; if omitted, auto-derived from $type by stripping Authz prefix). Supports multiple policies per row. Example: [{"$type": "AuthzEntityMembership", "data": {"entity_field": "owner_id", "membership_type": 3}, "privileges": ["select", "insert"]}, {"$type": "AuthzDirectOwner", "data": {"entity_field": "actor_id"}, "privileges": ["update", "delete"]}]. Defaults to ''[]'' (no policies created). When non-empty, the trigger automatically enables RLS.';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.out_fields IS
-    'Output column populated by the trigger after field creation. Contains the UUIDs of the metaschema fields created on the target table by this provision row''s generator. NULL when node_type is NULL or before the trigger runs. Callers should not set this directly.';
+    'Output column populated by the trigger after field creation. Contains the UUIDs of the metaschema fields created on the target table by this provision row''s nodes. NULL when nodes is empty or before the trigger runs. Callers should not set this directly.';
 
 
 CREATE INDEX secure_table_provision_database_id_idx ON metaschema_modules_public.secure_table_provision ( database_id );
 CREATE INDEX secure_table_provision_table_id_idx ON metaschema_modules_public.secure_table_provision ( table_id );
-CREATE INDEX secure_table_provision_node_type_idx ON metaschema_modules_public.secure_table_provision ( node_type );
 
 COMMIT;

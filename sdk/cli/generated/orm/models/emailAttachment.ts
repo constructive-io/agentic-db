@@ -70,13 +70,11 @@ export class EmailAttachmentModel {
     });
   }
   findFirst<S extends EmailAttachmentSelect>(
-    args: FindFirstArgs<S, EmailAttachmentFilter> & {
+    args: FindFirstArgs<S, EmailAttachmentFilter, EmailAttachmentOrderBy> & {
       select: S;
     } & StrictSelect<S, EmailAttachmentSelect>
   ): QueryBuilder<{
-    emailAttachments: {
-      nodes: InferSelectResult<EmailAttachmentWithRelations, S>[];
-    };
+    emailAttachment: InferSelectResult<EmailAttachmentWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'EmailAttachment',
@@ -84,17 +82,26 @@ export class EmailAttachmentModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'EmailAttachmentFilter',
+      'EmailAttachmentOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'EmailAttachment',
-      fieldName: 'emailAttachments',
+      fieldName: 'emailAttachment',
       document,
       variables,
+      transform: (data: {
+        emailAttachments?: {
+          nodes?: InferSelectResult<EmailAttachmentWithRelations, S>[];
+        };
+      }) => ({
+        emailAttachment: data.emailAttachments?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends EmailAttachmentSelect>(
@@ -189,7 +196,8 @@ export class EmailAttachmentModel {
       'UpdateEmailAttachmentInput',
       'id',
       'emailAttachmentPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

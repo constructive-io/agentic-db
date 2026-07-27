@@ -70,13 +70,11 @@ export class EventNoteModel {
     });
   }
   findFirst<S extends EventNoteSelect>(
-    args: FindFirstArgs<S, EventNoteFilter> & {
+    args: FindFirstArgs<S, EventNoteFilter, EventNoteOrderBy> & {
       select: S;
     } & StrictSelect<S, EventNoteSelect>
   ): QueryBuilder<{
-    eventNotes: {
-      nodes: InferSelectResult<EventNoteWithRelations, S>[];
-    };
+    eventNote: InferSelectResult<EventNoteWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'EventNote',
@@ -84,17 +82,26 @@ export class EventNoteModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'EventNoteFilter',
+      'EventNoteOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'EventNote',
-      fieldName: 'eventNotes',
+      fieldName: 'eventNote',
       document,
       variables,
+      transform: (data: {
+        eventNotes?: {
+          nodes?: InferSelectResult<EventNoteWithRelations, S>[];
+        };
+      }) => ({
+        eventNote: data.eventNotes?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends EventNoteSelect>(

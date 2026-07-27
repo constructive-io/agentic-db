@@ -19,8 +19,8 @@ agentic-db activity-log list --limit 10 --after <cursor>
 agentic-db activity-log find-first --where.<field>.<op> <value>
 agentic-db activity-log search <query>
 agentic-db activity-log get --id <UUID>
-agentic-db activity-log create --activityType <String> --completedAt <Datetime> [--durationMinutes <Int>] [--quantity <BigFloat>] [--quantityUnit <String>] [--intensity <String>] [--notes <String>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--habitId <UUID>]
-agentic-db activity-log update --id <UUID> [--activityType <String>] [--completedAt <Datetime>] [--durationMinutes <Int>] [--quantity <BigFloat>] [--quantityUnit <String>] [--intensity <String>] [--notes <String>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--habitId <UUID>]
+agentic-db activity-log create --activityType <String> --completedAt <Datetime> [--durationMinutes <Int>] [--quantity <BigFloat>] [--quantityUnit <String>] [--intensity <String>] [--notes <String>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--habitId <UUID>]
+agentic-db activity-log update --id <UUID> [--activityType <String>] [--completedAt <Datetime>] [--durationMinutes <Int>] [--quantity <BigFloat>] [--quantityUnit <String>] [--intensity <String>] [--notes <String>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--habitId <UUID>]
 agentic-db activity-log delete --id <UUID>
 ```
 
@@ -137,7 +137,7 @@ agentic-db activity-log search "query" --limit 10 --select id,title,searchScore
 ### Create a activityLog
 
 ```bash
-agentic-db activity-log create --activityType <String> --completedAt <Datetime> [--durationMinutes <Int>] [--quantity <BigFloat>] [--quantityUnit <String>] [--intensity <String>] [--notes <String>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--habitId <UUID>]
+agentic-db activity-log create --activityType <String> --completedAt <Datetime> [--durationMinutes <Int>] [--quantity <BigFloat>] [--quantityUnit <String>] [--intensity <String>] [--notes <String>] [--meta <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>] [--habitId <UUID>]
 ```
 
 ### Get a activityLog by id

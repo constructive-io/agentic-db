@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/documents/table
 -- requires: schemas/agentic_db_app_public/tables/documents/columns/file_path/column
--- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
 CREATE INDEX documents_file_path_idx ON agentic_db_app_public.documents USING BTREE ( file_path );

@@ -70,13 +70,11 @@ export class ToolDefinitionModel {
     });
   }
   findFirst<S extends ToolDefinitionSelect>(
-    args: FindFirstArgs<S, ToolDefinitionFilter> & {
+    args: FindFirstArgs<S, ToolDefinitionFilter, ToolDefinitionOrderBy> & {
       select: S;
     } & StrictSelect<S, ToolDefinitionSelect>
   ): QueryBuilder<{
-    toolDefinitions: {
-      nodes: InferSelectResult<ToolDefinitionWithRelations, S>[];
-    };
+    toolDefinition: InferSelectResult<ToolDefinitionWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ToolDefinition',
@@ -84,17 +82,26 @@ export class ToolDefinitionModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ToolDefinitionFilter',
+      'ToolDefinitionOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ToolDefinition',
-      fieldName: 'toolDefinitions',
+      fieldName: 'toolDefinition',
       document,
       variables,
+      transform: (data: {
+        toolDefinitions?: {
+          nodes?: InferSelectResult<ToolDefinitionWithRelations, S>[];
+        };
+      }) => ({
+        toolDefinition: data.toolDefinitions?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ToolDefinitionSelect>(
@@ -189,7 +196,8 @@ export class ToolDefinitionModel {
       'UpdateToolDefinitionInput',
       'id',
       'toolDefinitionPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

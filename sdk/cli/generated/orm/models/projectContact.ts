@@ -70,13 +70,11 @@ export class ProjectContactModel {
     });
   }
   findFirst<S extends ProjectContactSelect>(
-    args: FindFirstArgs<S, ProjectContactFilter> & {
+    args: FindFirstArgs<S, ProjectContactFilter, ProjectContactOrderBy> & {
       select: S;
     } & StrictSelect<S, ProjectContactSelect>
   ): QueryBuilder<{
-    projectContacts: {
-      nodes: InferSelectResult<ProjectContactWithRelations, S>[];
-    };
+    projectContact: InferSelectResult<ProjectContactWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'ProjectContact',
@@ -84,17 +82,26 @@ export class ProjectContactModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ProjectContactFilter',
+      'ProjectContactOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'ProjectContact',
-      fieldName: 'projectContacts',
+      fieldName: 'projectContact',
       document,
       variables,
+      transform: (data: {
+        projectContacts?: {
+          nodes?: InferSelectResult<ProjectContactWithRelations, S>[];
+        };
+      }) => ({
+        projectContact: data.projectContacts?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends ProjectContactSelect>(

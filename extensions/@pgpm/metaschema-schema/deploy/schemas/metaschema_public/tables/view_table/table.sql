@@ -3,6 +3,7 @@
 -- requires: schemas/metaschema_public/schema
 -- requires: schemas/metaschema_public/tables/view/table
 -- requires: schemas/metaschema_public/tables/table/table
+-- requires: schemas/metaschema_public/tables/database/table
 
 BEGIN;
 
@@ -11,12 +12,14 @@ BEGIN;
 -- The primary table is stored in view.table_id; this table stores additional joined tables.
 CREATE TABLE metaschema_public.view_table (
   id uuid PRIMARY KEY DEFAULT uuidv7(),
+  database_id uuid NOT NULL DEFAULT uuid_nil(),
   view_id uuid NOT NULL,
   table_id uuid NOT NULL,
   
   -- Order of joins (0 = first join, 1 = second join, etc.)
   join_order int NOT NULL DEFAULT 0,
 
+  CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
   CONSTRAINT view_fkey FOREIGN KEY (view_id) REFERENCES metaschema_public.view (id) ON DELETE CASCADE,
   CONSTRAINT table_fkey FOREIGN KEY (table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,
 
@@ -25,6 +28,7 @@ CREATE TABLE metaschema_public.view_table (
 
 COMMENT ON TABLE metaschema_public.view_table IS 'Junction table linking views to their joined tables for referential integrity';
 
+CREATE INDEX view_table_database_id_idx ON metaschema_public.view_table ( database_id );
 CREATE INDEX view_table_view_id_idx ON metaschema_public.view_table ( view_id );
 CREATE INDEX view_table_table_id_idx ON metaschema_public.view_table ( table_id );
 

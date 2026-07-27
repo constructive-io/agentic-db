@@ -70,13 +70,11 @@ export class VenueLinkModel {
     });
   }
   findFirst<S extends VenueLinkSelect>(
-    args: FindFirstArgs<S, VenueLinkFilter> & {
+    args: FindFirstArgs<S, VenueLinkFilter, VenueLinkOrderBy> & {
       select: S;
     } & StrictSelect<S, VenueLinkSelect>
   ): QueryBuilder<{
-    venueLinks: {
-      nodes: InferSelectResult<VenueLinkWithRelations, S>[];
-    };
+    venueLink: InferSelectResult<VenueLinkWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'VenueLink',
@@ -84,17 +82,26 @@ export class VenueLinkModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'VenueLinkFilter',
+      'VenueLinkOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'VenueLink',
-      fieldName: 'venueLinks',
+      fieldName: 'venueLink',
       document,
       variables,
+      transform: (data: {
+        venueLinks?: {
+          nodes?: InferSelectResult<VenueLinkWithRelations, S>[];
+        };
+      }) => ({
+        venueLink: data.venueLinks?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends VenueLinkSelect>(
@@ -189,7 +196,8 @@ export class VenueLinkModel {
       'UpdateVenueLinkInput',
       'id',
       'venueLinkPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

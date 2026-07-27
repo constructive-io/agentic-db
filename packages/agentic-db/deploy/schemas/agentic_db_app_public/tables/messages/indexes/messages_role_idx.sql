@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/messages/table
 -- requires: schemas/agentic_db_app_public/tables/messages/columns/role/column
--- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
 CREATE INDEX messages_role_idx ON agentic_db_app_public.messages USING BTREE ( role );

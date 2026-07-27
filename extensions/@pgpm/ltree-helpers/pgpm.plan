@@ -1,0 +1,8 @@
+%syntax-version=1.0.0
+%project=pgpm-ltree-helpers
+%uri=pgpm-ltree-helpers
+
+schemas/ltree_helpers/schema 2026-05-01T06:00:00Z devin <devin@cognition.ai> # add schemas/ltree_helpers/schema
+schemas/ltree_helpers/procedures/to_path [schemas/ltree_helpers/schema] 2026-05-01T06:00:00Z devin <devin@cognition.ai> # add schemas/ltree_helpers/procedures/to_path
+schemas/ltree_helpers/procedures/to_slash [schemas/ltree_helpers/schema] 2026-05-01T06:00:00Z devin <devin@cognition.ai> # add schemas/ltree_helpers/procedures/to_slash
+schemas/ltree_helpers/procedures/to_query [schemas/ltree_helpers/schema] 2026-05-01T06:00:00Z devin <devin@cognition.ai> # add schemas/ltree_helpers/procedures/to_query

@@ -8,6 +8,11 @@ CREATE TABLE metaschema_modules_public.hierarchy_module (
     id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     
+
+    -- Scope-key column name on the generated table(s), recorded by the insert
+    -- trigger via metaschema_generators.scope_key_column(scope, key): database ->
+    -- 'database_id', entity -> the module's key ('entity_id' here), global -> NULL.
+    entity_field text,
     -- Schema references
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
     private_schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -23,14 +28,17 @@ CREATE TABLE metaschema_modules_public.hierarchy_module (
     chart_edge_grants_table_name text NOT NULL DEFAULT '',
     
     -- Required external table references
-    entity_table_id uuid NOT NULL,  -- Organizations table (membership_type=2 entity)
+    entity_table_id uuid NOT NULL,  -- Organizations table (entity-scoped)
     users_table_id uuid NOT NULL,   -- Users table
+
+    -- Scope: determines the security level for this module instance.
+    scope text NOT NULL,
     
-    -- Prefix for naming (e.g., 'org' -> 'org_chart_edges')
-    prefix text NOT NULL DEFAULT 'org',
+    -- Table name prefix. Auto-derived from scope by the trigger when empty.
+    prefix text NOT NULL DEFAULT '',
     
     -- Resolved names for RLS parser lookups
-    private_schema_name text NOT NULL DEFAULT '',
+  private_schema_name text NOT NULL DEFAULT '',
     sprt_table_name text NOT NULL DEFAULT '',
     
     -- Function names for helper functions
@@ -39,6 +47,10 @@ CREATE TABLE metaschema_modules_public.hierarchy_module (
     get_managers_function text NOT NULL DEFAULT '',
     is_manager_of_function text NOT NULL DEFAULT '',
     
+    -- Default permissions: permission names auto-granted to new members.
+    -- NULL uses the module's built-in defaults; explicit array overrides them.
+    default_permissions text[] DEFAULT NULL,
+
     -- Timestamps
     created_at timestamptz NOT NULL DEFAULT now(),
     

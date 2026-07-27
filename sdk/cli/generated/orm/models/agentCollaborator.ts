@@ -70,13 +70,11 @@ export class AgentCollaboratorModel {
     });
   }
   findFirst<S extends AgentCollaboratorSelect>(
-    args: FindFirstArgs<S, AgentCollaboratorFilter> & {
+    args: FindFirstArgs<S, AgentCollaboratorFilter, AgentCollaboratorOrderBy> & {
       select: S;
     } & StrictSelect<S, AgentCollaboratorSelect>
   ): QueryBuilder<{
-    agentCollaborators: {
-      nodes: InferSelectResult<AgentCollaboratorWithRelations, S>[];
-    };
+    agentCollaborator: InferSelectResult<AgentCollaboratorWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'AgentCollaborator',
@@ -84,17 +82,26 @@ export class AgentCollaboratorModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'AgentCollaboratorFilter',
+      'AgentCollaboratorOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'AgentCollaborator',
-      fieldName: 'agentCollaborators',
+      fieldName: 'agentCollaborator',
       document,
       variables,
+      transform: (data: {
+        agentCollaborators?: {
+          nodes?: InferSelectResult<AgentCollaboratorWithRelations, S>[];
+        };
+      }) => ({
+        agentCollaborator: data.agentCollaborators?.nodes?.[0] ?? null,
+      }),
     });
   }
   create<S extends AgentCollaboratorSelect>(

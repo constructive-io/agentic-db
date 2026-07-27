@@ -19,8 +19,8 @@ agentic-db agent list --limit 10 --after <cursor>
 agentic-db agent find-first --where.<field>.<op> <value>
 agentic-db agent search <query>
 agentic-db agent get --id <UUID>
-agentic-db agent create --name <String> [--description <String>] [--systemPrompt <String>] [--model <String>] [--temperature <BigFloat>] [--status <String>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db agent update --id <UUID> [--name <String>] [--description <String>] [--systemPrompt <String>] [--model <String>] [--temperature <BigFloat>] [--status <String>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db agent create --name <String> [--description <String>] [--systemPrompt <String>] [--model <String>] [--temperature <BigFloat>] [--status <String>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
+agentic-db agent update --id <UUID> [--name <String>] [--description <String>] [--systemPrompt <String>] [--model <String>] [--temperature <BigFloat>] [--status <String>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 agentic-db agent delete --id <UUID>
 ```
 
@@ -143,7 +143,7 @@ agentic-db agent search "query" --limit 10 --select id,title,searchScore
 ### Create a agent
 
 ```bash
-agentic-db agent create --name <String> [--description <String>] [--systemPrompt <String>] [--model <String>] [--temperature <BigFloat>] [--status <String>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db agent create --name <String> [--description <String>] [--systemPrompt <String>] [--model <String>] [--temperature <BigFloat>] [--status <String>] [--config <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingUpdatedAt <Datetime>]
 ```
 
 ### Get a agent by id

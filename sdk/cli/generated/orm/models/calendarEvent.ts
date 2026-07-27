@@ -70,13 +70,11 @@ export class CalendarEventModel {
     });
   }
   findFirst<S extends CalendarEventSelect>(
-    args: FindFirstArgs<S, CalendarEventFilter> & {
+    args: FindFirstArgs<S, CalendarEventFilter, CalendarEventOrderBy> & {
       select: S;
     } & StrictSelect<S, CalendarEventSelect>
   ): QueryBuilder<{
-    calendarEvents: {
-      nodes: InferSelectResult<CalendarEventWithRelations, S>[];
-    };
+    calendarEvent: InferSelectResult<CalendarEventWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'CalendarEvent',
@@ -84,17 +82,26 @@ export class CalendarEventModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'CalendarEventFilter',
+      'CalendarEventOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'CalendarEvent',
-      fieldName: 'calendarEvents',
+      fieldName: 'calendarEvent',
       document,
       variables,
+      transform: (data: {
+        calendarEvents?: {
+          nodes?: InferSelectResult<CalendarEventWithRelations, S>[];
+        };
+      }) => ({
+        calendarEvent: data.calendarEvents?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends CalendarEventSelect>(
@@ -189,7 +196,8 @@ export class CalendarEventModel {
       'UpdateCalendarEventInput',
       'id',
       'calendarEventPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

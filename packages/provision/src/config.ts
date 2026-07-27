@@ -17,6 +17,9 @@ export const config = {
   /** Auth API endpoint — sign up / sign in */
   authEndpoint: process.env.AUTH_ENDPOINT || 'http://auth.localhost:3000/graphql',
 
+  /** Modules API endpoint — blueprints / module provisioning */
+  modulesEndpoint: process.env.MODULES_ENDPOINT || 'http://modules.localhost:3000/graphql',
+
   /** Database name (set by create-db, read by provision) */
   databaseName: process.env.DATABASE_NAME || 'agentic-db',
 

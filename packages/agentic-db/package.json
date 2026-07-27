@@ -23,22 +23,22 @@
   "keywords": [],
   "dependencies": {
     "@agentic-db/services": "workspace:*",
-    "@pgpm/base32": "^0.20.0",
-    "@pgpm/database-jobs": "^0.20.2",
-    "@pgpm/inflection": "^0.20.1",
-    "@pgpm/jwt-claims": "^0.20.0",
-    "@pgpm/metaschema-schema": "^0.21.0",
-    "@pgpm/stamps": "^0.20.0",
-    "@pgpm/totp": "^0.20.0",
-    "@pgpm/types": "^0.20.0",
-    "@pgpm/utils": "^0.20.0",
-    "@pgpm/uuid": "^0.20.0"
+    "@pgpm/base32": "^0.33.0",
+    "@pgpm/database-jobs": "^0.33.1",
+    "@pgpm/inflection": "^0.33.0",
+    "@pgpm/jwt-claims": "^0.33.0",
+    "@pgpm/metaschema-schema": "^0.33.1",
+    "@pgpm/stamps": "^0.33.0",
+    "@pgpm/totp": "^0.33.0",
+    "@pgpm/types": "^0.33.0",
+    "@pgpm/utils": "^0.33.0",
+    "@pgpm/uuid": "^0.33.0"
   },
   "devDependencies": {
     "@agentic-db/sdk": "workspace:*",
     "@agentic-kit/ollama": "^1.0.3",
-    "@constructive-io/graphql-test": "^4.11.1",
-    "graphile-settings": "4.21.1",
-    "pgsql-test": "^4.9.0"
+    "@constructive-io/graphql-test": "^5.5.0",
+    "graphile-settings": "6.5.0",
+    "pgsql-test": "^5.4.0"
   }
 }

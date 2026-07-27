@@ -20,7 +20,7 @@ const fieldSchema: FieldSchema = {
   noteId: 'uuid',
 };
 const usage =
-  '\ncalendar-event-note <command>\n\nCommands:\n  list                  List calendarEventNote records\n  find-first            Find first matching calendarEventNote record\n  create                Create a new calendarEventNote\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\n  --help, -h            Show this help message\n';
+  '\ncalendar-event-note <command>\n\nCommands:\n  list                  List calendarEventNote records\n  find-first            Find first matching calendarEventNote record\n  create                Create a new calendarEventNote\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -90,7 +90,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       noteId: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<CalendarEventNoteSelect, CalendarEventNoteFilter> & {
+      FindFirstArgs<CalendarEventNoteSelect, CalendarEventNoteFilter, CalendarEventNoteOrderBy> & {
         select: CalendarEventNoteSelect;
       }
     >(argv, defaultSelect);

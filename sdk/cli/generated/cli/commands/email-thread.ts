@@ -28,7 +28,7 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   searchTsv: 'string',
   embedding: 'string',
-  embeddingStale: 'boolean',
+  embeddingUpdatedAt: 'string',
   searchTsvRank: 'float',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
@@ -41,7 +41,7 @@ const fieldSchema: FieldSchema = {
 };
 import { resolveEmbedder, autoEmbedWhere, autoEmbedInput } from '../embedder';
 const usage =
-  '\nemail-thread <command>\n\nCommands:\n  list                  List emailThread records\n  find-first            Find first matching emailThread record\n  search <query>        Search emailThread records\n  get                   Get a emailThread by ID\n  create                Create a new emailThread\n  update                Update an existing emailThread\n\nCreate/Update Options:\n  --auto-embed          Convert text values in vector fields to embeddings before saving\n  delete                Delete a emailThread\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\nSearch Options:\n  <query>               Search query string (required)\n  --limit <n>           Max number of records to return\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --orderBy <values>    Comma-separated list of ordering values\n  --auto-embed          Convert text queries to vectors via configured embedder\n\nEmbedding Options (for --auto-embed):\n  Set EMBEDDER_PROVIDER=ollama to enable text-to-vector embedding.\n  Optional: EMBEDDER_MODEL (default: nomic-embed-text)\n  Optional: EMBEDDER_BASE_URL (default: http://localhost:11434)\n\n  --help, -h            Show this help message\n';
+  '\nemail-thread <command>\n\nCommands:\n  list                  List emailThread records\n  find-first            Find first matching emailThread record\n  search <query>        Search emailThread records\n  get                   Get a emailThread by ID\n  create                Create a new emailThread\n  update                Update an existing emailThread\n\nCreate/Update Options:\n  --auto-embed          Convert text values in vector fields to embeddings before saving\n  delete                Delete a emailThread\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nSearch Options:\n  <query>               Search query string (required)\n  --limit <n>           Max number of records to return\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --orderBy <values>    Comma-separated list of ordering values\n  --auto-embed          Convert text queries to vectors via configured embedder\n\nEmbedding Options (for --auto-embed):\n  Set EMBEDDER_PROVIDER=ollama to enable text-to-vector embedding.\n  Optional: EMBEDDER_MODEL (default: nomic-embed-text)\n  Optional: EMBEDDER_BASE_URL (default: http://localhost:11434)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -104,7 +104,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       updatedAt: true,
       embeddingText: true,
       embedding: true,
-      embeddingStale: true,
+      embeddingUpdatedAt: true,
     };
     const findManyArgs = parseFindManyArgs<
       FindManyArgs<EmailThreadSelect, EmailThreadFilter, EmailThreadOrderBy> & {
@@ -146,10 +146,10 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       updatedAt: true,
       embeddingText: true,
       embedding: true,
-      embeddingStale: true,
+      embeddingUpdatedAt: true,
     };
     const findFirstArgs = parseFindFirstArgs<
-      FindFirstArgs<EmailThreadSelect, EmailThreadFilter> & {
+      FindFirstArgs<EmailThreadSelect, EmailThreadFilter, EmailThreadOrderBy> & {
         select: EmailThreadSelect;
       }
     >(argv, defaultSelect);
@@ -224,7 +224,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       updatedAt: true,
       embeddingText: true,
       embedding: true,
-      embeddingStale: true,
+      embeddingUpdatedAt: true,
     };
     const findManyArgs = parseFindManyArgs<
       FindManyArgs<EmailThreadSelect, EmailThreadFilter, EmailThreadOrderBy> & {
@@ -268,7 +268,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           updatedAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingStale: true,
+          embeddingUpdatedAt: true,
         },
       })
       .execute();
@@ -341,9 +341,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
-        type: 'boolean',
-        name: 'embeddingStale',
-        message: 'embeddingStale',
+        type: 'text',
+        name: 'embeddingUpdatedAt',
+        message: 'embeddingUpdatedAt',
         required: false,
         skipPrompt: true,
       },
@@ -375,7 +375,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingStale: cleanedData.embeddingStale,
+          embeddingUpdatedAt: cleanedData.embeddingUpdatedAt,
         },
         select: {
           providerThreadId: true,
@@ -389,7 +389,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           updatedAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingStale: true,
+          embeddingUpdatedAt: true,
         },
       })
       .execute();
@@ -468,9 +468,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
-        type: 'boolean',
-        name: 'embeddingStale',
-        message: 'embeddingStale',
+        type: 'text',
+        name: 'embeddingUpdatedAt',
+        message: 'embeddingUpdatedAt',
         required: false,
         skipPrompt: true,
       },
@@ -502,7 +502,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingStale: cleanedData.embeddingStale,
+          embeddingUpdatedAt: cleanedData.embeddingUpdatedAt,
         },
         select: {
           providerThreadId: true,
@@ -516,7 +516,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           updatedAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingStale: true,
+          embeddingUpdatedAt: true,
         },
       })
       .execute();

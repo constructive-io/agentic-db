@@ -5,7 +5,7 @@
 ## Stack
 
 - Prisma-like ORM client for a GraphQL API (TypeScript)
-- 95 models, 3 custom operations
+- 95 models, 1 custom operation
 - All methods return a QueryBuilder; call `.execute()` to run, or `.unwrap()` to throw on error
 
 ## Quick Start
@@ -52,6 +52,7 @@ Available helpers (chain after `.execute()`):
 
 - Access models via `db.<ModelName>` (e.g. `db.User`)
 - CRUD methods: `findMany`, `findOne`, `create`, `update`, `delete`
+- Bulk methods (when enabled via smart tags): `bulkCreate`, `bulkUpsert`, `bulkUpdate`, `bulkDelete`
 - Chain `.execute().unwrap()` to run and throw on error, or `.execute()` alone for discriminated union result
 - Custom operations via `db.query.<name>` or `db.mutation.<name>`
 

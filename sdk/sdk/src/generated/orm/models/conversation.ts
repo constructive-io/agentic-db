@@ -70,13 +70,11 @@ export class ConversationModel {
     });
   }
   findFirst<S extends ConversationSelect>(
-    args: FindFirstArgs<S, ConversationFilter> & {
+    args: FindFirstArgs<S, ConversationFilter, ConversationOrderBy> & {
       select: S;
     } & StrictSelect<S, ConversationSelect>
   ): QueryBuilder<{
-    conversations: {
-      nodes: InferSelectResult<ConversationWithRelations, S>[];
-    };
+    conversation: InferSelectResult<ConversationWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'Conversation',
@@ -84,17 +82,26 @@ export class ConversationModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'ConversationFilter',
+      'ConversationOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'Conversation',
-      fieldName: 'conversations',
+      fieldName: 'conversation',
       document,
       variables,
+      transform: (data: {
+        conversations?: {
+          nodes?: InferSelectResult<ConversationWithRelations, S>[];
+        };
+      }) => ({
+        conversation: data.conversations?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends ConversationSelect>(
@@ -189,7 +196,8 @@ export class ConversationModel {
       'UpdateConversationInput',
       'id',
       'conversationPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

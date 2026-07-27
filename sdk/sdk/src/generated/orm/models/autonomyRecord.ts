@@ -70,13 +70,11 @@ export class AutonomyRecordModel {
     });
   }
   findFirst<S extends AutonomyRecordSelect>(
-    args: FindFirstArgs<S, AutonomyRecordFilter> & {
+    args: FindFirstArgs<S, AutonomyRecordFilter, AutonomyRecordOrderBy> & {
       select: S;
     } & StrictSelect<S, AutonomyRecordSelect>
   ): QueryBuilder<{
-    autonomyRecords: {
-      nodes: InferSelectResult<AutonomyRecordWithRelations, S>[];
-    };
+    autonomyRecord: InferSelectResult<AutonomyRecordWithRelations, S> | null;
   }> {
     const { document, variables } = buildFindFirstDocument(
       'AutonomyRecord',
@@ -84,17 +82,26 @@ export class AutonomyRecordModel {
       args.select,
       {
         where: args?.where,
+        orderBy: args?.orderBy as string[] | undefined,
       },
       'AutonomyRecordFilter',
+      'AutonomyRecordOrderBy',
       connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
       operation: 'query',
       operationName: 'AutonomyRecord',
-      fieldName: 'autonomyRecords',
+      fieldName: 'autonomyRecord',
       document,
       variables,
+      transform: (data: {
+        autonomyRecords?: {
+          nodes?: InferSelectResult<AutonomyRecordWithRelations, S>[];
+        };
+      }) => ({
+        autonomyRecord: data.autonomyRecords?.nodes?.[0] ?? null,
+      }),
     });
   }
   findOne<S extends AutonomyRecordSelect>(
@@ -189,7 +196,8 @@ export class AutonomyRecordModel {
       'UpdateAutonomyRecordInput',
       'id',
       'autonomyRecordPatch',
-      connectionFieldsMap
+      connectionFieldsMap,
+      undefined
     );
     return new QueryBuilder({
       client: this.client,

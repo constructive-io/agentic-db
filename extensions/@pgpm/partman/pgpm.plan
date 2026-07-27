@@ -1,0 +1,11 @@
+%syntax-version=1.0.0
+%project=pgpm-partman
+%uri=pgpm-partman
+
+extensions/pg_partman 2026-05-09T00:00:00Z devin <devin@constructive.io> # add pg_partman extension in partman schema
+schemas/partman/procedures/create_parent_with_retention [extensions/pg_partman] 2026-05-18T00:00:00Z devin <devin@cognition.ai> # raw-name wrapper: create_parent + retention config
+schemas/partman/procedures/create_parent_by_id [extensions/pg_partman schemas/partman/procedures/create_parent_with_retention] 2026-05-16T00:00:00Z devin <devin@cognition.ai> # metaschema-aware wrapper for partman.create_parent
+schemas/partman/procedures/remove_parent_by_id [extensions/pg_partman] 2026-05-16T00:00:01Z devin <devin@cognition.ai> # metaschema-aware wrapper for partman remove
+schemas/partman/procedures/verify_parent_by_id [extensions/pg_partman] 2026-05-16T00:00:02Z devin <devin@cognition.ai> # metaschema-aware wrapper for partman verify
+schemas/partman/procedures/run_maintenance_by_id [extensions/pg_partman] 2026-05-16T00:00:03Z devin <devin@cognition.ai> # metaschema-aware wrapper for partman run_maintenance
+schemas/partman/triggers/after_insert_partition [extensions/pg_partman schemas/partman/procedures/create_parent_with_retention metaschema-schema:schemas/metaschema_public/tables/partition/table metaschema-schema:schemas/metaschema_public/tables/table/table metaschema-schema:schemas/metaschema_public/tables/schema/table metaschema-schema:schemas/metaschema_public/tables/field/table] 2026-07-08T00:00:00Z devin <devin@cognition.ai> # parent metaschema partition rows via pg_partman on consumer databases

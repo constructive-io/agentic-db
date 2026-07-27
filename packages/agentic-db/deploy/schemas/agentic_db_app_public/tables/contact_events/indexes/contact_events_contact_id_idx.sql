@@ -3,7 +3,6 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contact_events/table
--- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_app_public/tables/contact_events/columns/contact_id/column
 
 
