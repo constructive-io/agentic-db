@@ -37,8 +37,8 @@
   "devDependencies": {
     "@agentic-db/sdk": "workspace:*",
     "@agentic-kit/ollama": "^1.0.3",
-    "@constructive-io/graphql-test": "^5.2.3",
-    "graphile-settings": "6.2.2",
-    "pgsql-test": "^5.1.4"
+    "@constructive-io/graphql-test": "^5.5.0",
+    "graphile-settings": "6.5.0",
+    "pgsql-test": "^5.4.0"
   }
 }

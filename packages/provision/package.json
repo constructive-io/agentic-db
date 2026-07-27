@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@constructive-io/node": "^0.10.12",
-    "@constructive-io/sdk": "^1.2.3",
+    "@constructive-io/sdk": "^1.5.0",
     "dotenv": "^16.4.5",
     "node-type-registry": "^1.1.2",
     "pg": "^8.20.0"
