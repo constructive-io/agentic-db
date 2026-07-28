@@ -33,11 +33,11 @@ INSERT INTO metaschema_public.spatial_relation (
   category,
   tags
 ) VALUES
-  ('2e6b83b8-6146-3446-6432-5199737ba0e1', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '78d08852-1160-0dfb-193a-e1ba85d840cd', '6f42c1fc-e7e9-de7a-d56f-dda42af79402', 'de2b13f3-5772-6b0d-8106-25a34bd55533', 'e528c5f5-3853-c569-ca98-312f52a0d02a', 'nearbyPlaces', 'st_dwithin', 'distance', 'app', '{}'),
-  ('c21adbec-9b1a-ec64-d9fa-d13c776f0d80', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '78d08852-1160-0dfb-193a-e1ba85d840cd', '6f42c1fc-e7e9-de7a-d56f-dda42af79402', '78d08852-1160-0dfb-193a-e1ba85d840cd', '6f42c1fc-e7e9-de7a-d56f-dda42af79402', 'nearbyMemories', 'st_dwithin', 'distance', 'app', '{}'),
-  ('c99fe12f-4e2d-0ddd-6905-e8eacd31670c', '65a856dc-b301-12f0-d108-9c49d8b99bf0', 'b6f18c67-1134-b1b8-e7a7-f9e282bd6811', '64691dab-b478-acc8-bb55-2d5bc8df8eb0', '5e8637f4-a7b5-1655-b15a-3518077c69e4', '2d7ab33b-f99e-0c4e-90b0-801b1be6a0ed', 'nearbyVenues', 'st_dwithin', 'distance', 'app', '{}'),
-  ('e559319a-077a-37e9-2e34-ff0bea572185', '65a856dc-b301-12f0-d108-9c49d8b99bf0', 'b6ee757b-d48b-0c2d-e484-322f82a1e167', '908de6ec-ff19-52a6-35e1-25711954c0d4', '5e8637f4-a7b5-1655-b15a-3518077c69e4', '2d7ab33b-f99e-0c4e-90b0-801b1be6a0ed', 'nearbyVenues', 'st_dwithin', 'distance', 'app', '{}'),
-  ('fc22c253-9d2e-69a0-3be5-4034e6c0b3f3', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '78d08852-1160-0dfb-193a-e1ba85d840cd', '6f42c1fc-e7e9-de7a-d56f-dda42af79402', '37eed52f-fa1c-528c-1f77-688ac4b81f40', '6efb683f-abc1-7755-6cda-9b41fa62ac74', 'nearbyContacts', 'st_dwithin', 'distance', 'app', '{}');
+  ('3be20c5d-14a1-84f4-6115-0e8a4ca4eb46', '019fa679-9064-7be8-b12a-f974608356ce', '6a91c644-677c-dfd8-481c-ddda687f0610', 'cca5b3fc-db95-810f-aecb-91e6ec5376c1', '681e78dd-266c-1a62-7301-53216dd38bcb', '25f123eb-92a5-0c53-8a1c-559f71efee4f', 'nearbyVenues', 'st_dwithin', 'distance', 'app', '{}'),
+  ('858ba10e-90cf-08f8-2851-a557cdd65136', '019fa679-9064-7be8-b12a-f974608356ce', '26bbe4e4-345c-c783-2572-48b65a799066', '3bba3083-9927-992a-7432-e6cf9f9627c2', '8a9a840b-10a5-ee10-4627-8b372bea2e28', '1f5ee42a-f49c-01fc-e448-8989e2fdcecd', 'nearbyContacts', 'st_dwithin', 'distance', 'app', '{}'),
+  ('8d9cd12c-fb74-f07b-ae4a-cb157006a425', '019fa679-9064-7be8-b12a-f974608356ce', '26bbe4e4-345c-c783-2572-48b65a799066', '3bba3083-9927-992a-7432-e6cf9f9627c2', '436a727e-b219-b1e9-8ef1-f94134b0c57f', '2a1d5482-0c23-36ec-924e-5f50d73b0d19', 'nearbyPlaces', 'st_dwithin', 'distance', 'app', '{}'),
+  ('99e6518b-4155-c748-25fa-eca2c55befc9', '019fa679-9064-7be8-b12a-f974608356ce', '682fc22b-1922-4990-6dc1-8992c84d4963', '975ea240-df23-5acd-eccf-e9c1164a359d', '681e78dd-266c-1a62-7301-53216dd38bcb', '25f123eb-92a5-0c53-8a1c-559f71efee4f', 'nearbyVenues', 'st_dwithin', 'distance', 'app', '{}'),
+  ('c15d406e-9ec7-75b0-caa2-5e1d7ff7ff54', '019fa679-9064-7be8-b12a-f974608356ce', '26bbe4e4-345c-c783-2572-48b65a799066', '3bba3083-9927-992a-7432-e6cf9f9627c2', '26bbe4e4-345c-c783-2572-48b65a799066', '3bba3083-9927-992a-7432-e6cf9f9627c2', 'nearbyMemories', 'st_dwithin', 'distance', 'app', '{}');
 
 
 SET session_replication_role TO DEFAULT;

@@ -1936,6 +1936,80 @@ enum RawContactUrlOrderBy {
   RAW_CONTACT_ID_DESC
 }
 
+"Methods to use when ordering `RawMessageAttachment`."
+enum RawMessageAttachmentOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  FILENAME_ASC
+  FILENAME_DESC
+  CONTENT_TYPE_ASC
+  CONTENT_TYPE_DESC
+  SIZE_BYTES_ASC
+  SIZE_BYTES_DESC
+  STORAGE_URL_ASC
+  STORAGE_URL_DESC
+  PROVIDER_ATTACHMENT_ID_ASC
+  PROVIDER_ATTACHMENT_ID_DESC
+  ID_ASC
+  ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  RAW_MESSAGE_ID_ASC
+  RAW_MESSAGE_ID_DESC
+}
+
+"Methods to use when ordering `RawMessage`."
+enum RawMessageOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  PROVIDER_ASC
+  PROVIDER_DESC
+  EXTERNAL_ID_ASC
+  EXTERNAL_ID_DESC
+  EXTERNAL_THREAD_ID_ASC
+  EXTERNAL_THREAD_ID_DESC
+  SENDER_HANDLE_ASC
+  SENDER_HANDLE_DESC
+  SENDER_DISPLAY_NAME_ASC
+  SENDER_DISPLAY_NAME_DESC
+  RECIPIENTS_ASC
+  RECIPIENTS_DESC
+  SUBJECT_ASC
+  SUBJECT_DESC
+  BODY_TEXT_ASC
+  BODY_TEXT_DESC
+  SENT_AT_ASC
+  SENT_AT_DESC
+  RAW_DATA_ASC
+  RAW_DATA_DESC
+  TRIAGE_STATUS_ASC
+  TRIAGE_STATUS_DESC
+  TRIAGE_SCORE_ASC
+  TRIAGE_SCORE_DESC
+  TRIAGE_NOTES_ASC
+  TRIAGE_NOTES_DESC
+  LABELS_ASC
+  LABELS_DESC
+  INGESTED_AT_ASC
+  INGESTED_AT_DESC
+  ID_ASC
+  ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  SENDER_CONTACT_ID_ASC
+  SENDER_CONTACT_ID_DESC
+  PROMOTED_EMAIL_ID_ASC
+  PROMOTED_EMAIL_ID_DESC
+  PROMOTED_CONVERSATION_ID_ASC
+  PROMOTED_CONVERSATION_ID_DESC
+}
+
 "Methods to use when ordering `Rule`."
 enum RuleOrderBy {
   NATURAL
@@ -5202,7 +5276,7 @@ type Contact {
     orderBy: [EmailThreadOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyConnection!
   "Reads and enables pagination through a set of `Email`."
-  emails(
+  emailsByEmailRecipientContactIdAndEmailId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -5220,7 +5294,7 @@ type Contact {
     where: EmailFilter
     "The method to use when ordering `Email`."
     orderBy: [EmailOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactEmailsManyToManyConnection!
+  ): ContactEmailsByEmailRecipientContactIdAndEmailIdManyToManyConnection!
   "Reads a single `Image` that is related to this `Contact`."
   mainImage: Image
   "Reads and enables pagination through a set of `ContactsChunk`."
@@ -5543,6 +5617,26 @@ type Contact {
     "The method to use when ordering `CalendarAttendee`."
     orderBy: [CalendarAttendeeOrderBy!] = [PRIMARY_KEY_ASC]
   ): CalendarAttendeeConnection!
+  "Reads and enables pagination through a set of `RawMessage`."
+  rawMessagesBySenderContactId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawMessageFilter
+    "The method to use when ordering `RawMessage`."
+    orderBy: [RawMessageOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawMessageConnection!
   "Reads and enables pagination through a set of `ProjectContact`."
   projectContacts(
     "Only read the first `n` values of the set."
@@ -6053,11 +6147,11 @@ type ContactEmailEdge {
 }
 
 "A connection to a list of `Email` values, with data from `EmailRecipient`."
-type ContactEmailsManyToManyConnection {
+type ContactEmailsByEmailRecipientContactIdAndEmailIdManyToManyConnection {
   "A list of `Email` objects."
   nodes: [Email]!
   "A list of edges which contains the `Email`, info from the `EmailRecipient`, and the cursor to aid in pagination."
-  edges: [ContactEmailsManyToManyEdge!]!
+  edges: [ContactEmailsByEmailRecipientContactIdAndEmailIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Email` you could get from the connection."
@@ -6065,7 +6159,7 @@ type ContactEmailsManyToManyConnection {
 }
 
 "A `Email` edge in the connection, with data from `EmailRecipient`."
-type ContactEmailsManyToManyEdge {
+type ContactEmailsByEmailRecipientContactIdAndEmailIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Email` at the end of the edge."
@@ -6714,6 +6808,26 @@ type Conversation {
     "The method to use when ordering `Message`."
     orderBy: [MessageOrderBy!] = [PRIMARY_KEY_ASC]
   ): MessageConnection!
+  "Reads and enables pagination through a set of `RawMessage`."
+  rawMessagesByPromotedConversationId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawMessageFilter
+    "The method to use when ordering `RawMessage`."
+    orderBy: [RawMessageOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawMessageConnection!
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
@@ -7874,6 +7988,42 @@ type CreateRawContactUrlPayload {
     "The method to use when ordering `RawContactUrl`."
     orderBy: [RawContactUrlOrderBy!]! = [PRIMARY_KEY_ASC]
   ): RawContactUrlEdge
+}
+
+"The output of our create `RawMessageAttachment` mutation."
+type CreateRawMessageAttachmentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawMessageAttachment` that was created by this mutation."
+  rawMessageAttachment: RawMessageAttachment
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawMessageAttachment`. May be used by Relay 1."
+  rawMessageAttachmentEdge(
+    "The method to use when ordering `RawMessageAttachment`."
+    orderBy: [RawMessageAttachmentOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawMessageAttachmentEdge
+}
+
+"The output of our create `RawMessage` mutation."
+type CreateRawMessagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawMessage` that was created by this mutation."
+  rawMessage: RawMessage
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawMessage`. May be used by Relay 1."
+  rawMessageEdge(
+    "The method to use when ordering `RawMessage`."
+    orderBy: [RawMessageOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawMessageEdge
 }
 
 "The output of our create `Rule` mutation."
@@ -9414,6 +9564,42 @@ type DeleteRawContactUrlPayload {
   ): RawContactUrlEdge
 }
 
+"The output of our delete `RawMessageAttachment` mutation."
+type DeleteRawMessageAttachmentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawMessageAttachment` that was deleted by this mutation."
+  rawMessageAttachment: RawMessageAttachment
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawMessageAttachment`. May be used by Relay 1."
+  rawMessageAttachmentEdge(
+    "The method to use when ordering `RawMessageAttachment`."
+    orderBy: [RawMessageAttachmentOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawMessageAttachmentEdge
+}
+
+"The output of our delete `RawMessage` mutation."
+type DeleteRawMessagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawMessage` that was deleted by this mutation."
+  rawMessage: RawMessage
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawMessage`. May be used by Relay 1."
+  rawMessageEdge(
+    "The method to use when ordering `RawMessage`."
+    orderBy: [RawMessageOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawMessageEdge
+}
+
 "The output of our delete `Rule` mutation."
 type DeleteRulePayload {
   """
@@ -10096,6 +10282,26 @@ type Email {
     "The method to use when ordering `EmailAttachment`."
     orderBy: [EmailAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailAttachmentConnection!
+  "Reads and enables pagination through a set of `RawMessage`."
+  rawMessagesByPromotedEmailId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawMessageFilter
+    "The method to use when ordering `RawMessage`."
+    orderBy: [RawMessageOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawMessageConnection!
   "Reads and enables pagination through a set of `EmailRecipient`."
   emailRecipients(
     "Only read the first `n` values of the set."
@@ -13498,6 +13704,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateEmailAttachmentInput!
   ): CreateEmailAttachmentPayload
+  "Creates a single `RawMessageAttachment`."
+  createRawMessageAttachment(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRawMessageAttachmentInput!
+  ): CreateRawMessageAttachmentPayload
   "Creates a single `Conversation`."
   createConversation(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13658,6 +13869,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateEmailThreadInput!
   ): CreateEmailThreadPayload
+  "Creates a single `RawMessage`."
+  createRawMessage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRawMessageInput!
+  ): CreateRawMessagePayload
   "Creates a single `Touchpoint`."
   createTouchpoint(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13788,6 +14004,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateEmailAttachmentInput!
   ): UpdateEmailAttachmentPayload
+  "Updates a single `RawMessageAttachment` using a unique key and a patch."
+  updateRawMessageAttachment(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRawMessageAttachmentInput!
+  ): UpdateRawMessageAttachmentPayload
   "Updates a single `Conversation` using a unique key and a patch."
   updateConversation(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13948,6 +14169,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateEmailThreadInput!
   ): UpdateEmailThreadPayload
+  "Updates a single `RawMessage` using a unique key and a patch."
+  updateRawMessage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRawMessageInput!
+  ): UpdateRawMessagePayload
   "Updates a single `Touchpoint` using a unique key and a patch."
   updateTouchpoint(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14078,6 +14304,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteEmailAttachmentInput!
   ): DeleteEmailAttachmentPayload
+  "Deletes a single `RawMessageAttachment` using a unique key."
+  deleteRawMessageAttachment(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRawMessageAttachmentInput!
+  ): DeleteRawMessageAttachmentPayload
   "Deletes a single `Conversation` using a unique key."
   deleteConversation(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14238,6 +14469,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteEmailThreadInput!
   ): DeleteEmailThreadPayload
+  "Deletes a single `RawMessage` using a unique key."
+  deleteRawMessage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRawMessageInput!
+  ): DeleteRawMessagePayload
   "Deletes a single `Touchpoint` using a unique key."
   deleteTouchpoint(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16730,6 +16966,26 @@ type Query {
     "The method to use when ordering `EmailAttachment`."
     orderBy: [EmailAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailAttachmentConnection
+  "Reads and enables pagination through a set of `RawMessageAttachment`."
+  rawMessageAttachments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawMessageAttachmentFilter
+    "The method to use when ordering `RawMessageAttachment`."
+    orderBy: [RawMessageAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawMessageAttachmentConnection
   "Reads and enables pagination through a set of `Conversation`."
   conversations(
     "Only read the first `n` values of the set."
@@ -17370,6 +17626,26 @@ type Query {
     "The method to use when ordering `EmailThread`."
     orderBy: [EmailThreadOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailThreadConnection
+  "Reads and enables pagination through a set of `RawMessage`."
+  rawMessages(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawMessageFilter
+    "The method to use when ordering `RawMessage`."
+    orderBy: [RawMessageOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawMessageConnection
   "Reads and enables pagination through a set of `Touchpoint`."
   touchpoints(
     "Only read the first `n` values of the set."
@@ -17780,6 +18056,114 @@ type RawContactUrlEdge {
   cursor: Cursor
   "The `RawContactUrl` at the end of the edge."
   node: RawContactUrl
+}
+
+type RawMessage {
+  provider: String!
+  externalId: String
+  externalThreadId: String
+  senderHandle: String
+  senderDisplayName: String
+  recipients: JSON
+  subject: String
+  bodyText: String
+  sentAt: Datetime
+  rawData: JSON
+  triageStatus: String
+  triageScore: BigFloat
+  triageNotes: String
+  labels: [String]
+  ingestedAt: Datetime
+  id: UUID!
+  "Timestamp when this record was created"
+  createdAt: Datetime!
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime!
+  senderContactId: UUID
+  promotedEmailId: UUID
+  promotedConversationId: UUID
+  "Reads a single `Conversation` that is related to this `RawMessage`."
+  promotedConversation: Conversation
+  "Reads a single `Email` that is related to this `RawMessage`."
+  promotedEmail: Email
+  "Reads a single `Contact` that is related to this `RawMessage`."
+  senderContact: Contact
+  "Reads and enables pagination through a set of `RawMessageAttachment`."
+  rawMessageAttachments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawMessageAttachmentFilter
+    "The method to use when ordering `RawMessageAttachment`."
+    orderBy: [RawMessageAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawMessageAttachmentConnection!
+}
+
+type RawMessageAttachment {
+  filename: String
+  contentType: String
+  sizeBytes: Int
+  storageUrl: String
+  providerAttachmentId: String
+  id: UUID!
+  "Timestamp when this record was created"
+  createdAt: Datetime!
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime!
+  rawMessageId: UUID!
+  "Reads a single `RawMessage` that is related to this `RawMessageAttachment`."
+  rawMessage: RawMessage
+}
+
+"A connection to a list of `RawMessageAttachment` values."
+type RawMessageAttachmentConnection {
+  "A list of `RawMessageAttachment` objects."
+  nodes: [RawMessageAttachment]!
+  "A list of edges which contains the `RawMessageAttachment` and cursor to aid in pagination."
+  edges: [RawMessageAttachmentEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `RawMessageAttachment` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `RawMessageAttachment` edge in the connection."
+type RawMessageAttachmentEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `RawMessageAttachment` at the end of the edge."
+  node: RawMessageAttachment
+}
+
+"A connection to a list of `RawMessage` values."
+type RawMessageConnection {
+  "A list of `RawMessage` objects."
+  nodes: [RawMessage]!
+  "A list of edges which contains the `RawMessage` and cursor to aid in pagination."
+  edges: [RawMessageEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `RawMessage` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `RawMessage` edge in the connection."
+type RawMessageEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `RawMessage` at the end of the edge."
+  node: RawMessage
 }
 
 "@@searchConfig {\"weights\": {\"bm25\": 1}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
@@ -20156,6 +20540,42 @@ type UpdateRawContactUrlPayload {
   ): RawContactUrlEdge
 }
 
+"The output of our update `RawMessageAttachment` mutation."
+type UpdateRawMessageAttachmentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawMessageAttachment` that was updated by this mutation."
+  rawMessageAttachment: RawMessageAttachment
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawMessageAttachment`. May be used by Relay 1."
+  rawMessageAttachmentEdge(
+    "The method to use when ordering `RawMessageAttachment`."
+    orderBy: [RawMessageAttachmentOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawMessageAttachmentEdge
+}
+
+"The output of our update `RawMessage` mutation."
+type UpdateRawMessagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawMessage` that was updated by this mutation."
+  rawMessage: RawMessage
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawMessage`. May be used by Relay 1."
+  rawMessageEdge(
+    "The method to use when ordering `RawMessage`."
+    orderBy: [RawMessageOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawMessageEdge
+}
+
 "The output of our update `Rule` mutation."
 type UpdateRulePayload {
   """
@@ -22054,6 +22474,8 @@ input CompanyLinkInput {
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
   companyId: UUID!
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `CompanyLink`. Fields that are set will be updated."
@@ -22069,6 +22491,8 @@ input CompanyLinkPatch {
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
   companyId: UUID
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "A filter to be used against `CompanyMemory` object types. All fields are combined with a logical ‘and.’"
@@ -22512,6 +22936,10 @@ input ContactFilter {
   calendarAttendees: ContactToManyCalendarAttendeeFilter
   "`calendarAttendees` exist."
   calendarAttendeesExist: Boolean
+  "Filter by the object’s `rawMessagesBySenderContactId` relation."
+  rawMessagesBySenderContactId: ContactToManyRawMessageFilter
+  "`rawMessagesBySenderContactId` exist."
+  rawMessagesBySenderContactIdExist: Boolean
   "Filter by the object’s `projectContacts` relation."
   projectContacts: ContactToManyProjectContactFilter
   "`projectContacts` exist."
@@ -22671,6 +23099,8 @@ input ContactLinkInput {
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
   contactId: UUID!
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `ContactLink`. Fields that are set will be updated."
@@ -22686,6 +23116,8 @@ input ContactLinkPatch {
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
   contactId: UUID
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "A filter to be used against `ContactMemory` object types. All fields are combined with a logical ‘and.’"
@@ -22894,6 +23326,8 @@ input ContactsChunkInput {
   metadata: JSON
   createdAt: Datetime
   updatedAt: Datetime
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `ContactsChunk`. Fields that are set will be updated."
@@ -22906,6 +23340,8 @@ input ContactsChunkPatch {
   metadata: JSON
   createdAt: Datetime
   updatedAt: Datetime
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "A filter to be used against many `CalendarAttendee` object types. All fields are combined with a logical ‘and.’"
@@ -23108,6 +23544,16 @@ input ContactToManyProjectContactFilter {
   none: ProjectContactFilter
 }
 
+"A filter to be used against many `RawMessage` object types. All fields are combined with a logical ‘and.’"
+input ContactToManyRawMessageFilter {
+  "Filters to entities where at least one related entity matches."
+  some: RawMessageFilter
+  "Filters to entities where every related entity matches."
+  every: RawMessageFilter
+  "Filters to entities where no related entity matches."
+  none: RawMessageFilter
+}
+
 "A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’"
 input ContactToManyTaskContactFilter {
   "Filters to entities where at least one related entity matches."
@@ -23170,6 +23616,10 @@ input ConversationFilter {
   messages: ConversationToManyMessageFilter
   "`messages` exist."
   messagesExist: Boolean
+  "Filter by the object’s `rawMessagesByPromotedConversationId` relation."
+  rawMessagesByPromotedConversationId: ConversationToManyRawMessageFilter
+  "`rawMessagesByPromotedConversationId` exist."
+  rawMessagesByPromotedConversationIdExist: Boolean
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -23232,6 +23682,16 @@ input ConversationToManyMessageFilter {
   every: MessageFilter
   "Filters to entities where no related entity matches."
   none: MessageFilter
+}
+
+"A filter to be used against many `RawMessage` object types. All fields are combined with a logical ‘and.’"
+input ConversationToManyRawMessageFilter {
+  "Filters to entities where at least one related entity matches."
+  some: RawMessageFilter
+  "Filters to entities where every related entity matches."
+  every: RawMessageFilter
+  "Filters to entities where no related entity matches."
+  none: RawMessageFilter
 }
 
 "All input for the create `ActivityLog` mutation."
@@ -24013,6 +24473,28 @@ input CreateRawContactUrlInput {
   clientMutationId: String
   "The `RawContactUrl` to be created by this mutation."
   rawContactUrl: RawContactUrlInput!
+}
+
+"All input for the create `RawMessageAttachment` mutation."
+input CreateRawMessageAttachmentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `RawMessageAttachment` to be created by this mutation."
+  rawMessageAttachment: RawMessageAttachmentInput!
+}
+
+"All input for the create `RawMessage` mutation."
+input CreateRawMessageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `RawMessage` to be created by this mutation."
+  rawMessage: RawMessageInput!
 }
 
 "All input for the create `Rule` mutation."
@@ -24967,6 +25449,26 @@ input DeleteRawContactUrlInput {
   id: UUID!
 }
 
+"All input for the `deleteRawMessageAttachment` mutation."
+input DeleteRawMessageAttachmentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteRawMessage` mutation."
+input DeleteRawMessageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
 "All input for the `deleteRule` mutation."
 input DeleteRuleInput {
   """
@@ -25301,6 +25803,8 @@ input DocumentsChunkInput {
   metadata: JSON
   createdAt: Datetime
   updatedAt: Datetime
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `DocumentsChunk`. Fields that are set will be updated."
@@ -25313,6 +25817,8 @@ input DocumentsChunkPatch {
   metadata: JSON
   createdAt: Datetime
   updatedAt: Datetime
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "A filter to be used against many `CompanyDocument` object types. All fields are combined with a logical ‘and.’"
@@ -25459,6 +25965,10 @@ input EmailFilter {
   emailAttachments: EmailToManyEmailAttachmentFilter
   "`emailAttachments` exist."
   emailAttachmentsExist: Boolean
+  "Filter by the object’s `rawMessagesByPromotedEmailId` relation."
+  rawMessagesByPromotedEmailId: EmailToManyRawMessageFilter
+  "`rawMessagesByPromotedEmailId` exist."
+  rawMessagesByPromotedEmailIdExist: Boolean
   "Filter by the object’s `emailRecipients` relation."
   emailRecipients: EmailToManyEmailRecipientFilter
   "`emailRecipients` exist."
@@ -25745,6 +26255,16 @@ input EmailToManyEmailRecipientFilter {
   none: EmailRecipientFilter
 }
 
+"A filter to be used against many `RawMessage` object types. All fields are combined with a logical ‘and.’"
+input EmailToManyRawMessageFilter {
+  "Filters to entities where at least one related entity matches."
+  some: RawMessageFilter
+  "Filters to entities where every related entity matches."
+  every: RawMessageFilter
+  "Filters to entities where no related entity matches."
+  none: RawMessageFilter
+}
+
 "A filter to be used against `Event` object types. All fields are combined with a logical ‘and.’"
 input EventFilter {
   "Filter by the object’s `name` field."
@@ -25939,6 +26459,8 @@ input EventLinkInput {
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
   eventId: UUID!
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `EventLink`. Fields that are set will be updated."
@@ -25954,6 +26476,8 @@ input EventLinkPatch {
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
   eventId: UUID
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "A filter to be used against `EventNote` object types. All fields are combined with a logical ‘and.’"
@@ -26633,6 +27157,8 @@ input ImageInput {
   embedding: Vector
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `Image`. Fields that are set will be updated."
@@ -26649,6 +27175,8 @@ input ImagePatch {
   embedding: Vector
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "A filter to be used against many `Company` object types. All fields are combined with a logical ‘and.’"
@@ -27335,6 +27863,8 @@ input NotesChunkInput {
   metadata: JSON
   createdAt: Datetime
   updatedAt: Datetime
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `NotesChunk`. Fields that are set will be updated."
@@ -27347,6 +27877,8 @@ input NotesChunkPatch {
   metadata: JSON
   createdAt: Datetime
   updatedAt: Datetime
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’"
@@ -28219,6 +28751,198 @@ input RawContactUrlPatch {
   rawContactId: UUID
 }
 
+"A filter to be used against `RawMessageAttachment` object types. All fields are combined with a logical ‘and.’"
+input RawMessageAttachmentFilter {
+  "Filter by the object’s `filename` field."
+  filename: StringFilter
+  "Filter by the object’s `contentType` field."
+  contentType: StringFilter
+  "Filter by the object’s `sizeBytes` field."
+  sizeBytes: IntFilter
+  "Filter by the object’s `storageUrl` field."
+  storageUrl: StringFilter
+  "Filter by the object’s `providerAttachmentId` field."
+  providerAttachmentId: StringFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `rawMessageId` field."
+  rawMessageId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [RawMessageAttachmentFilter!]
+  "Checks for any expressions in this list."
+  or: [RawMessageAttachmentFilter!]
+  "Negates the expression."
+  not: RawMessageAttachmentFilter
+  "Filter by the object’s `rawMessage` relation."
+  rawMessage: RawMessageFilter
+}
+
+"An input for mutations affecting `RawMessageAttachment`"
+input RawMessageAttachmentInput {
+  filename: String
+  contentType: String
+  sizeBytes: Int
+  storageUrl: String
+  providerAttachmentId: String
+  id: UUID
+  "Timestamp when this record was created"
+  createdAt: Datetime
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime
+  rawMessageId: UUID!
+}
+
+"Represents an update to a `RawMessageAttachment`. Fields that are set will be updated."
+input RawMessageAttachmentPatch {
+  filename: String
+  contentType: String
+  sizeBytes: Int
+  storageUrl: String
+  providerAttachmentId: String
+  id: UUID
+  "Timestamp when this record was created"
+  createdAt: Datetime
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime
+  rawMessageId: UUID
+}
+
+"A filter to be used against `RawMessage` object types. All fields are combined with a logical ‘and.’"
+input RawMessageFilter {
+  "Filter by the object’s `provider` field."
+  provider: StringFilter
+  "Filter by the object’s `externalId` field."
+  externalId: StringFilter
+  "Filter by the object’s `externalThreadId` field."
+  externalThreadId: StringFilter
+  "Filter by the object’s `senderHandle` field."
+  senderHandle: StringFilter
+  "Filter by the object’s `senderDisplayName` field."
+  senderDisplayName: StringFilter
+  "Filter by the object’s `recipients` field."
+  recipients: JSONFilter
+  "Filter by the object’s `subject` field."
+  subject: StringFilter
+  "Filter by the object’s `bodyText` field."
+  bodyText: StringFilter
+  "Filter by the object’s `sentAt` field."
+  sentAt: DatetimeFilter
+  "Filter by the object’s `rawData` field."
+  rawData: JSONFilter
+  "Filter by the object’s `triageStatus` field."
+  triageStatus: StringFilter
+  "Filter by the object’s `triageScore` field."
+  triageScore: BigFloatFilter
+  "Filter by the object’s `triageNotes` field."
+  triageNotes: StringFilter
+  "Filter by the object’s `labels` field."
+  labels: StringListFilter
+  "Filter by the object’s `ingestedAt` field."
+  ingestedAt: DatetimeFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `senderContactId` field."
+  senderContactId: UUIDFilter
+  "Filter by the object’s `promotedEmailId` field."
+  promotedEmailId: UUIDFilter
+  "Filter by the object’s `promotedConversationId` field."
+  promotedConversationId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [RawMessageFilter!]
+  "Checks for any expressions in this list."
+  or: [RawMessageFilter!]
+  "Negates the expression."
+  not: RawMessageFilter
+  "Filter by the object’s `promotedConversation` relation."
+  promotedConversation: ConversationFilter
+  "A related `promotedConversation` exists."
+  promotedConversationExists: Boolean
+  "Filter by the object’s `promotedEmail` relation."
+  promotedEmail: EmailFilter
+  "A related `promotedEmail` exists."
+  promotedEmailExists: Boolean
+  "Filter by the object’s `senderContact` relation."
+  senderContact: ContactFilter
+  "A related `senderContact` exists."
+  senderContactExists: Boolean
+  "Filter by the object’s `rawMessageAttachments` relation."
+  rawMessageAttachments: RawMessageToManyRawMessageAttachmentFilter
+  "`rawMessageAttachments` exist."
+  rawMessageAttachmentsExist: Boolean
+}
+
+"An input for mutations affecting `RawMessage`"
+input RawMessageInput {
+  provider: String!
+  externalId: String
+  externalThreadId: String
+  senderHandle: String
+  senderDisplayName: String
+  recipients: JSON
+  subject: String
+  bodyText: String
+  sentAt: Datetime
+  rawData: JSON
+  triageStatus: String
+  triageScore: BigFloat
+  triageNotes: String
+  labels: [String]
+  ingestedAt: Datetime
+  id: UUID
+  "Timestamp when this record was created"
+  createdAt: Datetime
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime
+  senderContactId: UUID
+  promotedEmailId: UUID
+  promotedConversationId: UUID
+}
+
+"Represents an update to a `RawMessage`. Fields that are set will be updated."
+input RawMessagePatch {
+  provider: String
+  externalId: String
+  externalThreadId: String
+  senderHandle: String
+  senderDisplayName: String
+  recipients: JSON
+  subject: String
+  bodyText: String
+  sentAt: Datetime
+  rawData: JSON
+  triageStatus: String
+  triageScore: BigFloat
+  triageNotes: String
+  labels: [String]
+  ingestedAt: Datetime
+  id: UUID
+  "Timestamp when this record was created"
+  createdAt: Datetime
+  "Timestamp when this record was last updated"
+  updatedAt: Datetime
+  senderContactId: UUID
+  promotedEmailId: UUID
+  promotedConversationId: UUID
+}
+
+"A filter to be used against many `RawMessageAttachment` object types. All fields are combined with a logical ‘and.’"
+input RawMessageToManyRawMessageAttachmentFilter {
+  "Filters to entities where at least one related entity matches."
+  some: RawMessageAttachmentFilter
+  "Filters to entities where every related entity matches."
+  every: RawMessageAttachmentFilter
+  "Filters to entities where no related entity matches."
+  none: RawMessageAttachmentFilter
+}
+
 "A filter to be used against `Rule` object types. All fields are combined with a logical ‘and.’"
 input RuleFilter {
   "Filter by the object’s `name` field."
@@ -28317,6 +29041,8 @@ input RuleInput {
   "@@behavior -insert -update"
   triggerConceptEmbeddingUpdatedAt: Datetime
   agentId: UUID!
+  "Natural language text to embed server-side into the `triggerConceptEmbedding` vector column. Mutually exclusive with `triggerConceptEmbedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  triggerConceptEmbeddingText: String
 }
 
 "Represents an update to a `Rule`. Fields that are set will be updated."
@@ -28343,6 +29069,8 @@ input RulePatch {
   "@@behavior -insert -update"
   triggerConceptEmbeddingUpdatedAt: Datetime
   agentId: UUID
+  "Natural language text to embed server-side into the `triggerConceptEmbedding` vector column. Mutually exclusive with `triggerConceptEmbedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  triggerConceptEmbeddingText: String
 }
 
 "A filter to be used against `RuntimeArtifact` object types. All fields are combined with a logical ‘and.’"
@@ -28991,6 +29719,8 @@ input SkillInput {
   "@@behavior -insert -update"
   intentTriggerEmbeddingUpdatedAt: Datetime
   agentId: UUID!
+  "Natural language text to embed server-side into the `intentTriggerEmbedding` vector column. Mutually exclusive with `intentTriggerEmbedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  intentTriggerEmbeddingText: String
 }
 
 "Represents an update to a `Skill`. Fields that are set will be updated."
@@ -29015,6 +29745,8 @@ input SkillPatch {
   "@@behavior -insert -update"
   intentTriggerEmbeddingUpdatedAt: Datetime
   agentId: UUID
+  "Natural language text to embed server-side into the `intentTriggerEmbedding` vector column. Mutually exclusive with `intentTriggerEmbedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  intentTriggerEmbeddingText: String
 }
 
 "A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’"
@@ -30515,6 +31247,30 @@ input UpdateRawContactUrlInput {
   rawContactUrlPatch: RawContactUrlPatch!
 }
 
+"All input for the `updateRawMessageAttachment` mutation."
+input UpdateRawMessageAttachmentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `RawMessageAttachment` being updated."
+  rawMessageAttachmentPatch: RawMessageAttachmentPatch!
+}
+
+"All input for the `updateRawMessage` mutation."
+input UpdateRawMessageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `RawMessage` being updated."
+  rawMessagePatch: RawMessagePatch!
+}
+
 "All input for the `updateRule` mutation."
 input UpdateRuleInput {
   """
@@ -30773,6 +31529,8 @@ input VectorNearbyInput {
   distance: Float
   "When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding."
   includeChunks: Boolean
+  "Natural language text to embed server-side for similarity search. Mutually exclusive with `vector` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  text: String
 }
 
 "A filter to be used against `Venue` object types. All fields are combined with a logical ‘and.’"
@@ -30971,6 +31729,8 @@ input VenueLinkInput {
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
   venueId: UUID!
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `VenueLink`. Fields that are set will be updated."
@@ -30986,6 +31746,8 @@ input VenueLinkPatch {
   "@@behavior -insert -update"
   embeddingUpdatedAt: Datetime
   venueId: UUID
+  "Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider."
+  embeddingText: String
 }
 
 "Represents an update to a `Venue`. Fields that are set will be updated."

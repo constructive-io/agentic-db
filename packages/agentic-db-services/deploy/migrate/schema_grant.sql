@@ -26,12 +26,12 @@ INSERT INTO metaschema_public.schema_grant (
   schema_id,
   grantee_name
 ) VALUES
-  ('1ca87cc7-21eb-2dda-0d42-0d41126dd525', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'administrator'),
-  ('3530af27-3af9-7030-e836-c5bce19e279e', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'authenticated'),
-  ('6ff93cee-2ad8-d3cd-0813-124b8e41be3b', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'anonymous'),
-  ('8bc1ceb9-07fb-2e07-b91c-59a40fa6ffc8', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'administrator'),
-  ('ac3c4efa-e5cc-fe0d-6b3f-e79a23437f4c', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '1de16531-3dee-8f11-240c-6c0ade1b5dd8', 'anonymous'),
-  ('e77c13fe-5a2d-fe77-9d25-6f2bf1852d1b', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '7b1989bc-913d-a3c6-f9c9-3a2401c53d5a', 'authenticated');
+  ('019fa679-90b7-7bd1-9e2f-30bee943c5c3', '019fa679-9064-7be8-b12a-f974608356ce', '019fa679-908a-7721-91ed-45c1fa1edc42', 'administrator'),
+  ('019fa679-90cb-79eb-aca9-0ff8f216c0f1', '019fa679-9064-7be8-b12a-f974608356ce', '019fa679-908a-7721-91ed-45c1fa1edc42', 'authenticated'),
+  ('019fa679-90d9-771f-aceb-85a1a589d5d3', '019fa679-9064-7be8-b12a-f974608356ce', '019fa679-908a-7721-91ed-45c1fa1edc42', 'anonymous'),
+  ('019fa679-911d-7be8-80fa-b2437e25cb8e', '019fa679-9064-7be8-b12a-f974608356ce', '019fa679-908c-7eda-9454-5d1cbb3cc55d', 'administrator'),
+  ('019fa679-9129-7423-b827-b5ae5e3cd920', '019fa679-9064-7be8-b12a-f974608356ce', '019fa679-908c-7eda-9454-5d1cbb3cc55d', 'authenticated'),
+  ('019fa679-9132-78c2-964e-78d6214b6278', '019fa679-9064-7be8-b12a-f974608356ce', '019fa679-908c-7eda-9454-5d1cbb3cc55d', 'anonymous');
 
 
 SET session_replication_role TO DEFAULT;

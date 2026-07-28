@@ -101,6 +101,7 @@ async function main() {
     ['Life OS',          './schemas/life_os'],
     ['Email & Calendar', './schemas/email_calendar'],
     ['Staging',          './schemas/staging'],
+    ['Inbox',            './schemas/inbox'],
     ['Autonomy',         './schemas/autonomy'],
     ['Documents',        './schemas/documents'],
     ['Cross-Relations',  './schemas/cross-relations'],

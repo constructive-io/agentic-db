@@ -156,12 +156,13 @@ It's all in one database, with vector + BM25 + full-text + trigram + PostGIS sea
 - **Documents / CMS**: `documents` — version-controlled files with `repo_name`, `file_path`, `commit_hash` for Git sync; `title`, `content`, `metadata` (jsonb), `tags`. Chunked embeddings via `documents_chunks` for long-doc RAG. Junction tables: `company_documents`, `project_documents`.
 - **Email & Calendar**: `email_threads`, `emails`, `email_attachments`, `calendars`, `calendar_events`, `calendar_attendees`, `provider_sync_states` (for Gmail / Google Calendar-style provider sync).
 - **Staging tables** (`raw_contacts`, `raw_contact_emails`, etc.) for messy import pipelines before normalizing into `contacts`.
+- **Raw inbox** (`raw_messages`, `raw_message_attachments`): provider-agnostic ingestion for messages from any network (email, Twitter/X, LinkedIn, Discord, Slack, SMS, …). Rows land untouched (`raw_data` jsonb keeps the full provider payload) with `triage_status = 'pending'` and no embeddings; after triage, keepers get promoted into the curated `emails` / `conversations` tables (which auto-embed), with `promoted_email_id` / `promoted_conversation_id` recording lineage and `sender_contact_id` linking to CRM.
 - **~27 cross-domain M:N junctions** so your agent can answer "notes about Alice from the partner summit" or "documents linked to this project" without schema gymnastics.
 
 ### ⚙️ Platform / DX
 
 - **One command to deploy**: `pgpm deploy --createdb --database agentic-db --yes --package agentic-db`.
-- **[`@agentic-db/sdk`](sdk/sdk)** — Prisma-like typed ORM generated from the GraphQL schema (covers all 95 tables).
+- **[`@agentic-db/sdk`](sdk/sdk)** — Prisma-like typed ORM generated from the GraphQL schema (covers all 97 tables).
 - **[`@agentic-db/cli`](sdk/cli)** — CRUD + search + admin commands for every table.
 - **[`@agentic-db/rag`](packages/rag)** — hybrid search, batch embedding, multi-pass Q&A CLI tools.
 - **[`@agentic-db/worker`](packages/worker)** — background embedding worker.
@@ -210,7 +211,7 @@ pgpm init workspace
 cd my-app && pgpm init && cd packages/my-module
 pgpm install agentic-db
 
-# Create the database and deploy all 95 tables + indexes + triggers
+# Create the database and deploy all 97 tables + indexes + triggers
 pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
@@ -392,8 +393,8 @@ This repo ships with [Agent Skills](https://github.com/agent-skills/agent-skills
 | Skill | Description |
 |-------|-------------|
 | `pgpm` | Install and deploy agentic-db using pgpm |
-| `cli-default` | CLI command reference for all 95 tables |
-| `orm-default` | Type-safe ORM client reference for all 95 tables |
+| `cli-default` | CLI command reference for all 97 tables |
+| `orm-default` | Type-safe ORM client reference for all 97 tables |
 | `agent/memories` | Storing and retrieving long-term agent memories |
 | `agent/tasks` | Managing agent task queues |
 | `rag-query` | Multi-collection RAG query patterns |

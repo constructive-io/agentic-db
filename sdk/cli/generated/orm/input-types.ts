@@ -1475,6 +1475,44 @@ export interface RawContactUrl {
   updatedAt?: string | null;
   rawContactId?: string | null;
 }
+export interface RawMessageAttachment {
+  filename?: string | null;
+  contentType?: string | null;
+  sizeBytes?: number | null;
+  storageUrl?: string | null;
+  providerAttachmentId?: string | null;
+  id: string;
+  /** Timestamp when this record was created */
+  createdAt?: string | null;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string | null;
+  rawMessageId?: string | null;
+}
+export interface RawMessage {
+  provider?: string | null;
+  externalId?: string | null;
+  externalThreadId?: string | null;
+  senderHandle?: string | null;
+  senderDisplayName?: string | null;
+  recipients?: Record<string, unknown> | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  sentAt?: string | null;
+  rawData?: Record<string, unknown> | null;
+  triageStatus?: string | null;
+  triageScore?: string | null;
+  triageNotes?: string | null;
+  labels?: string[] | null;
+  ingestedAt?: string | null;
+  id: string;
+  /** Timestamp when this record was created */
+  createdAt?: string | null;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string | null;
+  senderContactId?: string | null;
+  promotedEmailId?: string | null;
+  promotedConversationId?: string | null;
+}
 export interface Rule {
   name?: string | null;
   description?: string | null;
@@ -1934,7 +1972,6 @@ export interface ContactRelations {
   expenses?: ConnectionResult<Expense>;
   notes?: ConnectionResult<Note>;
   memories?: ConnectionResult<Memory>;
-  emails?: ConnectionResult<Email>;
   contactsChunksByContactsId?: ConnectionResult<ContactsChunk>;
   interactions?: ConnectionResult<Interaction>;
   touchpoints?: ConnectionResult<Touchpoint>;
@@ -1951,6 +1988,7 @@ export interface ContactRelations {
   emailsByFromContactId?: ConnectionResult<Email>;
   calendarEventsByOrganizerContactId?: ConnectionResult<CalendarEvent>;
   calendarAttendees?: ConnectionResult<CalendarAttendee>;
+  rawMessagesBySenderContactId?: ConnectionResult<RawMessage>;
   projectContacts?: ConnectionResult<ProjectContact>;
   taskContacts?: ConnectionResult<TaskContact>;
   calendarEventContacts?: ConnectionResult<CalendarEventContact>;
@@ -1967,6 +2005,7 @@ export interface ContactRelations {
   contactsByContactRelationshipRelatedContactIdAndContactId?: ConnectionResult<Contact>;
   calendarEventsByCalendarEventContactContactIdAndCalendarEventId?: ConnectionResult<CalendarEvent>;
   emailThreadsByThreadParticipantContactIdAndEmailThreadId?: ConnectionResult<EmailThread>;
+  emailsByEmailRecipientContactIdAndEmailId?: ConnectionResult<Email>;
 }
 export interface CalendarEventNoteRelations {
   calendarEvent?: CalendarEvent | null;
@@ -2113,6 +2152,7 @@ export interface EmailRelations {
   fromContact?: Contact | null;
   notes?: ConnectionResult<Note>;
   emailAttachments?: ConnectionResult<EmailAttachment>;
+  rawMessagesByPromotedEmailId?: ConnectionResult<RawMessage>;
   emailRecipients?: ConnectionResult<EmailRecipient>;
   emailNotes?: ConnectionResult<EmailNote>;
   contactsByEmailRecipientEmailIdAndContactId?: ConnectionResult<Contact>;
@@ -2168,6 +2208,7 @@ export interface ContactsChunkRelations {
 }
 export interface ConversationRelations {
   messages?: ConnectionResult<Message>;
+  rawMessagesByPromotedConversationId?: ConnectionResult<RawMessage>;
 }
 export interface DealCompanyRelations {
   company?: Company | null;
@@ -2273,6 +2314,15 @@ export interface RawContactPhoneRelations {
 }
 export interface RawContactUrlRelations {
   rawContact?: RawContact | null;
+}
+export interface RawMessageAttachmentRelations {
+  rawMessage?: RawMessage | null;
+}
+export interface RawMessageRelations {
+  promotedConversation?: Conversation | null;
+  promotedEmail?: Email | null;
+  senderContact?: Contact | null;
+  rawMessageAttachments?: ConnectionResult<RawMessageAttachment>;
 }
 export interface RuleRelations {
   agent?: Agent | null;
@@ -2427,6 +2477,9 @@ export type RawContactWithRelations = RawContact & RawContactRelations;
 export type RawContactEmailWithRelations = RawContactEmail & RawContactEmailRelations;
 export type RawContactPhoneWithRelations = RawContactPhone & RawContactPhoneRelations;
 export type RawContactUrlWithRelations = RawContactUrl & RawContactUrlRelations;
+export type RawMessageAttachmentWithRelations = RawMessageAttachment &
+  RawMessageAttachmentRelations;
+export type RawMessageWithRelations = RawMessage & RawMessageRelations;
 export type RuleWithRelations = Rule & RuleRelations;
 export type RuntimeArtifactWithRelations = RuntimeArtifact & RuntimeArtifactRelations;
 export type RuntimeConfigWithRelations = RuntimeConfig & RuntimeConfigRelations;
@@ -2887,12 +2940,6 @@ export type ContactSelect = {
     filter?: MemoryFilter;
     orderBy?: MemoryOrderBy[];
   };
-  emails?: {
-    select: EmailSelect;
-    first?: number;
-    filter?: EmailFilter;
-    orderBy?: EmailOrderBy[];
-  };
   contactsChunksByContactsId?: {
     select: ContactsChunkSelect;
     first?: number;
@@ -2989,6 +3036,12 @@ export type ContactSelect = {
     filter?: CalendarAttendeeFilter;
     orderBy?: CalendarAttendeeOrderBy[];
   };
+  rawMessagesBySenderContactId?: {
+    select: RawMessageSelect;
+    first?: number;
+    filter?: RawMessageFilter;
+    orderBy?: RawMessageOrderBy[];
+  };
   projectContacts?: {
     select: ProjectContactSelect;
     first?: number;
@@ -3084,6 +3137,12 @@ export type ContactSelect = {
     first?: number;
     filter?: EmailThreadFilter;
     orderBy?: EmailThreadOrderBy[];
+  };
+  emailsByEmailRecipientContactIdAndEmailId?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
   };
 };
 export type CalendarEventNoteSelect = {
@@ -3924,6 +3983,12 @@ export type EmailSelect = {
     filter?: EmailAttachmentFilter;
     orderBy?: EmailAttachmentOrderBy[];
   };
+  rawMessagesByPromotedEmailId?: {
+    select: RawMessageSelect;
+    first?: number;
+    filter?: RawMessageFilter;
+    orderBy?: RawMessageOrderBy[];
+  };
   emailRecipients?: {
     select: EmailRecipientSelect;
     first?: number;
@@ -4218,6 +4283,12 @@ export type ConversationSelect = {
     first?: number;
     filter?: MessageFilter;
     orderBy?: MessageOrderBy[];
+  };
+  rawMessagesByPromotedConversationId?: {
+    select: RawMessageSelect;
+    first?: number;
+    filter?: RawMessageFilter;
+    orderBy?: RawMessageOrderBy[];
   };
 };
 export type DealCompanySelect = {
@@ -4713,6 +4784,58 @@ export type RawContactUrlSelect = {
   rawContactId?: boolean;
   rawContact?: {
     select: RawContactSelect;
+  };
+};
+export type RawMessageAttachmentSelect = {
+  filename?: boolean;
+  contentType?: boolean;
+  sizeBytes?: boolean;
+  storageUrl?: boolean;
+  providerAttachmentId?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawMessageId?: boolean;
+  rawMessage?: {
+    select: RawMessageSelect;
+  };
+};
+export type RawMessageSelect = {
+  provider?: boolean;
+  externalId?: boolean;
+  externalThreadId?: boolean;
+  senderHandle?: boolean;
+  senderDisplayName?: boolean;
+  recipients?: boolean;
+  subject?: boolean;
+  bodyText?: boolean;
+  sentAt?: boolean;
+  rawData?: boolean;
+  triageStatus?: boolean;
+  triageScore?: boolean;
+  triageNotes?: boolean;
+  labels?: boolean;
+  ingestedAt?: boolean;
+  id?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  senderContactId?: boolean;
+  promotedEmailId?: boolean;
+  promotedConversationId?: boolean;
+  promotedConversation?: {
+    select: ConversationSelect;
+  };
+  promotedEmail?: {
+    select: EmailSelect;
+  };
+  senderContact?: {
+    select: ContactSelect;
+  };
+  rawMessageAttachments?: {
+    select: RawMessageAttachmentSelect;
+    first?: number;
+    filter?: RawMessageAttachmentFilter;
+    orderBy?: RawMessageAttachmentOrderBy[];
   };
 };
 export type RuleSelect = {
@@ -5809,6 +5932,10 @@ export interface ContactFilter {
   calendarAttendees?: ContactToManyCalendarAttendeeFilter;
   /** `calendarAttendees` exist. */
   calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `rawMessagesBySenderContactId` relation. */
+  rawMessagesBySenderContactId?: ContactToManyRawMessageFilter;
+  /** `rawMessagesBySenderContactId` exist. */
+  rawMessagesBySenderContactIdExist?: boolean;
   /** Filter by the object’s `projectContacts` relation. */
   projectContacts?: ContactToManyProjectContactFilter;
   /** `projectContacts` exist. */
@@ -6781,6 +6908,10 @@ export interface EmailFilter {
   emailAttachments?: EmailToManyEmailAttachmentFilter;
   /** `emailAttachments` exist. */
   emailAttachmentsExist?: boolean;
+  /** Filter by the object’s `rawMessagesByPromotedEmailId` relation. */
+  rawMessagesByPromotedEmailId?: EmailToManyRawMessageFilter;
+  /** `rawMessagesByPromotedEmailId` exist. */
+  rawMessagesByPromotedEmailIdExist?: boolean;
   /** Filter by the object’s `emailRecipients` relation. */
   emailRecipients?: EmailToManyEmailRecipientFilter;
   /** `emailRecipients` exist. */
@@ -7235,6 +7366,10 @@ export interface ConversationFilter {
   messages?: ConversationToManyMessageFilter;
   /** `messages` exist. */
   messagesExist?: boolean;
+  /** Filter by the object’s `rawMessagesByPromotedConversationId` relation. */
+  rawMessagesByPromotedConversationId?: ConversationToManyRawMessageFilter;
+  /** `rawMessagesByPromotedConversationId` exist. */
+  rawMessagesByPromotedConversationIdExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -8113,6 +8248,100 @@ export interface RawContactUrlFilter {
   not?: RawContactUrlFilter;
   /** Filter by the object’s `rawContact` relation. */
   rawContact?: RawContactFilter;
+}
+export interface RawMessageAttachmentFilter {
+  /** Filter by the object’s `filename` field. */
+  filename?: StringFilter;
+  /** Filter by the object’s `contentType` field. */
+  contentType?: StringFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `storageUrl` field. */
+  storageUrl?: StringFilter;
+  /** Filter by the object’s `providerAttachmentId` field. */
+  providerAttachmentId?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `rawMessageId` field. */
+  rawMessageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawMessageAttachmentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawMessageAttachmentFilter[];
+  /** Negates the expression. */
+  not?: RawMessageAttachmentFilter;
+  /** Filter by the object’s `rawMessage` relation. */
+  rawMessage?: RawMessageFilter;
+}
+export interface RawMessageFilter {
+  /** Filter by the object’s `provider` field. */
+  provider?: StringFilter;
+  /** Filter by the object’s `externalId` field. */
+  externalId?: StringFilter;
+  /** Filter by the object’s `externalThreadId` field. */
+  externalThreadId?: StringFilter;
+  /** Filter by the object’s `senderHandle` field. */
+  senderHandle?: StringFilter;
+  /** Filter by the object’s `senderDisplayName` field. */
+  senderDisplayName?: StringFilter;
+  /** Filter by the object’s `recipients` field. */
+  recipients?: JSONFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `rawData` field. */
+  rawData?: JSONFilter;
+  /** Filter by the object’s `triageStatus` field. */
+  triageStatus?: StringFilter;
+  /** Filter by the object’s `triageScore` field. */
+  triageScore?: BigFloatFilter;
+  /** Filter by the object’s `triageNotes` field. */
+  triageNotes?: StringFilter;
+  /** Filter by the object’s `labels` field. */
+  labels?: StringListFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `senderContactId` field. */
+  senderContactId?: UUIDFilter;
+  /** Filter by the object’s `promotedEmailId` field. */
+  promotedEmailId?: UUIDFilter;
+  /** Filter by the object’s `promotedConversationId` field. */
+  promotedConversationId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawMessageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawMessageFilter[];
+  /** Negates the expression. */
+  not?: RawMessageFilter;
+  /** Filter by the object’s `promotedConversation` relation. */
+  promotedConversation?: ConversationFilter;
+  /** A related `promotedConversation` exists. */
+  promotedConversationExists?: boolean;
+  /** Filter by the object’s `promotedEmail` relation. */
+  promotedEmail?: EmailFilter;
+  /** A related `promotedEmail` exists. */
+  promotedEmailExists?: boolean;
+  /** Filter by the object’s `senderContact` relation. */
+  senderContact?: ContactFilter;
+  /** A related `senderContact` exists. */
+  senderContactExists?: boolean;
+  /** Filter by the object’s `rawMessageAttachments` relation. */
+  rawMessageAttachments?: RawMessageToManyRawMessageAttachmentFilter;
+  /** `rawMessageAttachments` exist. */
+  rawMessageAttachmentsExist?: boolean;
 }
 export interface RuleFilter {
   /** Filter by the object’s `name` field. */
@@ -10727,6 +10956,74 @@ export type RawContactUrlOrderBy =
   | 'UPDATED_AT_DESC'
   | 'RAW_CONTACT_ID_ASC'
   | 'RAW_CONTACT_ID_DESC';
+export type RawMessageAttachmentOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'FILENAME_ASC'
+  | 'FILENAME_DESC'
+  | 'CONTENT_TYPE_ASC'
+  | 'CONTENT_TYPE_DESC'
+  | 'SIZE_BYTES_ASC'
+  | 'SIZE_BYTES_DESC'
+  | 'STORAGE_URL_ASC'
+  | 'STORAGE_URL_DESC'
+  | 'PROVIDER_ATTACHMENT_ID_ASC'
+  | 'PROVIDER_ATTACHMENT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'RAW_MESSAGE_ID_ASC'
+  | 'RAW_MESSAGE_ID_DESC';
+export type RawMessageOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'PROVIDER_ASC'
+  | 'PROVIDER_DESC'
+  | 'EXTERNAL_ID_ASC'
+  | 'EXTERNAL_ID_DESC'
+  | 'EXTERNAL_THREAD_ID_ASC'
+  | 'EXTERNAL_THREAD_ID_DESC'
+  | 'SENDER_HANDLE_ASC'
+  | 'SENDER_HANDLE_DESC'
+  | 'SENDER_DISPLAY_NAME_ASC'
+  | 'SENDER_DISPLAY_NAME_DESC'
+  | 'RECIPIENTS_ASC'
+  | 'RECIPIENTS_DESC'
+  | 'SUBJECT_ASC'
+  | 'SUBJECT_DESC'
+  | 'BODY_TEXT_ASC'
+  | 'BODY_TEXT_DESC'
+  | 'SENT_AT_ASC'
+  | 'SENT_AT_DESC'
+  | 'RAW_DATA_ASC'
+  | 'RAW_DATA_DESC'
+  | 'TRIAGE_STATUS_ASC'
+  | 'TRIAGE_STATUS_DESC'
+  | 'TRIAGE_SCORE_ASC'
+  | 'TRIAGE_SCORE_DESC'
+  | 'TRIAGE_NOTES_ASC'
+  | 'TRIAGE_NOTES_DESC'
+  | 'LABELS_ASC'
+  | 'LABELS_DESC'
+  | 'INGESTED_AT_ASC'
+  | 'INGESTED_AT_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'SENDER_CONTACT_ID_ASC'
+  | 'SENDER_CONTACT_ID_DESC'
+  | 'PROMOTED_EMAIL_ID_ASC'
+  | 'PROMOTED_EMAIL_ID_DESC'
+  | 'PROMOTED_CONVERSATION_ID_ASC'
+  | 'PROMOTED_CONVERSATION_ID_DESC';
 export type RuleOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -12019,6 +12316,7 @@ export interface CreateImageInput {
     caption?: string;
     embedding?: number[];
     embeddingUpdatedAt?: string;
+    embeddingText?: string;
   };
 }
 export interface ImagePatch {
@@ -12028,6 +12326,7 @@ export interface ImagePatch {
   caption?: string | null;
   embedding?: number[] | null;
   embeddingUpdatedAt?: string | null;
+  embeddingText?: string | null;
 }
 export interface UpdateImageInput {
   clientMutationId?: string;
@@ -12046,6 +12345,7 @@ export interface CreateCompanyLinkInput {
     embedding?: number[];
     embeddingUpdatedAt?: string;
     companyId: string;
+    embeddingText?: string;
   };
 }
 export interface CompanyLinkPatch {
@@ -12054,6 +12354,7 @@ export interface CompanyLinkPatch {
   embedding?: number[] | null;
   embeddingUpdatedAt?: string | null;
   companyId?: string | null;
+  embeddingText?: string | null;
 }
 export interface UpdateCompanyLinkInput {
   clientMutationId?: string;
@@ -12384,6 +12685,7 @@ export interface CreateContactLinkInput {
     embedding?: number[];
     embeddingUpdatedAt?: string;
     contactId: string;
+    embeddingText?: string;
   };
 }
 export interface ContactLinkPatch {
@@ -12392,6 +12694,7 @@ export interface ContactLinkPatch {
   embedding?: number[] | null;
   embeddingUpdatedAt?: string | null;
   contactId?: string | null;
+  embeddingText?: string | null;
 }
 export interface UpdateContactLinkInput {
   clientMutationId?: string;
@@ -12536,6 +12839,7 @@ export interface CreateContactsChunkInput {
     chunkIndex?: number;
     embedding?: number[];
     metadata?: Record<string, unknown>;
+    embeddingText?: string;
   };
 }
 export interface ContactsChunkPatch {
@@ -12544,6 +12848,7 @@ export interface ContactsChunkPatch {
   chunkIndex?: number | null;
   embedding?: number[] | null;
   metadata?: Record<string, unknown> | null;
+  embeddingText?: string | null;
 }
 export interface UpdateContactsChunkInput {
   clientMutationId?: string;
@@ -12652,6 +12957,7 @@ export interface CreateDocumentsChunkInput {
     chunkIndex?: number;
     embedding?: number[];
     metadata?: Record<string, unknown>;
+    embeddingText?: string;
   };
 }
 export interface DocumentsChunkPatch {
@@ -12660,6 +12966,7 @@ export interface DocumentsChunkPatch {
   chunkIndex?: number | null;
   embedding?: number[] | null;
   metadata?: Record<string, unknown> | null;
+  embeddingText?: string | null;
 }
 export interface UpdateDocumentsChunkInput {
   clientMutationId?: string;
@@ -12766,6 +13073,7 @@ export interface CreateEventLinkInput {
     embedding?: number[];
     embeddingUpdatedAt?: string;
     eventId: string;
+    embeddingText?: string;
   };
 }
 export interface EventLinkPatch {
@@ -12774,6 +13082,7 @@ export interface EventLinkPatch {
   embedding?: number[] | null;
   embeddingUpdatedAt?: string | null;
   eventId?: string | null;
+  embeddingText?: string | null;
 }
 export interface UpdateEventLinkInput {
   clientMutationId?: string;
@@ -13072,6 +13381,7 @@ export interface CreateNotesChunkInput {
     chunkIndex?: number;
     embedding?: number[];
     metadata?: Record<string, unknown>;
+    embeddingText?: string;
   };
 }
 export interface NotesChunkPatch {
@@ -13080,6 +13390,7 @@ export interface NotesChunkPatch {
   chunkIndex?: number | null;
   embedding?: number[] | null;
   metadata?: Record<string, unknown> | null;
+  embeddingText?: string | null;
 }
 export interface UpdateNotesChunkInput {
   clientMutationId?: string;
@@ -13318,6 +13629,86 @@ export interface DeleteRawContactUrlInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateRawMessageAttachmentInput {
+  clientMutationId?: string;
+  rawMessageAttachment: {
+    filename?: string;
+    contentType?: string;
+    sizeBytes?: number;
+    storageUrl?: string;
+    providerAttachmentId?: string;
+    rawMessageId: string;
+  };
+}
+export interface RawMessageAttachmentPatch {
+  filename?: string | null;
+  contentType?: string | null;
+  sizeBytes?: number | null;
+  storageUrl?: string | null;
+  providerAttachmentId?: string | null;
+  rawMessageId?: string | null;
+}
+export interface UpdateRawMessageAttachmentInput {
+  clientMutationId?: string;
+  id: string;
+  rawMessageAttachmentPatch: RawMessageAttachmentPatch;
+}
+export interface DeleteRawMessageAttachmentInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRawMessageInput {
+  clientMutationId?: string;
+  rawMessage: {
+    provider: string;
+    externalId?: string;
+    externalThreadId?: string;
+    senderHandle?: string;
+    senderDisplayName?: string;
+    recipients?: Record<string, unknown>;
+    subject?: string;
+    bodyText?: string;
+    sentAt?: string;
+    rawData?: Record<string, unknown>;
+    triageStatus?: string;
+    triageScore?: string;
+    triageNotes?: string;
+    labels?: string[];
+    ingestedAt?: string;
+    senderContactId?: string;
+    promotedEmailId?: string;
+    promotedConversationId?: string;
+  };
+}
+export interface RawMessagePatch {
+  provider?: string | null;
+  externalId?: string | null;
+  externalThreadId?: string | null;
+  senderHandle?: string | null;
+  senderDisplayName?: string | null;
+  recipients?: Record<string, unknown> | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  sentAt?: string | null;
+  rawData?: Record<string, unknown> | null;
+  triageStatus?: string | null;
+  triageScore?: string | null;
+  triageNotes?: string | null;
+  labels?: string[] | null;
+  ingestedAt?: string | null;
+  senderContactId?: string | null;
+  promotedEmailId?: string | null;
+  promotedConversationId?: string | null;
+}
+export interface UpdateRawMessageInput {
+  clientMutationId?: string;
+  id: string;
+  rawMessagePatch: RawMessagePatch;
+}
+export interface DeleteRawMessageInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateRuleInput {
   clientMutationId?: string;
   rule: {
@@ -13336,6 +13727,7 @@ export interface CreateRuleInput {
     triggerConceptEmbedding?: number[];
     triggerConceptEmbeddingUpdatedAt?: string;
     agentId: string;
+    triggerConceptEmbeddingText?: string;
   };
 }
 export interface RulePatch {
@@ -13354,6 +13746,7 @@ export interface RulePatch {
   triggerConceptEmbedding?: number[] | null;
   triggerConceptEmbeddingUpdatedAt?: string | null;
   agentId?: string | null;
+  triggerConceptEmbeddingText?: string | null;
 }
 export interface UpdateRuleInput {
   clientMutationId?: string;
@@ -13602,6 +13995,7 @@ export interface CreateSkillInput {
     intentTriggerEmbedding?: number[];
     intentTriggerEmbeddingUpdatedAt?: string;
     agentId: string;
+    intentTriggerEmbeddingText?: string;
   };
 }
 export interface SkillPatch {
@@ -13618,6 +14012,7 @@ export interface SkillPatch {
   intentTriggerEmbedding?: number[] | null;
   intentTriggerEmbeddingUpdatedAt?: string | null;
   agentId?: string | null;
+  intentTriggerEmbeddingText?: string | null;
 }
 export interface UpdateSkillInput {
   clientMutationId?: string;
@@ -13930,6 +14325,7 @@ export interface CreateVenueLinkInput {
     embedding?: number[];
     embeddingUpdatedAt?: string;
     venueId: string;
+    embeddingText?: string;
   };
 }
 export interface VenueLinkPatch {
@@ -13938,6 +14334,7 @@ export interface VenueLinkPatch {
   embedding?: number[] | null;
   embeddingUpdatedAt?: string | null;
   venueId?: string | null;
+  embeddingText?: string | null;
 }
 export interface UpdateVenueLinkInput {
   clientMutationId?: string;
@@ -13991,7 +14388,6 @@ export const connectionFieldsMap = {
     expenses: 'Expense',
     notes: 'Note',
     memories: 'Memory',
-    emails: 'Email',
     contactsChunksByContactsId: 'ContactsChunk',
     interactions: 'Interaction',
     touchpoints: 'Touchpoint',
@@ -14008,6 +14404,7 @@ export const connectionFieldsMap = {
     emailsByFromContactId: 'Email',
     calendarEventsByOrganizerContactId: 'CalendarEvent',
     calendarAttendees: 'CalendarAttendee',
+    rawMessagesBySenderContactId: 'RawMessage',
     projectContacts: 'ProjectContact',
     taskContacts: 'TaskContact',
     calendarEventContacts: 'CalendarEventContact',
@@ -14024,6 +14421,7 @@ export const connectionFieldsMap = {
     contactsByContactRelationshipRelatedContactIdAndContactId: 'Contact',
     calendarEventsByCalendarEventContactContactIdAndCalendarEventId: 'CalendarEvent',
     emailThreadsByThreadParticipantContactIdAndEmailThreadId: 'EmailThread',
+    emailsByEmailRecipientContactIdAndEmailId: 'Email',
   },
   Note: {
     contacts: 'Contact',
@@ -14123,6 +14521,7 @@ export const connectionFieldsMap = {
   Email: {
     notes: 'Note',
     emailAttachments: 'EmailAttachment',
+    rawMessagesByPromotedEmailId: 'RawMessage',
     emailRecipients: 'EmailRecipient',
     emailNotes: 'EmailNote',
     contactsByEmailRecipientEmailIdAndContactId: 'Contact',
@@ -14148,6 +14547,7 @@ export const connectionFieldsMap = {
   },
   Conversation: {
     messages: 'Message',
+    rawMessagesByPromotedConversationId: 'RawMessage',
   },
   Venue: {
     events: 'Event',
@@ -14171,6 +14571,9 @@ export const connectionFieldsMap = {
     rawContactEmails: 'RawContactEmail',
     rawContactPhones: 'RawContactPhone',
     rawContactUrls: 'RawContactUrl',
+  },
+  RawMessage: {
+    rawMessageAttachments: 'RawMessageAttachment',
   },
   RuntimeState: {
     runtimeLogs: 'RuntimeLog',
@@ -14302,6 +14705,8 @@ export interface VectorNearbyInput {
   distance?: number;
   /** When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding. */
   includeChunks?: boolean;
+  /** Natural language text to embed server-side for similarity search. Mutually exclusive with `vector` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  text?: string;
 }
 /** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
 export interface TrgmSearchInput {
@@ -14597,6 +15002,15 @@ export interface ContactToManyCalendarAttendeeFilter {
   every?: CalendarAttendeeFilter;
   /** Filters to entities where no related entity matches. */
   none?: CalendarAttendeeFilter;
+}
+/** A filter to be used against many `RawMessage` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyRawMessageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RawMessageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RawMessageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RawMessageFilter;
 }
 /** A filter to be used against many `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyProjectContactFilter {
@@ -15128,6 +15542,15 @@ export interface EmailToManyEmailAttachmentFilter {
   /** Filters to entities where no related entity matches. */
   none?: EmailAttachmentFilter;
 }
+/** A filter to be used against many `RawMessage` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyRawMessageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RawMessageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RawMessageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RawMessageFilter;
+}
 /** A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailToManyEmailRecipientFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -15218,6 +15641,15 @@ export interface ConversationToManyMessageFilter {
   /** Filters to entities where no related entity matches. */
   none?: MessageFilter;
 }
+/** A filter to be used against many `RawMessage` object types. All fields are combined with a logical ‘and.’ */
+export interface ConversationToManyRawMessageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RawMessageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RawMessageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RawMessageFilter;
+}
 /** A filter to be used against many `VenueLink` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueToManyVenueLinkFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -15307,6 +15739,15 @@ export interface RawContactToManyRawContactUrlFilter {
   every?: RawContactUrlFilter;
   /** Filters to entities where no related entity matches. */
   none?: RawContactUrlFilter;
+}
+/** A filter to be used against many `RawMessageAttachment` object types. All fields are combined with a logical ‘and.’ */
+export interface RawMessageToManyRawMessageAttachmentFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RawMessageAttachmentFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RawMessageAttachmentFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RawMessageAttachmentFilter;
 }
 /** A filter to be used against many `RuntimeLog` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateToManyRuntimeLogFilter {
@@ -15720,6 +16161,8 @@ export interface ImageInput {
   updatedAt?: string;
   embedding?: number[];
   embeddingUpdatedAt?: string;
+  /** Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  embeddingText?: string;
 }
 /** An input for mutations affecting `CompanyLink` */
 export interface CompanyLinkInput {
@@ -15733,6 +16176,8 @@ export interface CompanyLinkInput {
   embedding?: number[];
   embeddingUpdatedAt?: string;
   companyId: string;
+  /** Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  embeddingText?: string;
 }
 /** An input for mutations affecting `Memory` */
 export interface MemoryInput {
@@ -15877,6 +16322,8 @@ export interface ContactLinkInput {
   embedding?: number[];
   embeddingUpdatedAt?: string;
   contactId: string;
+  /** Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  embeddingText?: string;
 }
 /** An input for mutations affecting `ContactMemory` */
 export interface ContactMemoryInput {
@@ -15936,6 +16383,8 @@ export interface ContactsChunkInput {
   metadata?: Record<string, unknown>;
   createdAt?: string;
   updatedAt?: string;
+  /** Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  embeddingText?: string;
 }
 /** An input for mutations affecting `Conversation` */
 export interface ConversationInput {
@@ -15977,6 +16426,8 @@ export interface DocumentsChunkInput {
   metadata?: Record<string, unknown>;
   createdAt?: string;
   updatedAt?: string;
+  /** Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  embeddingText?: string;
 }
 /** An input for mutations affecting `EmailAttachment` */
 export interface EmailAttachmentInput {
@@ -16019,6 +16470,8 @@ export interface EventLinkInput {
   embedding?: number[];
   embeddingUpdatedAt?: string;
   eventId: string;
+  /** Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  embeddingText?: string;
 }
 /** An input for mutations affecting `EventNote` */
 export interface EventNoteInput {
@@ -16145,6 +16598,8 @@ export interface NotesChunkInput {
   metadata?: Record<string, unknown>;
   createdAt?: string;
   updatedAt?: string;
+  /** Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  embeddingText?: string;
 }
 /** An input for mutations affecting `Place` */
 export interface PlaceInput {
@@ -16250,6 +16705,46 @@ export interface RawContactUrlInput {
   updatedAt?: string;
   rawContactId: string;
 }
+/** An input for mutations affecting `RawMessageAttachment` */
+export interface RawMessageAttachmentInput {
+  filename?: string;
+  contentType?: string;
+  sizeBytes?: number;
+  storageUrl?: string;
+  providerAttachmentId?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  rawMessageId: string;
+}
+/** An input for mutations affecting `RawMessage` */
+export interface RawMessageInput {
+  provider: string;
+  externalId?: string;
+  externalThreadId?: string;
+  senderHandle?: string;
+  senderDisplayName?: string;
+  recipients?: Record<string, unknown>;
+  subject?: string;
+  bodyText?: string;
+  sentAt?: string;
+  rawData?: Record<string, unknown>;
+  triageStatus?: string;
+  triageScore?: string;
+  triageNotes?: string;
+  labels?: string[];
+  ingestedAt?: string;
+  id?: string;
+  /** Timestamp when this record was created */
+  createdAt?: string;
+  /** Timestamp when this record was last updated */
+  updatedAt?: string;
+  senderContactId?: string;
+  promotedEmailId?: string;
+  promotedConversationId?: string;
+}
 /** An input for mutations affecting `Rule` */
 export interface RuleInput {
   name: string;
@@ -16272,6 +16767,8 @@ export interface RuleInput {
   triggerConceptEmbedding?: number[];
   triggerConceptEmbeddingUpdatedAt?: string;
   agentId: string;
+  /** Natural language text to embed server-side into the `triggerConceptEmbedding` vector column. Mutually exclusive with `triggerConceptEmbedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  triggerConceptEmbeddingText?: string;
 }
 /** An input for mutations affecting `RuntimeArtifact` */
 export interface RuntimeArtifactInput {
@@ -16399,6 +16896,8 @@ export interface SkillInput {
   intentTriggerEmbedding?: number[];
   intentTriggerEmbeddingUpdatedAt?: string;
   agentId: string;
+  /** Natural language text to embed server-side into the `intentTriggerEmbedding` vector column. Mutually exclusive with `intentTriggerEmbedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  intentTriggerEmbeddingText?: string;
 }
 /** An input for mutations affecting `SkillTool` */
 export interface SkillToolInput {
@@ -16529,6 +17028,8 @@ export interface VenueLinkInput {
   embedding?: number[];
   embeddingUpdatedAt?: string;
   venueId: string;
+  /** Natural language text to embed server-side into the `embedding` vector column. Mutually exclusive with `embedding` — provide one or the other. Requires the LLM plugin to be configured with an embedding provider. */
+  embeddingText?: string;
 }
 /** Similarity metric for vector search */
 export type VectorMetric = 'COSINE' | 'L2' | 'IP';
@@ -17545,6 +18046,10 @@ export interface EmailFilter {
   emailAttachments?: EmailToManyEmailAttachmentFilter;
   /** `emailAttachments` exist. */
   emailAttachmentsExist?: boolean;
+  /** Filter by the object’s `rawMessagesByPromotedEmailId` relation. */
+  rawMessagesByPromotedEmailId?: EmailToManyRawMessageFilter;
+  /** `rawMessagesByPromotedEmailId` exist. */
+  rawMessagesByPromotedEmailIdExist?: boolean;
   /** Filter by the object’s `emailRecipients` relation. */
   emailRecipients?: EmailToManyEmailRecipientFilter;
   /** `emailRecipients` exist. */
@@ -17577,6 +18082,73 @@ export interface EmailFilter {
    * fields are populated.
    */
   unifiedSearch?: string;
+}
+/** A filter to be used against `RawMessage` object types. All fields are combined with a logical ‘and.’ */
+export interface RawMessageFilter {
+  /** Filter by the object’s `provider` field. */
+  provider?: StringFilter;
+  /** Filter by the object’s `externalId` field. */
+  externalId?: StringFilter;
+  /** Filter by the object’s `externalThreadId` field. */
+  externalThreadId?: StringFilter;
+  /** Filter by the object’s `senderHandle` field. */
+  senderHandle?: StringFilter;
+  /** Filter by the object’s `senderDisplayName` field. */
+  senderDisplayName?: StringFilter;
+  /** Filter by the object’s `recipients` field. */
+  recipients?: JSONFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `rawData` field. */
+  rawData?: JSONFilter;
+  /** Filter by the object’s `triageStatus` field. */
+  triageStatus?: StringFilter;
+  /** Filter by the object’s `triageScore` field. */
+  triageScore?: BigFloatFilter;
+  /** Filter by the object’s `triageNotes` field. */
+  triageNotes?: StringFilter;
+  /** Filter by the object’s `labels` field. */
+  labels?: StringListFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `senderContactId` field. */
+  senderContactId?: UUIDFilter;
+  /** Filter by the object’s `promotedEmailId` field. */
+  promotedEmailId?: UUIDFilter;
+  /** Filter by the object’s `promotedConversationId` field. */
+  promotedConversationId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawMessageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawMessageFilter[];
+  /** Negates the expression. */
+  not?: RawMessageFilter;
+  /** Filter by the object’s `promotedConversation` relation. */
+  promotedConversation?: ConversationFilter;
+  /** A related `promotedConversation` exists. */
+  promotedConversationExists?: boolean;
+  /** Filter by the object’s `promotedEmail` relation. */
+  promotedEmail?: EmailFilter;
+  /** A related `promotedEmail` exists. */
+  promotedEmailExists?: boolean;
+  /** Filter by the object’s `senderContact` relation. */
+  senderContact?: ContactFilter;
+  /** A related `senderContact` exists. */
+  senderContactExists?: boolean;
+  /** Filter by the object’s `rawMessageAttachments` relation. */
+  rawMessageAttachments?: RawMessageToManyRawMessageAttachmentFilter;
+  /** `rawMessageAttachments` exist. */
+  rawMessageAttachmentsExist?: boolean;
 }
 /** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectContactFilter {
@@ -18292,6 +18864,10 @@ export interface ContactFilter {
   calendarAttendees?: ContactToManyCalendarAttendeeFilter;
   /** `calendarAttendees` exist. */
   calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `rawMessagesBySenderContactId` relation. */
+  rawMessagesBySenderContactId?: ContactToManyRawMessageFilter;
+  /** `rawMessagesBySenderContactId` exist. */
+  rawMessagesBySenderContactIdExist?: boolean;
   /** Filter by the object’s `projectContacts` relation. */
   projectContacts?: ContactToManyProjectContactFilter;
   /** `projectContacts` exist. */
@@ -18931,6 +19507,35 @@ export interface RawContactUrlFilter {
   not?: RawContactUrlFilter;
   /** Filter by the object’s `rawContact` relation. */
   rawContact?: RawContactFilter;
+}
+/** A filter to be used against `RawMessageAttachment` object types. All fields are combined with a logical ‘and.’ */
+export interface RawMessageAttachmentFilter {
+  /** Filter by the object’s `filename` field. */
+  filename?: StringFilter;
+  /** Filter by the object’s `contentType` field. */
+  contentType?: StringFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `storageUrl` field. */
+  storageUrl?: StringFilter;
+  /** Filter by the object’s `providerAttachmentId` field. */
+  providerAttachmentId?: StringFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `rawMessageId` field. */
+  rawMessageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawMessageAttachmentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawMessageAttachmentFilter[];
+  /** Negates the expression. */
+  not?: RawMessageAttachmentFilter;
+  /** Filter by the object’s `rawMessage` relation. */
+  rawMessage?: RawMessageFilter;
 }
 /** A filter to be used against `RuntimeLog` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeLogFilter {
@@ -19996,6 +20601,86 @@ export interface EmailThreadFilter {
    */
   unifiedSearch?: string;
 }
+/** A filter to be used against BigFloat fields. All fields are combined with a logical ‘and.’ */
+export interface BigFloatFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: string;
+  /** Not equal to the specified value. */
+  notEqualTo?: string;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: string;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: string;
+  /** Included in the specified list. */
+  in?: string[];
+  /** Not included in the specified list. */
+  notIn?: string[];
+  /** Less than the specified value. */
+  lessThan?: string;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: string;
+  /** Greater than the specified value. */
+  greaterThan?: string;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: string;
+}
+/** A filter to be used against `Conversation` object types. All fields are combined with a logical ‘and.’ */
+export interface ConversationFilter {
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingUpdatedAt` field. */
+  embeddingUpdatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ConversationFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ConversationFilter[];
+  /** Negates the expression. */
+  not?: ConversationFilter;
+  /** Filter by the object’s `messages` relation. */
+  messages?: ConversationToManyMessageFilter;
+  /** `messages` exist. */
+  messagesExist?: boolean;
+  /** Filter by the object’s `rawMessagesByPromotedConversationId` relation. */
+  rawMessagesByPromotedConversationId?: ConversationToManyRawMessageFilter;
+  /** `rawMessagesByPromotedConversationId` exist. */
+  rawMessagesByPromotedConversationIdExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite unified search. Provide a search string and it will be dispatched to
+   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. When the LLM plugin is active, pgvector also participates via
+   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  unifiedSearch?: string;
+}
 /** A filter to be used against `Project` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectFilter {
   /** Filter by the object’s `name` field. */
@@ -20146,31 +20831,6 @@ export interface DocumentFilter {
    */
   unifiedSearch?: string;
 }
-/** A filter to be used against BigFloat fields. All fields are combined with a logical ‘and.’ */
-export interface BigFloatFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: string;
-  /** Not equal to the specified value. */
-  notEqualTo?: string;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
-  /** Included in the specified list. */
-  in?: string[];
-  /** Not included in the specified list. */
-  notIn?: string[];
-  /** Less than the specified value. */
-  lessThan?: string;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: string;
-  /** Greater than the specified value. */
-  greaterThan?: string;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: string;
-}
 /** A filter to be used against Date fields. All fields are combined with a logical ‘and.’ */
 export interface DateFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
@@ -20244,57 +20904,6 @@ export interface GoalFilter {
   trgmTitle?: TrgmSearchInput;
   /** TRGM search on the `description` column. */
   trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite unified search. Provide a search string and it will be dispatched to
-   * all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. When the LLM plugin is active, pgvector also participates via
-   * auto-embedding. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  unifiedSearch?: string;
-}
-/** A filter to be used against `Conversation` object types. All fields are combined with a logical ‘and.’ */
-export interface ConversationFilter {
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingUpdatedAt` field. */
-  embeddingUpdatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: ConversationFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ConversationFilter[];
-  /** Negates the expression. */
-  not?: ConversationFilter;
-  /** Filter by the object’s `messages` relation. */
-  messages?: ConversationToManyMessageFilter;
-  /** `messages` exist. */
-  messagesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
   /** TRGM search on the `status` column. */
   trgmStatus?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
@@ -22879,6 +23488,96 @@ export type DeleteRawContactUrlPayloadSelect = {
     select: RawContactUrlEdgeSelect;
   };
 };
+export interface CreateRawMessageAttachmentPayload {
+  clientMutationId?: string | null;
+  /** The `RawMessageAttachment` that was created by this mutation. */
+  rawMessageAttachment?: RawMessageAttachment | null;
+  rawMessageAttachmentEdge?: RawMessageAttachmentEdge | null;
+}
+export type CreateRawMessageAttachmentPayloadSelect = {
+  clientMutationId?: boolean;
+  rawMessageAttachment?: {
+    select: RawMessageAttachmentSelect;
+  };
+  rawMessageAttachmentEdge?: {
+    select: RawMessageAttachmentEdgeSelect;
+  };
+};
+export interface UpdateRawMessageAttachmentPayload {
+  clientMutationId?: string | null;
+  /** The `RawMessageAttachment` that was updated by this mutation. */
+  rawMessageAttachment?: RawMessageAttachment | null;
+  rawMessageAttachmentEdge?: RawMessageAttachmentEdge | null;
+}
+export type UpdateRawMessageAttachmentPayloadSelect = {
+  clientMutationId?: boolean;
+  rawMessageAttachment?: {
+    select: RawMessageAttachmentSelect;
+  };
+  rawMessageAttachmentEdge?: {
+    select: RawMessageAttachmentEdgeSelect;
+  };
+};
+export interface DeleteRawMessageAttachmentPayload {
+  clientMutationId?: string | null;
+  /** The `RawMessageAttachment` that was deleted by this mutation. */
+  rawMessageAttachment?: RawMessageAttachment | null;
+  rawMessageAttachmentEdge?: RawMessageAttachmentEdge | null;
+}
+export type DeleteRawMessageAttachmentPayloadSelect = {
+  clientMutationId?: boolean;
+  rawMessageAttachment?: {
+    select: RawMessageAttachmentSelect;
+  };
+  rawMessageAttachmentEdge?: {
+    select: RawMessageAttachmentEdgeSelect;
+  };
+};
+export interface CreateRawMessagePayload {
+  clientMutationId?: string | null;
+  /** The `RawMessage` that was created by this mutation. */
+  rawMessage?: RawMessage | null;
+  rawMessageEdge?: RawMessageEdge | null;
+}
+export type CreateRawMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  rawMessage?: {
+    select: RawMessageSelect;
+  };
+  rawMessageEdge?: {
+    select: RawMessageEdgeSelect;
+  };
+};
+export interface UpdateRawMessagePayload {
+  clientMutationId?: string | null;
+  /** The `RawMessage` that was updated by this mutation. */
+  rawMessage?: RawMessage | null;
+  rawMessageEdge?: RawMessageEdge | null;
+}
+export type UpdateRawMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  rawMessage?: {
+    select: RawMessageSelect;
+  };
+  rawMessageEdge?: {
+    select: RawMessageEdgeSelect;
+  };
+};
+export interface DeleteRawMessagePayload {
+  clientMutationId?: string | null;
+  /** The `RawMessage` that was deleted by this mutation. */
+  rawMessage?: RawMessage | null;
+  rawMessageEdge?: RawMessageEdge | null;
+}
+export type DeleteRawMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  rawMessage?: {
+    select: RawMessageSelect;
+  };
+  rawMessageEdge?: {
+    select: RawMessageEdgeSelect;
+  };
+};
 export interface CreateRulePayload {
   clientMutationId?: string | null;
   /** The `Rule` that was created by this mutation. */
@@ -24145,6 +24844,30 @@ export type RawContactUrlEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: RawContactUrlSelect;
+  };
+};
+/** A `RawMessageAttachment` edge in the connection. */
+export interface RawMessageAttachmentEdge {
+  cursor?: string | null;
+  /** The `RawMessageAttachment` at the end of the edge. */
+  node?: RawMessageAttachment | null;
+}
+export type RawMessageAttachmentEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RawMessageAttachmentSelect;
+  };
+};
+/** A `RawMessage` edge in the connection. */
+export interface RawMessageEdge {
+  cursor?: string | null;
+  /** The `RawMessage` at the end of the edge. */
+  node?: RawMessage | null;
+}
+export type RawMessageEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RawMessageSelect;
   };
 };
 /** A `Rule` edge in the connection. */
