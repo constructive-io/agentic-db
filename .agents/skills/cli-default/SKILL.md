@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 1 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 97 tables and 1 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 1 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 97 tables and 1 custom operations
 
 ## Usage
 
@@ -130,6 +130,8 @@ See the `references/` directory for detailed per-entity API documentation:
 - [raw-contact-email](references/raw-contact-email.md)
 - [raw-contact-phone](references/raw-contact-phone.md)
 - [raw-contact-url](references/raw-contact-url.md)
+- [raw-message-attachment](references/raw-message-attachment.md)
+- [raw-message](references/raw-message.md)
 - [rule](references/rule.md)
 - [runtime-artifact](references/runtime-artifact.md)
 - [runtime-config](references/runtime-config.md)

@@ -76,6 +76,8 @@ export { RawContactModel } from './rawContact';
 export { RawContactEmailModel } from './rawContactEmail';
 export { RawContactPhoneModel } from './rawContactPhone';
 export { RawContactUrlModel } from './rawContactUrl';
+export { RawMessageAttachmentModel } from './rawMessageAttachment';
+export { RawMessageModel } from './rawMessage';
 export { RuleModel } from './rule';
 export { RuntimeArtifactModel } from './runtimeArtifact';
 export { RuntimeConfigModel } from './runtimeConfig';

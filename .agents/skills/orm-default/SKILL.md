@@ -1,13 +1,13 @@
 ---
 name: orm-default
-description: ORM client for the default API — provides typed CRUD operations for 95 tables and 1 custom operations
+description: ORM client for the default API — provides typed CRUD operations for 97 tables and 1 custom operations
 ---
 
 # orm-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM client for the default API — provides typed CRUD operations for 95 tables and 1 custom operations
+ORM client for the default API — provides typed CRUD operations for 97 tables and 1 custom operations
 
 ## Usage
 
@@ -110,6 +110,8 @@ See the `references/` directory for detailed per-entity API documentation:
 - [raw-contact-email](references/raw-contact-email.md)
 - [raw-contact-phone](references/raw-contact-phone.md)
 - [raw-contact-url](references/raw-contact-url.md)
+- [raw-message-attachment](references/raw-message-attachment.md)
+- [raw-message](references/raw-message.md)
 - [rule](references/rule.md)
 - [runtime-artifact](references/runtime-artifact.md)
 - [runtime-config](references/runtime-config.md)

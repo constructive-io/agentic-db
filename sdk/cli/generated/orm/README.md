@@ -94,6 +94,8 @@ const db = createClient({
 | `rawContactEmail` | findMany, findOne, create, update, delete |
 | `rawContactPhone` | findMany, findOne, create, update, delete |
 | `rawContactUrl` | findMany, findOne, create, update, delete |
+| `rawMessageAttachment` | findMany, findOne, create, update, delete |
+| `rawMessage` | findMany, findOne, create, update, delete |
 | `rule` | findMany, findOne, create, update, delete |
 | `runtimeArtifact` | findMany, findOne, create, update, delete |
 | `runtimeConfig` | findMany, findOne, create, update, delete |
@@ -3070,6 +3072,92 @@ const updated = await db.rawContactUrl.update({ where: { id: '<UUID>' }, data: {
 
 // Delete
 const deleted = await db.rawContactUrl.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.rawMessageAttachment`
+
+CRUD operations for RawMessageAttachment records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `filename` | String | Yes |
+| `contentType` | String | Yes |
+| `sizeBytes` | Int | Yes |
+| `storageUrl` | String | Yes |
+| `providerAttachmentId` | String | Yes |
+| `id` | UUID | No |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `rawMessageId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all rawMessageAttachment records
+const items = await db.rawMessageAttachment.findMany({ select: { filename: true, contentType: true, sizeBytes: true, storageUrl: true, providerAttachmentId: true, id: true, createdAt: true, updatedAt: true, rawMessageId: true } }).execute();
+
+// Get one by id
+const item = await db.rawMessageAttachment.findOne({ id: '<UUID>', select: { filename: true, contentType: true, sizeBytes: true, storageUrl: true, providerAttachmentId: true, id: true, createdAt: true, updatedAt: true, rawMessageId: true } }).execute();
+
+// Create
+const created = await db.rawMessageAttachment.create({ data: { filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', providerAttachmentId: '<String>', rawMessageId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.rawMessageAttachment.update({ where: { id: '<UUID>' }, data: { filename: '<String>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.rawMessageAttachment.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.rawMessage`
+
+CRUD operations for RawMessage records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `provider` | String | Yes |
+| `externalId` | String | Yes |
+| `externalThreadId` | String | Yes |
+| `senderHandle` | String | Yes |
+| `senderDisplayName` | String | Yes |
+| `recipients` | JSON | Yes |
+| `subject` | String | Yes |
+| `bodyText` | String | Yes |
+| `sentAt` | Datetime | Yes |
+| `rawData` | JSON | Yes |
+| `triageStatus` | String | Yes |
+| `triageScore` | BigFloat | Yes |
+| `triageNotes` | String | Yes |
+| `labels` | String | Yes |
+| `ingestedAt` | Datetime | Yes |
+| `id` | UUID | No |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `senderContactId` | UUID | Yes |
+| `promotedEmailId` | UUID | Yes |
+| `promotedConversationId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all rawMessage records
+const items = await db.rawMessage.findMany({ select: { provider: true, externalId: true, externalThreadId: true, senderHandle: true, senderDisplayName: true, recipients: true, subject: true, bodyText: true, sentAt: true, rawData: true, triageStatus: true, triageScore: true, triageNotes: true, labels: true, ingestedAt: true, id: true, createdAt: true, updatedAt: true, senderContactId: true, promotedEmailId: true, promotedConversationId: true } }).execute();
+
+// Get one by id
+const item = await db.rawMessage.findOne({ id: '<UUID>', select: { provider: true, externalId: true, externalThreadId: true, senderHandle: true, senderDisplayName: true, recipients: true, subject: true, bodyText: true, sentAt: true, rawData: true, triageStatus: true, triageScore: true, triageNotes: true, labels: true, ingestedAt: true, id: true, createdAt: true, updatedAt: true, senderContactId: true, promotedEmailId: true, promotedConversationId: true } }).execute();
+
+// Create
+const created = await db.rawMessage.create({ data: { provider: '<String>', externalId: '<String>', externalThreadId: '<String>', senderHandle: '<String>', senderDisplayName: '<String>', recipients: '<JSON>', subject: '<String>', bodyText: '<String>', sentAt: '<Datetime>', rawData: '<JSON>', triageStatus: '<String>', triageScore: '<BigFloat>', triageNotes: '<String>', labels: '<String>', ingestedAt: '<Datetime>', senderContactId: '<UUID>', promotedEmailId: '<UUID>', promotedConversationId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.rawMessage.update({ where: { id: '<UUID>' }, data: { provider: '<String>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.rawMessage.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.rule`

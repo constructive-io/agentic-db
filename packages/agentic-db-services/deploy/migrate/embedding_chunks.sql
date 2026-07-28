@@ -41,9 +41,9 @@ INSERT INTO metaschema_public.embedding_chunks (
   embedding_provider,
   parent_fk_field_id
 ) VALUES
-  ('217164ee-548e-011f-75c4-114d3f69cc9e', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '37eed52f-fa1c-528c-1f77-688ac4b81f40', NULL, '11f15d42-d31c-ea7d-8f44-834098c853e6', 'contacts_chunks', 'content', 768, 'cosine', 1000, 200, 'fixed', NULL, '["fulltext","bm25"]', true, 'generate_chunks', NULL, NULL, '0bb6a9fd-3568-a0fc-e82c-d2a54981cdb8'),
-  ('9c47d812-221a-34a9-2991-bf6f2b6b2c08', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '37730bcd-d659-4296-c0fa-65768b87d9c5', NULL, '26bd0202-4d25-fc3d-1bbc-3db1553225b9', 'notes_chunks', 'content', 768, 'cosine', 1000, 200, 'fixed', NULL, '["bm25"]', true, 'generate_chunks', NULL, NULL, '18e2561c-f16b-d7f9-369e-3c4e968b5aca'),
-  ('adf63b86-f518-3d7c-173b-d3506125a380', '65a856dc-b301-12f0-d108-9c49d8b99bf0', '0656baa1-4248-6e66-72be-f9ad387c9cf0', NULL, '50349977-3ce4-e21b-ac01-060a259e4a7a', 'documents_chunks', 'content', 768, 'cosine', 1000, 200, 'fixed', NULL, '["bm25"]', true, 'generate_chunks', NULL, NULL, 'f9821189-8e0f-39e3-610a-d8122abbfe20');
+  ('a30f2ccb-2266-6ec0-70c2-bb7ba374bd5c', '019fa679-9064-7be8-b12a-f974608356ce', '8a9a840b-10a5-ee10-4627-8b372bea2e28', NULL, '05fabb64-c1e4-494b-f916-46613aa9eb3e', 'contacts_chunks', 'content', 768, 'cosine', 1000, 200, 'fixed', NULL, '["fulltext","bm25"]', true, 'generate_chunks', NULL, NULL, 'e63a0a37-f58c-5d52-9d96-1a8b72cadc64'),
+  ('e0f38a65-2aa9-5577-74d4-78172394b87b', '019fa679-9064-7be8-b12a-f974608356ce', '586ba0f6-d0c6-826a-e684-84b89a1d58cb', NULL, '76c9520c-aabe-d9a2-baa0-cfa0c5ebf49e', 'documents_chunks', 'content', 768, 'cosine', 1000, 200, 'fixed', NULL, '["bm25"]', true, 'generate_chunks', NULL, NULL, '1be005cc-64a6-421e-e3de-46fabaa22e0a'),
+  ('e6fbd4b6-5636-0744-8755-7dcfc32532a7', '019fa679-9064-7be8-b12a-f974608356ce', '74b70c74-94ad-ebce-3b90-77799064954c', NULL, '3b95812c-0c31-78c3-f1d0-c4188a054157', 'notes_chunks', 'content', 768, 'cosine', 1000, 200, 'fixed', NULL, '["bm25"]', true, 'generate_chunks', NULL, NULL, '48711a92-c72a-49f8-22e8-4cc0e856efeb');
 
 
 SET session_replication_role TO DEFAULT;

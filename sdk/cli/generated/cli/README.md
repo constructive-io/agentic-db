@@ -99,6 +99,8 @@ agentic-db auth set-token <your-token>
 | `raw-contact-email` | rawContactEmail CRUD operations |
 | `raw-contact-phone` | rawContactPhone CRUD operations |
 | `raw-contact-url` | rawContactUrl CRUD operations |
+| `raw-message-attachment` | rawMessageAttachment CRUD operations |
+| `raw-message` | rawMessage CRUD operations |
 | `rule` | rule CRUD operations |
 | `runtime-artifact` | runtimeArtifact CRUD operations |
 | `runtime-config` | runtimeConfig CRUD operations |
@@ -4488,6 +4490,78 @@ CRUD operations for RawContactUrl records.
 
 **Required create fields:** `url`, `rawContactId`
 **Optional create fields (backend defaults):** `urlType`, `source`, `confidence`
+
+### `raw-message-attachment`
+
+CRUD operations for RawMessageAttachment records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rawMessageAttachment records |
+| `find-first` | Find first matching rawMessageAttachment record |
+| `get` | Get a rawMessageAttachment by id |
+| `create` | Create a new rawMessageAttachment |
+| `update` | Update an existing rawMessageAttachment |
+| `delete` | Delete a rawMessageAttachment |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `filename` | String |
+| `contentType` | String |
+| `sizeBytes` | Int |
+| `storageUrl` | String |
+| `providerAttachmentId` | String |
+| `id` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `rawMessageId` | UUID |
+
+**Required create fields:** `rawMessageId`
+**Optional create fields (backend defaults):** `filename`, `contentType`, `sizeBytes`, `storageUrl`, `providerAttachmentId`
+
+### `raw-message`
+
+CRUD operations for RawMessage records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rawMessage records |
+| `find-first` | Find first matching rawMessage record |
+| `get` | Get a rawMessage by id |
+| `create` | Create a new rawMessage |
+| `update` | Update an existing rawMessage |
+| `delete` | Delete a rawMessage |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `provider` | String |
+| `externalId` | String |
+| `externalThreadId` | String |
+| `senderHandle` | String |
+| `senderDisplayName` | String |
+| `recipients` | JSON |
+| `subject` | String |
+| `bodyText` | String |
+| `sentAt` | Datetime |
+| `rawData` | JSON |
+| `triageStatus` | String |
+| `triageScore` | BigFloat |
+| `triageNotes` | String |
+| `labels` | String |
+| `ingestedAt` | Datetime |
+| `id` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `senderContactId` | UUID |
+| `promotedEmailId` | UUID |
+| `promotedConversationId` | UUID |
+
+**Required create fields:** `provider`
+**Optional create fields (backend defaults):** `externalId`, `externalThreadId`, `senderHandle`, `senderDisplayName`, `recipients`, `subject`, `bodyText`, `sentAt`, `rawData`, `triageStatus`, `triageScore`, `triageNotes`, `labels`, `ingestedAt`, `senderContactId`, `promotedEmailId`, `promotedConversationId`
 
 ### `rule`
 

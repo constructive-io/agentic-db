@@ -78,6 +78,8 @@ import { RawContactModel } from './models/rawContact';
 import { RawContactEmailModel } from './models/rawContactEmail';
 import { RawContactPhoneModel } from './models/rawContactPhone';
 import { RawContactUrlModel } from './models/rawContactUrl';
+import { RawMessageAttachmentModel } from './models/rawMessageAttachment';
+import { RawMessageModel } from './models/rawMessage';
 import { RuleModel } from './models/rule';
 import { RuntimeArtifactModel } from './models/runtimeArtifact';
 import { RuntimeConfigModel } from './models/runtimeConfig';
@@ -206,6 +208,8 @@ export function createClient(config: OrmClientConfig) {
     rawContactEmail: new RawContactEmailModel(client),
     rawContactPhone: new RawContactPhoneModel(client),
     rawContactUrl: new RawContactUrlModel(client),
+    rawMessageAttachment: new RawMessageAttachmentModel(client),
+    rawMessage: new RawMessageModel(client),
     rule: new RuleModel(client),
     runtimeArtifact: new RuntimeArtifactModel(client),
     runtimeConfig: new RuntimeConfigModel(client),
