@@ -18,7 +18,7 @@ This is a **private** package -- not published to npm.
 | `generate_embedding` | embed a row (current trigger name) |
 | `generate_chunks` | chunk + embed a row (current trigger name) |
 | `embedding:generate_embedding` | namespaced alias (Constructive compute-worker convention) |
-| `chunk:generate_chunks` | namespaced alias (Constructive compute-worker convention) |
+| `embedding:generate_chunks` | namespaced alias (Constructive compute-worker convention) |
 | `embed_record` | legacy pre-rename producer name |
 
 ## Usage

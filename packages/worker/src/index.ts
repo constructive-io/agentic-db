@@ -23,7 +23,7 @@ export const taskList: TaskList = {
   generate_embedding: generateEmbeddingTask,
   generate_chunks: generateChunksTask,
   'embedding:generate_embedding': generateEmbeddingTask,
-  'chunk:generate_chunks': generateChunksTask,
+  'embedding:generate_chunks': generateChunksTask,
   embed_record: generateEmbeddingTask,
 };
 
