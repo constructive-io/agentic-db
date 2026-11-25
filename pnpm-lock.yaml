@@ -13,6 +13,7 @@ overrides:
   postgraphile: 5.0.3
   '@dataplan/json': 1.0.0
   '@dataplan/pg': 1.0.3
+  pg-proto-parser>@launchql/protobufjs: npm:@constructive-io/protobufjs@7.6.6
 
 importers:
 
@@ -828,6 +829,10 @@ packages:
   '@constructive-io/node@0.10.12':
     resolution: {integrity: sha512-lMHrTMW73MdKG0GUXCcYgTf+eM2xRoS6kXm6LGIIlV3oFO8x6+tGRUeFhtCZOBF/06kqcXPfnM3+Dvex+7XKPw==}
 
+  '@constructive-io/protobufjs@7.6.6':
+    resolution: {integrity: sha512-BYh1700OIXGuH7MejcywOioKifQ1gzY2J99j3QqfWWk42nscKptlpZigfVL5NbwWTDHmlMpDbVZdE+O68L9FQA==}
+    engines: {node: '>=12.0.0'}
+
   '@constructive-io/query-builder@3.4.0':
     resolution: {integrity: sha512-YsWOptYhkXzVoWhATEs+MoePOgE1jwaRbVBGznY+tf91ZG010mWAN7ixYJngawOYbCQHoOak+RhCREygGkWxYA==}
 
@@ -1473,10 +1478,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@launchql/protobufjs@7.2.6':
-    resolution: {integrity: sha512-vwi1nG2/heVFsIMHQU1KxTjUp5c757CTtRAZn/jutApCkFlle1iv8tzM/DHlSZJKDldxaYqnNYTg0pTyp8Bbtg==}
-    engines: {node: '>=12.0.0'}
-
   '@n1ru4l/push-pull-async-iterable-iterator@3.2.0':
     resolution: {integrity: sha512-3fkKj25kEjsfObL6IlKPAlHYPq/oYwUkkQ03zsTTiDjD7vg/RxjdiLeCydqtxHZP0JgsXL3D/X5oAkMGzuUp/Q==}
     engines: {node: '>=12'}
@@ -1977,9 +1978,6 @@ packages:
 
   '@protobufjs/float@1.0.2':
     resolution: {integrity: sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==}
-
-  '@protobufjs/inquire@1.1.2':
-    resolution: {integrity: sha512-pa0vFRuws4wkvaXKK1uXZMAwAX4/t8ANaJo45iw/oQHNQ9q5xUzwgFmVJGXiga2BeN+zpX7Vf9vmsiIa2J+MUw==}
 
   '@protobufjs/path@1.1.2':
     resolution: {integrity: sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==}
@@ -7623,6 +7621,20 @@ snapshots:
       - utf-8-validate
       - ws
 
+  '@constructive-io/protobufjs@7.6.6':
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/base64': 1.1.2
+      '@protobufjs/codegen': 2.0.5
+      '@protobufjs/eventemitter': 1.1.1
+      '@protobufjs/fetch': 1.1.1
+      '@protobufjs/float': 1.0.2
+      '@protobufjs/path': 1.1.2
+      '@protobufjs/pool': 1.1.0
+      '@protobufjs/utf8': 1.1.2
+      '@types/node': 22.19.17
+      long: 5.3.2
+
   '@constructive-io/query-builder@3.4.0':
     dependencies:
       pg-ast: 3.4.0
@@ -8571,21 +8583,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@launchql/protobufjs@7.2.6':
-    dependencies:
-      '@protobufjs/aspromise': 1.1.2
-      '@protobufjs/base64': 1.1.2
-      '@protobufjs/codegen': 2.0.5
-      '@protobufjs/eventemitter': 1.1.1
-      '@protobufjs/fetch': 1.1.1
-      '@protobufjs/float': 1.0.2
-      '@protobufjs/inquire': 1.1.2
-      '@protobufjs/path': 1.1.2
-      '@protobufjs/pool': 1.1.0
-      '@protobufjs/utf8': 1.1.2
-      '@types/node': 22.19.17
-      long: 5.3.2
-
   '@n1ru4l/push-pull-async-iterable-iterator@3.2.0': {}
 
   '@napi-rs/wasm-runtime@0.2.12':
@@ -9270,8 +9267,6 @@ snapshots:
       '@protobufjs/aspromise': 1.1.2
 
   '@protobufjs/float@1.0.2': {}
-
-  '@protobufjs/inquire@1.1.2': {}
 
   '@protobufjs/path@1.1.2': {}
 
@@ -14211,7 +14206,7 @@ snapshots:
       '@babel/parser': 7.29.2
       '@babel/traverse': 7.28.5
       '@babel/types': 7.28.5
-      '@launchql/protobufjs': 7.2.6
+      '@launchql/protobufjs': '@constructive-io/protobufjs@7.6.6'
       case: 1.6.3
       deepmerge: 4.3.1
       nested-obj: 0.2.2
