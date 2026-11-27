@@ -154,8 +154,8 @@ importers:
         specifier: workspace:*
         version: link:../../sdk/sdk/dist
       '@inquirerer/test':
-        specifier: ^1.4.0
-        version: 1.4.0(jest@30.3.0(@types/node@25.6.0)(ts-node@10.9.2(@types/node@25.6.0)(typescript@5.9.3)))
+        specifier: ^1.4.9
+        version: 1.4.9(jest@30.3.0(@types/node@25.6.0)(ts-node@10.9.2(@types/node@25.6.0)(typescript@5.9.3)))
       graphql-server-test:
         specifier: ^2.12.2
         version: 2.12.2(@dataplan/json@1.0.0(grafast@1.0.2(graphql@16.13.0)))(@dataplan/pg@1.0.3(@dataplan/json@1.0.0(grafast@1.0.2(graphql@16.13.0)))(grafast@1.0.2(graphql@16.13.0))(graphile-config@1.0.1)(graphql@16.13.0)(pg-sql2@5.0.0)(pg@8.22.0))(@types/node@25.6.0)(grafast@1.0.2(graphql@16.13.0))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(tamedevil@0.1.1)(use-sync-external-store@1.6.0(react@19.2.5))(ws@8.20.0)
@@ -373,8 +373,8 @@ importers:
         specifier: 16.13.0
         version: 16.13.0
       inquirerer:
-        specifier: ^4.8.1
-        version: 4.8.1
+        specifier: ^4.9.7
+        version: 4.9.7
       nested-obj:
         specifier: ^0.2.2
         version: 0.2.2
@@ -1336,6 +1336,14 @@ packages:
 
   '@inquirerer/test@1.4.0':
     resolution: {integrity: sha512-SzhaadG4WbYMmwoqccGpLqKTvF4m/4FFXLV2tIpFFXpO+wdPkuyuYf05biby0/HOAoL4bN3i+d9A7GyxYNHp3A==}
+    peerDependencies:
+      jest: '>=29.0.0'
+    peerDependenciesMeta:
+      jest:
+        optional: true
+
+  '@inquirerer/test@1.4.9':
+    resolution: {integrity: sha512-wzLMT7oFgnze/SFoHZdNZ8ZcYmyiHtheh5RBMlbMAQz4eU+PIPN0lQNGvc1xl2ztE+9XaVY6r5NOma5qDRyY3Q==}
     peerDependencies:
       jest: '>=29.0.0'
     peerDependenciesMeta:
@@ -2978,6 +2986,9 @@ packages:
   clean-ansi@0.2.1:
     resolution: {integrity: sha512-V9IOKBKHv0Sqay4efImuCVWwO8kVmaKU66cvbDBa99F21j2G3ye3mrKkPSfZ7RTR7yP4CNDjtESkNY5dFq+8Sg==}
 
+  clean-ansi@0.2.4:
+    resolution: {integrity: sha512-d2W7f82QDbpePJvUyM5aGeV5NRNQnkbSk2looSzw2woDDj/PGtYHylqpdX9RLDct5x3dyQRn12t+NYJnNQarhA==}
+
   clean-stack@2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
     engines: {node: '>=6'}
@@ -3539,6 +3550,9 @@ packages:
 
   find-and-require-package-json@0.9.1:
     resolution: {integrity: sha512-jFpCL0XgjipSk109viUtfp+NyR/oW6a4Xus4tV3UYkmCbsjisEeZD1x5QnD1NDDK/hXas1WFs4yO13L4TPXWlQ==}
+
+  find-and-require-package-json@0.9.3:
+    resolution: {integrity: sha512-KPYJL0iWu6ERDRDVZERWMt02WdCZzgSAS9+3hvIhl8ckWRn9AznVWigUjP56nOHTxd426C+9ALv9cHIISY6RlQ==}
 
   find-up@2.1.0:
     resolution: {integrity: sha512-NWzkk0jSJtTt08+FBFMvXoeZnOJD+jTtsRmBYbAIzJdX6l7dLgR7CTubCM5/eDdPUBvLCeVasP1brfVR/9/EZQ==}
@@ -4426,6 +4440,9 @@ packages:
 
   inquirerer@4.9.1:
     resolution: {integrity: sha512-RXgbivwNs9luseSHnjIcJ05A8VRGcdCQuLjyWWBmI1zwyorkSzCw4KyK8634a5KrbbXehSJHBE3rIrtgJJiBEQ==}
+
+  inquirerer@4.9.7:
+    resolution: {integrity: sha512-3PgTWhyKjt42C45JlVKlDhM9NRgHEciZM40fqZUGIK5aAFKu3gR/4JnJN7n5nnOK3Cs/Xu0Y8nOWdEDGxy53rA==}
 
   interpret@3.1.1:
     resolution: {integrity: sha512-6xwYfHbajpoF0xLW+iwLkhwgvLoZDfjYfoFNu8ftMoXINzwuymNLd9u/KmwtdT2GbR+/Cz66otEGEVVUHX9QLQ==}
@@ -6534,6 +6551,9 @@ packages:
   yanse@0.2.1:
     resolution: {integrity: sha512-SMi3ZO1IqsvPLLXuy8LBCP1orqcjOT8VygiuyAlplaGeH2g+n4ZSSyWlA/BZjuUuN58TyOcz89mVkflSqIPxxQ==}
 
+  yanse@0.2.4:
+    resolution: {integrity: sha512-ZXb6OpKfgRqemmFcw6iSOEFubFOhIr3VCq0awSq5/DkxKQuqT8QIRzmrcGjWfu+mJPy+nNHQhH5xiKsRRC0cYw==}
+
   yargs-parser@20.2.9:
     resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
     engines: {node: '>=10'}
@@ -8334,6 +8354,13 @@ snapshots:
     dependencies:
       clean-ansi: 0.2.1
       inquirerer: 4.8.0
+    optionalDependencies:
+      jest: 30.3.0(@types/node@25.6.0)(ts-node@10.9.2(@types/node@25.6.0)(typescript@5.9.3))
+
+  '@inquirerer/test@1.4.9(jest@30.3.0(@types/node@25.6.0)(ts-node@10.9.2(@types/node@25.6.0)(typescript@5.9.3)))':
+    dependencies:
+      clean-ansi: 0.2.4
+      inquirerer: 4.9.7
     optionalDependencies:
       jest: 30.3.0(@types/node@25.6.0)(ts-node@10.9.2(@types/node@25.6.0)(typescript@5.9.3))
 
@@ -10203,6 +10230,8 @@ snapshots:
 
   clean-ansi@0.2.1: {}
 
+  clean-ansi@0.2.4: {}
+
   clean-stack@2.2.0: {}
 
   cli-cursor@3.1.0:
@@ -10777,6 +10806,8 @@ snapshots:
       - supports-color
 
   find-and-require-package-json@0.9.1: {}
+
+  find-and-require-package-json@0.9.3: {}
 
   find-up@2.1.0:
     dependencies:
@@ -12736,6 +12767,13 @@ snapshots:
       find-and-require-package-json: 0.9.1
       minimist: 1.2.8
       yanse: 0.2.1
+
+  inquirerer@4.9.7:
+    dependencies:
+      deepmerge: 4.3.1
+      find-and-require-package-json: 0.9.3
+      minimist: 1.2.8
+      yanse: 0.2.4
 
   interpret@3.1.1: {}
 
@@ -15529,6 +15567,8 @@ snapshots:
   yaml@2.8.3: {}
 
   yanse@0.2.1: {}
+
+  yanse@0.2.4: {}
 
   yargs-parser@20.2.9: {}
 

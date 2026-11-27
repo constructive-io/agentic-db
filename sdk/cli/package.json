@@ -30,7 +30,7 @@
     "appstash": "^0.7.0",
     "gql-ast": "^3.4.2",
     "graphql": "16.13.0",
-    "inquirerer": "^4.8.1",
+    "inquirerer": "^4.9.7",
     "nested-obj": "^0.2.2"
   },
   "devDependencies": {
